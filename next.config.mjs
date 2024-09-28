@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  env: {
+    REACT_APP_PROD_UR: "https://api.vosynverse.com",
+    REACT_APP_LANGUAGE_DETECTION_URL: "https://langdetectapi.vosynverse.com"
+  },
+  experimental: {
+    webVitalsAttribution: ['CLS', 'FID', 'LCP']
+  }
+};
 
 export default nextConfig;
