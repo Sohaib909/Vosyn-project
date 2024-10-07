@@ -8,8 +8,24 @@ import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 const ForgotPassword = () => {
   return (
-    <Box component="main">
-      <Box>
+    <Box
+      component="main"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Box
+        sx={{
+          border: "1px solid",
+          width: "40%",
+          padding: "3rem",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <VABlobWithText />
         <FormInputs />
         <Button
