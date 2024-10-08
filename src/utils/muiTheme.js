@@ -7,9 +7,9 @@ const theme = createTheme({
   typography: {
     fontFamily: "var(--font-inter)",
   },
-  colorSchemes: {
-    dark: true,
-  },
+  // colorSchemes: {
+  //   dark: true,
+  // },
   palette: {
     contrastThreshold: 4.5,
     netural: {
@@ -54,6 +54,10 @@ const theme = createTheme({
       600: "#7F1776",
       700: "#3F0B3B",
     },
+    linearGradientBackground:
+      "linear-gradient(48deg, rgba(26,31,45,1) 24%, rgba(18,3,16,1) 48%, rgba(35,6,32,1) 76%);",
+    linearGradientBorder:
+      "linear-gradient(180deg, rgba(233,0,204,1) 24%, rgba(69,232,255,1) 76%);",
   },
 });
 
