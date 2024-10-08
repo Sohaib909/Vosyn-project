@@ -1,9 +1,44 @@
-.input-container {
-  border: 1px solid;
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+
+  background: var(--mui-palette-linearGradientBackground);
+}
+
+.inputContainer {
+  border: 2px solid;
+  border-image-source: var(--mui-palette-linearGradientBorder);
+  border-image-slice: 1;
 
   width: 40%;
-  padding: 3rem;
+  padding: 4rem 3rem;
 
   display: flex;
   flex-direction: column;
+  row-gap: 2rem;
+
+  background: var(--mui-palette-netural-900);
+}
+
+.input {
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  font-weight: bold;
+
+  color: var(--mui-palette-netural-200);
+}
+
+.goBackBtn {
+  text-decoration: none;
+  color: var(--mui-palette-primary-400);
+  font-weight: bold;
 }
