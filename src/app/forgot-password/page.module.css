@@ -1,0 +1,9 @@
+.input-container {
+  border: 1px solid;
+
+  width: 40%;
+  padding: 3rem;
+
+  display: flex;
+  flex-direction: column;
+}
