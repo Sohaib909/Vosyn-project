@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import Link from "next/link";
 
-import FormInputs from "@/components/FormInputs/FormInputs";
 import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
+
+import "./page.module.css";
 
 const ForgotPassword = () => {
   return (
@@ -17,17 +18,15 @@ const ForgotPassword = () => {
         height: "100vh",
       }}
     >
-      <Box
-        sx={{
-          border: "1px solid",
-          width: "40%",
-          padding: "3rem",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <Box className="input-container">
         <VABlobWithText />
-        <FormInputs />
+        <Box component="form">
+          <TextField
+            id="outlined-basic"
+            size="small"
+            aria-label="email-input"
+          />
+        </Box>
         <Button
           variant="contained"
           sx={{ background: "var(--mui-palette-primary-400)" }}
