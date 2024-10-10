@@ -1,12 +1,13 @@
+import theme from "@/utils/muiTheme";
 import { ThemeProvider } from "@mui/material";
-import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Inter } from "next/font/google";
-import theme from "@/utils/muiTheme";
+
+import "./globals.css";
 
 export const metadata = {
   title: "VosynVerse",
-  description: "",
+  description: "VosynVerse application",
 };
 
 const inter = Inter({
