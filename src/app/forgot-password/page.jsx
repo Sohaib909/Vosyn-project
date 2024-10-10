@@ -8,6 +8,7 @@ import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 
+import StatusNotification from "@/components/StatusNotification/StatusNotification";
 import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 import styles from "./page.module.css";
@@ -112,6 +113,14 @@ const ForgotPassword = () => {
           Back to Login
         </Link>
       </Box>
+
+      {message && (
+        <StatusNotification
+          severity={severity}
+          message={message}
+          onClose={handleCloseNotification}
+        />
+      )}
     </Box>
   );
 };
