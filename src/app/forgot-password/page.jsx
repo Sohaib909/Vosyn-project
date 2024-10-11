@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
+import { setStatusNotification } from "@/reduxSlices/statusNotificationSlice";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
 
 import StatusNotification from "@/components/StatusNotification/StatusNotification";
@@ -18,29 +21,50 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm();
 
-  const [message, setMessage] = useState();
-  const [severity, setSeverity] = useState();
+  const dispatch = useDispatch();
 
-  const submitHandler = async () => {
+  const submitHandler = async (data) => {
     console.log("sfvsd");
     if (!errors?.email) {
-      setSeverity("success");
-      setMessage(
-        "A verification email has been sent. Please check your inbox.",
-      );
+      try {
+        const res = await axios.post("/auth/password-reset", {
+          email: data.email,
+        });
+
+        if (res?.status === 200) {
+          setStatus(
+            true,
+            "A verification email has been sent. Please check your inbox.",
+            "success",
+          );
+        }
+      } catch (err) {
+        const statusCode = err?.response?.status;
+        if (statusCode === 400) {
+          setStatus(true, "No user found with this email", "error");
+        } else if (statusCode === 429) {
+          setStatus(true, err?.response?.data.detail, "error");
+        } else {
+          setStatus(true, "Please try again later", "error");
+        }
+      }
     }
+  };
+
+  const setStatus = (showStatusNotification, message, severity) => {
+    dispatch(
+      setStatusNotification({
+        showStatusNotification: showStatusNotification,
+        message: message,
+        severity: severity,
+      }),
+    );
   };
 
   const onSubmitError = () => {
     if (errors?.email) {
-      setSeverity("error");
-      setMessage(errors.email.message);
+      setStatus(true, errors.email.message, "error");
     }
-  };
-
-  const handleCloseNotification = () => {
-    setSeverity("");
-    setMessage("");
   };
 
   return (
@@ -51,7 +75,7 @@ const ForgotPassword = () => {
         <Box
           component="form"
           sx={{ display: "flex", flexDirection: "column", rowGap: "2rem" }}
-          onSubmit={handleSubmit(submitHandler, onSubmitError)}
+          onSubmit={handleSubmit(onSubmitError, submitHandler)}
         >
           <Box className={styles.input}>
             <Typography>Email:</Typography>
@@ -93,14 +117,7 @@ const ForgotPassword = () => {
           Back to Login
         </Link>
       </Box>
-
-      {message && (
-        <StatusNotification
-          severity={severity}
-          message={message}
-          onClose={handleCloseNotification}
-        />
-      )}
+      <StatusNotification />
     </Box>
   );
 };
