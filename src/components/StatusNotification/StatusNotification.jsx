@@ -10,7 +10,7 @@ const StatusNotification = ({ severity, message, onClose }) => {
     const timer = setTimeout(() => {
       setOpen(false);
       onClose();
-    }, 10000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [onClose]);
