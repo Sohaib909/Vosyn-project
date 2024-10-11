@@ -1,7 +1,7 @@
 import statusNotificationSlice from "@/reduxSlices/statusNotificationSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const combineReducers = combineReducers({
+const combineReducer = combineReducers({
   statusNotification: statusNotificationSlice
 })
 
@@ -10,7 +10,7 @@ const rootReducer = (state, action) => {
     state = undefined
   }
 
-  return combineReducers(state, action);
+  return combineReducer(state, action);
 }
 
 const store = configureStore({

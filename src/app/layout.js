@@ -1,11 +1,8 @@
-import { Provider } from "react-redux";
-
+import StoreProvider from "@/contextProviders/StoreProvider";
 import theme from "@/utils/muiTheme";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Inter } from "next/font/google";
-
-import store from "../../store";
 
 import "./globals.css";
 
@@ -25,11 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <Provider store={store}>
+        <StoreProvider>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>{children}</ThemeProvider>
           </AppRouterCacheProvider>
-        </Provider>
+        </StoreProvider>
       </body>
     </html>
   );

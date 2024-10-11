@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState();
   const [severity, setSeverity] = useState();
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     console.log("sfvsd");
     if (!errors?.email) {
       setSeverity("success");
