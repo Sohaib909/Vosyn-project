@@ -2,9 +2,8 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 
-import { setStatusNotification } from "@/reduxSlices/statusNotificationSlice";
+import useStatusNotification from "@/hooks/useStatusNotification";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
@@ -21,47 +20,35 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm();
 
-  const dispatch = useDispatch();
+  const { setStatus } = useStatusNotification();
 
   const submitHandler = async (data) => {
-    console.log("sfvsd");
-    if (!errors?.email) {
-      try {
-        const res = await axios.post("/auth/password-reset", {
-          email: data.email,
-        });
+    try {
+      const res = await axios.post("/auth/password-reset", {
+        email: data.email,
+      });
 
-        if (res?.status === 200) {
-          setStatus(
-            true,
-            "A verification email has been sent. Please check your inbox.",
-            "success",
-          );
-        }
-      } catch (err) {
-        const statusCode = err?.response?.status;
-        if (statusCode === 400) {
-          setStatus(true, "No user found with this email", "error");
-        } else if (statusCode === 429) {
-          setStatus(true, err?.response?.data.detail, "error");
-        } else {
-          setStatus(true, "Please try again later", "error");
-        }
+      if (res?.status === 200) {
+        setStatus(
+          true,
+          "A verification email has been sent. Please check your inbox.",
+          "success",
+        );
+      }
+    } catch (err) {
+      const statusCode = err?.response?.status;
+      if (statusCode === 400) {
+        setStatus(true, "No user found with this email", "error");
+      } else if (statusCode === 429) {
+        setStatus(true, err?.response?.data.detail, "error");
+      } else {
+        setStatus(true, "Please try again later", "error");
       }
     }
   };
 
-  const setStatus = (showStatusNotification, message, severity) => {
-    dispatch(
-      setStatusNotification({
-        showStatusNotification: showStatusNotification,
-        message: message,
-        severity: severity,
-      }),
-    );
-  };
-
   const onSubmitError = () => {
+    console.log("he");
     if (errors?.email) {
       setStatus(true, errors.email.message, "error");
     }
@@ -75,7 +62,7 @@ const ForgotPassword = () => {
         <Box
           component="form"
           sx={{ display: "flex", flexDirection: "column", rowGap: "2rem" }}
-          onSubmit={handleSubmit(onSubmitError, submitHandler)}
+          onSubmit={handleSubmit(submitHandler, onSubmitError)}
         >
           <Box className={styles.input}>
             <Typography>Email:</Typography>
