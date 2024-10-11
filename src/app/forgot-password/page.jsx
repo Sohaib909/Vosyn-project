@@ -22,15 +22,20 @@ const ForgotPassword = () => {
   const [severity, setSeverity] = useState();
 
   const submitHandler = () => {
-    if (errors?.email?.message) {
-      setSeverity("error");
-      setMessage(errors?.email?.message);
-
-      return;
+    console.log("sfvsd");
+    if (!errors?.email) {
+      setSeverity("success");
+      setMessage(
+        "A verification email has been sent. Please check your inbox.",
+      );
     }
+  };
 
-    setSeverity("success");
-    setMessage("A verification email has been sent. Please check your inbox.");
+  const onSubmitError = () => {
+    if (errors?.email) {
+      setSeverity("error");
+      setMessage(errors.email.message);
+    }
   };
 
   const handleCloseNotification = () => {
@@ -46,7 +51,7 @@ const ForgotPassword = () => {
         <Box
           component="form"
           sx={{ display: "flex", flexDirection: "column", rowGap: "2rem" }}
-          onSubmit={handleSubmit(submitHandler)}
+          onSubmit={handleSubmit(submitHandler, onSubmitError)}
         >
           <Box className={styles.input}>
             <Typography>Email:</Typography>
