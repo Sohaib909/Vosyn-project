@@ -34,11 +34,11 @@ const ForgotPassword = () => {
    */
   const submitHandler = async (data) => {
     try {
-      const res = await axios.post("/auth/password-reset", {
+      const res = await axios.post("/api/auth/password-reset", {
         email: data.email,
       });
 
-      // If email exists, set the status notifiction for the user action and notify them email has been sent to the given email.
+      //If email exists, set the status notifiction for the user action and notify them email has been sent to the given email.
       if (res?.status === 200) {
         setStatus(
           true,
