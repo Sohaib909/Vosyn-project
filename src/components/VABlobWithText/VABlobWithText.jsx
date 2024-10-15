@@ -1,15 +1,20 @@
 import React from "react";
 
+import blob1 from "@/Images/Blob/blob-1-opacity-55.gif";
+import blob2 from "@/Images/Blob/blob-2-opacity-46.gif";
+import blob3 from "@/Images/Blob/blob-3-opacity-54.gif";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
-import blob1 from "@/components/VABlobWithText/blob-1-opacity-55.gif";
-import blob2 from "@/components/VABlobWithText/blob-2-opacity-46.gif";
-import blob3 from "@/components/VABlobWithText/blob-3-opacity-54.gif";
-
 import styles from "./VABlobWithText.module.css";
 
-const VABlobWithText = ({ text }) => {
+/**
+ *
+ * @param {*} text - The text to display with the blob animation
+ *
+ * @returns - A blob animation with a text
+ */
+const VABlobWithText = ({ text = "" }) => {
   return (
     <Box sx={{ display: "flex", columnGap: "2rem" }}>
       <Box sx={{ position: "relative", width: "60px", height: "60px" }}>

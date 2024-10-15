@@ -8,6 +8,11 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert, AlertTitle, IconButton } from "@mui/material";
 
+/**
+ * A component to show status notification, error, warning or success.
+ *
+ * @returns - A pop up status notification at the bottom left of the screen.
+ */
 const StatusNotification = () => {
   const { showStatusNotification, message, severity } = useSelector(
     selectStatusNotification,
@@ -15,6 +20,7 @@ const StatusNotification = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // If there is currently a notification shown hide it after 2 seconds.
     if (showStatusNotification) {
       const timer = setTimeout(() => {
         dispatch(hideStatusNotification());
@@ -24,6 +30,9 @@ const StatusNotification = () => {
     }
   }, [showStatusNotification, dispatch]);
 
+  /**
+   * A method to handle closing of the notification by the user.
+   */
   const handleClose = () => {
     dispatch(hideStatusNotification());
   };

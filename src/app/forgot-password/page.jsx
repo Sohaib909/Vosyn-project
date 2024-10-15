@@ -13,6 +13,11 @@ import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 import styles from "./page.module.css";
 
+/**
+ * The forgot password page to send a reset link to user if based on their email.
+ *
+ * @returns - forgot passowrd form
+ */
 const ForgotPassword = () => {
   const {
     handleSubmit,
@@ -22,12 +27,18 @@ const ForgotPassword = () => {
 
   const { setStatus } = useStatusNotification();
 
+  /**
+   * A method to handle the submited email
+   *
+   * @param {*} data - form data
+   */
   const submitHandler = async (data) => {
     try {
       const res = await axios.post("/auth/password-reset", {
         email: data.email,
       });
 
+      // If email exists, set the status notifiction for the user action and notify them email has been sent to the given email.
       if (res?.status === 200) {
         setStatus(
           true,
@@ -37,7 +48,9 @@ const ForgotPassword = () => {
       }
     } catch (err) {
       const statusCode = err?.response?.status;
-      if (statusCode === 400) {
+
+      // If an error occured, show apporiate notification.
+      if (statusCode === 404) {
         setStatus(true, "No user found with this email", "error");
       } else if (statusCode === 429) {
         setStatus(true, err?.response?.data.detail, "error");
@@ -48,7 +61,6 @@ const ForgotPassword = () => {
   };
 
   const onSubmitError = () => {
-    console.log("he");
     if (errors?.email) {
       setStatus(true, errors.email.message, "error");
     }
@@ -71,6 +83,7 @@ const ForgotPassword = () => {
               id="outlined-basic"
               size="normal"
               aria-label="email-input"
+              placeholder="abc123@gmail.com"
               sx={{
                 width: "100%",
                 backgroundColor: "var(--mui-palette-netural-200)",
