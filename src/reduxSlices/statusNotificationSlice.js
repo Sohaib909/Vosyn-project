@@ -10,11 +10,13 @@ const statusNotificationSlice = createSlice({
   name: "statusNotification",
   initialState,
   reducers: {
+    // Set notification
     setStatusNotification: (state, action) => {
       (state.showStatusNotification = action.payload.showStatusNotification),
         (state.message = action.payload.message),
         (state.severity = action.payload.severity);
     },
+    // Hide notification
     hideStatusNotification: (state) => {
       state.showStatusNotification = false;
       state.message = "";
