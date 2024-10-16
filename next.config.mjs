@@ -7,9 +7,6 @@ const nextConfig = {
   experimental: {
     webVitalsAttribution: ['CLS', 'FID', 'LCP']
   },
-  images: {
-    domains: ['placehold.co'],
-  },
 };
 
 export default nextConfig;

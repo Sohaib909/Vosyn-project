@@ -20,6 +20,7 @@ const VABlobWithText = ({ text = "" }) => {
       <Box className={styles.imageContainer}>
         <Box sx={{ position: "relative", width: "60px", height: "60px" }}>
           <Image
+            unoptimized
             src={blob1}
             width={60}
             height={60}
@@ -27,6 +28,7 @@ const VABlobWithText = ({ text = "" }) => {
             className={styles.blobImage}
           />
           <Image
+            unoptimized
             src={blob2}
             width={60}
             height={60}
@@ -34,6 +36,7 @@ const VABlobWithText = ({ text = "" }) => {
             className={styles.blobImage}
           />
           <Image
+            unoptimized
             src={blob3}
             width={60}
             height={60}
