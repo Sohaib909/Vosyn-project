@@ -1,0 +1,59 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  hideStatusNotification,
+  selectStatusNotification,
+} from "@/reduxSlices/statusNotificationSlice";
+import CloseIcon from "@mui/icons-material/Close";
+import { Alert, AlertTitle, IconButton } from "@mui/material";
+
+/**
+ * A component to show status notification, error, warning or success.
+ *
+ * @returns - A pop up status notification at the bottom left of the screen.
+ */
+const StatusNotification = () => {
+  const { showStatusNotification, message, severity } = useSelector(
+    selectStatusNotification,
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // If there is currently a notification shown hide it after 2 seconds.
+    if (showStatusNotification) {
+      const timer = setTimeout(() => {
+        dispatch(hideStatusNotification());
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showStatusNotification, dispatch, message]);
+
+  const handleClose = () => {
+    dispatch(hideStatusNotification());
+  };
+
+  const capitalizeSeverity = () => {
+    return severity.charAt(0).toUpperCase() + severity.slice(1);
+  };
+
+  return (
+    showStatusNotification && (
+      <Alert
+        severity={severity}
+        sx={{ position: "absolute", bottom: "1rem", left: "1rem" }}
+        action={
+          <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        }
+      >
+        <AlertTitle>{capitalizeSeverity()}</AlertTitle>
+        {message}
+      </Alert>
+    )
+  );
+};
+
+export default StatusNotification;
