@@ -12,7 +12,7 @@ const statusNotificationSlice = createSlice({
   reducers: {
     // Set notification
     setStatusNotification: (state, action) => {
-      (state.showStatusNotification = action.payload.showStatusNotification),
+      (state.showStatusNotification = true),
         (state.message = action.payload.message),
         (state.severity = action.payload.severity);
     },

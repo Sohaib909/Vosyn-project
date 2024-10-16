@@ -41,7 +41,6 @@ const ForgotPassword = () => {
       //If email exists, set the status notifiction for the user action and notify them email has been sent to the given email.
       if (res?.status === 200) {
         setStatus(
-          true,
           "A verification email has been sent. Please check your inbox.",
           "success",
         );
@@ -51,11 +50,11 @@ const ForgotPassword = () => {
 
       // If an error occured, show apporiate notification.
       if (statusCode === 404) {
-        setStatus(true, "No user found with this email", "error");
+        setStatus("No user found with this email", "error");
       } else if (statusCode === 429) {
-        setStatus(true, err?.response?.data.detail, "error");
+        setStatus(err?.response?.data.detail, "error");
       } else {
-        setStatus(true, "Please try again later", "error");
+        setStatus("Please try again later", "error");
       }
     }
   };
@@ -67,28 +66,31 @@ const ForgotPassword = () => {
 
         <Box
           component="form"
-          sx={{ display: "flex", flexDirection: "column", rowGap: "2rem" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "2rem",
+            marginTop: "2rem",
+          }}
           onSubmit={handleSubmit(submitHandler)}
         >
-          <Box className={styles.input}>
-            <TextField
-              id="forgot-password-email"
-              fullWidth
-              size="medium"
-              aria-label="email-input"
-              placeholder="abc123@gmail.com"
-              label="Email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: "Please enter a valid email address",
-                },
-              })}
-              error={!!errors.email}
-              helperText={errors?.email?.message}
-            />
-          </Box>
+          <TextField
+            id="forgot-password-email"
+            fullWidth
+            size="medium"
+            aria-label="email-input"
+            placeholder="abc123@gmail.com"
+            label="Email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "Please enter a valid email address",
+              },
+            })}
+            error={!!errors.email}
+            helperText={errors?.email?.message}
+          />
 
           <Button
             disabled={isSubmitting}
