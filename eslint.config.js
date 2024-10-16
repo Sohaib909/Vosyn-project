@@ -1,9 +1,9 @@
-{
-  "env": {
-    "browser": true,
-    "es2021": true
+export default [{
+  env: {
+    browser: true,
+    es2021: true
   },
-  "extends": [
+  extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
@@ -14,18 +14,18 @@
     "next/core-web-vitals",
     "prettier"
   ],
-  "plugins": ["react", "react-hooks", "jsx-a11y", "react-redux", "prettier"],
-  "rules": {
+  plugins: ["react", "react-hooks", "jsx-a11y", "react-redux", "prettier"],
+  rules: {
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/no-autofocus": "warn",
     "react/no-children-prop": "off"
   },
-  "settings": {
-    "react": {
-      "version": "detect"
+  settings: {
+    react: {
+      version: "detect"
     }
   },
-  "ignorePatterns": ["**/*.css"]
-}
+  ignorePatterns: ["**/*.css"]
+}]
