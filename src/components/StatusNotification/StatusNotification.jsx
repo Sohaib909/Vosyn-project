@@ -28,11 +28,8 @@ const StatusNotification = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [showStatusNotification, dispatch]);
+  }, [showStatusNotification, dispatch, message]);
 
-  /**
-   * A method to handle closing of the notification by the user.
-   */
   const handleClose = () => {
     dispatch(hideStatusNotification());
   };

@@ -16,29 +16,31 @@ import styles from "./VABlobWithText.module.css";
  */
 const VABlobWithText = ({ text = "" }) => {
   return (
-    <Box sx={{ display: "flex", columnGap: "2rem" }}>
-      <Box sx={{ position: "relative", width: "60px", height: "60px" }}>
-        <Image
-          src={blob1}
-          width={60}
-          height={60}
-          alt="placeholder image"
-          className={styles.blobImage}
-        />
-        <Image
-          src={blob2}
-          width={60}
-          height={60}
-          alt="placeholder image"
-          className={styles.blobImage}
-        />
-        <Image
-          src={blob3}
-          width={60}
-          height={60}
-          alt="placeholder image"
-          className={styles.blobImage}
-        />
+    <Box className={styles.blobContainer}>
+      <Box className={styles.imageContainer}>
+        <Box sx={{ position: "relative", width: "60px", height: "60px" }}>
+          <Image
+            src={blob1}
+            width={60}
+            height={60}
+            alt="placeholder image"
+            className={styles.blobImage}
+          />
+          <Image
+            src={blob2}
+            width={60}
+            height={60}
+            alt="placeholder image"
+            className={styles.blobImage}
+          />
+          <Image
+            src={blob3}
+            width={60}
+            height={60}
+            alt="placeholder image"
+            className={styles.blobImage}
+          />
+        </Box>
       </Box>
       <Typography
         sx={{
