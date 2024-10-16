@@ -37,7 +37,7 @@ const StatusNotification = () => {
     dispatch(hideStatusNotification());
   };
 
-  const capitilize = () => {
+  const capitalizeSeverity = () => {
     return severity.charAt(0).toUpperCase() + severity.slice(1);
   };
 
@@ -52,7 +52,7 @@ const StatusNotification = () => {
           </IconButton>
         }
       >
-        <AlertTitle>{capitilize()}</AlertTitle>
+        <AlertTitle>{capitalizeSeverity()}</AlertTitle>
         {message}
       </Alert>
     )
