@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const { setStatus } = useStatusNotification();
@@ -60,12 +60,6 @@ const ForgotPassword = () => {
     }
   };
 
-  const onSubmitError = () => {
-    if (errors?.email) {
-      setStatus(true, errors.email.message, "error");
-    }
-  };
-
   return (
     <Box component="main" className={styles.pageContainer}>
       <Box className={styles.inputContainer}>
@@ -74,21 +68,16 @@ const ForgotPassword = () => {
         <Box
           component="form"
           sx={{ display: "flex", flexDirection: "column", rowGap: "2rem" }}
-          onSubmit={handleSubmit(submitHandler, onSubmitError)}
+          onSubmit={handleSubmit(submitHandler)}
         >
           <Box className={styles.input}>
-            <Typography>Email:</Typography>
-
             <TextField
-              id="outlined-basic"
-              size="normal"
+              id="forgot-password-email"
+              fullWidth
+              size="medium"
               aria-label="email-input"
               placeholder="abc123@gmail.com"
-              sx={{
-                width: "100%",
-                backgroundColor: "var(--mui-palette-netural-200)",
-                borderRadius: "5px",
-              }}
+              label="Email"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -97,10 +86,12 @@ const ForgotPassword = () => {
                 },
               })}
               error={!!errors.email}
+              helperText={errors?.email?.message}
             />
           </Box>
 
           <Button
+            disabled={isSubmitting}
             variant="contained"
             size="large"
             sx={{
