@@ -22,19 +22,7 @@
   flex-direction: column;
   row-gap: 2rem;
 
-  background: var(--mui-palette-netural-900);
-}
-
-.input {
-  margin-top: 2rem;
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-
-  font-weight: bold;
-
-  color: var(--mui-palette-netural-200);
+  background: var(--mui-palette-primary-dark);
 }
 
 .goBackBtn {

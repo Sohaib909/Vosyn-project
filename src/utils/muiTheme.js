@@ -11,6 +11,7 @@ const theme = createTheme({
   //   dark: true,
   // },
   palette: {
+    mode: "dark",
     contrastThreshold: 4.5,
     netural: {
       25: "#FBFBFB",
