@@ -12,14 +12,12 @@ const useStatusNotification = () => {
 
   /**
    *
-   * @param {*} showStatusNotification - show the notification or not
    * @param {*} message - the notification message
-   * @param {*} severity - the ststus
+   * @param {*} severity - the status
    */
-  const setStatus = (showStatusNotification, message, severity) => {
+  const setStatus = (message, severity) => {
     dispatch(
       setStatusNotification({
-        showStatusNotification,
         message,
         severity,
       }),
