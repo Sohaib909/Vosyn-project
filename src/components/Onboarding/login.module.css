@@ -1,0 +1,21 @@
+.login {
+  background-color: var(--black);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.rememberMe {
+  color: #b3b3b3;
+  font-size: 14px;
+  font-family: "Inter Regular", sans-serif;
+  font-weight: 400;
+  margin-left: 10px;
+}
