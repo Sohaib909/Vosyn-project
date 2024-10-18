@@ -22,8 +22,6 @@ import styles from "./Signup.module.css";
 
 /**
  *
- * @param {*} text - The text to display with the blob animation
- *
  * @returns - A component containing the Signup form to be rendered on the auth page
  */
 const Signup = () => {
@@ -60,7 +58,7 @@ const Signup = () => {
       const res = await axios.post("/api/auth/signup", requestBody);
 
       // Upon account creation, the user will have to verify their account
-      // BACKEND TODO: Move account verifcation to be sent through email instead of ntfy
+      // BACKEND TODO: Move account verification to be sent through email instead of ntfy
       if (res?.status === 201) {
         setStatus(
           "A verification email has been sent. Please check your inbox.",
