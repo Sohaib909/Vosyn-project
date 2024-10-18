@@ -2,10 +2,12 @@
 
 import React from "react";
 
-import logo from "@/Images/Logos/vosyn_logo_long.png";
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { Box, Tab, Tabs } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import LogoWithText from "@/components/LogoWithText/LogoWithText";
+import Signup from "@/components/Signup/Signup";
+import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 import styles from "./page.module.css";
 
@@ -13,24 +15,36 @@ const AuthPage = () => {
   const quary = useSearchParams();
   const type = quary.get("type");
 
-  const getAuthComponent = () => {
-    if (type === "login") return <Box>Login</Box>;
+  const route = useRouter();
 
-    return <Box>Signup</Box>;
+  const getAuthComponent = () => {
+    if (type === "login") return <Signup />;
+
+    return <Signup />;
   };
 
   return (
     <Box component="main" className={styles.authContainer}>
-      {getAuthComponent()}
-
-      <Box className={styles.textContainer}>
-        <Box sx={{ height: "15%", width: "100%", position: "relative" }}>
-          <Image src={logo} className={styles.logo} />
-        </Box>
-        <Typography sx={{ fontSize: "larger" }}>
-          The Voice of Tomorrow
-        </Typography>
+      <Box className={styles.formContainer}>
+        <VABlobWithText
+          text={type === "login" ? "Welcome Back" : "Welcome! I’m AIRIS"}
+        />
+        <Tabs indicatorColor="secondary" textColor="inherit" value={type}>
+          <Tab
+            value="login"
+            label="Login"
+            onClick={() => route.push("/auth?type=login")}
+          />
+          <Tab
+            value="signup"
+            label="Sign Up"
+            onClick={() => route.push("/auth?type=signup")}
+          />
+        </Tabs>
+        {getAuthComponent()}
       </Box>
+
+      <LogoWithText />
     </Box>
   );
 };

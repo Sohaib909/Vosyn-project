@@ -106,7 +106,7 @@ const ForgotPassword = () => {
           </Button>
         </Box>
 
-        <Link href="/?auth=login" className={styles.goBackBtn}>
+        <Link href="/auth?type=login" className={styles.goBackBtn}>
           Back to Login
         </Link>
       </Box>
