@@ -205,14 +205,20 @@ const Signup = () => {
               <Checkbox
                 checked={termsAgreementChecked}
                 onChange={handleTermsAgreementChange}
-                sx={{ color: termsAgreementError ? "red" : "gray" }}
+                sx={{
+                  color: termsAgreementError
+                    ? "var(--mui-palette-error-main)"
+                    : "gray",
+                }}
               />
             }
             label={
               <Typography
                 sx={{
-                  color: termsAgreementError ? "red" : "white",
-                  fontSize: "0.75rem",
+                  color: termsAgreementError
+                    ? "var(--mui-palette-error-main)"
+                    : "white",
+                  fontSize: "smaller",
                   fontWeight: "400",
                 }}
               >
@@ -221,7 +227,7 @@ const Signup = () => {
                   type="button"
                   onClick={handleOpenTermsAgreement}
                   sx={{
-                    fontSize: "0.75rem",
+                    fontSize: "smaller",
                     fontWeight: "600",
                     textDecoration: "underline",
                   }}
@@ -236,7 +242,11 @@ const Signup = () => {
           disabled={isSubmitting}
           variant="contained"
           type="submit"
-          sx={{ py: "0.5rem", mt: "1rem" }}
+          sx={{
+            background: "var(--mui-palette-primary-400)",
+            py: "1rem",
+            mt: "1rem",
+          }}
         >
           Sign Up
         </Button>
