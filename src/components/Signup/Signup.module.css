@@ -1,0 +1,6 @@
+.signupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--mui-palette-primary-dark);
+}
