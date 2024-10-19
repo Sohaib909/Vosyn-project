@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { emailValidation, passwordValidation } from "@/utils/formValidation";
+
 import {
   Box,
   Button,
@@ -195,6 +196,7 @@ const Signup = () => {
                 1 number, and, 1 symbol."
           />
         </Box>
+
         <FormGroup>
           <FormControlLabel
             control={

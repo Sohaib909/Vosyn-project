@@ -9,6 +9,7 @@ import useStatusNotification from "@/hooks/useStatusNotification";
 import { setLoggedIn } from "@/reduxSlices/authSlice";
 import { setUserInfo } from "@/reduxSlices/userSlice";
 import { emailValidation, passwordValidation } from "@/utils/formValidation";
+
 import {
   Box,
   Button,
@@ -122,6 +123,7 @@ const Login = () => {
             alignItems: "center",
           }}
         >
+
           <FormControlLabel
             control={<Checkbox defaultChecked />}
             label="Remember Me"
