@@ -5,6 +5,7 @@ import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import Login from "@/components/Login/login";
 import LogoWithText from "@/components/LogoWithText/LogoWithText";
 import Signup from "@/components/Signup/Signup";
 import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
@@ -18,7 +19,7 @@ const AuthPage = () => {
   const route = useRouter();
 
   const getAuthComponent = () => {
-    if (type === "login") return <Signup />;
+    if (type === "login") return <Login />;
 
     return <Signup />;
   };
@@ -31,11 +32,13 @@ const AuthPage = () => {
         />
         <Tabs indicatorColor="secondary" textColor="inherit" value={type}>
           <Tab
+            sx={{ fontSize: "larger" }}
             value="login"
-            label="Login"
+            label="Log In"
             onClick={() => route.push("/auth?type=login")}
           />
           <Tab
+            sx={{ fontSize: "larger" }}
             value="signup"
             label="Sign Up"
             onClick={() => route.push("/auth?type=signup")}

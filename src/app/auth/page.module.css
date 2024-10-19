@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   height: 100%;
-  align-items: center;
 }
 
 .formContainer {
@@ -10,6 +9,7 @@
 
   padding: 3rem;
   height: 100%;
+  min-width: 40%;
 
   display: flex;
   flex-direction: column;
@@ -32,6 +32,13 @@
   align-items: center;
 }
 
+@media only screen and (max-width: 1080px) {
+  .formContainer {
+    height: auto;
+    min-width: 50%;
+  }
+}
+
 @media only screen and (max-width: 820px) {
   .authContainer {
     flex-direction: column;
@@ -39,6 +46,6 @@
   }
 
   .formContainer {
-    height: auto;
+    min-width: 100%;
   }
 }

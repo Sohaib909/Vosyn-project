@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 
@@ -79,8 +79,8 @@ const ForgotPassword = () => {
             fullWidth
             size="medium"
             aria-label="email-input"
-            placeholder="abc123@gmail.com"
-            label="Email"
+            placeholder="name@domain.com"
+            label="Email Address"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -99,10 +99,13 @@ const ForgotPassword = () => {
             sx={{
               background: "var(--mui-palette-primary-400)",
               paddingY: "1rem",
+              "&:hover": {
+                background: "var(--mui-palette-primary-300)",
+              },
             }}
             type="submit"
           >
-            Send Reset Link
+            {isSubmitting ? <CircularProgress /> : "Send Reset Link"}
           </Button>
         </Box>
 
