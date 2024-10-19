@@ -4,6 +4,8 @@ import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Inter } from "next/font/google";
 
+import StatusNotification from "@/components/StatusNotification/StatusNotification";
+
 import "./globals.css";
 
 export const metadata = {
@@ -24,7 +26,10 @@ export default function RootLayout({ children }) {
       <body>
         <StoreProvider>
           <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            <ThemeProvider theme={theme}>
+              {children}
+              <StatusNotification />
+            </ThemeProvider>
           </AppRouterCacheProvider>
         </StoreProvider>
       </body>

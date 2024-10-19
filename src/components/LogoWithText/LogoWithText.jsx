@@ -6,6 +6,11 @@ import Image from "next/image";
 
 import styles from "./LogoWithText.module.css";
 
+/**
+ * A component for the company logo and slogan
+ *
+ * @returns - logo with text component
+ */
 const LogoWithText = () => {
   return (
     <Box className={styles.textContainer}>

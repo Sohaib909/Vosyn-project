@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { userLogin } from "@/app/api/auth/login/route";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { setLoggedIn } from "@/reduxSlices/authSlice";
 import { setUserInfo } from "@/reduxSlices/userSlice";
+import { emailValidation, passwordValidation } from "@/utils/formValidation";
 import {
   Box,
   Button,
@@ -17,15 +17,20 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
-
-import StatusNotification from "@/components/StatusNotification/StatusNotification";
 
 import styles from "./Login.module.css";
 
+/**
+ * The login component with form inputs and submit button
+ *
+ * @returns - form with buttons
+ */
 const Login = () => {
   const dispatch = useDispatch();
   const { setStatus } = useStatusNotification();
+
   const {
     register,
     handleSubmit,
@@ -34,21 +39,32 @@ const Login = () => {
 
   const [loginNonFieldError, setLoginNonFieldError] = useState({});
 
+  /**
+   * A method to handle form submissions
+   *
+   * @param {*} data - email and password
+   */
   const submitLoginForm = async (data) => {
     try {
-      let res = await userLogin(data);
+      const res = await axios.post("/api/auth/login", { data: data });
+
+      // On success, save token, set status to imform user, set logged in status and set user info.
       if (res?.status === 200) {
-        localStorage.setItem("token", res?.data?.token);
+        localStorage.setItem("token", res?.data?.token); // Local storage for now
+
         setStatus("Login successFull", "success");
+
         dispatch(setLoggedIn(true));
         dispatch(
           setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
         );
       }
     } catch (err) {
-      let statusCode = err?.response?.status;
+      const statusCode = err?.response?.status;
+
       if (statusCode && statusCode === 400) {
         const nonFieldError = err?.response?.data?.non_field_errors;
+
         if (nonFieldError && nonFieldError[0]) {
           setLoginNonFieldError({ error: true, message: nonFieldError[0] });
           setStatus(nonFieldError[0], "error");
@@ -57,23 +73,6 @@ const Login = () => {
         setStatus("Some error ocurred. Please try again later", "error");
       }
     }
-  };
-
-  const emailValidation = {
-    required: "Email is required",
-    pattern: {
-      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: "Please enter a valid email address.",
-    },
-  };
-
-  const passwordValidation = {
-    required: "Please enter a password",
-    pattern: {
-      value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-      message:
-        "It must be a combination of minimun 8 letters, numbers and symbols",
-    },
   };
 
   return (
@@ -147,7 +146,6 @@ const Login = () => {
           {isSubmitting ? <CircularProgress /> : "Log in"}
         </Button>
       </Box>
-      <StatusNotification />
     </>
   );
 };

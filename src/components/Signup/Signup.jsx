@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
+import { emailValidation, passwordValidation } from "@/utils/formValidation";
 import {
   Box,
   Button,
@@ -17,12 +18,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-import StatusNotification from "@/components/StatusNotification/StatusNotification";
 import TermsAgreementModal from "@/components/TermsAgreement/TermsAgreementModal";
 
 import styles from "./Signup.module.css";
 
 /**
+ * A component for signing up
  *
  * @returns - A component containing the Signup form to be rendered on the auth page
  */
@@ -139,11 +140,7 @@ const Signup = () => {
             placeholder="name@domain.com"
             label="Email Address"
             {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: "Please enter a valid email address",
-              },
+              ...emailValidation,
               onChange: () => {
                 removeFormFieldError("email");
               },
@@ -188,11 +185,7 @@ const Signup = () => {
             placeholder="Your Password"
             label="Password"
             {...register("password", {
-              required: "Please enter a password",
-              pattern: {
-                value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-                message: "Please enter a valid password",
-              },
+              ...passwordValidation,
               onChange: () => {
                 removeFormFieldError("password");
               },
@@ -209,18 +202,14 @@ const Signup = () => {
                 checked={termsAgreementChecked}
                 onChange={handleTermsAgreementChange}
                 sx={{
-                  color: termsAgreementError
-                    ? "var(--mui-palette-error-main)"
-                    : "gray",
+                  color: termsAgreementError && "var(--mui-palette-error-main)",
                 }}
               />
             }
             label={
               <Typography
                 sx={{
-                  color: termsAgreementError
-                    ? "var(--mui-palette-error-main)"
-                    : "white",
+                  color: termsAgreementError && "var(--mui-palette-error-main)",
                   fontSize: "smaller",
                   fontWeight: "400",
                 }}
@@ -261,7 +250,6 @@ const Signup = () => {
         isModalOpen={isTermsAgreementOpen}
         closeModal={handleCloseTermsAgreement}
       />
-      <StatusNotification />
     </>
   );
 };

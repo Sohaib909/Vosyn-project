@@ -5,13 +5,18 @@ import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import Login from "@/components/Login/login";
+import Login from "@/components/Login/Login";
 import LogoWithText from "@/components/LogoWithText/LogoWithText";
 import Signup from "@/components/Signup/Signup";
 import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 import styles from "./page.module.css";
 
+/**
+ * The intergration page
+ *
+ * @returns - auth page with relavent components
+ */
 const AuthPage = () => {
   const quary = useSearchParams();
   const type = quary.get("type");
