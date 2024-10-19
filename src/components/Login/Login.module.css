@@ -1,0 +1,6 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  background: var(--mui-palette-primary-dark);
+}
