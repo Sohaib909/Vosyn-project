@@ -5,58 +5,67 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { userLogin } from "@/app/api/auth/login/route";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { setLoggedIn } from "@/reduxSlices/authSlice";
 import { setUserInfo } from "@/reduxSlices/userSlice";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { emailValidation, passwordValidation } from "@/utils/formValidation";
+
 import {
   Box,
   Button,
   Checkbox,
-  FormControl,
+  CircularProgress,
   FormControlLabel,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
-  Typography,
 } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
 
-import StatusNotification from "@/components/StatusNotification/StatusNotification";
-import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
+import styles from "./Login.module.css";
 
+/**
+ * The login component with form inputs and submit button
+ *
+ * @returns - form with buttons
+ */
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { setStatus } = useStatusNotification();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ mode: "onBlur" });
+  } = useForm();
 
   const [loginNonFieldError, setLoginNonFieldError] = useState({});
 
+  /**
+   * A method to handle form submissions
+   *
+   * @param {*} data - email and password
+   */
   const submitLoginForm = async (data) => {
     try {
-      let res = await userLogin(data);
+      const res = await axios.post("/api/auth/login", { data: data });
+
+      // On success, save token, set status to imform user, set logged in status and set user info.
       if (res?.status === 200) {
-        localStorage.setItem("token", res?.data?.token);
+        localStorage.setItem("token", res?.data?.token); // Local storage for now
+
         setStatus("Login successFull", "success");
+
         dispatch(setLoggedIn(true));
         dispatch(
           setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
         );
       }
     } catch (err) {
-      let statusCode = err?.response?.status;
+      const statusCode = err?.response?.status;
+
       if (statusCode && statusCode === 400) {
         const nonFieldError = err?.response?.data?.non_field_errors;
+
         if (nonFieldError && nonFieldError[0]) {
           setLoginNonFieldError({ error: true, message: nonFieldError[0] });
           setStatus(nonFieldError[0], "error");
@@ -67,144 +76,79 @@ const Login = () => {
     }
   };
 
-  const emailValidation = {
-    required: "Email is required",
-    pattern: {
-      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: "Please enter a valid email address.",
-    },
-  };
-
-  const passwordValidation = {
-    required: "Please enter a password",
-    pattern: {
-      value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-      message:
-        "It must be a combination of minimun 8 letters, numbers and symbols",
-    },
-  };
-
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "4vh",
-        backgroundColor: "var(--mui-palette-primary-dark)",
-        height: "100%",
-        justifyContent: "inherit",
-        alignItems: "inherit",
-        paddingTop: "5vh",
-      }}
-    >
-      <VABlobWithText text="Welcome Back!" />
+    <>
       <Box
         component="form"
         sx={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(submitLoginForm)}
+        className={styles.loginContainer}
       >
-        <Box>
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1rem" }}>
           <TextField
-            sx={{
-              width: "100%",
-            }}
+            id="login-email"
+            fullWidth
+            size="medium"
+            aria-label="email-input"
+            placeholder="name@domain.com"
+            label="Email Address"
             {...register("email", {
               ...emailValidation,
             })}
-            label="Email Address"
-            type="email"
-            required
+            error={!!errors.email || !!loginNonFieldError?.message}
+            helperText={errors?.email?.message}
           />
-          <FormHelperText id="component-helper-text">a@a.com</FormHelperText>
-          <Typography
-            sx={{
-              color: "#ff0000",
-              fontFamily: '"Inter Regular", sans-serif',
-              fontSize: "13px",
-              fontWeight: "100",
-              lineHeight: "14px",
-              textAlign: "left",
-              padding: "10px 0px 14px",
-            }}
-          >
-            &nbsp;{errors?.email && errors.email.message}
-          </Typography>
+
+          <TextField
+            id="login-password"
+            fullWidth
+            size="medium"
+            aria-label="password-input"
+            placeholder="Your Password"
+            label="Password"
+            type="password"
+            {...register("password", {
+              ...passwordValidation,
+            })}
+            error={!!errors.password || !!loginNonFieldError.password}
+            helperText={errors?.password?.message}
+          />
         </Box>
-        <Box>
-          <FormControl
-            sx={{
-              width: "100%",
-              borderRadius: "4px",
-              color: "white",
-            }}
-            variant="outlined"
-          >
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Visibility"
-                    onClick={handleTogglePasswordVisibility}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-              {...register("password", {
-                ...passwordValidation,
-              })}
-            />
-          </FormControl>
-          <FormHelperText id="component-helper-text">a@a12345</FormHelperText>
-          <Typography
-            sx={{
-              color: "#ff0000",
-              fontFamily: '"Inter Regular", sans-serif',
-              fontSize: "13px",
-              fontWeight: "100",
-              lineHeight: "14px",
-              textAlign: "left",
-              padding: "10px 0px 14px",
-            }}
-          >
-            &nbsp;{errors?.password && errors.password.message}
-            {loginNonFieldError?.error && loginNonFieldError?.message}
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
+
           <FormControlLabel
             control={<Checkbox defaultChecked />}
             label="Remember Me"
             variant="contained"
-            size="large"
           />
           <Link href="/forgot-password">Forgot Password?</Link>
         </Box>
+
         <Button
           disabled={isSubmitting}
+          variant="contained"
+          size="large"
           sx={{
-            backgroundColor: "var(--mui-palette-primary-400)",
-            color: "white",
-            paddingY: 2,
+            background: "var(--mui-palette-primary-400)",
+            paddingY: "1rem",
+            "&:hover": {
+              background: "var(--mui-palette-primary-300)",
+            },
           }}
           type="submit"
         >
-          Log in
+          {isSubmitting ? <CircularProgress /> : "Log in"}
         </Button>
       </Box>
-      <StatusNotification />
-    </Box>
+    </>
   );
 };
 

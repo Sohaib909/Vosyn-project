@@ -4,11 +4,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
+import { emailValidation, passwordValidation } from "@/utils/formValidation";
+
 import {
   Box,
   Button,
   ButtonBase,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   FormGroup,
   TextField,
@@ -21,6 +24,7 @@ import TermsAgreementModal from "@/components/TermsAgreement/TermsAgreementModal
 import styles from "./Signup.module.css";
 
 /**
+ * A component for signing up
  *
  * @returns - A component containing the Signup form to be rendered on the auth page
  */
@@ -106,99 +110,93 @@ const Signup = () => {
         onSubmit={handleSubmit(signupHandler)}
         className={styles.signupContainer}
       >
-        <TextField
-          id="signup-full-name"
-          fullWidth
-          size="medium"
-          placeholder="Your Full Name"
-          label="Full Name"
-          {...register("fullName", {
-            required: "Full name is required",
-            pattern: {
-              value: /^[a-zA-Z]+$/,
-              message: "Please enter a valid name",
-            },
-            maxLength: {
-              value: 25,
-              message: "Name must be less than 25 characters",
-            },
-            onChange: () => {
-              removeFormFieldError("first_name");
-            },
-          })}
-          error={!!errors.fullName || !!formFieldError.first_name}
-          helperText={`\u00A0${errors?.fullName?.message ? errors.fullName.message : ""}${formFieldError?.first_name ? formFieldError.first_name : ""}`}
-        />
-        <TextField
-          id="signup-email"
-          fullWidth
-          size="medium"
-          type="email"
-          placeholder="name@domain.com"
-          label="Email Address"
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Please enter a valid email address",
-            },
-            onChange: () => {
-              removeFormFieldError("email");
-            },
-          })}
-          error={!!errors.email || !!formFieldError.email}
-          helperText={`\u00A0${errors?.email?.message ? errors.email.message : ""}${formFieldError?.email ? formFieldError.email : ""}`}
-        />
-        <TextField
-          id="signup-username"
-          fullWidth
-          size="medium"
-          placeholder="Your Username"
-          label="Username"
-          {...register("username", {
-            required: "Please enter a valid username",
-            pattern: {
-              value: /^[A-Za-z0-9_@.]+$/,
-              message:
-                "Please enter a valid username. Only include letters, numbers, and the special characters: (_, ., @)",
-            },
-            maxLength: {
-              value: 18,
-              message: "Username must be between 8 to 18 characters",
-            },
-            minLength: {
-              value: 8,
-              message: "Username must be between 8 to 18 characters",
-            },
-            onChange: () => {
-              removeFormFieldError("username");
-            },
-          })}
-          error={!!errors.username || !!formFieldError.username}
-          helperText={`\u00A0${errors?.username?.message ? errors.username.message : ""}${formFieldError?.username ? formFieldError.username : ""}`}
-        />
-        <TextField
-          id="signup-password"
-          fullWidth
-          size="medium"
-          type="password"
-          autoComplete="new-password"
-          placeholder="Your Password"
-          label="Password"
-          {...register("password", {
-            required: "Please enter a password",
-            pattern: {
-              value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-              message: "Please enter a valid password",
-            },
-            onChange: () => {
-              removeFormFieldError("password");
-            },
-          })}
-          error={!!errors.password || !!formFieldError.password}
-          helperText="Password must be at least 8 characters and contain at least 1 letter,
-              1 number, and, 1 symbol."
-        />
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1rem" }}>
+          <TextField
+            id="signup-full-name"
+            fullWidth
+            size="medium"
+            placeholder="Your Full Name"
+            label="Full Name"
+            {...register("fullName", {
+              required: "Full name is required",
+              pattern: {
+                value: /^[a-zA-Z]+$/,
+                message: "Please enter a valid name",
+              },
+              maxLength: {
+                value: 25,
+                message: "Name must be less than 25 characters",
+              },
+              onChange: () => {
+                removeFormFieldError("first_name");
+              },
+            })}
+            error={!!errors.fullName || !!formFieldError.first_name}
+            helperText={errors?.fullName?.message}
+          />
+          <TextField
+            id="signup-email"
+            fullWidth
+            size="medium"
+            placeholder="name@domain.com"
+            label="Email Address"
+            {...register("email", {
+              ...emailValidation,
+              onChange: () => {
+                removeFormFieldError("email");
+              },
+            })}
+            error={!!errors.email || !!formFieldError.email}
+            helperText={errors?.email?.message}
+          />
+          <TextField
+            id="signup-username"
+            fullWidth
+            size="medium"
+            placeholder="Your Username"
+            label="Username"
+            {...register("username", {
+              required: "Please enter a valid username",
+              pattern: {
+                value: /^[A-Za-z0-9_@.]+$/,
+                message:
+                  "Please enter a valid username. Only include letters, numbers, and the special characters: (_, ., @)",
+              },
+              maxLength: {
+                value: 18,
+                message: "Username must be between 8 to 18 characters",
+              },
+              minLength: {
+                value: 8,
+                message: "Username must be between 8 to 18 characters",
+              },
+              onChange: () => {
+                removeFormFieldError("username");
+              },
+            })}
+            error={!!errors.username || !!formFieldError.username}
+            helperText={errors?.username?.message}
+          />
+          <TextField
+            id="signup-password"
+            fullWidth
+            size="medium"
+            type="password"
+            autoComplete="new-password"
+            placeholder="Your Password"
+            label="Password"
+            {...register("password", {
+              ...passwordValidation,
+              onChange: () => {
+                removeFormFieldError("password");
+              },
+            })}
+            error={!!errors.password || !!formFieldError.password}
+            helperText="Password must be at least 8 characters and contain at least 1 letter,
+                1 number, and, 1 symbol."
+          />
+        </Box>
+
         <FormGroup>
           <FormControlLabel
             control={
@@ -206,18 +204,14 @@ const Signup = () => {
                 checked={termsAgreementChecked}
                 onChange={handleTermsAgreementChange}
                 sx={{
-                  color: termsAgreementError
-                    ? "var(--mui-palette-error-main)"
-                    : "gray",
+                  color: termsAgreementError && "var(--mui-palette-error-main)",
                 }}
               />
             }
             label={
               <Typography
                 sx={{
-                  color: termsAgreementError
-                    ? "var(--mui-palette-error-main)"
-                    : "white",
+                  color: termsAgreementError && "var(--mui-palette-error-main)",
                   fontSize: "smaller",
                   fontWeight: "400",
                 }}
@@ -241,14 +235,17 @@ const Signup = () => {
         <Button
           disabled={isSubmitting}
           variant="contained"
-          type="submit"
+          size="large"
           sx={{
             background: "var(--mui-palette-primary-400)",
-            py: "1rem",
-            mt: "1rem",
+            paddingY: "1rem",
+            "&:hover": {
+              background: "var(--mui-palette-primary-300)",
+            },
           }}
+          type="submit"
         >
-          Sign Up
+          {isSubmitting ? <CircularProgress /> : "Sign up"}
         </Button>
       </Box>
       <TermsAgreementModal

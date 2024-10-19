@@ -21,5 +21,5 @@ const userSlice = createSlice({
 });
 
 export const { setUserInfo, setOnboardingCompleted } = userSlice.actions;
-
+export const selectUser = (state) => state.user;
 export default userSlice.reducer;
