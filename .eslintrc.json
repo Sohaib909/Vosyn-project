@@ -11,10 +11,11 @@
     "plugin:@next/next/recommended",
     "plugin:react-redux/recommended",
     "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
     "next/core-web-vitals",
     "prettier"
   ],
-  "plugins": ["react", "react-hooks", "jsx-a11y", "react-redux", "prettier"],
+  "plugins": ["react", "jsx-a11y", "react-redux", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "react/prop-types": "off",
@@ -26,5 +27,6 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "ignorePatterns": ["**/*.css"]
 }
