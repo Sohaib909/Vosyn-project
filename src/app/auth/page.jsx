@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 import { Box, Tab, Tabs } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,25 +12,18 @@ import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
 
 import styles from "./page.module.css";
 
-/**
- * The intergration page
- *
- * @returns - auth page with relavent components
- */
-const AuthPage = () => {
-  const quary = useSearchParams();
-  const type = quary.get("type");
-
+const AuthContent = () => {
+  const [type, setType] = useState("login");
+  const searchParams = useSearchParams();
   const route = useRouter();
 
-  const getAuthComponent = () => {
-    if (type === "login") return <Login />;
-
-    return <Signup />;
-  };
+  useEffect(() => {
+    const currentType = searchParams.get("type") || "login";
+    setType(currentType);
+  }, [searchParams]);
 
   return (
-    <Box component="main" className={styles.authContainer}>
+    <>
       <Box className={styles.formContainer}>
         <VABlobWithText
           text={type === "login" ? "Welcome Back" : "Welcome! I’m AIRIS"}
@@ -49,10 +42,25 @@ const AuthPage = () => {
             onClick={() => route.push("/auth?type=signup")}
           />
         </Tabs>
-        {getAuthComponent()}
+        {type === "login" ? <Login /> : <Signup />}
       </Box>
 
       <LogoWithText />
+    </>
+  );
+};
+
+/**
+ * Wrap the page content in Suspense due to the useSearchParams method
+ *
+ * @returns - auth page with relavent components
+ */
+const AuthPage = () => {
+  return (
+    <Box component="main" className={styles.authContainer}>
+      <Suspense>
+        <AuthContent />
+      </Suspense>
     </Box>
   );
 };
