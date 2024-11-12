@@ -1,0 +1,74 @@
+.watchPartyChatboxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 40rem;
+  width: 100%;
+  border-radius: 12px;
+  background-color: var(--mui-palette-neutral-800);
+}
+
+.watchPartyChatboxHeader {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--mui-palette-neutral-700);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.25);
+}
+
+.watchPartyChatboxMessage {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+
+  height: 100%;
+  overflow-y: auto;
+}
+
+.watchPartyChatboxSender {
+  margin-bottom: 4px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.watchPartyChatboxText {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--mui-palette-neutral-100);
+  background-color: transparent;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 200;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  font-style: italic;
+}
+
+.watchPartyChatboxNotification {
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.watchPartyChatboxRaidNotification {
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 200;
+  font-style: italic;
+  padding: 0px 8px;
+  align-self: center;
+  opacity: 0.6;
+}
+
+.watchPartyChatboxInput {
+  padding: 0px 12px 16px 12px;
+  font-size: 1rem;
+  font-weight: 200;
+  font-style: italic;
+  color: var(--mui-palette-neutral-900);
+}

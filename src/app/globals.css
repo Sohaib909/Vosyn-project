@@ -5,6 +5,7 @@ body {
 
   overflow-x: hidden;
 
+  font-family: var(--font-inter);
   background: var(--mui-palette-linearGradientBackground);
 }
 
@@ -17,4 +18,14 @@ body {
 .link {
   text-decoration: none;
   color: inherit;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+.infinite-scroll-component__outerdiv {
+  width: 100%;
 }

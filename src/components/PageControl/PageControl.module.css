@@ -1,0 +1,59 @@
+.pageControlMainDiv {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 1.5rem;
+  z-index: 10;
+}
+
+.paginationDiv {
+  background-color: var(--mui-palette-neutral-800);
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.pagination-div p {
+  color: var(--mui-palette-common-white);
+  font-size: 12px;
+}
+
+.pageControlIcon {
+  color: var(--mui-palette-common-white);
+  margin: 0 5px;
+}
+
+.pageSearchIcon {
+  margin-right: 0px;
+  color: var(--mui-palette-common-white);
+  width: 15%;
+}
+.pageControlText {
+  color: var(--mui-palette-common-white);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.inputPopUpDivSearch {
+  top: 4rem;
+}
+
+.input-pop-up-div.pageControlIcon[data-v-1f6effab] {
+  color: var(--mui-palette-common-white);
+  width: 15%;
+}
+
+.inputPopUpDiv {
+  position: absolute;
+  background-color: var(--mui-palette-neutral-800);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  height: 27px;
+  top: 4rem;
+}

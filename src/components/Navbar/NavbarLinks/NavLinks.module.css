@@ -1,0 +1,29 @@
+.navLinksContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 2rem;
+  box-shadow: 0 0 8px 1px var(--mui-palette-neutral-600);
+}
+
+.navLink:hover {
+  background-color: var(--mui-palette-neutral-50);
+  color: var(--mui-palette-neutral-700);
+}
+
+.inactiveNavLink {
+  background-color: var(--mui-palette-neutral-800);
+  color: var(--mui-palette-neutral-100);
+}
+
+.activeNavLink {
+  background-color: var(--mui-palette-neutral-100);
+  color: var(--mui-palette-neutral-800);
+}

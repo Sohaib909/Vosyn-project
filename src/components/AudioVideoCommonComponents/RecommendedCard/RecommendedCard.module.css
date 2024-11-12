@@ -1,0 +1,25 @@
+.image {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 10rem;
+}
+
+.recommendedCard {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.recommendedCard:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}

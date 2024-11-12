@@ -23,7 +23,7 @@ const inter = Inter({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>
+      <body id="scrollableDiv">
         <StoreProvider>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>

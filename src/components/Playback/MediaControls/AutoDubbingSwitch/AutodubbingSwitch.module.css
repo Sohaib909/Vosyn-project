@@ -1,0 +1,51 @@
+.autoDubbingContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.switchIcon {
+  width: 20px;
+  height: 20px;
+
+  background-color: var(--mui-palette-neutral-25);
+  color: var(--mui-palette-neutral-900);
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.languagePopup {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  position: absolute;
+  bottom: 5rem;
+  right: 5rem;
+
+  width: auto;
+  height: auto;
+
+  font-size: 0.8rem;
+  background: var(--mui-palette-neutral-800);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 2rem;
+
+  padding: 1rem;
+  z-index: 9999;
+}
+
+.languagePopupButton {
+  padding: 5px 15px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

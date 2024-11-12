@@ -1,0 +1,73 @@
+.voiceInputIndicator {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.voiceLine {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  width: 20em;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.voiceInputStatus {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+.dots {
+  width: 1rem;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #ffffff 80%, #0000) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: dots 1.5s steps(4) infinite;
+  margin-left: 0.25rem;
+}
+
+@keyframes dots {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+
+.voiceBgBlur {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-image: radial-gradient(
+    closest-side,
+    rgba(205, 205, 205, 0.25),
+    #00000000
+  );
+  width: 300px;
+  height: 100px;
+  animation: breathing 3s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes breathing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

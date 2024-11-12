@@ -1,0 +1,24 @@
+.openModalBtn {
+  color: inherit !important;
+  text-transform: none !important;
+  column-gap: 0.5rem;
+  align-self: start;
+  padding-left: 0 !important;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.container {
+  background-color: var(--mui-palette-neutral-800);
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+}

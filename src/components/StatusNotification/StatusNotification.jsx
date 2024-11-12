@@ -44,7 +44,12 @@ const StatusNotification = () => {
     showStatusNotification && (
       <Alert
         severity={severity}
-        sx={{ position: "absolute", bottom: "1rem", left: "1rem" }}
+        sx={{
+          position: "absolute",
+          bottom: "1rem",
+          left: "1rem",
+          zIndex: "999999999999999999999999",
+        }}
         action={
           <IconButton aria-label="close" color="inherit" onClick={handleClose}>
             <CloseIcon />
