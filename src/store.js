@@ -3,10 +3,13 @@ import statusNotificationSlice from "@/reduxSlices/statusNotificationSlice";
 import userSlice from "@/reduxSlices/userSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import textObjectSlice from "./reduxSlices/textObjectSlice";
+
 const combineReducer = combineReducers({
   statusNotification: statusNotificationSlice,
   user: userSlice,
   auth: authSlice,
+  textObject: textObjectSlice,
 });
 
 const rootReducer = (state, action) => {
