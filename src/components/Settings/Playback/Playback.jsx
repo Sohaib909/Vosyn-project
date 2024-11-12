@@ -1,26 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { SETTINGS_URL, UPDATE_SETTINGS_URL } from "@/constants/URLs/constants";
-import ArrowBackIosNew from "@mui/icons-material/ArrowBackIosNew";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  Typography,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import useStatusNotification from "@/hooks/useStatusNotification";
+import { Divider, FormGroup, Grid2, Typography } from "@mui/material";
 import axios from "axios";
+import useSWR from "swr";
 
-const Playback = ({ onBack }) => {
+import { ListItemWithCheckbox, ListItemWithSwitch } from "../ListItem/ListItem";
+
+const fetcher = (url) => axios.get(url).then((res) => res?.data);
+
+const Playback = () => {
   const [autoplayNextEpisode, setAutoplayNextEpisode] = useState(true);
   const [autoplayVideoPreviews, setAutoplayVideoPreviews] = useState(true);
-  const [videoQuality, setVideoQuality] = useState("auto");
+  const [videoQuality, setVideoQuality] = useState("Auto");
 
   const videoQualities = [
     {
@@ -63,36 +57,29 @@ const Playback = ({ onBack }) => {
     },
   ];
 
-  const Label = ({ heading, subheading }) => (
-    <Box sx={{ pl: "2vw" }}>
-      <Typography style={{ fontWeight: "bold" }}>{heading}</Typography>
-      <Typography sx={{ opacity: "0.7", pt: "5px" }}>{subheading}</Typography>
-    </Box>
-  );
+  const { setStatus } = useStatusNotification();
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await axios.get(SETTINGS_URL);
-        const { autoplay_next_episode, autoplay_video_preview, video_quality } =
-          response.data.user;
+  const { error, mutate } = useSWR("/api/settings", fetcher, {
+    onSuccess: (newData) => {
+      const { autoplay_next_episode, autoplay_video_preview, video_quality } =
+        newData.data.user;
 
-        setAutoplayNextEpisode(autoplay_next_episode);
-        setAutoplayVideoPreviews(autoplay_video_preview);
-        setVideoQuality(video_quality);
-      } catch (error) {
-        console.error("Failed to fetch settings", error);
-      }
-    };
+      setAutoplayNextEpisode(autoplay_next_episode);
+      setAutoplayVideoPreviews(autoplay_video_preview);
+      setVideoQuality(video_quality);
+    },
+  });
 
-    fetchSettings();
-  }, []);
+  if (error) {
+    setStatus("Failed to fetch settings", "error");
+  }
 
   const saveSettings = async (newSettings) => {
     try {
-      await axios.patch(UPDATE_SETTINGS_URL, newSettings);
+      await axios.patch("/api/settings", newSettings);
+      mutate();
     } catch (error) {
-      console.error("Failed to save settings", error);
+      setStatus("Failed to save settings", "error");
     }
   };
 
@@ -114,88 +101,61 @@ const Playback = ({ onBack }) => {
   };
 
   return (
-    <Box
-      sx={{
-        width: "80%",
-        mx: "10%",
-        mt: "10vh",
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item size={2}>
-          <div>
-            <Button
-              startIcon={<ArrowBackIosNew />}
-              onClick={onBack}
-              sx={{
-                textTransform: "none",
-                bgcolor: "transparent",
-                px: "8px",
-                "&:hover": {
-                  color: "#fff",
-                },
-              }}
-            >
-              Back
-            </Button>
-          </div>
-        </Grid>
+    <>
+      <Typography sx={{ width: "100%" }} variant="h5">
+        Playback Settings
+      </Typography>
 
-        <Grid item size={8}>
-          <Typography variant="h5">Playback Settings</Typography>
-          <Typography variant="subtitle1" sx={{ opacity: "0.7" }}>
-            Control your video viewing experience
-          </Typography>
+      <FormGroup sx={{ width: "100%" }}>
+        <Typography variant="h6" sx={{ width: "100%", mb: "1rem" }}>
+          Autoplay
+        </Typography>
+        <Grid2
+          container
+          spacing={2}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          {autoplaySettings.map((autoplay) => (
+            <ListItemWithSwitch
+              key={autoplay?.heading}
+              heading={autoplay?.heading}
+              subheading={autoplay?.subheading}
+              onChange={
+                autoplay?.heading === "Autoplay Next Episode"
+                  ? handleAutoPlayChange
+                  : handleVideoPreviewsChange
+              }
+              checked={
+                autoplay?.heading === "Autoplay Next Episode"
+                  ? autoplayNextEpisode
+                  : autoplayVideoPreviews
+              }
+            />
+          ))}
+        </Grid2>
 
-          <FormGroup sx={{ mt: "3vh" }}>
-            <Typography variant="h6">Autoplay</Typography>
-            {autoplaySettings.map((autoplay) => (
-              <FormControlLabel
-                key={autoplay.heading}
-                control={<Switch defaultChecked />}
-                checked={
-                  autoplay.heading === "Autoplay Next Episode"
-                    ? autoplayNextEpisode
-                    : autoplayVideoPreviews
-                }
-                onChange={
-                  autoplay.heading === "Autoplay Next Episode"
-                    ? handleAutoPlayChange
-                    : handleVideoPreviewsChange
-                }
-                label={
-                  <Label
-                    heading={autoplay.heading}
-                    subheading={autoplay.subheading}
-                  />
-                }
-                sx={{ mt: "2vh" }}
-              />
-            ))}
-            <Divider sx={{ my: 3 }} />
-            <Typography variant="h6">Video Quality</Typography>
-            {videoQualities.map((quality) => (
-              <FormControlLabel
-                key={quality.value}
-                control={
-                  <Checkbox
-                    checked={videoQuality === quality.value}
-                    onChange={() => handleVideoQualityChange(quality.value)}
-                  />
-                }
-                label={
-                  <Label
-                    heading={quality.heading}
-                    subheading={quality.subheading}
-                  />
-                }
-                sx={{ mt: "2vh" }}
-              />
-            ))}
-          </FormGroup>
-        </Grid>
-      </Grid>
-    </Box>
+        <Divider sx={{ my: 3 }} />
+
+        <Typography variant="h6" sx={{ width: "100%", mb: "1rem" }}>
+          Video Quality
+        </Typography>
+        <Grid2
+          container
+          spacing={2}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          {videoQualities.map((quality) => (
+            <ListItemWithCheckbox
+              key={quality?.heading}
+              heading={quality?.heading}
+              subheading={quality?.subheading}
+              onChange={() => handleVideoQualityChange(quality?.value)}
+              checked={videoQuality === quality?.heading}
+            />
+          ))}
+        </Grid2>
+      </FormGroup>
+    </>
   );
 };
 

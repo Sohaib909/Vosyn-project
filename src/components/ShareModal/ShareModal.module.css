@@ -1,0 +1,35 @@
+.image {
+  border-radius: 12px 12px 0 0;
+  position: absolute;
+  top: 0;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
+.modal {
+  width: 45rem;
+}
+
+.timeInput input {
+  padding: 5px;
+  text-align: center;
+
+  width: 5rem;
+
+  background-color: var(--mui-palette-neutral-100);
+  color: black;
+
+  border-radius: 4px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .modal {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .modal {
+    width: 100%;
+  }
+}

@@ -1,0 +1,55 @@
+.transcript-list-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.transcript-list-item svg {
+  cursor: pointer;
+}
+
+.transcript-content {
+  width: -webkit-fill-available;
+  cursor: pointer;
+}
+
+.transcript-content:hover,
+.transcript-list-item svg:hover {
+  color: var(--blue);
+  cursor: pointer;
+}
+.transcript-time {
+  min-width: 60px;
+}
+
+.suggestion-wrapper {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.suggestion-content {
+  margin: 5px 0px;
+  display: flex;
+  gap: 10px;
+}
+
+.suggestion-content input {
+  width: -webkit-fill-available;
+  padding: 3px 5px;
+  border-radius: 9px;
+  outline: none;
+  border: 1px solid;
+}
+
+.suggestion-content button {
+  min-width: 50px;
+  border-radius: 9px;
+  outline: none;
+  border: 1px solid;
+  text-align: center;
+  cursor: pointer;
+}
+
+.suggestion-content button i {
+  margin-right: 0;
+}

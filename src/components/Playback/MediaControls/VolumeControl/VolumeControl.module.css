@@ -1,0 +1,7 @@
+.sliderContainer {
+  position: absolute;
+  background-color: var(--mui-palette-neutral-800);
+  padding: 13px 8px;
+  border-radius: 4px;
+  bottom: 3.8rem;
+}

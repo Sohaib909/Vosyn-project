@@ -1,0 +1,27 @@
+.settingsModalContainer {
+  width: 350px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--mui-palette-neutral-800);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.modalTitle {
+  text-align: center;
+  font-weight: lighter;
+  width: 100%;
+}
+
+.modalSettingsList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

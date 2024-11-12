@@ -13,7 +13,8 @@
   "lint-staged": {
     "src/**/*.{js,jsx,css}": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --cache --fix",
+      "git add"
     ]
   },
   "dependencies": {
@@ -25,13 +26,17 @@
     "@mui/material-nextjs": "^6.1.1",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
+    "dashjs": "^4.7.4",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18",
+    "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.53.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^9.1.2",
     "react-world-flags": "^1.6.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

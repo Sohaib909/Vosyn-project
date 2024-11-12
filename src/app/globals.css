@@ -25,3 +25,7 @@ input,
 textarea {
   font-family: inherit;
 }
+
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}

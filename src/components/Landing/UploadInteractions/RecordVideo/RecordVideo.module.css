@@ -1,0 +1,41 @@
+.videoDisplayContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  /* Adjust height for better video size */
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--mui-palette-neutral-900);
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.videoInputStatus {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+@keyframes breathing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

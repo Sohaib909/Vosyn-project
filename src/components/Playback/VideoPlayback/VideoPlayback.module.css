@@ -1,0 +1,31 @@
+.playback {
+  position: relative;
+  width: 100%;
+  min-height: 6rem;
+  background: var(--mui-palette-neutral-900);
+  border-radius: 12px;
+}
+
+.captionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 6rem;
+  width: 100%;
+}
+
+.captions {
+  background-color: black;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+@media only screen and (width > 1230px) {
+  .captions {
+    font-size: 1.2rem !important;
+  }
+}

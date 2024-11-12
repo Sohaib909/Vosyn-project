@@ -59,6 +59,10 @@ const theme = createTheme({
       "linear-gradient(48deg, rgba(26,31,45,1) 24%, rgba(18,3,16,1) 48%, rgba(35,6,32,1) 76%);",
     linearGradientBorder:
       "linear-gradient(180deg, rgba(233,0,204,1) 24%, rgba(69,232,255,1) 76%);",
+    linearGradientVideoForground:
+      "linear-gradient(0deg, var(--mui-palette-neutral-900) 0%, transparent 90%)",
+    linearGradientVideoForground2:
+      "linear-gradient(180deg, var(--mui-palette-neutral-900) 10%, transparent 100%)",
   },
 });
 

@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import styles from "./Login.module.css";
 
@@ -30,6 +31,8 @@ import styles from "./Login.module.css";
 const Login = () => {
   const dispatch = useDispatch();
   const { setStatus } = useStatusNotification();
+
+  const router = useRouter();
 
   const {
     register,
@@ -50,14 +53,14 @@ const Login = () => {
 
       // On success, save token, set status to imform user, set logged in status and set user info.
       if (res?.status === 200) {
-        localStorage.setItem("token", res?.data?.token); // Local storage for now
-
         setStatus("Login successFull", "success");
 
         dispatch(setLoggedIn(true));
         dispatch(
           setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
         );
+
+        router.push("/home");
       }
     } catch (err) {
       const statusCode = err?.response?.status;

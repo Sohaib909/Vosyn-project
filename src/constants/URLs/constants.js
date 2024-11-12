@@ -6,6 +6,15 @@ export const RESEND_VERIFICATION_URL = `${BASE_URL}/user/resend-verification-ema
 export const LOGIN_URL = `${BASE_URL}/user/login/`;
 export const SETTINGS_URL = `${BASE_URL}/settings/`;
 export const UPDATE_SETTINGS_URL = `${BASE_URL}/settings/updateSettings/`;
-export const SETTINGS_FETCH_URL = `${BASE_URL}/settings/`;
-export const SETTINGS_UPDATE_URL = `${BASE_URL}/settings/updateSettings/`;
+export const VIDEO_DETAIL_URL = `${BASE_URL}/video/videos/`;
 export const VIDEO_LIST_URL = `${BASE_URL}/video/videos/search`;
+
+export const COMMENTS_URL = `${BASE_URL}/interactions/comments/`;
+export const TRANSLATE_URL = `${BASE_URL}/translate`;
+
+export const ADD_CONTENT_TO_PLAYLIST_URL = `${BASE_URL}/interactions/playlistcontent/`;
+export const PLAYLIST_URL = `${BASE_URL}/interactions/playlist/`;
+export const GET_PLAYLISTS_OF_CONTENT = `${BASE_URL}/interactions/playlistcontent/check-content-playlist/`;
+export const GET_CONTENT_IN_PLAYLIST = `${BASE_URL}/interactions/playlistcontent/get-all-content/`;
+
+export const LANGUAGES_URL = `https://pkgstore.datahub.io/core/language-codes/language-codes-full_json/data/573588525f24edb215c07bec3c309153/language-codes-full_json.json`;

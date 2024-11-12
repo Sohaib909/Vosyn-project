@@ -1,8 +1,5 @@
 import React from "react";
 
-import blob1 from "@/Images/Blob/blob-1-opacity-55.gif";
-import blob2 from "@/Images/Blob/blob-2-opacity-46.gif";
-import blob3 from "@/Images/Blob/blob-3-opacity-54.gif";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -21,7 +18,7 @@ const VABlobWithText = ({ text = "" }) => {
         <Box sx={{ position: "relative", width: "60px", height: "60px" }}>
           <Image
             unoptimized
-            src={blob1}
+            src="/mediaFiles/Blob/blob-1-opacity-55.gif"
             width={60}
             height={60}
             alt="placeholder image"
@@ -29,7 +26,7 @@ const VABlobWithText = ({ text = "" }) => {
           />
           <Image
             unoptimized
-            src={blob2}
+            src="/mediaFiles/Blob/blob-2-opacity-46.gif"
             width={60}
             height={60}
             alt="placeholder image"
@@ -37,7 +34,7 @@ const VABlobWithText = ({ text = "" }) => {
           />
           <Image
             unoptimized
-            src={blob3}
+            src="/mediaFiles/Blob/blob-3-opacity-54.gif"
             width={60}
             height={60}
             alt="placeholder image"

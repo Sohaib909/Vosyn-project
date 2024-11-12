@@ -3,38 +3,25 @@
 import React, { useEffect } from "react";
 
 import useQueryParam from "@/hooks/useQueryParam";
-import { Box } from "@mui/material";
 
-import Featured from "./Featured/Featured";
-import Navbar from "./Navbar/Navbar";
+import DisplayContent from "./DisplayContent/DisplayContent";
+import TabNavbar from "./TabNavbar/TabNavbar";
 
-function MediaDisplay() {
+const MediaDisplay = () => {
   const { updateQueryParam, getAllParams } = useQueryParam();
 
   const params = getAllParams();
 
   useEffect(() => {
-    updateQueryParam("tab", "featured");
+    updateQueryParam("tab", params.tab);
   }, []);
 
-  const getMediaDisplay = () => {
-    if (params.tab === "featured") {
-      return <Featured />;
-    } else if (params.tab === "video") {
-      return <></>;
-    } else if (params.tab === "audio") {
-      return <></>;
-    } else if (params.tab === "text") {
-      return <></>;
-    }
-  };
-
   return (
-    <Box sx={{ mx: "2vw", my: "2vh" }}>
-      <Navbar />
-      <Box>{getMediaDisplay()}</Box>
-    </Box>
+    <>
+      <TabNavbar />
+      <DisplayContent />
+    </>
   );
-}
+};
 
 export default MediaDisplay;

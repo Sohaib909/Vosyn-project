@@ -1,10 +1,9 @@
 .navContainer {
-  position: static;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 1rem;
   padding: 1.5rem 2.5rem 1rem;
-  background-color: var(--mui-palette-neutral-800);
 }
 
 .vosynLogo {

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+"use client";
 
-import { getUserSettings, updateSettings } from "@/app/api/settings/settings";
-import ArrowBackIosNew from "@mui/icons-material/ArrowBackIosNew";
+import React, { useState } from "react";
+
+import useStatusNotification from "@/hooks/useStatusNotification";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  Typography,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Box, Divider, FormGroup, Grid2, Typography } from "@mui/material";
+import axios from "axios";
+import useSWR from "swr";
 
-const Notification = ({ onBack }) => {
+import { ListItemWithIcon, ListItemWithSwitch } from "../ListItem/ListItem";
+
+const fetcher = (url) => axios.get(url).then((res) => res?.data);
+
+const Notification = () => {
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(false);
   const [settings, setSettings] = useState({
     enable_notifications: false,
@@ -32,170 +31,115 @@ const Notification = ({ onBack }) => {
     "mentions",
   ];
 
+  const { setStatus } = useStatusNotification();
+
   const formatKey = (key) => {
     return key
       .replace(/_/g, " ")
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await getUserSettings();
-        console.log("Notification settings:", response);
-        if (response) setSettings(response);
-        if (response.enable_notifications) setIsNotificationsEnabled(true);
-      } catch (error) {
-        console.error("Error fetching notification settings:", error);
-      }
-    };
+  const { error, mutate } = useSWR("/api/settings", fetcher, {
+    onSuccess: (newData) => {
+      const response = newData.data.user;
 
-    fetchSettings();
-  }, []);
+      if (response.enable_notifications) setIsNotificationsEnabled(true);
+      setSettings(response);
+    },
+  });
 
-  const Label = ({ heading, subheading, padding = true }) => (
-    <Box sx={{ pl: padding ? "2vw" : "0vw" }}>
-      <Typography style={{ fontWeight: "bold" }}>{heading}</Typography>
-      <Typography sx={{ opacity: "0.7", pt: "5px" }}>{subheading}</Typography>
-    </Box>
-  );
+  if (error) {
+    setStatus("Failed to fetch settings", "error");
+  }
 
   const handleToggle = async (event) => {
     const { name, checked } = event.target;
 
-    console.log(name, checked);
     const updatedSettings = { ...settings, [name]: checked };
 
     if (name === "enable_notifications") setIsNotificationsEnabled(checked);
 
     setSettings(updatedSettings);
     try {
-      const response = await updateSettings(updatedSettings);
-      console.log("Updated settings response:", response);
+      await axios.patch("/api/settings", updatedSettings);
+      mutate();
     } catch (error) {
-      console.error("Error updating settings:", error);
+      setStatus("Failed to save settings", "error");
     }
   };
 
   return (
-    <Box
-      sx={{
-        width: "80%",
-        mx: "10%",
-        mt: "10vh",
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item size={2}>
-          <div>
-            <Button
-              startIcon={<ArrowBackIosNew />}
-              onClick={onBack}
-              sx={{
-                textTransform: "none",
-                bgcolor: "transparent",
-                px: "8px",
-                "&:hover": {
-                  color: "#fff",
-                },
-              }}
-            >
-              Back
-            </Button>
-          </div>
-        </Grid>
+    <>
+      <Typography variant="h5" sx={{ width: "100%" }}>
+        Notification Settings
+      </Typography>
 
-        <Grid item size={8}>
-          <Typography variant="h5">Notification Settings</Typography>
-          <Typography variant="subtitle1" sx={{ opacity: "0.7" }}>
-            Manage how and when you receive notifications
+      <FormGroup
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          rowGap: "1rem",
+        }}
+      >
+        <Box>
+          <Typography variant="h6" sx={{ width: "100%", mb: "1rem" }}>
+            General
           </Typography>
-          <FormGroup sx={{ mt: "4vh" }}>
-            <FormControlLabel
-              control={
-                <Switch
-                  name="enable_notifications"
-                  checked={settings.enable_notifications}
-                  onChange={handleToggle}
-                  inputProps={{ "aria-label": "Enable Notifications" }}
-                />
-              }
-              label={
-                <Label
-                  heading="Enable Notifications"
-                  subheading="All notifications are disabled"
-                />
-              }
-            />
-            <Box
+
+          <ListItemWithSwitch
+            name="enable_notifications"
+            checked={settings?.enable_notifications}
+            onChange={handleToggle}
+            heading="Enable Notifications"
+            subheading="All notifications are disabled"
+          />
+        </Box>
+
+        <Divider />
+
+        <Grid2
+          container
+          spacing={2}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          {displayKeys.map((key) => (
+            <ListItemWithSwitch
+              key={key}
+              name={key}
               disabled={!isNotificationsEnabled}
-              sx={{
-                pl: "1vw",
-                pt: "4vh",
-                display: "flex",
-                flexDirection: "column",
-                gap: "2vh",
-              }}
-            >
-              {displayKeys.map((key) => (
-                <FormControlLabel
-                  key={key}
-                  control={
-                    <Switch
-                      name={key}
-                      disabled={!isNotificationsEnabled}
-                      checked={settings[key]}
-                      onChange={handleToggle}
-                      inputProps={{ "aria-label": key }}
-                    />
-                  }
-                  label={
-                    <Label
-                      heading={formatKey(key)}
-                      subheading={`Manage notifications for ${formatKey(key).toLowerCase()}`}
-                    />
-                  }
-                />
-              ))}
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                mt: "5vh",
-                cursor: "pointer",
-              }}
-            >
-              <Label
-                heading="Email Notifications"
-                subheading="Receive notifications via email for important updates"
-                padding={false}
-              />
-              <KeyboardArrowRightIcon />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                mt: "5vh",
-                cursor: "pointer",
-              }}
-            >
-              <Label
-                heading="Desktop Notifications"
-                subheading="Display pop-up notifications on your desktop"
-                padding={false}
-              />
-              <KeyboardArrowRightIcon />
-            </Box>
-          </FormGroup>
-        </Grid>
-      </Grid>
-    </Box>
+              checked={settings[key]}
+              onChange={handleToggle}
+              heading={formatKey(key)}
+              subheading={`Manage notifications for ${formatKey(key).toLowerCase()}`}
+            />
+          ))}
+        </Grid2>
+      </FormGroup>
+
+      <Divider sx={{ width: "100%" }} />
+
+      <Grid2
+        container
+        spacing={2}
+        sx={{
+          cursor: "pointer",
+          width: "100%",
+        }}
+      >
+        <ListItemWithIcon
+          heading="Email Notifications"
+          subheading="Receive notifications via email for important updates"
+          end={<KeyboardArrowRightIcon />}
+        />
+
+        <ListItemWithIcon
+          heading="Desktop Notifications"
+          subheading="Display pop-up notifications on your desktop"
+          end={<KeyboardArrowRightIcon />}
+        />
+      </Grid2>
+    </>
   );
 };
 

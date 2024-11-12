@@ -1,0 +1,30 @@
+.contentContainer {
+  overflow: scroll;
+  height: 20rem;
+  scrollbar-width: none; /* For Firefox */
+}
+
+/* For Chrome, Edge, and Safari */
+.contentContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.sectionContainer {
+  background-color: var(--mui-palette-neutral-800);
+  border-radius: 12px;
+  padding: 1rem;
+  height: fit-content;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  margin-bottom: 10px;
+}
+
+.infiniteScroll {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}

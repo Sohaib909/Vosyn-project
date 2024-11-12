@@ -6,15 +6,16 @@
   "tabWidth": 2,
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
-    "react", 
+    "react",
     "<THIRD_PARTY_MODULES>",
-    "^(cplibrary|cpicons|cputil|cpclient|@cpclient|cpshots).*$", 
+    "^(cplibrary|cpicons|cputil|cpclient|@cpclient|cpshots).*$",
     "components/.*$",
-    "^(constants|data|hooks|util|utils)/.*$", 
+    "^(constants|data|hooks|util|utils)/.*$",
     "^(\\.|\\.\\.)/(.(?!.(css|scss)))*$",
-    "\\.(css|scss)$" 
+    "\\.(css|scss)$"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "importOrderCaseInsensitive": true
+  "importOrderCaseInsensitive": true,
+  "endOfLine": "lf"
 }

@@ -1,0 +1,17 @@
+.hiddenInput {
+  display: none;
+}
+
+.actionsContainer {
+  justify-content: space-between;
+}
+
+.actionsCardContainer {
+  width: 100%;
+  min-width: -webkit-fill-available;
+  min-width: fit-content;
+  border: 2px solid var(--mui-palette-neutral-200);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+}

@@ -2,12 +2,12 @@ export const textMockData = [
   {
     id: 0,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/environmentalEducation.pdf",
+      pdf: "http://localhost:3000/sampleTextFiles/environmentalEducation.pdf",
     },
     title: "Environmental Education and Sustainability",
     subtitle: "Michael Green, Earth Journal",
     featuredImage: "https://i.ytimg.com/vi/g2F5RO6vNSs/hqdefault.jpg",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["DE"],
     content:
       "Environmental education is becoming a critical component of modern curricula, teaching students the importance of sustainability.",
@@ -25,14 +25,14 @@ export const textMockData = [
   {
     id: 1,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/sampleText.pdf",
-      word: "http://localhost:3000/assets/text/sampleText.word",
+      pdf: "http://localhost:3000/sampleTextFiles/sampleText.pdf",
+      word: "http://localhost:3000/sampleTextFiles/sampleText.word",
     },
     title: "The Future of School Education in Japan",
     subtitle: "Sato Misaki, Japan Times   ",
     featuredImage:
       "https://edtechzine.jp/static/images/article/6786/6786_og.jpg",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["FR", "DE"],
     content:
       "Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolvingJapanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced.As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolvingJapanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced.As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolvingJapanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced.As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolvingJapanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced.As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving. Japanese school education is constantly evolving. In recent years, advances in technology have significantly changed the ways we learn in the classroom. For example, the introduction of digital textbooks and online platforms has advanced. As a result, students can now experience more interactive and flexible learning. Additionally, teachers are utilizing new educational technologies to enhance individualized support. This allows for instruction tailored to the needs of each student, improving the quality of learning. Japanese school education is constantly evolving.",
@@ -67,13 +67,13 @@ export const textMockData = [
   {
     id: 2,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/techInClassrooms.pdf",
-      word: "http://localhost:3000/assets/text/techInClassrooms.word",
+      pdf: "http://localhost:3000/sampleTextFiles/techInClassrooms.pdf",
+      word: "http://localhost:3000/sampleTextFiles/techInClassrooms.word",
     },
     title: "Technology in Modern Classrooms",
     subtitle: "John Doe, Tech Magazine",
     featuredImage: "https://i.ytimg.com/vi/UGsvfsrP2fo/hqdefault.jpg",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["JP", "FR"],
     content:
       "Technology is transforming modern education, enabling interactive learning experiences and improving access to resources.",
@@ -98,12 +98,12 @@ export const textMockData = [
   {
     id: 3,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/futureOfWork.pdf",
+      pdf: "http://localhost:3000/sampleTextFiles/futureOfWork.pdf",
     },
     title: "Preparing Students for the Future of Work",
     subtitle: "Jane Doe, Education Weekly",
     featuredImage: "https://i.ytimg.com/vi/g2F5RO6vNSs/hqdefault.jpg",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["FR", "DE"],
     content:
       "As the job market evolves, schools must adapt to prepare students for future careers, emphasizing skills such as coding and creativity.",
@@ -127,12 +127,12 @@ export const textMockData = [
   {
     id: 4,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/communityLearning.pdf",
+      pdf: "http://localhost:3000/sampleTextFiles/communityLearning.pdf",
     },
     title: "The Impact of Community Learning",
     subtitle: "Emily Smith, Global Education Forum",
     featuredImage: "",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["ES"],
     content:
       "Community-based learning initiatives offer students practical experience and develop soft skills crucial for personal and professional growth.",
@@ -151,12 +151,12 @@ export const textMockData = [
   {
     id: 5,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/virtualClassrooms.pdf",
+      pdf: "http://localhost:3000/sampleTextFiles/virtualClassrooms.pdf",
     },
     title: "The Rise of Virtual Classrooms",
     subtitle: "Alice Johnson, EdTech Times",
     featuredImage: "",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["JP", "FR"],
     content:
       "Virtual classrooms provide students with the flexibility to learn remotely and on their own schedule, breaking geographical barriers.",
@@ -183,12 +183,12 @@ export const textMockData = [
   {
     id: 6,
     textUrls: {
-      pdf: "http://localhost:3000/assets/text/environmentalEducation.pdf",
+      pdf: "http://localhost:3000/sampleTextFiles/environmentalEducation.pdf",
     },
     title: "Environmental Education and Sustainability",
     subtitle: "Michael Green, Earth Journal",
     featuredImage: "",
-    originalLanguage: "EN",
+    originalLanguage: "CA",
     availableTranslationLanguages: ["DE"],
     content:
       "Environmental education is becoming a critical component of modern curricula, teaching students the importance of sustainability.",

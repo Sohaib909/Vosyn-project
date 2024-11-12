@@ -3,9 +3,32 @@ import React from "react";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
+import TrendingCarousel from "../TrendingCarousel/TrendingCarousel";
+import VideoCardFeatured from "../VideoCard/VideoCard";
 import CardsFeatured from "./CardsFeatured/CardsFeatured";
-import FeaturedCarousel from "./FeaturedCarousel/FeaturedCarousel";
-import VideoCardFeatured from "./VideoCardFeatured/VideoCardFeatured";
+
+const primeData = [
+  {
+    id: 1,
+    image:
+      "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg", // You can add image URL here
+    title: "Video Title 1",
+    description: "This is the description for Video 1.",
+  },
+  {
+    id: 1,
+    image: "https://i.ytimg.com/vi/g2F5RO6vNSs/hqdefault.jpg", // You can add image URL here
+    title: "Video Title 2",
+    description: "This is the description for Video 2.",
+  },
+  {
+    id: 1,
+    image:
+      "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg", // You can add image URL here
+    title: "Video Title 3",
+    description: "This is the description for Video 3.",
+  },
+];
 
 const VideoDatas = {
   thumbnail_url:
@@ -64,11 +87,11 @@ const FeaturedTab = () => {
         }}
       >
         <Box sx={{ flex: 1 }}>
-          <FeaturedCarousel />
+          <TrendingCarousel primeData={primeData} />
         </Box>
 
         <Grid container row={12} column={1} spacing={8}>
-          <VideoCardFeatured videoData={VideoDatas} size="large" />
+          {/* <VideoCardFeatured videoData={VideoDatas} size="large" /> */}
         </Grid>
       </Box>
 

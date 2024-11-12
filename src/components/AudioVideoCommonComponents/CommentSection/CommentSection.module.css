@@ -1,0 +1,12 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  background-color: var(--mui-palette-neutral-800);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.input {
+  width: 100%;
+}

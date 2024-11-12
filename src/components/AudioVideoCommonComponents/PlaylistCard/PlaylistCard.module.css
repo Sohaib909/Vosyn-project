@@ -1,0 +1,34 @@
+.playlistCard {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  row-gap: 0.5rem;
+  cursor: pointer;
+  padding: 1rem;
+  width: 10rem;
+  justify-content: space-between;
+}
+
+.playlistCard:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.imageContainer {
+  position: relative;
+  width: 30%;
+  height: 5rem;
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}

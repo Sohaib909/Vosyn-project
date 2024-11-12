@@ -1,0 +1,38 @@
+.bottomControlsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.controlsContainer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 0.8rem;
+  background: var(--mui-palette-linearGradientVideoForground);
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.audio {
+  position: relative;
+}
+
+.timelineContainer {
+  display: flex;
+  width: inherit;
+  column-gap: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  align-items: inherit;
+}
+
+@media only screen and (max-width: 620px) {
+  .passedChildren {
+    display: none;
+  }
+}
