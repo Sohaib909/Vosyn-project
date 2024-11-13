@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 
+import useQueryParam from "@/hooks/useQueryParam";
 import { Grid2, Stack } from "@mui/material";
 import {
   Box,
@@ -18,6 +19,8 @@ const TrendingCarousel = ({ featuredMedia }) => {
   const autoChangeRef = useRef(null); // Reference to the interval for automatic change
 
   const router = useRouter();
+  const { getAllParams } = useQueryParam();
+  const params = getAllParams();
 
   useEffect(() => {
     autoChangeRef.current = setInterval(() => {
@@ -40,12 +43,14 @@ const TrendingCarousel = ({ featuredMedia }) => {
   };
 
   const handleCardClick = () => {
-    router.push(`/video/${featuredMedia?.at(imageIndex)?.document?.id}`);
+    router.push(
+      `/${params.tab}/${featuredMedia?.at(imageIndex)?.document?.id}`,
+    );
   };
 
   return (
     <Grid2
-      size={{ xs: 12, sm: 12, md: 8 }}
+      size={12}
       sx={{ minHeight: "20rem", maxHeight: "25rem" }}
       key={featuredMedia?.at(imageIndex)?.document?.id}
       onClick={handleCardClick}

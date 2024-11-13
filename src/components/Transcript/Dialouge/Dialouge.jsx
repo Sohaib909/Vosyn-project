@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
+import { selectLanguage } from "@/reduxSlices/languageSlice";
 import { selectPlayer, setCurrentTime } from "@/reduxSlices/playerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
@@ -16,6 +17,11 @@ const Dialogue = ({ transcript, containerRef, nextTimestamp, flagItem }) => {
   const [showSuggestionTextbox, setShowSuggestionTextbox] = useState(false);
   const [suggestionText, setSuggestionText] = useState("");
   const { hasEnded, currentTime } = useSelector(selectPlayer);
+
+  const { selectedTranslatedLanguage, selectedOriginalLanguage } =
+    useSelector(selectLanguage);
+
+  const { showTranslatedTranscript } = useSelector(selectPlayer);
 
   const mediaRef = useMediaRef();
 
@@ -64,8 +70,8 @@ const Dialogue = ({ transcript, containerRef, nextTimestamp, flagItem }) => {
   };
 
   return (
-    <Box ref={listItem} sx={{ display: "flex", alignItems: "center" }}>
-      <IconButton>
+    <Box ref={listItem} sx={{ display: "flex", alignItems: "start" }}>
+      <IconButton sx={{ pt: "1rem" }}>
         {transcript.flagged ? (
           <FlagIcon onClick={() => flagItem(transcript.timestamp)} />
         ) : (
@@ -87,7 +93,6 @@ const Dialogue = ({ transcript, containerRef, nextTimestamp, flagItem }) => {
           columnGap: "1rem",
           padding: "1rem",
           borderRadius: "12px",
-          alignItems: "center",
         }}
         onClick={handleDialougeClick}
       >
@@ -99,7 +104,17 @@ const Dialogue = ({ transcript, containerRef, nextTimestamp, flagItem }) => {
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             {`${transcript.speaker}:`}
           </Typography>
-          <Typography variant="body1">{transcript.text}</Typography>
+
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">
+              {transcript?.text[selectedOriginalLanguage]}
+            </Typography>
+            {showTranslatedTranscript && (
+              <Typography variant="body1">
+                {transcript?.text[selectedTranslatedLanguage]}
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Box>
 

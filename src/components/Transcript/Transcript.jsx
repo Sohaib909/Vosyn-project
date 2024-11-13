@@ -32,6 +32,7 @@ const Transcript = ({ transcriptJson }) => {
         return { ...transcript, startTime: 0 };
       }
     });
+
     setTranscripts(mappedTranscripts);
   }, [transcripts]);
 
