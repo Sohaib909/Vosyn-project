@@ -11,6 +11,7 @@ import FeaturedTab from "./Featured/Featured";
 import GeneralTab from "./GeneralTab/GeneralTab";
 import ListenCard from "./GeneralTab/ListenCard/ListenCard";
 import TextCard from "./GeneralTab/TextCard/TextCard";
+import ShortSection from "./GeneralTab/Watch/Shorts/Shorts";
 import WatchCard from "./GeneralTab/Watch/WatchCard/WatchCard";
 import TabNavbar from "./TabNavbar/TabNavbar";
 
@@ -42,7 +43,13 @@ const MediaDisplay = () => {
     if (params.tab === "featured") {
       return <FeaturedTab />;
     } else if (params.tab === "video") {
-      return <GeneralTab data={videoListData} Component={WatchCard} />;
+      return (
+        <GeneralTab
+          data={videoListData}
+          Component={WatchCard}
+          OptionalComponent={ShortSection}
+        />
+      );
     } else if (params.tab === "audio") {
       return <GeneralTab data={videoListData} Component={ListenCard} />; // Replace with audio data when we have the end point
     } else if (params.tab === "text") {
