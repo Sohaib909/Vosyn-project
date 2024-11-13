@@ -60,7 +60,7 @@ const Login = () => {
           setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
         );
 
-        router.push("/home");
+        router.push("/home?tab=featured");
       }
     } catch (err) {
       const statusCode = err?.response?.status;
