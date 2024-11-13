@@ -1,13 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import transcriptJson from "@/data/transcript.json";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
-import { selectPlayer } from "@/reduxSlices/playerSlice";
+import {
+  selectPlayer,
+  setShowTranslatedTranscript,
+} from "@/reduxSlices/playerSlice";
 import { formatDate } from "@/utils/formatDate";
 import { Box, Grid2, Typography } from "@mui/material";
+
+import ButtonWithIconAndText from "@/components/Buttons/ButtonWithIconAndText/ButtonWithIconAndText";
 
 import Transcript from "../../Transcript/Transcript";
 
@@ -17,7 +22,10 @@ const VideoAudioDescription = () => {
   const [videoDescShowMore, setVideoDescShowMore] = useState(false);
   const [flaggedTranscripts, setFlaggedTranscripts] = useState([]);
 
-  const { showTranscripts } = useSelector(selectPlayer);
+  const { showTranscripts, showTranslatedTranscript } =
+    useSelector(selectPlayer);
+
+  const dispatch = useDispatch();
 
   const toggleVideoDescShowMore = () => {
     setVideoDescShowMore(!videoDescShowMore);
@@ -25,6 +33,10 @@ const VideoAudioDescription = () => {
 
   const handleFlaggedTranscripts = (flaggedItems) => {
     setFlaggedTranscripts(flaggedItems);
+  };
+
+  const handleCompareClick = () => {
+    dispatch(setShowTranslatedTranscript(!showTranslatedTranscript));
   };
 
   return (
@@ -60,6 +72,10 @@ const VideoAudioDescription = () => {
             {formatDate(mediaObj?.updated_at)}
           </Typography>
         </Box>
+
+        {showTranscripts && (
+          <ButtonWithIconAndText text="Compare" method={handleCompareClick} />
+        )}
       </Grid2>
 
       <Grid2 size={12}>
@@ -81,16 +97,17 @@ const VideoAudioDescription = () => {
               {mediaObj?.description
                 ? videoDescShowMore
                   ? mediaObj?.description
-                  : `${mediaObj?.description?.substring(0, 172)}`
+                  : `${mediaObj?.description?.substring(0, 172)}...`
                 : "NA"}
             </Typography>
-            <Box
-              component="span"
-              sx={{ textDecoration: "underline", cursor: "pointer" }}
+            <Typography
+              variant="caption"
+              color="textSecondary"
               onClick={toggleVideoDescShowMore}
+              sx={{ cursor: "pointer", textDecoration: "underline" }}
             >
-              {videoDescShowMore ? "Show less" : "...more"}
-            </Box>
+              {videoDescShowMore ? "Show Less" : "Show More"}
+            </Typography>
           </Box>
         )}
       </Grid2>

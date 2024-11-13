@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedTranslatedLanguage: "CA",
-  selectedOriginalLanguage: "FR",
+  selectedTranslatedLanguage: "FR",
+  selectedOriginalLanguage: "CA",
   selectedFile: "Filename.png",
 };
 

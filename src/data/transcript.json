@@ -1,218 +1,363 @@
 [
   {
     "timestamp": "00:00:15",
-    "text": "At the left we can see...",
+    "text": {
+      "CA": "At the left we can see...",
+      "FR": "À gauche, on peut voir...",
+      "ES": "A la izquierda podemos ver..."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:18",
-    "text": "At the right we can see the...",
+    "text": {
+      "CA": "At the right we can see the...",
+      "FR": "À droite, on peut voir le...",
+      "ES": "A la derecha podemos ver el..."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:20",
-    "text": "...the head-snarlers.",
+    "text": {
+      "CA": "...the head-snarlers.",
+      "FR": "...les têtes-enrouleurs.",
+      "ES": "...los enroscadores de cabezas."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:21",
-    "text": "Everything is safe. Perfectly safe.",
+    "text": {
+      "CA": "Everything is safe. Perfectly safe.",
+      "FR": "Tout est sûr. Parfaitement sûr.",
+      "ES": "Todo está seguro. Perfectamente seguro."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:24",
-    "text": "Emo?",
+    "text": {
+      "CA": "Emo?",
+      "FR": "Emo?",
+      "ES": "¿Emo?"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:28",
-    "text": "Watch out!",
+    "text": {
+      "CA": "Watch out!",
+      "FR": "Attention!",
+      "ES": "¡Cuidado!"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:47",
-    "text": "Are you hurt?",
+    "text": {
+      "CA": "Are you hurt?",
+      "FR": "Es-tu blessé?",
+      "ES": "¿Estás herido?"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:51",
-    "text": "I don't think so. You.",
+    "text": {
+      "CA": "I don't think so. You.",
+      "FR": "Je ne pense pas. Toi.",
+      "ES": "No lo creo. Tú."
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:00:55",
-    "text": "I'm Ok.",
+    "text": {
+      "CA": "I'm Ok.",
+      "FR": "Je vais bien.",
+      "ES": "Estoy bien."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:00:57",
-    "text": "Get up. Emo, it's not safe here.",
+    "text": {
+      "CA": "Get up. Emo, it's not safe here.",
+      "FR": "Lève-toi. Emo, ce n'est pas sûr ici.",
+      "ES": "Levántate. Emo, aquí no es seguro."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:01:03",
-    "text": "Let's go.",
+    "text": {
+      "CA": "Let's go.",
+      "FR": "Allons-y.",
+      "ES": "Vamos."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:01:05",
-    "text": "What's next?",
+    "text": {
+      "CA": "What's next?",
+      "FR": "Qu'est-ce qu'il y a après?",
+      "ES": "¿Qué sigue?"
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:01:09",
-    "text": "You'll see!",
+    "text": {
+      "CA": "You'll see!",
+      "FR": "Tu verras!",
+      "ES": "¡Lo verás!"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:01:16",
-    "text": "Emo. This way.",
+    "text": {
+      "CA": "Emo. This way.",
+      "FR": "Emo. Par ici.",
+      "ES": "Emo. Por aquí."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:01:34",
-    "text": "Follow me!",
+    "text": {
+      "CA": "Follow me!",
+      "FR": "Suis-moi!",
+      "ES": "¡Sígueme!"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:02:11",
-    "text": "Hurry Emo!",
+    "text": {
+      "CA": "Hurry Emo!",
+      "FR": "Dépêche-toi Emo!",
+      "ES": "¡Date prisa, Emo!"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:02:48",
-    "text": "You're not paying attention!",
+    "text": {
+      "CA": "You're not paying attention!",
+      "FR": "Tu ne fais pas attention!",
+      "ES": "¡No estás prestando atención!"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:02:50",
-    "text": "I just want to answer the... phone.",
+    "text": {
+      "CA": "I just want to answer the... phone.",
+      "FR": "Je veux juste répondre au... téléphone.",
+      "ES": "Solo quiero contestar el... teléfono."
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:02:54",
-    "text": "Emo, look, I mean listen.",
+    "text": {
+      "CA": "Emo, look, I mean listen.",
+      "FR": "Emo, regarde, enfin écoute.",
+      "ES": "Emo, mira, o sea, escucha."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:02:59",
-    "text": "You have to learn to listen.",
+    "text": {
+      "CA": "You have to learn to listen.",
+      "FR": "Tu dois apprendre à écouter.",
+      "ES": "Tienes que aprender a escuchar."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:03:03",
-    "text": "This is not some game.",
+    "text": {
+      "CA": "This is not some game.",
+      "FR": "Ce n'est pas un jeu.",
+      "ES": "Esto no es un juego."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:03:05",
-    "text": "You, I mean we, we could easily die out here.",
+    "text": {
+      "CA": "You, I mean we, we could easily die out here.",
+      "FR": "Toi, enfin nous, on pourrait facilement mourir ici.",
+      "ES": "Tú, o sea, nosotros, podríamos morir fácilmente aquí."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:03:10",
-    "text": "Listen, listen to the sounds of the machine.",
+    "text": {
+      "CA": "Listen, listen to the sounds of the machine.",
+      "FR": "Écoute, écoute les sons de la machine.",
+      "ES": "Escucha, escucha los sonidos de la máquina."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:03:18",
-    "text": "Listen to your breathing.",
+    "text": {
+      "CA": "Listen to your breathing.",
+      "FR": "Écoute ta respiration.",
+      "ES": "Escucha tu respiración."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:04:27",
-    "text": "Well, don't you ever get tired of this?",
+    "text": {
+      "CA": "Well, don't you ever get tired of this?",
+      "FR": "Eh bien, tu ne te lasses jamais de ça?",
+      "ES": "Bueno, ¿nunca te cansas de esto?"
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:04:29",
-    "text": "Tired?!?",
+    "text": {
+      "CA": "Tired?!?",
+      "FR": "Las-tu?!?",
+      "ES": "¿Cansado?!?"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:04:31",
-    "text": "Emo, the machine is like clockwork.",
+    "text": {
+      "CA": "Emo, the machine is like clockwork.",
+      "FR": "Emo, la machine est comme une horloge.",
+      "ES": "Emo, la máquina es como un reloj."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:04:37",
-    "text": "One move out of place... and you're ground to a pulp.",
+    "text": {
+      "CA": "One move out of place... and you're ground to a pulp.",
+      "FR": "Un mouvement hors de place... et tu es réduit en bouillie.",
+      "ES": "Un movimiento fuera de lugar... y eres hecho pulpa."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:04:40",
-    "text": "But isn't it -",
+    "text": {
+      "CA": "But isn't it -",
+      "FR": "Mais n'est-ce pas -",
+      "ES": "¿Pero no es -"
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:04:42",
-    "text": "Pulp, Emo! Is that what you want, pulp?",
+    "text": {
+      "CA": "Pulp, Emo! Is that what you want, pulp?",
+      "FR": "De la pulpe, Emo! C'est ça que tu veux, de la pulpe?",
+      "ES": "¡Pulpa, Emo! ¿Eso es lo que quieres, pulpa?"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:05:41",
-    "text": "Emo, close your eyes.",
+    "text": {
+      "CA": "Emo, close your eyes.",
+      "FR": "Emo, ferme les yeux.",
+      "ES": "Emo, cierra los ojos."
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:05:44",
-    "text": "Why? - Now!",
+    "text": {
+      "CA": "Why? - Now!",
+      "FR": "Pourquoi? - Maintenant!",
+      "ES": "¿Por qué? - ¡Ahora!"
+    },
     "speaker": "Emo / Proog",
     "flagged": false
   },
   {
     "timestamp": "00:05:51",
-    "text": "Ok.",
+    "text": {
+      "CA": "Ok.",
+      "FR": "D'accord.",
+      "ES": "Está bien."
+    },
     "speaker": "Emo",
     "flagged": false
   },
   {
     "timestamp": "00:06:02",
-    "text": "What do you see at your left side, Emo?",
+    "text": {
+      "CA": "What do you see at your left side, Emo?",
+      "FR": "Que vois-tu à ta gauche, Emo?",
+      "ES": "¿Qué ves a tu izquierda, Emo?"
+    },
     "speaker": "Proog",
     "flagged": false
   },
   {
     "timestamp": "00:06:04",
-    "text": "Nothing. - Really?",
+    "text": {
+      "CA": "Nothing. - Really?",
+      "FR": "Rien. - Vraiment?",
+      "ES": "Nada. - ¿En serio?"
+    },
     "speaker": "Emo / Proog",
     "flagged": false
   },
   {
     "timestamp": "00:06:13",
-    "text": "The same Proog, exactly the same... nothing! - Great.",
+    "text": {
+      "CA": "The same Proog, exactly the same... nothing! - Great.",
+      "FR": "Le même Proog, exactement le même... rien! - Parfait.",
+      "ES": "Lo mismo, Proog, exactamente lo mismo... ¡nada! - Genial."
+    },
     "speaker": "Emo / Proog",
     "flagged": false
   }
 ]
+
