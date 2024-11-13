@@ -13,11 +13,11 @@ export const middleware = (request) => {
 
   // If user is logged in and tries to access the login page, redirect them to home
   if (isLoggedIn && pathname === "/auth") {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/home?tab=featured", request.url));
   }
 
   if (isLoggedIn && pathname === "/") {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/home?tab=featured", request.url));
   }
 };
 
