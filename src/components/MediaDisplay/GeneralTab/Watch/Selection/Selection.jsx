@@ -1,19 +1,12 @@
 import React from "react";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import ListenCard from "../../ListenCard/ListenCard";
 import CreatorCard from "./CreatorCard/CreatorCard";
-import PrimaryComponent from "./PrimaryComponent/PrimaryComponent";
 import ScrollTab from "./ScrollTab/ScrollTab";
+import TrendingCard from "./TrendingCard/TrendingCard";
 import UpNextCard from "./UpNextCard/UpNextCard";
 
 const trending = {
@@ -25,6 +18,7 @@ const trending = {
   description:
     'How to come back from being "cancelled"? Are we likely to forgive someone if they cry? And what makes a successful public apology?',
   date: "10.06 - 38 mins 9 sec.",
+  heading: "Trending",
 };
 
 const built = {
@@ -32,6 +26,7 @@ const built = {
   image:
     "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
   title: "No Stupid Question",
+  heading: "Built for you",
 };
 
 const creators = [
@@ -93,7 +88,55 @@ const Selection = ({ data, handleCloseMore }) => {
         >
           Daily selection powered by Vosynverse
         </Typography>
-        <PrimaryComponent trending={trending} />
+        <Box>
+          <Box
+            sx={{
+              width: "90%",
+              overflow: "hidden",
+            }}
+          >
+            <TrendingCard data={trending} />
+          </Box>
+
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              fontWeight: "bold",
+              pt: "5vh",
+            }}
+          >
+            About this episode
+          </Typography>
+          <Typography component="p">{trending.subtitle}</Typography>
+          <Typography
+            component="p"
+            sx={{
+              mt: "5px",
+              opacity: "0.8",
+            }}
+          >
+            {trending.title}
+          </Typography>
+          <Typography
+            component="p"
+            sx={{
+              mt: "2vh",
+              maxWidth: "60%",
+            }}
+          >
+            {trending.description}
+          </Typography>
+          <Typography
+            component="p"
+            sx={{
+              mt: "2vh",
+              opacity: "0.8",
+            }}
+          >
+            {trending.date}
+          </Typography>
+        </Box>
         <Typography
           variant="h6"
           component="div"
@@ -150,74 +193,8 @@ const Selection = ({ data, handleCloseMore }) => {
             Built for You
           </Typography>
           <ScrollTab />
-          <Card
-            sx={{
-              width: "100%",
-              borderRadius: "20px",
-              position: "relative",
-              backgroundColor: "transparent",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-              overflow: "hidden",
-              mt: "2vh",
-            }}
-          >
-            <CardActionArea sx={{ height: "100%" }}>
-              <Box sx={{ position: "relative", height: "100%" }}>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{
-                    bgcolor: "var(--mui-palette-neutral-800)",
-                    fontWeight: "bold",
-                    fontSize: "1.1rem",
-                    textAlign: "center",
-                    py: "3px",
-                    borderTopLeftRadius: "20px",
-                    borderTopRighttRadius: "20px",
-                    position: "absolute",
-                    top: "0",
-                    width: "100%",
-                  }}
-                >
-                  Built for You
-                </Typography>
-                <CardMedia
-                  component="img"
-                  height="100%"
-                  image={built.image}
-                  alt={built.title}
-                  sx={{ objectFit: "cover", height: "100%" }}
-                />
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    width: "100%",
-                    maxHeight: "100%",
-                    color: "white",
-                    padding: "16px",
-                    py: "10px",
-                    boxSizing: "border-box",
-                    background:
-                      "linear-gradient(to bottom, rgba(0, 0, 0, 0.3) , rgba(0, 0, 0, 0.7))",
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {built.title}
-                  </Typography>
-                </Box>
-              </Box>
-            </CardActionArea>
-          </Card>
         </Box>
+        <TrendingCard data={built} />
       </Box>
     </Box>
   );
