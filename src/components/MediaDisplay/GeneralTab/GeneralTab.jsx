@@ -1,55 +1,99 @@
-import React from "react";
+"use client";
 
-import { Grid2 } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
-import HorizontalScrollDisplayContainer from "../HorizontalScrollDisplayContainer/HorizontalScrollDisplayContainer";
-import TrendingCarousel from "../TrendingCarousel/TrendingCarousel";
-import Built from "./Built/Built";
-import SectionHeader from "./SectionHeader/SectionHeader";
+import useQueryParam from "@/hooks/useQueryParam";
+import { Box } from "@mui/material";
 
-const GeneralTab = ({ data, Component }) => {
-  return (
-    <Grid2 container size={11} spacing={4} sx={{ paddingY: "3rem" }}>
-      <Grid2 spacing={2} container item size={12}>
-        <SectionHeader
-          heading="Jump In"
-          subheading="Jump into where you left off on"
-        />
+import GeneralLayout from "./GeneralLayout/GeneralLayout";
+import Selection from "./Watch/Selection/Selection";
 
-        <HorizontalScrollDisplayContainer data={data} Component={Component} />
-      </Grid2>
+const GeneralTab = ({ data, Component, OptionalComponent }) => {
+  const { getAllParams } = useQueryParam();
+  const params = getAllParams();
+  const [selection, setSelection] = useState(false);
+  const [built, setBuilt] = useState(false);
+  const [recomend, setRecomend] = useState(false);
 
-      <Grid2 item container spacing={4}>
-        <Grid2
-          container
-          item
-          size={{ xs: 12, md: 6 }}
-          spacing={2}
-          sx={{ height: "fit-content" }}
-        >
-          <SectionHeader
-            heading="VosynVerse Selection"
-            subheading="Daily selection powered by VosynVerse"
+  const handleSelection = () => {
+    setSelection(!selection);
+  };
+  const handleBuilt = () => {
+    setBuilt(!built);
+  };
+  const handleRecomend = () => {
+    setRecomend(!recomend);
+  };
+
+  // switch back to main tab if user switches tabs from inside a nested tab
+  useEffect(() => {
+    setSelection(false);
+    setBuilt(false);
+    setRecomend(false);
+  }, [params.tab]);
+
+  const getTab = () => {
+    if (params.tab === "video") {
+      if (selection) {
+        return <Selection data={data} handleCloseMore={handleSelection} />;
+      } else if (built) {
+        return <></>;
+      } else if (recomend) {
+        return <></>;
+      } else {
+        return (
+          <GeneralLayout
+            data={data}
+            Component={Component}
+            OptionalComponent={OptionalComponent}
+            handleSelection={handleSelection}
+            handleBuilt={handleBuilt}
+            handleRecomend={handleRecomend}
           />
+        );
+      }
+    } else if (params.tab === "audio") {
+      if (selection) {
+        return <></>;
+      } else if (built) {
+        return <></>;
+      } else if (recomend) {
+        return <></>;
+      } else {
+        return (
+          <GeneralLayout
+            data={data}
+            Component={Component}
+            OptionalComponent={OptionalComponent}
+            handleSelection={handleSelection}
+            handleBuilt={handleBuilt}
+            handleRecomend={handleRecomend}
+          />
+        );
+      }
+    } else if (params.tab === "text") {
+      if (selection) {
+        return <></>;
+      } else if (built) {
+        return <></>;
+      } else if (recomend) {
+        return <></>;
+      } else {
+        return (
+          <GeneralLayout
+            data={data}
+            Component={Component}
+            OptionalComponent={OptionalComponent}
+            handleSelection={handleSelection}
+            handleBuilt={handleBuilt}
+            handleRecomend={handleRecomend}
+          />
+        );
+      }
+    }
+  };
 
-          <TrendingCarousel featuredMedia={data?.slice(0, 4)} />
-        </Grid2>
-
-        <Grid2 size={{ xs: 12, md: 6 }} sx={{ height: "30rem" }}>
-          <Built data={data} Component={Component} />
-        </Grid2>
-      </Grid2>
-
-      <Grid2 spacing={2} container item size={12}>
-        <SectionHeader
-          heading="Shorts"
-          subheading="Recommended based on your recent watch pattern"
-        />
-
-        <HorizontalScrollDisplayContainer data={data} Component={Component} />
-      </Grid2>
-    </Grid2>
-  );
+  return <Box>{getTab()}</Box>;
 };
 
 export default GeneralTab;

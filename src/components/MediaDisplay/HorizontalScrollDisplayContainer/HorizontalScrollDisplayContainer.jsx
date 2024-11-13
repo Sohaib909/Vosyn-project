@@ -13,6 +13,7 @@ const HorizontalScrollDisplayContainer = ({ data, Component }) => {
         overflowX: "scroll",
         flexWrap: "nowrap",
         columnGap: "1rem",
+        pb: "2vh",
       }}
     >
       {data?.length > 0 &&
