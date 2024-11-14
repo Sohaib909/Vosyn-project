@@ -3,7 +3,8 @@ import React from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Box, Button, Typography } from "@mui/material";
 
-import ListenCard from "../../ListenCard/ListenCard";
+import ListenCard from "@/components/MediaDisplay/ListenTab/ListenCard/ListenCard";
+
 import CreatorCard from "./CreatorCard/CreatorCard";
 import ScrollTab from "./ScrollTab/ScrollTab";
 import TrendingCard from "./TrendingCard/TrendingCard";
