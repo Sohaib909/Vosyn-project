@@ -47,7 +47,7 @@ const videos = [
   },
 ];
 
-const SinglePlatlist = ({ data = videos }) => {
+const SinglePlaylist = ({ data = videos }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
       {data.map((item, i) => (
@@ -158,4 +158,4 @@ const SinglePlatlist = ({ data = videos }) => {
   );
 };
 
-export default SinglePlatlist;
+export default SinglePlaylist;
