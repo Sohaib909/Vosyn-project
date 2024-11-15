@@ -3,6 +3,7 @@ import React from "react";
 import useQueryParam from "@/hooks/useQueryParam";
 import { Grid2 } from "@mui/material";
 
+import HomeFilter from "../../HomeFilter/HomeFilter";
 import HorizontalScrollDisplayContainer from "../../HorizontalScrollDisplayContainer/HorizontalScrollDisplayContainer";
 import TrendingCarousel from "../../TrendingCarousel/TrendingCarousel";
 import Built from "../Built/Built";
@@ -27,6 +28,7 @@ const GeneralLayout = ({
       sx={{ paddingY: "3rem", width: "90vw" }}
     >
       <Grid2 spacing={2} container item size={12}>
+        <HomeFilter />
         <SectionHeader
           heading="Jump In"
           subheading="Jump into where you left off on"
