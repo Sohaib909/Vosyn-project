@@ -2,10 +2,7 @@ import React from "react";
 
 import { Button, Grid2 } from "@mui/material";
 
-import MediaDistrubutor from "@/components/AudioVideoCommonComponents/MediaDistrubutor/MediaDistrubutor";
-import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/VideoAudioActionButtons/VideoAudioActionButtons";
-import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
-import VideoAudioDescription from "@/components/AudioVideoCommonComponents/VideoAudioDescription/VideoAudioDescription";
+import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 
 const layout = ({ children }) => {
@@ -25,14 +22,8 @@ const layout = ({ children }) => {
             container
             size={12}
             sx={{ alignItems: "center", justifyContent: "space-between" }}
-          >
-            <MediaDistrubutor />
-            <VideoAudioActionButtons />
-          </Grid2>
+          ></Grid2>
         </Grid2>
-
-        <VideoAudioAISummary />
-        <VideoAudioDescription />
       </Grid2>
 
       <Grid2
@@ -54,6 +45,8 @@ const layout = ({ children }) => {
             Compare
           </Button>
         </TranslationPanel>
+
+        <TextAndImageActionBtns />
       </Grid2>
     </Grid2>
   );
