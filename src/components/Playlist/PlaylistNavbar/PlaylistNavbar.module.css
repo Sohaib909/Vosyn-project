@@ -95,7 +95,9 @@
 
 .playlistSearchContainer {
   background-color: inherit;
+  width: 33%;
 }
+
 .playlistSearch {
   color: var(--mui-palette-neutral-25);
   border-bottom: 2px solid var(--mui-palette-neutral-600);
