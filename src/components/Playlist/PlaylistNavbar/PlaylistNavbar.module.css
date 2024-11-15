@@ -93,16 +93,16 @@
   background-color: var(--mui-palette-primary-200);
 }
 
+
 .playlistSearchContainer {
   background-color: inherit;
-  width: 33%;
 }
 
 .playlistSearch {
   color: var(--mui-palette-neutral-25);
   border-bottom: 2px solid var(--mui-palette-neutral-600);
   padding-bottom: 10px;
-  width: 100%;
+  width: inherit;
 }
 
 .filterModal {
