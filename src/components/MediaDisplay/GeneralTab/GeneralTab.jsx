@@ -33,7 +33,7 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
   }, [params.tab]);
 
   const getTab = () => {
-    if (params.tab === "video") {
+    if (params.tab === "watch") {
       if (selection) {
         return <Selection data={data} handleCloseMore={handleSelection} />;
       } else if (built) {
@@ -52,7 +52,7 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
           />
         );
       }
-    } else if (params.tab === "audio") {
+    } else if (params.tab === "listen") {
       if (selection) {
         return <></>;
       } else if (built) {
@@ -71,7 +71,7 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
           />
         );
       }
-    } else if (params.tab === "text") {
+    } else if (params.tab === "read") {
       if (selection) {
         return <></>;
       } else if (built) {
