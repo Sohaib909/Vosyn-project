@@ -15,7 +15,6 @@ const TranslationPanel = ({ children }) => {
         backgroundColor: "var(--mui-palette-neutral-800)",
         padding: "1.5rem",
         borderRadius: "12px",
-        width: "100%",
       }}
     >
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1.5rem" }}>
