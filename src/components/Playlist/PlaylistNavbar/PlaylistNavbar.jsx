@@ -58,7 +58,7 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
   const [activeTab, setActiveTab] = useState(params.tab || "all"); // Initially, no active tab
 
   const handleTabClick = (tabName) => {
-    setOpenFolders(false);
+    //setOpenFolders(false);
     updateQueryParam("tab", tabName.toLowerCase());
     setActiveTab(tabName.toLowerCase()); // Set the clicked tab as active
   };
@@ -141,30 +141,65 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
             <Tabs
               className={styles.playlistTabs}
               sx={{ "&.MuiTabs-root": { overflow: "visible" } }}
+              value={activeTab}
+              onChange={(e, newValue) => handleTabClick(newValue)} // Handle tab change
             >
               <Tab
                 label={`All (${allContent})`}
+                value="all"
                 className={`${styles.navItemBtn} ${activeTab === "all" ? "styles.active" : ""}`}
-                onClick={() => handleTabClick("all")}
-              ></Tab>
+                disableRipple
+                sx={{
+                  "&.Mui-selected": {
+                    borderBottom: "2px solid var(--mui-palette-primary-200)", // Underline on active
+                  },
+                  "&.MuiTab-root": {
+                    textTransform: "none",
+                  },
+                }}
+              />
               <Tab
                 label={`Bookmarks (${bookmarkedContent})`}
+                value="bookmarks"
                 className={`${styles.navItemBtn} ${activeTab === "bookmarks" ? "styles.active" : ""}`}
-                onClick={() => handleTabClick("bookmarks")}
-                disableTouchRipple
-              ></Tab>
+                disableRipple  
+                sx={{
+                  "&.Mui-selected": {
+                    borderBottom: "2px solid var(--mui-palette-primary-200)", // Underline on active
+                  },
+                  "&.MuiTab-root": {
+                    textTransform: "none",
+                  },
+                }}
+              />
               <Tab
                 label={`Offline Viewer (${downloadedContent})`}
+                value="downloads"
                 className={`${styles.navItemBtn} ${activeTab === "downloads" ? "styles.active" : ""}`}
-                onClick={() => handleTabClick("downloads")}
-                disableTouchRipple
-              ></Tab>
+                disableRipple  
+                sx={{
+                  "&.Mui-selected": {
+                    borderBottom: "2px solid var(--mui-palette-primary-200)", // Underline on active
+                  },
+                  "&.MuiTab-root": {
+                    textTransform: "none",
+                  },
+                }}
+              />
               <Tab
                 label={`Playlists (${playlistContent})`}
+                value="playlists"
                 className={`${styles.navItemBtn} ${activeTab === "playlists" ? "styles.active" : ""}`}
-                onClick={() => handleTabClick("playlists")}
-                disableTouchRipple
-              ></Tab>
+                disableRipple  
+                sx={{
+                  "&.Mui-selected": {
+                    borderBottom: "2px solid var(--mui-palette-primary-200)", // Underline on active
+                  },
+                  "&.MuiTab-root": {
+                    textTransform: "none",
+                  },
+                }}
+              />
             </Tabs>
             <Box className={styles.playlistSearchContainer}>
               {" "}
@@ -177,12 +212,9 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
                     color: "white",
                     padding: "8px 0",
                   },
-                  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  },
-                  "& .MuiInput-underline:before": {
-                  },
-                  "& .MuiInput-underline:after": {
-                  },
+                  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {},
+                  "& .MuiInput-underline:before": {},
+                  "& .MuiInput-underline:after": {},
                 }}
                 slotProps={{
                   input: {
