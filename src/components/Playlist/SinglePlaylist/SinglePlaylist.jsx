@@ -12,7 +12,7 @@ const videos = [
   {
     id: 1,
     title: "Money heist",
-    type: "Video Playlist",
+    type: "Article",
     description: "Netflix | Spanish",
     date: "Saved in July 1, 2018",
     image:
@@ -30,7 +30,7 @@ const videos = [
   {
     id: 3,
     title: "Money heist",
-    type: "Audio",
+    type: "MP3 Audio",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -39,7 +39,7 @@ const videos = [
   {
     id: 4,
     title: "Money heist",
-    type: "Text",
+    type: "PDF Document",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
