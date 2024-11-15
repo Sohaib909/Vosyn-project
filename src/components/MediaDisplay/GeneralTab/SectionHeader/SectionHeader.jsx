@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Grid2, Typography } from "@mui/material";
 
-const SectionHeader = ({ heading, subheading, handleClick }) => {
+const SectionHeader = ({ heading, subheading }) => {
   return (
     <Grid2 size={12} sx={{ height: "fit-content" }}>
       <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -17,13 +17,13 @@ const SectionHeader = ({ heading, subheading, handleClick }) => {
         }}
       >
         <Typography variant="subtitle1">{subheading}</Typography>
-        <Typography
+        {/* <Typography
           variant="subtitle1"
           sx={{ textDecoration: "underline", cursor: "pointer" }}
           onClick={handleClick}
         >
           more
-        </Typography>
+        </Typography> */}
       </Box>
     </Grid2>
   );
