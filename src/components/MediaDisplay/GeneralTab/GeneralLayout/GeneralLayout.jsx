@@ -40,11 +40,7 @@ const GeneralLayout = ({
         {tab === "listen" ? (
           <JumpIn data={data} Component={Component} />
         ) : (
-          <HorizontalScrollDisplayContainer
-            data={data}
-            Component={Component}
-            section="jump-in"
-          />
+          <HorizontalScrollDisplayContainer data={data} Component={Component} />
         )}
       </Grid2>
 
@@ -98,7 +94,6 @@ const GeneralLayout = ({
           <HorizontalScrollDisplayContainer
             data={data}
             Component={OptionalComponent ? OptionalComponent : Component}
-            section="you-might-like"
           />
         )}
       </Grid2>

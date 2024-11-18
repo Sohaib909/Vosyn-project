@@ -19,7 +19,7 @@ const ListenCard = ({ item, section }) => {
       {(section === "jump-in" || section === "builtForYou") && (
         <Card
           sx={{
-            borderRadius: "16px",
+            borderRadius: "1rem",
             maxWidth: "100%",
             cursor: "pointer",
 
@@ -37,7 +37,7 @@ const ListenCard = ({ item, section }) => {
             component="img"
             image={item.document.thumbnail_url}
             sx={{
-              borderRadius: "4px",
+              borderRadius: "0.25rem",
               padding: "0",
               width: "7.125rem",
               minWidth: "7.125rem",
@@ -90,7 +90,7 @@ const ListenCard = ({ item, section }) => {
       {section === "youMightLike" && (
         <Card
           sx={{
-            borderRadius: "10px",
+            borderRadius: "0.625rem",
             maxWidth: "12.5rem",
             width: "12.5rem",
             cursor: "pointer",
@@ -123,7 +123,7 @@ const ListenCard = ({ item, section }) => {
               backgroundColor: "rgba(101, 101, 101, 1)",
               justifyContent: "space-between",
               gap: "0.5rem",
-              paddingTop: "10px",
+              paddingTop: "0.625rem",
             }}
           >
             <Box
@@ -131,18 +131,18 @@ const ListenCard = ({ item, section }) => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                gap: "3px",
+                gap: "0.188rem",
               }}
             >
               <Typography
                 variant="p"
-                sx={{ fontWeight: "600", fontSize: "11px" }}
+                sx={{ fontWeight: "600", fontSize: "0.688rem" }}
               >
                 {`${item.document.titles[0].slice(0, 20)}...`}
               </Typography>
               <Typography
                 variant="caption"
-                sx={{ opacity: "0.7", fontWeight: "400", fontSize: "10px" }}
+                sx={{ opacity: "0.7", fontWeight: "400", fontSize: "0.625rem" }}
               >
                 Secondary Information
               </Typography>
