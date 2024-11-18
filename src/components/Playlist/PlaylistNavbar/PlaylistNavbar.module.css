@@ -36,95 +36,16 @@
   padding-bottom: 10px;
 }
 
-.playlistTabs {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  gap: 10px;
-  background-color: rgb(132 132 132 / 10%);
-  z-index: 1;
-  width: 100%;
-}
-
-.playlistTabs .MuiTab-root {
-  padding-bottom: 10px; /* Space for underline */
-}
-
-.playlistTabs .MuiTab-root.Mui-selected {
-  border-bottom: 2px solid var(--mui-palette-primary-200); /* Underline on active */
-}
-
-.navItemBtn {
-  flex-grow: 1;
-  cursor: pointer;
-  color: var(--mui-palette-neutral-400);
-  font-size: 13px;
-  font-weight: 400;
-  white-space: nowrap;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: none;
-}
-
-.navItemBtn:hover {
-  color: var(--mui-palette-primary-200);
-}
-
-.navItemBtn.active {
-  color: var(--mui-palette-neutral-25);
-}
-
-.navItemBtn.active:hover {
-  color: var(--mui-palette-primary-200);
-}
-
-.navItemBtn.active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--mui-palette-neutral-600);
-  z-index: 2;
-}
-
-.navItemBtn.active:hover::after {
-  background-color: var(--mui-palette-primary-200);
-}
-
 .playlistSearchContainer {
   background-color: inherit;
-  width: 100%;
+  width: 70%;
 }
 
 .playlistSearch {
   color: var(--mui-palette-neutral-25);
   border-bottom: 2px solid var(--mui-palette-neutral-600);
   padding-bottom: 10px;
-  width: inherit;
-}
-
-.filterModal {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.filterModalHeader {
-  padding: 0px;
-}
-
-.filterModal .filterModalContent {
-  padding: 10px 0px;
-}
-
-.filterModalOptions {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  width: 105%;
 }
 
 .searchIcon {
@@ -134,42 +55,4 @@
 
 .searchIcon svg {
   color: var(--mui-palette-neutral-600);
-}
-
-.filterPlaylist {
-  padding: 0;
-  justify-content: center;
-}
-
-.filterPlaylist svg {
-  color: var(--mui-palette-neutral-600);
-}
-
-.filterButtons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.filterButtons svg {
-  color: var(--mui-palette-neutral-600);
-}
-
-.layout {
-  border: 1px solid var(--mui-palette-neutral-600);
-  border-radius: 10px !important;
-  overflow: hidden;
-}
-
-.layout .toggle {
-  color: inherit;
-}
-
-.layout .toggle.active {
-  background: var(--mui-palette-neutral-400);
-  border: 1px solid var(--mui-palette-neutral-600);
-}
-
-.sortAlpha {
-  color: inherit;
 }

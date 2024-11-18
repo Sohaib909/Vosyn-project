@@ -1,0 +1,28 @@
+.filterButtons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.filterButtons svg {
+  color: var(--mui-palette-neutral-600);
+}
+
+.layout {
+  border: 1px solid var(--mui-palette-neutral-600);
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+.layout .toggle {
+  color: inherit;
+}
+
+.layout .toggle.active {
+  background: var(--mui-palette-neutral-400);
+  border: 1px solid var(--mui-palette-neutral-600);
+}
+
+.sortAlpha {
+  color: inherit;
+}

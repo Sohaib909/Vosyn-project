@@ -1,0 +1,29 @@
+.filterModal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filterModalHeader {
+  padding: 0px;
+}
+
+.filterModal .filterModalContent {
+  padding: 10px 0px;
+}
+
+.filterModalOptions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterPlaylist {
+  padding: 0;
+  justify-content: center;
+}
+
+.filterPlaylist svg {
+  color: var(--mui-palette-neutral-600);
+}

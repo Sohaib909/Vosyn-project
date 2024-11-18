@@ -1,0 +1,57 @@
+.playlistTabs {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  gap: 10px;
+  background-color: var(--joy-palette-neutral-800, #302f2f3e);
+  z-index: 1;
+  width: 100%;
+}
+
+.playlistTabs .MuiTab-root {
+  padding-bottom: 10px; /* Space for underline */
+}
+
+.playlistTabs .MuiTab-root.Mui-selected {
+  border-bottom: 2px solid var(--mui-palette-primary-200); /* Underline on active */
+}
+
+.navItemBtn {
+  flex-grow: 1;
+  cursor: pointer;
+  color: var(--mui-palette-neutral-400);
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: none;
+}
+
+.navItemBtn:hover {
+  color: var(--mui-palette-primary-200);
+}
+
+.navItemBtn.active {
+  color: var(--mui-palette-neutral-25);
+}
+
+.navItemBtn.active:hover {
+  color: var(--mui-palette-primary-200);
+}
+
+.navItemBtn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--mui-palette-neutral-600);
+  z-index: 2;
+}
+
+.navItemBtn.active:hover::after {
+  background-color: var(--mui-palette-primary-200);
+}
