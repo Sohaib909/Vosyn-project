@@ -17,13 +17,6 @@ const SectionHeader = ({ heading, subheading }) => {
         }}
       >
         <Typography variant="subtitle1">{subheading}</Typography>
-        {/* <Typography
-          variant="subtitle1"
-          sx={{ textDecoration: "underline", cursor: "pointer" }}
-          onClick={handleClick}
-        >
-          more
-        </Typography> */}
       </Box>
     </Grid2>
   );
