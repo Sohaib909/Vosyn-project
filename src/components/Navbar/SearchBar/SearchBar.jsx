@@ -140,6 +140,7 @@ const SearchBar = () => {
 
   // Redirect to the search page when the user clicks on the search button
   const handleClickSearch = () => {
+    if (!searchTerm) return;
     updateQueryParam("query", searchTerm);
   };
 
@@ -150,7 +151,13 @@ const SearchBar = () => {
           sx={{ fontSize: "1.75rem", color: "white" }}
           className={styles.searchInputIcon}
         />
-        <input {...getInputProps()} className={styles.searchInput} />
+        <input
+          {...getInputProps()}
+          className={styles.searchInput}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleClickSearch();
+          }}
+        />
       </Box>
       {popupOpen &&
         (groupedOptions.length > 0 ? (

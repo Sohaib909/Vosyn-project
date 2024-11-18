@@ -34,6 +34,7 @@ const SearchResultPage = () => {
       >
         Showing results for: &quot;<strong>{query}</strong>&quot;
       </Typography>
+      {/*Watch Section*/}
       <SearchResultSection data={tempData} section="watch">
         Watch
       </SearchResultSection>
