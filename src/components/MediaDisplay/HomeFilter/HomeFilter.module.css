@@ -38,7 +38,7 @@
 .filterOptions {
   position: absolute;
   top: -46px;
-  left: 0;
+  left: -5vw;
   display: flex;
   flex-direction: column;
   width: 400px;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Search } from "@mui/icons-material";
+import TuneIcon from "@mui/icons-material/Tune";
 import {
   Box,
   FormControl,
@@ -64,12 +65,7 @@ const FilterComponent = () => {
         }}
         onClick={toggleFilters}
       >
-        <Image
-          src="/mediaFiles/Logos/HomeFilter.png"
-          alt="Home Filter"
-          width={30}
-          height={30}
-        />
+        <TuneIcon sx={{ color: "black" }} />
       </IconButton>
 
       {showFilters && (
@@ -98,12 +94,7 @@ const FilterComponent = () => {
               }}
               onClick={toggleFilters}
             >
-              <Image
-                src="/mediaFiles/Logos/HomeFilter.png"
-                alt="Home Filter"
-                width={30}
-                height={30}
-              />
+              <TuneIcon sx={{ color: "black" }} />
             </IconButton>
           </Box>
 
