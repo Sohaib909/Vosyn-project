@@ -11,7 +11,6 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 
 import styles from "./HomeFilter.module.css";
 
