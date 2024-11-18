@@ -132,7 +132,16 @@ const FilterComponent = () => {
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
-                  selected || (
+                  selected ? (
+                    <Typography
+                      sx={{
+                        fontSize: "18px",
+                        color: "black",
+                      }}
+                    >
+                      {selected}
+                    </Typography>
+                  ) : (
                     <Typography
                       sx={{
                         fontSize: "18px",
@@ -209,7 +218,16 @@ const FilterComponent = () => {
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
-                  selected || (
+                  selected ? (
+                    <Typography
+                      sx={{
+                        fontSize: "18px",
+                        color: "black",
+                      }}
+                    >
+                      {selected}
+                    </Typography>
+                  ) : (
                     <Typography
                       sx={{
                         fontSize: "18px",
@@ -284,7 +302,16 @@ const FilterComponent = () => {
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
-                  selected || (
+                  selected ? (
+                    <Typography
+                      sx={{
+                        fontSize: "18px",
+                        color: "black",
+                      }}
+                    >
+                      {selected}
+                    </Typography>
+                  ) : (
                     <Typography
                       sx={{
                         fontSize: "18px",
