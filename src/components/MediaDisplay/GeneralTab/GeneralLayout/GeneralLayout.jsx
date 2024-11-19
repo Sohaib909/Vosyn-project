@@ -67,13 +67,13 @@ const GeneralLayout = ({
       </Grid2>
 
       <Grid2 spacing={2} container item size={12}>
-        {params.tab === "video" ? (
+        {params.tab === "watch" ? (
           <SectionHeader
             heading="Shorts"
             subheading="Recommended based on your recent watch pattern"
             handleClick={handleRecomend}
           />
-        ) : params.tab == "text" ? (
+        ) : params.tab == "read" ? (
           <SectionHeader
             heading="Entertainment & Media"
             subheading="Based on your interest"

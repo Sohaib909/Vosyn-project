@@ -43,7 +43,7 @@ const MediaDisplay = () => {
   const getMediaDisplay = () => {
     if (params.tab === "featured") {
       return <FeaturedTab />;
-    } else if (params.tab === "video") {
+    } else if (params.tab === "watch") {
       return (
         <GeneralTab
           data={videoListData}
@@ -51,9 +51,9 @@ const MediaDisplay = () => {
           OptionalComponent={ShortSection}
         />
       );
-    } else if (params.tab === "audio") {
+    } else if (params.tab === "listen") {
       return <GeneralTab data={videoListData} Component={ListenCard} />; // Replace with audio data when we have the end point
-    } else if (params.tab === "text") {
+    } else if (params.tab === "read") {
       return <GeneralTab data={videoListData} Component={TextCard} />; // Replace with text data when we have the end point
     }
   };
