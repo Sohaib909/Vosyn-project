@@ -68,6 +68,7 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
             handleSelection={handleSelection}
             handleBuilt={handleBuilt}
             handleRecomend={handleRecomend}
+            tab="listen"
           />
         );
       }

@@ -33,7 +33,7 @@ const Built = ({ data, Component, handleClick }) => {
             }}
             key={i}
           >
-            <Component item={item} />
+            <Component item={item} section="builtForYou" />
           </Grid2>
         ))}
       </Grid2>
