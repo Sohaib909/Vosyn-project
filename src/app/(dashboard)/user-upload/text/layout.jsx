@@ -2,6 +2,7 @@ import React from "react";
 
 import { Button, Grid2 } from "@mui/material";
 
+import Summary from "@/components/Summary/Summary";
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 
@@ -30,7 +31,7 @@ const layout = ({ children }) => {
         container
         spacing={2}
         size={{ xs: 12, sm: 12, md: 4, lg: 4, xl: 3 }}
-        sx={{ height: "fit-content" }}
+        sx={{ height: "fit-content", marginTop: "7rem", gap: "2rem" }}
       >
         <TranslationPanel>
           <Button
@@ -47,6 +48,7 @@ const layout = ({ children }) => {
         </TranslationPanel>
 
         <TextAndImageActionBtns />
+        <Summary />
       </Grid2>
     </Grid2>
   );
