@@ -18,3 +18,5 @@ export const GET_PLAYLISTS_OF_CONTENT = `${BASE_URL}/interactions/playlistconten
 export const GET_CONTENT_IN_PLAYLIST = `${BASE_URL}/interactions/playlistcontent/get-all-content/`;
 
 export const LANGUAGES_URL = `https://pkgstore.datahub.io/core/language-codes/language-codes-full_json/data/573588525f24edb215c07bec3c309153/language-codes-full_json.json`;
+
+export const ACCOUNT_LANGUAGE_URL = `${BASE_URL}/user/profile/language/`;
