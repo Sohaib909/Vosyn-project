@@ -1,0 +1,206 @@
+.profile-edit-container {
+  width: 80%;
+  margin: 40px auto;
+  color: black;
+  font-family: "Arial", sans-serif;
+}
+
+/* h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+} */
+
+.profile-title {
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.profile-subtitle {
+  margin-top: 40px !important;
+}
+
+.Subtitle {
+  margin-bottom: 10px !important;
+}
+
+.profile-edit-panel {
+  display: flex;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: flex-start;
+}
+
+.left-panel,
+.right-panel {
+  flex: 1;
+}
+
+.right-panel {
+  margin-left: 30px;
+}
+
+.privacy-title {
+  margin-top: 30px !important;
+  margin-bottom: 20px !important;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-label {
+  width: 120px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.input-field input::placeholder {
+  color: #080808 !important;
+}
+
+.input-field {
+  /* flex: 1; */
+  border: 1px solid #ccc !important;
+  color: #000; /* Ensures the input text color is set */
+  flex: 0 0 40%;
+  margin-right: 16px;
+}
+
+.playlist {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.playlist img {
+  width: 60px;
+  height: 100px;
+  border-radius: 8px;
+}
+
+.playlist span {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.add-playlist {
+  border: 1px solid #a0a0a0;
+  border-radius: 8px;
+  width: 60px;
+  height: 100px;
+}
+
+.right-panel {
+  padding-left: 20px;
+}
+
+/* h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+} */
+
+.privacy-toggles {
+  display: flex;
+  align-items: center;
+  /* flex-direction: column; */
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toggle-row span {
+  font-size: 14px;
+  color: #000000;
+}
+
+.profile-image-section {
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  width: 100px !important;
+  height: 100px !important;
+  margin-right: 20px;
+  margin-bottom: 24px;
+}
+
+.camera-icon {
+  width: 40px !important;
+  height: 40px !important;
+  color: #000000;
+}
+
+.camera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #000000 !important;
+  background-color: #ffffff;
+}
+
+.add-playlist-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 70px;
+  border-radius: 10% !important;
+  border: 1px solid #363535 !important;
+  background-color: #ffffff;
+}
+
+.playlists-section {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playlist-avatar {
+  width: 50px !important;
+  height: 70px !important;
+  border-radius: 10% !important;
+}
+
+.playlist-name {
+  margin-top: 5px !important;
+  font-size: 12px !important;
+  text-align: center;
+}
+
+.add-playlist-icon {
+  margin-left: 16px;
+  margin-bottom: 25px !important;
+}
+
+.addicon {
+  color: #000000;
+}
+
+.display-info {
+  text-align: center;
+  margin-left: 100px;
+}
