@@ -1,11 +1,16 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-
-import useQueryParam from "@/hooks/useQueryParam.js";
 import { Box, Typography } from "@mui/material";
 
 import SearchResultSection from "@/components/SearchResult/SearchResultSection.jsx";
+
+// Generate dynamic metadata for the search result page
+export const generateMetadata = ({ searchParams }) => {
+  const searchResult = searchParams?.query;
+  return {
+    title: searchResult
+      ? `VosynVerse | Search Result For ${searchResult}`
+      : "VosynVerse | Start Searching Now",
+  };
+};
 
 const tempData = {
   document: {
@@ -19,21 +24,26 @@ const tempData = {
   },
 };
 
-const SearchResultPage = () => {
-  const { getAllParams } = useQueryParam();
-  const [query, setQuery] = useState("");
-  useEffect(() => {
-    const params = getAllParams();
-    setQuery(params.query || "No query provided");
-  }, [getAllParams]);
+const SearchResultPage = ({ searchParams }) => {
+  // Getting the params from the server directly insteead of making this component a client server
+  const query = searchParams?.query ?? "";
+
   return (
     <Box sx={{ padding: "2rem" }}>
-      {/*Watch Section*/}
-      <Typography
-        sx={{ marginBottom: "2rem", fontSize: "1.25rem", fontWeight: "bold" }}
-      >
-        Showing results for: &quot;<strong>{query}</strong>&quot;
-      </Typography>
+      {query ? (
+        <Typography
+          sx={{ marginBottom: "2rem", fontSize: "1.25rem", fontWeight: "bold" }}
+        >
+          Showing results for: &quot;<strong>{query}</strong>&quot;
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ marginBottom: "2rem", fontSize: "1.25rem", fontWeight: "bold" }}
+        >
+          Start Searching in the Search Bar...
+        </Typography>
+      )}
+
       {/*Watch Section*/}
       <SearchResultSection data={tempData} section="watch">
         Watch
