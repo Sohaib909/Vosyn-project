@@ -12,20 +12,17 @@ import {
 } from "@mui/material";
 
 import useQueryParam from "../../../hooks/useQueryParam";
-import FilterLayoutButtons from "./NavButtons/FilterLayoutButton";
+import FilterLayoutButtons from "./FilterLayoutButton/FilterLayoutButton";
 import PlaylistTabs from "./PlaylistTabs/PlaylistTabs";
 
-import styles from "./PlaylistNavbar.module.css";
-
-const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
+const PlaylistHeader = ({ onFilterApply }) => {
   const { updateQueryParam, getAllParams } = useQueryParam();
   const params = getAllParams();
-  const [activeTab, setActiveTab] = useState(params.tab || "all"); // Initially, no active tab
+  const [activeTab, setActiveTab] = useState(params.tab || "all");
 
   const handleTabClick = (tabName) => {
-    //setOpenFolders(false);
     updateQueryParam("tab", tabName.toLowerCase());
-    setActiveTab(tabName.toLowerCase()); // Set the clicked tab as active
+    setActiveTab(tabName.toLowerCase());
   };
 
   useEffect(() => {
@@ -33,11 +30,8 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
       updateQueryParam("tab", "all");
       setActiveTab("all");
       updateQueryParam("layout", "list");
-      setLayouts("list");
     }
   }, [params, updateQueryParam]);
-
-  //variables to handle the count on the tabs
 
   const allContent = 20;
   const downloadedContent = 7;
@@ -45,20 +39,72 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
   const playlistContent = 7;
 
   return (
-    <Box className={styles.playlistHeader}>
-      <Box className={styles.container}>
-        <Box className={styles.playlistTitle}>
+    <Box
+      sx={{
+        ".container": {
+          top: 0,
+          zIndex: -0.1,
+          backgroundColor: "transparent",
+        },
+        ".playlistTitle": {
+          color: "var(--mui-palette-neutral-100)",
+        },
+        ".playlistTitle h2": {
+          fontSize: "40px",
+        },
+        ".navbar": {
+          width: "inherit",
+          padding: "10px 0",
+          display: "flex",
+          justifyContent: "space-evenly",
+          gap: "10px",
+          margin: "2rem 0",
+          overflowX: "scroll",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+        ".navbarList": {
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "25px",
+          padding: 0,
+          margin: 0,
+          paddingBottom: "10px",
+        },
+        ".playlistSearchContainer": {
+          backgroundColor: "inherit",
+          width: "70%",
+        },
+        ".playlistSearch": {
+          color: "var(--mui-palette-neutral-25)",
+          paddingBottom: "10px",
+          width: "105%",
+        },
+        ".searchIcon": {
+          justifyContent: "flex-end",
+          paddingRight: 0,
+          svg: {
+            color: "var(--mui-palette-neutral-600)",
+          },
+        },
+      }}
+    >
+      <Box className="container">
+        <Box className="playlistTitle">
           <Typography variant="h2">Saved Content</Typography>
         </Box>
         <Box
-          className={styles.navbar}
+          className="navbar"
           sx={{
             overflowX: "scroll",
             display: "flex",
             justifyContent: "space-between",
           }}
         >
-          <Box className={styles.navbarList}>
+          <Box className="navbarList">
             <PlaylistTabs
               activeTab={activeTab}
               handleTabClick={handleTabClick}
@@ -67,10 +113,9 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
               downloadedContent={downloadedContent}
               playlistContent={playlistContent}
             />
-            <Box className={styles.playlistSearchContainer}>
-              {" "}
+            <Box className="playlistSearchContainer">
               <TextField
-                className={styles.playlistSearch}
+                className="playlistSearch"
                 type="text"
                 variant="standard"
                 sx={{
@@ -78,26 +123,18 @@ const PlaylistHeader = ({ onFilterApply, openFolder, setOpenFolders }) => {
                     color: "white",
                     padding: "8px 0",
                   },
-                  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {},
-                  "& .MuiInput-underline:before": {},
-                  "& .MuiInput-underline:after": {},
                 }}
-                slotProps={{
-                  input: {
-                    "&.MuiInputBase-input": {
-                      height: "1.8rem",
-                    },
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Button className={styles.searchIcon}>
-                          <SearchOutlinedIcon />
-                        </Button>
-                      </InputAdornment>
-                    ),
-                  },
-                  htmlInput: {
-                    "aria-label": "search bar",
-                  },
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Button className="searchIcon">
+                        <SearchOutlinedIcon />
+                      </Button>
+                    </InputAdornment>
+                  ),
+                }}
+                inputProps={{
+                  "aria-label": "search bar",
                 }}
               />
             </Box>
