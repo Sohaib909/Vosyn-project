@@ -7,9 +7,10 @@ import useStatusNotification from "@/hooks/useStatusNotification";
 import axios from "axios";
 import useSWR from "swr";
 
+import ListenCard from "@/components/MediaDisplay/ListenTab/ListenCard/ListenCard";
+
 import FeaturedTab from "./Featured/Featured";
 import GeneralTab from "./GeneralTab/GeneralTab";
-import ListenCard from "./GeneralTab/ListenCard/ListenCard";
 import TextCard from "./GeneralTab/TextCard/TextCard";
 import ShortSection from "./GeneralTab/Watch/Shorts/Shorts";
 import WatchCard from "./GeneralTab/Watch/WatchCard/WatchCard";
@@ -27,7 +28,7 @@ const MediaDisplay = () => {
     {
       onSuccess: (newData) => {
         setVideoListData((prevData) => [...prevData, ...newData]);
-        console.log(videoListData);
+        console.log("video List ==>", videoListData);
       },
     },
   );
@@ -42,7 +43,7 @@ const MediaDisplay = () => {
   const getMediaDisplay = () => {
     if (params.tab === "featured") {
       return <FeaturedTab />;
-    } else if (params.tab === "video") {
+    } else if (params.tab === "watch") {
       return (
         <GeneralTab
           data={videoListData}
@@ -50,9 +51,9 @@ const MediaDisplay = () => {
           OptionalComponent={ShortSection}
         />
       );
-    } else if (params.tab === "audio") {
+    } else if (params.tab === "listen") {
       return <GeneralTab data={videoListData} Component={ListenCard} />; // Replace with audio data when we have the end point
-    } else if (params.tab === "text") {
+    } else if (params.tab === "read") {
       return <GeneralTab data={videoListData} Component={TextCard} />; // Replace with text data when we have the end point
     }
   };

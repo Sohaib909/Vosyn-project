@@ -32,7 +32,7 @@ const SearchResultPage = ({ searchParams }) => {
     <Box sx={{ padding: "2rem" }}>
       {query ? (
         <Typography
-          sx={{ marginBottom: "2rem", fontSize: "1.25rem", fontWeight: "bold" }}
+          sx={{ marginBottom: "2rem", fontSize: "1.125rem", fontWeight: "700" }}
         >
           Showing results for: &quot;<strong>{query}</strong>&quot;
         </Typography>

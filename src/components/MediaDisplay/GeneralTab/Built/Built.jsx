@@ -29,11 +29,11 @@ const Built = ({ data, Component, handleClick }) => {
             item
             size={{
               xs: 12,
-              md: params.tab === "video" || params.tab === "text" ? 6 : 12,
+              md: params.tab === "watch" || params.tab === "read" ? 6 : 12,
             }}
             key={i}
           >
-            <Component item={item} />
+            <Component item={item} section="builtForYou" />
           </Grid2>
         ))}
       </Grid2>

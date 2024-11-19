@@ -3,6 +3,9 @@ import React from "react";
 import useQueryParam from "@/hooks/useQueryParam";
 import { Grid2 } from "@mui/material";
 
+import JumpIn from "@/components/MediaDisplay/ListenTab/JumpIn/JumpIn.jsx";
+import YouMightAlsoLike from "@/components/MediaDisplay/ListenTab/YouMightAlsoLike/YouMightAlsoLike.jsx";
+
 import HorizontalScrollDisplayContainer from "../../HorizontalScrollDisplayContainer/HorizontalScrollDisplayContainer";
 import TrendingCarousel from "../../TrendingCarousel/TrendingCarousel";
 import Built from "../Built/Built";
@@ -15,6 +18,7 @@ const GeneralLayout = ({
   handleSelection,
   handleBuilt,
   handleRecomend,
+  tab,
 }) => {
   const { getAllParams } = useQueryParam();
   const params = getAllParams();
@@ -32,7 +36,12 @@ const GeneralLayout = ({
           subheading="Jump into where you left off on"
         />
 
-        <HorizontalScrollDisplayContainer data={data} Component={Component} />
+        {/*Listen Tab should only show 6 cards with grid layout*/}
+        {tab === "listen" ? (
+          <JumpIn data={data} Component={Component} />
+        ) : (
+          <HorizontalScrollDisplayContainer data={data} Component={Component} />
+        )}
       </Grid2>
 
       <Grid2 item container spacing={4}>
@@ -58,13 +67,13 @@ const GeneralLayout = ({
       </Grid2>
 
       <Grid2 spacing={2} container item size={12}>
-        {params.tab === "video" ? (
+        {params.tab === "watch" ? (
           <SectionHeader
             heading="Shorts"
             subheading="Recommended based on your recent watch pattern"
             handleClick={handleRecomend}
           />
-        ) : params.tab == "text" ? (
+        ) : params.tab == "read" ? (
           <SectionHeader
             heading="Entertainment & Media"
             subheading="Based on your interest"
@@ -78,10 +87,15 @@ const GeneralLayout = ({
           />
         )}
 
-        <HorizontalScrollDisplayContainer
-          data={data}
-          Component={OptionalComponent ? OptionalComponent : Component}
-        />
+        {/*For Listen Tab, it shouldn't be a scroll bar and only should show 6 cards*/}
+        {tab === "listen" ? (
+          <YouMightAlsoLike data={data} Component={Component} />
+        ) : (
+          <HorizontalScrollDisplayContainer
+            data={data}
+            Component={OptionalComponent ? OptionalComponent : Component}
+          />
+        )}
       </Grid2>
     </Grid2>
   );
