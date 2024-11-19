@@ -29,7 +29,6 @@ const PlaylistHeader = ({ onFilterApply }) => {
     if ((!params.tab, params.layout)) {
       updateQueryParam("tab", "all");
       setActiveTab("all");
-      updateQueryParam("layout", "list");
     }
   }, [params, updateQueryParam]);
 
