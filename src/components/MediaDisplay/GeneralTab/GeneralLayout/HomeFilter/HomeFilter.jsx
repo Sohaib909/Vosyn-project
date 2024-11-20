@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Box, IconButton, Typography } from "@mui/material";
 
-import HomeFilterMenuItem from "./HomeFilterMenuItem";
+import HomeFilterMenuItem from "../HomeFilterMenuItem/HomeFilterMenuItem";
 
 import styles from "./HomeFilter.module.css";
 
