@@ -142,10 +142,10 @@ const SinglePlaylist = ({ data = videos, icons = true }) => {
           />
         ))}
 
-      {/* {!params.sort &&
+      {!params.sort &&
         data.map((item) => (
           <PlaylistCard
-            icons
+            icons={icons}
             key={item.id}
             itemID={item.id}
             itemImage={item.image}
@@ -154,7 +154,7 @@ const SinglePlaylist = ({ data = videos, icons = true }) => {
             itemDate={item.date}
             itemDescription={item.description}
           />
-        ))} */}
+        ))}
     </Box>
   );
 };
