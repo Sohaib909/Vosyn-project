@@ -47,7 +47,7 @@ const videos = [
   },
 ];
 
-const SinglePlaylist = ({ data = videos }) => {
+const SinglePlaylist = ({ data = videos, icons = true }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
       {data.map((item, i) => (
@@ -99,11 +99,13 @@ const SinglePlaylist = ({ data = videos }) => {
               width: "100%",
             }}
           >
-            <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
-              <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-              <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-              <MoreVertIcon fontSize="small" />
-            </Box>
+            {icons && (
+              <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
+                <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+                <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+                <MoreVertIcon fontSize="small" />
+              </Box>
+            )}
             <Box
               sx={{
                 display: "flex",
