@@ -3,11 +3,11 @@ import React from "react";
 import useQueryParam from "@/hooks/useQueryParam";
 import { Grid2 } from "@mui/material";
 
-import HomeFilter from "../../HomeFilter/HomeFilter";
 import HorizontalScrollDisplayContainer from "../../HorizontalScrollDisplayContainer/HorizontalScrollDisplayContainer";
 import TrendingCarousel from "../../TrendingCarousel/TrendingCarousel";
 import Built from "../Built/Built";
 import SectionHeader from "../SectionHeader/SectionHeader";
+import HomeFilter from "./HomeFilter/HomeFilter";
 
 const GeneralLayout = ({
   data,

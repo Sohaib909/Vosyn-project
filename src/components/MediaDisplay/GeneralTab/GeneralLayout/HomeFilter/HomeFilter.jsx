@@ -57,14 +57,14 @@ const FilterComponent = () => {
       {/* Filter Toggle Button */}
       <IconButton
         sx={{
-          backgroundColor: "#d9d9d9",
+          backgroundColor: "var(--mui-palette-background-paper)",
           borderRadius: "50%",
           padding: "8px",
-          "&:hover": { backgroundColor: "#d9d9d9" },
+          "&:hover": { backgroundColor: "var(--mui-palette-background-paper)" },
         }}
         onClick={toggleFilters}
       >
-        <TuneIcon sx={{ color: "black" }} />
+        <TuneIcon sx={{ color: "var(--mui-palette-text-primary)" }} />
       </IconButton>
 
       {showFilters && (
@@ -80,20 +80,26 @@ const FilterComponent = () => {
             }}
           >
             <Typography
-              sx={{ fontSize: "1.25rem", color: "black", marginRight: "8px" }}
+              sx={{
+                fontSize: "1.25rem",
+                color: "var(--mui-palette-text-primary)",
+                marginRight: "8px",
+              }}
             >
               Filter:
             </Typography>
             <IconButton
               sx={{
-                backgroundColor: "#d9d9d9",
+                backgroundColor: "var(--mui-palette-background-paper)",
                 borderRadius: "50%",
                 padding: "8px",
-                "&:hover": { backgroundColor: "#d9d9d9" },
+                "&:hover": {
+                  backgroundColor: "var(--mui-palette-background-paper)",
+                },
               }}
               onClick={toggleFilters}
             >
-              <TuneIcon sx={{ color: "black" }} />
+              <TuneIcon sx={{ color: "var(--mui-palette-text-primary)" }} />
             </IconButton>
           </Box>
 
@@ -102,7 +108,7 @@ const FilterComponent = () => {
             <Typography
               sx={{
                 fontSize: "1rem",
-                color: "gray",
+                color: "var(--mui-palette-text-secondary)",
                 marginBottom: "10px",
                 fontWeight: 500,
               }}
@@ -118,7 +124,9 @@ const FilterComponent = () => {
                 displayEmpty
                 startAdornment={
                   <InputAdornment position="start">
-                    <Search sx={{ color: "#888" }} />
+                    <Search
+                      sx={{ color: "var(--mui-palette-text-disabled)" }}
+                    />
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
@@ -126,7 +134,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "black",
+                        color: "var(--mui-palette-text-primary)",
                       }}
                     >
                       {selected}
@@ -135,7 +143,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "#888",
+                        color: "var(--mui-palette-text-disabled)",
                         textAlign: "center",
                         width: "100%",
                         paddingRight: "25px",
@@ -148,20 +156,20 @@ const FilterComponent = () => {
                 MenuProps={{
                   PaperProps: {
                     sx: {
-                      backgroundColor: "white",
-                      color: "black",
+                      backgroundColor: "var(--mui-palette-background-paper)",
+                      color: "var(--mui-palette-text-primary)",
                       boxShadow: "none",
-                      border: "1px solid black",
+                      border: "1px solid var(--mui-palette-divider)",
                     },
                   },
                 }}
                 sx={{
                   width: "350px",
                   borderRadius: "15px",
-                  border: "1px solid black",
+                  border: "1px solid var(--mui-palette-divider)",
                   marginBottom: sourcePlatformOpen ? "200px" : "0",
                   "& .MuiSelect-icon": {
-                    color: "#333",
+                    color: "var(--mui-palette-text-primary)",
                     fontSize: "24px",
                     visibility: "visible",
                   },
@@ -171,7 +179,9 @@ const FilterComponent = () => {
                   <MenuItem
                     sx={{
                       fontWeight: "bold",
-                      "&:hover": { backgroundColor: "#f0f0f0" },
+                      "&:hover": {
+                        backgroundColor: "var(--mui-palette-action-hover)",
+                      },
                     }}
                     key={idx}
                     value={option}
@@ -188,7 +198,7 @@ const FilterComponent = () => {
             <Typography
               sx={{
                 fontSize: "1rem",
-                color: "gray",
+                color: "var(--mui-palette-text-secondary)",
                 marginBottom: "10px",
                 fontWeight: 500,
               }}
@@ -204,7 +214,9 @@ const FilterComponent = () => {
                 displayEmpty
                 startAdornment={
                   <InputAdornment position="start">
-                    <Search sx={{ color: "#888" }} />
+                    <Search
+                      sx={{ color: "var(--mui-palette-text-disabled)" }}
+                    />
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
@@ -212,7 +224,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "black",
+                        color: "var(--mui-palette-text-primary)",
                       }}
                     >
                       {selected}
@@ -221,7 +233,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "#888",
+                        color: "var(--mui-palette-text-disabled)",
                         textAlign: "center",
                         width: "100%",
                         paddingRight: "25px",
@@ -234,20 +246,20 @@ const FilterComponent = () => {
                 MenuProps={{
                   PaperProps: {
                     sx: {
-                      backgroundColor: "white",
-                      color: "black",
+                      backgroundColor: "var(--mui-palette-background-paper)",
+                      color: "var(--mui-palette-text-primary)",
                       boxShadow: "none",
-                      border: "1px solid black",
+                      border: "1px solid var(--mui-palette-divider)",
                     },
                   },
                 }}
                 sx={{
                   width: "350px",
                   borderRadius: "15px",
-                  border: "1px solid black",
+                  border: "1px solid var(--mui-palette-divider)",
                   marginBottom: contentTypeOpen ? "250px" : "0",
                   "& .MuiSelect-icon": {
-                    color: "#333",
+                    color: "var(--mui-palette-text-primary)",
                     fontSize: "24px",
                     visibility: "visible",
                   },
@@ -257,7 +269,9 @@ const FilterComponent = () => {
                   <MenuItem
                     sx={{
                       fontWeight: "bold",
-                      "&:hover": { backgroundColor: "#f0f0f0" },
+                      "&:hover": {
+                        backgroundColor: "var(--mui-palette-action-hover)",
+                      },
                     }}
                     key={idx}
                     value={option}
@@ -274,7 +288,7 @@ const FilterComponent = () => {
             <Typography
               sx={{
                 fontSize: "1rem",
-                color: "gray",
+                color: "var(--mui-palette-text-secondary)",
                 marginBottom: "10px",
                 fontWeight: 500,
               }}
@@ -288,7 +302,9 @@ const FilterComponent = () => {
                 displayEmpty
                 startAdornment={
                   <InputAdornment position="start">
-                    <Search sx={{ color: "#888" }} />
+                    <Search
+                      sx={{ color: "var(--mui-palette-text-disabled)" }}
+                    />
                   </InputAdornment>
                 }
                 renderValue={(selected) =>
@@ -296,7 +312,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "black",
+                        color: "var(--mui-palette-text-primary)",
                       }}
                     >
                       {selected}
@@ -305,7 +321,7 @@ const FilterComponent = () => {
                     <Typography
                       sx={{
                         fontSize: "18px",
-                        color: "#888",
+                        color: "var(--mui-palette-text-disabled)",
                         textAlign: "center",
                         width: "100%",
                         paddingRight: "25px",
@@ -318,19 +334,19 @@ const FilterComponent = () => {
                 MenuProps={{
                   PaperProps: {
                     sx: {
-                      backgroundColor: "white",
-                      color: "black",
+                      backgroundColor: "var(--mui-palette-background-paper)",
+                      color: "var(--mui-palette-text-primary)",
                       boxShadow: "none",
-                      border: "1px solid black",
+                      border: "1px solid var(--mui-palette-divider)",
                     },
                   },
                 }}
                 sx={{
                   width: "350px",
                   borderRadius: "15px",
-                  border: "1px solid black",
+                  border: "1px solid var(--mui-palette-divider)",
                   "& .MuiSelect-icon": {
-                    color: "#333",
+                    color: "var(--mui-palette-text-primary)",
                     fontSize: "24px",
                     visibility: "visible",
                   },
@@ -340,8 +356,9 @@ const FilterComponent = () => {
                   <MenuItem
                     sx={{
                       fontWeight: "bold",
-                      backgroundColor: "white",
-                      "&:hover": { backgroundColor: "#f0f0f0" },
+                      "&:hover": {
+                        backgroundColor: "var(--mui-palette-action-hover)",
+                      },
                     }}
                     key={idx}
                     value={option}
