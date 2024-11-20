@@ -41,7 +41,7 @@ const videos = [
 ];
 
 const PlaylistFolders = () => {
-  const [currentFolder, setCurrentFodler] = useState("none");
+  const [currentFolder, setCurrentFolder] = useState("Folder 1");
   const [isNewFolderOpen, setIsNewFolderOpen] = useState(false);
   const [isAddFromSavedOpen, setIsAddFromSavedOpen] = useState(false);
   const [openFolder, setOpenFolder] = useState(false);
@@ -56,6 +56,7 @@ const PlaylistFolders = () => {
   const handleCloseAddFromSaved = () => setIsAddFromSavedOpen(false);
   const handleDone = () => {
     setIsAddFromSavedOpen(false);
+    setOpenFolder(true);
   };
 
   return (
@@ -136,7 +137,7 @@ const PlaylistFolders = () => {
                   key={i}
                   data={item}
                   open={() => {
-                    setCurrentFodler(item.name);
+                    setCurrentFolder(item.name);
                     setOpenFolder(true);
                   }}
                 />
