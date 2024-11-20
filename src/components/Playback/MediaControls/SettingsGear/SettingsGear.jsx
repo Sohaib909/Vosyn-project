@@ -17,7 +17,7 @@ const SettingsGear = () => {
   const handleMenuClose = () => {
     settingsTimeout.current = setTimeout(() => {
       setShowSettings(false);
-    }, 2000);
+    });
   };
 
   const resolutions = ["1080p", "720p", "480p", "240p"];

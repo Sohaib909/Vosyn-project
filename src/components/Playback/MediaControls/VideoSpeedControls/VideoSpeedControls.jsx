@@ -22,7 +22,7 @@ const VideoSpeedControls = () => {
   const handleMenuClose = () => {
     playSpeedTimeout.current = setTimeout(() => {
       setShowPlaybackSpeedMenu(false);
-    }, 2000);
+    });
   };
 
   const speedOptions = [

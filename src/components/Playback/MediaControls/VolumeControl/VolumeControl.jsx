@@ -38,7 +38,7 @@ const VolumeControl = () => {
   const handleMenuClose = () => {
     sliderTimeout.current = setTimeout(() => {
       setShowVolumeSlider(false);
-    }, 2000);
+    });
   };
 
   const toggleMuteUnmute = () => {
