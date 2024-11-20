@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
