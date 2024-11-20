@@ -1,10 +1,6 @@
-import React, { useRef } from "react";
-import { useEffect, useState } from "react";
-
-import useQueryParam from "@/hooks/useQueryParam";
-import { Grid2, Stack } from "@mui/material";
+import React from "react";
+import { Grid2 } from "@mui/material";
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -12,39 +8,17 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
+import useQueryParam from "@/hooks/useQueryParam";
 
 const TrendingCarousel = ({ featuredMedia }) => {
-  const [imageIndex, setImageIndex] = useState(0);
-  const imageIndexRef = useRef(imageIndex);
-  const autoChangeRef = useRef(null); // Reference to the interval for automatic change
-
   const router = useRouter();
   const { getAllParams } = useQueryParam();
   const params = getAllParams();
 
-  useEffect(() => {
-    autoChangeRef.current = setInterval(() => {
-      imageIndexRef.current =
-        (imageIndexRef.current + 1) % featuredMedia?.length;
-      setImageIndex(imageIndexRef.current);
-    }, 2000);
-
-    return () => clearInterval(autoChangeRef.current);
-  });
-
-  const handleDotClick = (e, index) => {
-    e.stopPropagation();
-
-    setImageIndex(index);
-    imageIndexRef.current = index; // Update reference to prevent automatic transition conflict
-
-    // Clear and restart the automatic interval after a delay
-    clearInterval(autoChangeRef.current);
-  };
-
+  // Click handler for navigating to the relevant link
   const handleCardClick = () => {
     router.push(
-      `/${params.tab}/${featuredMedia?.at(imageIndex)?.document?.id}`,
+      `/${params.tab}/${featuredMedia?.[0]?.document?.id}`
     );
   };
 
@@ -52,7 +26,7 @@ const TrendingCarousel = ({ featuredMedia }) => {
     <Grid2
       size={12}
       sx={{ minHeight: "20rem", maxHeight: "25rem" }}
-      key={featuredMedia?.at(imageIndex)?.document?.id}
+      key={featuredMedia?.[0]?.document?.id}
       onClick={handleCardClick}
     >
       <Card
@@ -67,11 +41,15 @@ const TrendingCarousel = ({ featuredMedia }) => {
       >
         <CardActionArea sx={{ height: "100%" }}>
           <CardMedia
+            // image={
+            //   featuredMedia?.[0]?.document?.thumbnail_url ||
+            //   "https://via.placeholder.com/140"
+            // }
             image={
-              featuredMedia?.at(imageIndex)?.document?.thumbnail_url ||
-              "https://via.placeholder.com/140"
-            }
-            alt={featuredMedia?.at(imageIndex)?.document?.titles?.at(0)}
+                "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg" ||
+                 "https://via.placeholder.com/140"
+               }
+            alt={featuredMedia?.[0]?.document?.titles?.[0]}
             component="img"
             sx={{ borderRadius: "12px", height: "100%" }}
           />
@@ -100,24 +78,8 @@ const TrendingCarousel = ({ featuredMedia }) => {
                 textOverflow: "ellipsis",
               }}
             >
-              {featuredMedia?.at(imageIndex)?.document?.titles?.at(0)}
+              {featuredMedia?.[0]?.document?.titles?.[0]}
             </Typography>
-            <Stack direction="row" spacing={1}>
-              {featuredMedia?.map((_, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    width: imageIndex === i ? "16px" : "8px",
-                    height: "8px",
-                    backgroundColor: "#DFDFDF",
-                    borderRadius: imageIndex === i ? "8px" : "50%",
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                  }}
-                  onClick={(e) => handleDotClick(e, i)}
-                />
-              ))}
-            </Stack>
           </CardContent>
         </CardActionArea>
       </Card>
