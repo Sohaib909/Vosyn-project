@@ -137,12 +137,14 @@ const FilterLayoutButtons = ({ onFilterApply }) => {
           horizontal: "center",
         }}
       >
-        <MenuItem onClick={() => handleSortClose("bookmarked")}>
-          By Bookmarked Date
+        <MenuItem onClick={() => handleSortClose("descending")}>
+          A to Z
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => handleSortClose("uploadDate")}>
-          By Upload Date
+        <MenuItem onClick={() => handleSortClose("ascending")}>Z to A</MenuItem>
+        <Divider />
+        <MenuItem onClick={() => handleSortClose("savedDate")}>
+          By Saved Date
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => handleSortClose("mostWatched")}>
