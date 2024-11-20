@@ -13,6 +13,7 @@ const PlaylistCard = ({
   itemTitle,
   itemDescription,
   itemDate,
+  icons = true,
 }) => {
   return (
     <Card
@@ -64,11 +65,13 @@ const PlaylistCard = ({
           width: "100%",
         }}
       >
-        <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
-          <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-          <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-          <MoreVertIcon fontSize="small" />
-        </Box>
+        {icons && (
+          <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
+            <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            <MoreVertIcon fontSize="small" />
+          </Box>
+        )}
         <Box
           sx={{
             display: "flex",

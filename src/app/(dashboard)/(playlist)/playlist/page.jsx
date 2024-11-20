@@ -1,12 +1,14 @@
 import React from "react";
 
-import SinglePlaylist from "@/components/Playlist/SinglePlaylist/SinglePlaylist";
+import { Box } from "@mui/material";
+
+import PlaylistFolders from "@/components/Playlist/PlaylistFolders/PlaylistFolders";
 
 const PlaylistPage = () => {
   return (
-    <>
-      <SinglePlaylist />
-    </>
+    <Box>
+      <PlaylistFolders />
+    </Box>
   );
 };
 

@@ -73,7 +73,7 @@ const groupByType = (data) => {
   return grouped;
 };
 
-const SinglePlaylist = ({ data = videos }) => {
+const SinglePlaylist = ({ data = videos, icons = true }) => {
   const { getAllParams } = useQueryParam();
   const params = getAllParams();
 
@@ -122,6 +122,7 @@ const SinglePlaylist = ({ data = videos }) => {
                 itemTitle={item.title}
                 itemDate={item.date}
                 itemDescription={item.description}
+                icons={icons}
               />
             ))}
           </Box>
@@ -137,12 +138,14 @@ const SinglePlaylist = ({ data = videos }) => {
             itemTitle={item.title}
             itemDate={item.date}
             itemDescription={item.description}
+            icons={icons}
           />
         ))}
 
       {!params.sort &&
         data.map((item) => (
           <PlaylistCard
+            icons={icons}
             key={item.id}
             itemID={item.id}
             itemImage={item.image}

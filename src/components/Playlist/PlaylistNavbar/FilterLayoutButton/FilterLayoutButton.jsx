@@ -31,7 +31,7 @@ const FilterLayoutButtons = ({ onFilterApply }) => {
       updateQueryParam("layout", "list");
       updateQueryParam("sort", sortBy);
     }
-  }, [params, updateQueryParam]);
+  }, [params, updateQueryParam, sortBy]);
 
   const handleLayoutChange = (_event, layout) => {
     updateQueryParam("layout", layout);
