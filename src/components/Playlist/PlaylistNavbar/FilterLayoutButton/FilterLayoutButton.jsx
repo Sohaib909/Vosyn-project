@@ -1,6 +1,7 @@
 // NavButtons/FilterLayoutButtons.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import useQueryParam from "@/hooks/useQueryParam";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import SortByAlphaOutlinedIcon from "@mui/icons-material/SortByAlphaOutlined";
@@ -17,11 +18,23 @@ import {
 import FilterButton from "../FilterButton/FilterButton";
 
 const FilterLayoutButtons = ({ onFilterApply }) => {
-  const [layouts, setLayouts] = useState("list");
+  const { updateQueryParam, getAllParams } = useQueryParam();
+  const params = getAllParams();
+
+  const [layouts, setLayouts] = useState(params.layout || "list");
+  const [sortBy, setSortBy] = useState(null);
   const [isAlphaOpen, setIsAlphaOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  useEffect(() => {
+    if ((!params.layout, params.sort)) {
+      updateQueryParam("layout", "list");
+      updateQueryParam("sort", sortBy);
+    }
+  }, [params, updateQueryParam]);
+
   const handleLayoutChange = (_event, layout) => {
+    updateQueryParam("layout", layout);
     setLayouts(layout);
   };
 
@@ -30,9 +43,15 @@ const FilterLayoutButtons = ({ onFilterApply }) => {
     setIsAlphaOpen(true);
   };
 
-  const handleSortClose = () => {
+  const handleSortClose = (value) => {
     setAnchorEl(null);
     setIsAlphaOpen(false);
+    if (params.sort === value) {
+      updateQueryParam("sort", setSortBy(null));
+    } else {
+      setSortBy(value);
+      updateQueryParam("sort", value);
+    }
   };
 
   return (
@@ -118,15 +137,21 @@ const FilterLayoutButtons = ({ onFilterApply }) => {
           horizontal: "center",
         }}
       >
-        <MenuItem dividers onClick={handleSortClose}>
-          By Bookmarked Date
+        <MenuItem onClick={() => handleSortClose("descending")}>
+          A to Z
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleSortClose}>By Upload Date</MenuItem>
+        <MenuItem onClick={() => handleSortClose("ascending")}>Z to A</MenuItem>
         <Divider />
-        <MenuItem onClick={handleSortClose}>Most Watched</MenuItem>
+        <MenuItem onClick={() => handleSortClose("savedDate")}>
+          By Saved Date
+        </MenuItem>
         <Divider />
-        <MenuItem onClick={handleSortClose}>By Type</MenuItem>
+        <MenuItem onClick={() => handleSortClose("mostWatched")}>
+          Most Watched
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => handleSortClose("type")}>By Type</MenuItem>
       </Menu>
     </Box>
   );
