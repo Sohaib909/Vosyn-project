@@ -2,11 +2,10 @@
 
 import React from "react";
 
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
-import ShareIcon from "@mui/icons-material/Share";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import useQueryParam from "@/hooks/useQueryParam";
+import { Box, Link, Typography } from "@mui/material";
+
+import PlaylistCard from "./PlaylistCard/PlaylistCard";
 
 const videos = [
   {
@@ -41,121 +40,121 @@ const videos = [
     title: "Money heist",
     type: "PDF Document",
     description: "Netflix | Spanish",
-    date: "Saved in December 1, 2019",
+    date: "Saved in December 1, 2020",
     image:
       "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
   },
 ];
 
+// Helper to parse date strings
+const parseDate = (dateStr) => {
+  const match = dateStr.match(/Saved in (.+)/);
+  return match ? new Date(match[1]) : null;
+};
+
+// Grouping logic for sorting by type
+const groupByType = (data) => {
+  const grouped = {
+    Videos: [],
+    Audio: [],
+    Text: [],
+  };
+
+  data.forEach((item) => {
+    if (item.type.includes("Video")) {
+      grouped.Videos.push(item);
+    } else if (item.type.includes("Audio")) {
+      grouped.Audio.push(item);
+    } else {
+      grouped.Text.push(item); // Articles and PDFs fall under Text
+    }
+  });
+
+  return grouped;
+};
+
 const SinglePlaylist = ({ data = videos, icons = true }) => {
+  const { getAllParams } = useQueryParam();
+  const params = getAllParams();
+
+  // Determine sorting strategy
+  const sortedData =
+    params.sort === "savedDate"
+      ? [...data].sort((a, b) => parseDate(b.date) - parseDate(a.date)) // Sort by date
+      : groupByType(data); // Group by type
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
-      {data.map((item, i) => (
-        <Card
-          key={i}
-          sx={{
-            borderRadius: "12px",
-            maxWidth: "100%",
-            cursor: "pointer",
-            display: "flex",
-            minWidth: "fit-content",
-            alignItems: "center",
-            gap: 0,
-          }}
-        >
-          <Box sx={{ position: "relative" }}>
-            <CardMedia
-              component="img"
-              image={item.image}
-              sx={{
-                borderRadius: "16px",
-                maxWidth: "20rem",
-                "@media (max-width: 1400px)": {
-                  maxWidth: "30rem",
-                },
-              }}
-            />
-            {(item.type === "MP4 Video" || item.type === "Video Playlist") && (
-              <PlayArrowOutlinedIcon
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: "50%",
-                }}
-              />
-            )}
-          </Box>
-
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              position: "relative",
-              rowGap: "1rem",
-              width: "100%",
-            }}
-          >
-            {icons && (
-              <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
-                <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-                <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-                <MoreVertIcon fontSize="small" />
-              </Box>
-            )}
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                pr: "20%",
-                pt: "2vh",
-              }}
-            >
-              <Typography
-                variant="p"
-                sx={{ fontWeight: "bold", fontSize: "large" }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                variant="p"
-                sx={{ fontWeight: "bold", fontSize: "large" }}
-              >
-                {item.type}
-              </Typography>
-            </Box>
+      {params.sort === "type" &&
+        Object.entries(sortedData).map(([key, items]) => (
+          <Box key={key}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
-                pt: "1vh",
+                alignItems: "center",
               }}
             >
               <Typography
-                variant="caption"
-                sx={{ opacity: "0.7", fontSize: "medium" }}
+                variant="h5"
+                sx={{ fontWeight: "bold", textTransform: "capitalize", mb: 2 }}
               >
-                {item.description}
+                {key}
               </Typography>
-              <Typography
-                variant="caption"
-                sx={{
-                  opacity: "0.7",
-                  pr: "2%",
-                  pt: "2vh",
-                  fontSize: "medium",
-                }}
+
+              <Link
+                variant="p"
+                sx={{ mb: 2, fontWeight: "bold" }}
+                underline="always"
+                color="inherit"
               >
-                {item.date}
-              </Typography>
+                more
+              </Link>
             </Box>
-          </CardContent>
-        </Card>
-      ))}
+
+            {items.map((item) => (
+              <PlaylistCard
+                key={item.id}
+                itemID={item.id}
+                itemImage={item.image}
+                itemType={item.type}
+                itemTitle={item.title}
+                itemDate={item.date}
+                itemDescription={item.description}
+                icons={icons}
+              />
+            ))}
+          </Box>
+        ))}
+
+      {params.sort === "savedDate" &&
+        sortedData.map((item) => (
+          <PlaylistCard
+            key={item.id}
+            itemID={item.id}
+            itemImage={item.image}
+            itemType={item.type}
+            itemTitle={item.title}
+            itemDate={item.date}
+            itemDescription={item.description}
+            icons={icons}
+          />
+        ))}
+
+      {/* {!params.sort &&
+        data.map((item) => (
+          <PlaylistCard
+            icons
+            key={item.id}
+            itemID={item.id}
+            itemImage={item.image}
+            itemType={item.type}
+            itemTitle={item.title}
+            itemDate={item.date}
+            itemDescription={item.description}
+          />
+        ))} */}
     </Box>
   );
 };
