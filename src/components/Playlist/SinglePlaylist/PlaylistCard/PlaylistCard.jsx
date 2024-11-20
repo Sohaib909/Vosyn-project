@@ -25,23 +25,58 @@ const PlaylistCard = ({
         display: "flex",
         minWidth: "fit-content",
         alignItems: "center",
-        gap: 0,
+        gap: 5,
         mb: 2,
       }}
     >
       <Box sx={{ position: "relative" }}>
-        <CardMedia
-          component="img"
-          image={itemImage}
-          sx={{
-            borderRadius: "16px",
-            maxWidth: "20rem",
-            "@media (max-width: 1400px)": {
-              maxWidth: "30rem",
-            },
-          }}
-        />
-        {(itemType === "MP4 Video" || itemType === "Video Playlist") && (
+        {itemType === "Video Playlist" ? (
+          <Box
+            display={"flex"}
+            sx={{
+              "&>:nth-child(1)": {
+                zIndex: 3,
+              },
+              "&>:nth-child(2)": {
+                marginLeft: "-16rem",
+                zIndex: 2,
+              },
+              "&>:nth-child(3)": {
+                marginLeft: "-17.5rem",
+                zIndex: 1,
+              },
+            }}
+          >
+            {itemImage.map((image, index) => (
+              <CardMedia
+                key={index}
+                component="img"
+                image={image}
+                sx={{
+                  borderRadius: "0 16px 16px",
+                  maxWidth: "20rem",
+                  "@media (max-width: 1400px)": {
+                    maxWidth: "30rem",
+                  },
+                }}
+              />
+            ))}
+          </Box>
+        ) : (
+          <CardMedia
+            component="img"
+            image={itemImage}
+            sx={{
+              borderRadius: "16px",
+              maxWidth: "20rem",
+              "@media (max-width: 1400px)": {
+                maxWidth: "30rem",
+              },
+            }}
+          />
+        )}
+
+        {itemType === "MP4 Video" && (
           <PlayArrowOutlinedIcon
             sx={{
               position: "absolute",
@@ -50,6 +85,19 @@ const PlaylistCard = ({
               transform: "translate(-50%, -50%)",
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               borderRadius: "50%",
+            }}
+          />
+        )}
+        {itemType === "Video Playlist" && (
+          <PlayArrowOutlinedIcon
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "rgba(0, 0, 0, 0.6)",
+              borderRadius: "50%",
+              zIndex: 4,
             }}
           />
         )}
@@ -65,7 +113,13 @@ const PlaylistCard = ({
           width: "100%",
         }}
       >
-        {icons && (
+        {(icons && itemType === "Video Playlist") ||
+        (icons && itemType === "Audio Playlist") ? (
+          <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
+            <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            <MoreVertIcon fontSize="small" />
+          </Box>
+        ) : (
           <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
             <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
             <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
