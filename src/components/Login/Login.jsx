@@ -49,8 +49,6 @@ const Login = () => {
    */
   const submitLoginForm = async (data) => {
     try {
-      // Remove this after the backend is back
-      dispatch(setLoggedIn(true));
       const res = await axios.post("/api/auth/login", { data: data });
 
       // On success, save token, set status to imform user, set logged in status and set user info.

@@ -17,7 +17,6 @@ const SearchResultSection = ({ data, section, children }) => {
           marginBottom: "1rem",
           fontSize: "1.25rem",
           fontWeight: "600",
-          color: "rgba(87, 87, 87, 1)",
         }}
       >
         {children}
