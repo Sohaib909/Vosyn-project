@@ -24,7 +24,7 @@ const CopyButton = ({ copyText }) => {
         <ContentCopyIcon sx={{ color: "white" }} />
       </IconButton>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "20%" }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Copied to clipboard
         </Alert>
       </Snackbar>
