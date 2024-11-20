@@ -7,7 +7,7 @@ import Image from "next/image";
 
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
-import TranslationSlider from "@/components/TranslationPanel/TranslationPanelSlider/TranslationPanelSlider";
+import TranslationSlider from "@/components/TranslationPanel/TranslationPanelToggle/TranslationPanelToggle";
 
 import Original from "../../../../../../public/mediaFiles/Images/Original.png";
 import Translated from "../../../../../../public/mediaFiles/Images/Translated.png";
