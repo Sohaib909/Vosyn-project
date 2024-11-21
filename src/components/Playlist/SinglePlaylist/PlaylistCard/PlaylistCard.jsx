@@ -40,10 +40,12 @@ const PlaylistCard = ({
               "&>:nth-child(2)": {
                 marginLeft: "-16rem",
                 zIndex: 2,
+                opacity: "0.6",
               },
               "&>:nth-child(3)": {
-                marginLeft: "-17.5rem",
+                marginLeft: "-18rem",
                 zIndex: 1,
+                opacity: "0.2",
               },
             }}
           >
@@ -76,19 +78,7 @@ const PlaylistCard = ({
           />
         )}
 
-        {itemType === "MP4 Video" && (
-          <PlayArrowOutlinedIcon
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              borderRadius: "50%",
-            }}
-          />
-        )}
-        {itemType === "Video Playlist" && (
+        {(itemType === "MP4 Video" || itemType === "Video Playlist") && (
           <PlayArrowOutlinedIcon
             sx={{
               position: "absolute",
