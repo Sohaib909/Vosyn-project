@@ -26,9 +26,10 @@ const PlaylistHeader = ({ onFilterApply }) => {
   };
 
   useEffect(() => {
-    if ((!params.tab, params.layout)) {
+    if (!params.tab) {
       updateQueryParam("tab", "all");
-      setActiveTab("all");
+    }
+    if (!params.layout) {
       updateQueryParam("layout", "list");
     }
   }, [params, updateQueryParam]);
