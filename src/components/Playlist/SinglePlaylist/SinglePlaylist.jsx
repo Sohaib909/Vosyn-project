@@ -40,9 +40,30 @@ const videos = [
     title: "Money heist",
     type: "PDF Document",
     description: "Netflix | Spanish",
-    date: "Saved in December 1, 2020",
+    date: "Saved in December 1, 2021",
     image:
       "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
+  },
+  {
+    id: 5,
+    title: "R&B Vibe",
+    type: "Audio Playlist",
+    description: "5 Songs",
+    date: "Saved in February 1, 2021",
+    image:
+      "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
+  },
+  {
+    id: 6,
+    title: "Best business trend in 2024",
+    type: "Video Playlist",
+    description: "17 videos",
+    date: "Saved in November 2, 2023",
+    image: [
+      "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThlFHY1VWpNbjK2tPbbX9f7v7pLGjbUn6yVQ&s",
+      "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
+    ],
   },
 ];
 
