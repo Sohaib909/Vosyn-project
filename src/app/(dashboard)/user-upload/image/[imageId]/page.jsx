@@ -48,47 +48,47 @@ const ImagePage = () => {
   };
 
   return (
-    <Box padding="1rem var(--mui-spacing-8)">
-      <Box
-        display="flex"
-        alignItems="start"
-        justifyContent="space-between"
-        flexDirection="row"
-        paddingTop="var(--mui-spacing-4)"
-      >
-        <Box display="flex" flexDirection="column" flex="1" mr="5rem">
-          <Box display="flex" flexDirection="column" justifyContent="flex-end">
-            {image && (
-              <TextAndImageActionBtns
-                showRate={true}
-                fileUrl={image.translated}
-              />
-            )}
-          </Box>
-          <Box
-            display="flex"
-            flex="1"
-            minHeight="70%"
-            justifyContent="center"
-            mt="1rem"
-            sx={{
-              border: "2px solid var(--mui-palette-neutral-25)",
-              p: 8,
-              borderRadius: "1rem",
-            }}
-          >
-            {image && <Image src={image.current} alt="uploaded image" />}
-          </Box>
-        </Box>
-
-        <Box maxWidth="350px" m="0 0 0 2rem">
+    <Box
+      display="flex"
+      alignItems="start"
+      justifyContent="space-between"
+      flexDirection="row"
+      paddingTop="var(--mui-spacing-4)"
+      width={"100%"}
+    >
+      <Box display="flex" flexDirection="column" flex="1">
+        <Box display="flex" flexDirection="column" justifyContent="flex-end">
           {image && (
-            <TranslationPanel fileUrl={image.translated}>
-              <TranslationSlider handleTranslation={handleTranslation} />
-            </TranslationPanel>
+            <TextAndImageActionBtns
+              showRate={true}
+              fileUrl={image.translated}
+            />
           )}
-          {/* Uncomment once ContextualInfo and Summary are migrated over */}
-          {/* <Box className="contextual-info-wrapper">
+        </Box>
+        <Box
+          display="flex"
+          flex="1"
+          minHeight="70%"
+          justifyContent="center"
+          mt="1rem"
+          sx={{
+            border: "2px solid var(--mui-palette-neutral-25)",
+            p: 8,
+            borderRadius: "1rem",
+          }}
+        >
+          {image && <Image src={image.current} alt="uploaded image" />}
+        </Box>
+      </Box>
+
+      <Box maxWidth="350px" m="0 0 0 2rem">
+        {image && (
+          <TranslationPanel fileUrl={image.translated}>
+            <TranslationSlider handleTranslation={handleTranslation} />
+          </TranslationPanel>
+        )}
+        {/* Uncomment once ContextualInfo and Summary are migrated over */}
+        {/* <Box className="contextual-info-wrapper">
             <ContextualInfo />
           </Box>
 
@@ -104,7 +104,6 @@ const ImagePage = () => {
               title="Image Description"
             />
           </Box> */}
-        </Box>
       </Box>
     </Box>
   );

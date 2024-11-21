@@ -6,7 +6,13 @@ import BackButton from "@/components/Buttons/BackButton/BackButton";
 
 const layout = ({ children }) => {
   return (
-    <Grid2 container component="main" sx={{ px: "2rem" }} spacing={2}>
+    <Grid2
+      container
+      component="main"
+      sx={{ px: "2rem" }}
+      spacing={2}
+      width={"100%"}
+    >
       <Grid2 item size={12}>
         <BackButton />
       </Grid2>
