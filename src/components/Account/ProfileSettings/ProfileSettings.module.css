@@ -5,12 +5,6 @@
   font-family: "Arial", sans-serif;
 }
 
-/* h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #000000;
-} */
-
 .profile-title {
   font-weight: bold;
   font-size: 35px;
@@ -70,7 +64,6 @@
 }
 
 .input-field {
-  /* flex: 1; */
   border: 1px solid #ccc !important;
   color: #000; /* Ensures the input text color is set */
   flex: 0 0 40%;
@@ -104,12 +97,6 @@
 .right-panel {
   padding-left: 20px;
 }
-
-/* h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-} */
 
 .privacy-toggles {
   display: flex;
