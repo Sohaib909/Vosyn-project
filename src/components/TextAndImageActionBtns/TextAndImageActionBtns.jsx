@@ -26,7 +26,7 @@ const TextAndImageActionBtns = () => {
         gap: "1rem",
         width: "100%",
         flexWrap: "wrap",
-        justifyContent: "space-between",
+        justifyContent: "start",
       }}
     >
       <ButtonWithIconAndText
