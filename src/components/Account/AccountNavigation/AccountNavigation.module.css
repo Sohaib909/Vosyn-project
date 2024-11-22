@@ -16,7 +16,7 @@
   font-size: 16px; /* Set the text size */
 }
 
-.back-button .MuiButtonBase-root:hover {
+.back-button {
   background-color: transparent;
   box-shadow: none;
 }
@@ -59,20 +59,10 @@
   border-radius: 12px;
   margin-bottom: 24px;
   padding: 8px 5px 8px 15px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-  background-color: #fafafa;
   color: #656565;
   font-size: 20px;
   justify-content: flex-start;
   cursor: pointer;
-}
-
-/* Hover effect for list items */
-.list-item:hover {
-  background-color: #656565; /* Hover background color */
-  color: white; /* Hover text color */
 }
 
 /* Active item styling */
@@ -80,7 +70,11 @@
   background-color: #656565; /* Active background color */
   color: white; /* Active text color */
 }
-.sidebar .list-item.active .MuiListItemIcon-root {
+.list-item:hover {
+  background-color: #000000; /* Active background color */
+  color: rgb(0, 0, 0); /* Active text color */
+}
+.sidebar {
   color: white; /* Make icon white when the item is active */
 }
 
@@ -96,7 +90,6 @@
 }
 
 /* sign out button */
-
 .sign-out-container {
   bottom: 20px;
   width: 100%;
