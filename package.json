@@ -29,6 +29,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
     "dashjs": "^4.7.4",
+    "framer-motion": "^11.11.17",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18",

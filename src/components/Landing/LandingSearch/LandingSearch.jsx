@@ -83,7 +83,9 @@ const LandingSearch = () => {
             ...msg,
             isLoading: false,
             summary: response.summary,
-            text_response: response.text_response,
+            text_response: response.text_response
+              ? response.text_response
+              : "Sorry, there was an error in generating a response. Please try again.",
             video_results: response.video_results,
           };
         }

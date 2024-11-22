@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import useTypewriter from "@/hooks/useTypewriter";
 import { Box, CardContent, Fade, Link, Typography } from "@mui/material";
 import Image from "next/image";
+
+import LoadingAnimation from "./LoadingAnimation";
 
 import styles from "./VosynAssist.module.css";
 
@@ -11,7 +13,14 @@ const VosynAssistResponse = ({
   setIsProcessingMessage,
   scrollChatbox,
 }) => {
-  const responseTypewriter = useTypewriter(responseData.text_response);
+  const [isLoadingAnimationFinished, setIsLoadingAnimationFinished] = useState(
+    !responseData.isLoading,
+  );
+
+  const responseTypewriter = useTypewriter(
+    responseData.text_response,
+    isLoadingAnimationFinished,
+  );
 
   useEffect(() => {
     if (responseTypewriter.isFinishedTyping) {
@@ -22,6 +31,13 @@ const VosynAssistResponse = ({
   useEffect(() => {
     scrollChatbox(responseData.id);
   }, [responseTypewriter.outputText, responseData.id, scrollChatbox]);
+
+  // Start typewriter animation after loading transition animation
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingAnimationFinished(!responseData.isLoading);
+    }, 500);
+  }, [responseData.isLoading]);
 
   return (
     <Box
@@ -59,13 +75,18 @@ const VosynAssistResponse = ({
             VA
           </Typography>
         </Box>
-        {responseData.isLoading ? (
-          <Box sx={{ marginTop: 2 }}>
-            <Typography className={styles.loadingText}></Typography>
+        {!isLoadingAnimationFinished ? (
+          <Box sx={{ marginTop: 1 }}>
+            <LoadingAnimation isLoading={responseData.isLoading} />
           </Box>
         ) : (
-          <Box sx={{ marginTop: 1.25 }}>
-            <Typography>{responseTypewriter.outputText}</Typography>
+          <Box sx={{ marginTop: 1.25 }} className={styles.assistantMessage}>
+            <Typography>
+              {responseTypewriter.outputText}
+              {!responseTypewriter.isFinishedTyping && (
+                <Box className={styles.insertionCaret}></Box>
+              )}
+            </Typography>
           </Box>
         )}
       </Box>
