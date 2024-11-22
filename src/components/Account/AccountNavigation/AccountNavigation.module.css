@@ -63,7 +63,7 @@
   font-size: 20px;
   justify-content: flex-start;
   cursor: pointer;
-  padding-left: 100px;
+  margin-left: 10px;
 }
 
 /* Active item styling */
@@ -106,6 +106,7 @@
   background-color: transparent; /* Transparent background */
   border-radius: 12px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .sign-out-button .MuiSvgIcon-root {
