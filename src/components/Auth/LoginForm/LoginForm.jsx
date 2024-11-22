@@ -61,17 +61,18 @@ const LoginForm = () => {
       const statusCode = err?.response?.status;
 
       if (statusCode && statusCode === 400) {
-        const loginApiError = err?.response?.data;
+        const loginApiError = err?.response?.data?.errors;
 
         if (loginApiError) {
-          setLoginApiError(loginApiError);
+          setLoginApiError(mapArrayToObject(loginApiError));
           setStatus(
             "There is an error with your inputs. Please double-check the inputs marked in red.",
             "error",
+            10000,
           );
         }
       } else {
-        setStatus("Some error ocurred. Please try again later", "error");
+        setStatus("Some error ocurred. Please try again later", "error", 10000);
       }
     } finally {
       setIsLoading(false);
@@ -82,13 +83,51 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   };
 
+  const mapArrayToObject = (inputArray) => {
+    if (inputArray && inputArray.length > 0) {
+      return inputArray.reduce((resultObject, currentValue) => {
+        const field = currentValue?.field || "";
+        if (field && !resultObject[field]) {
+          resultObject[field] = [];
+        }
+
+        if (field) {
+          resultObject[field].push(currentValue?.message);
+        }
+
+        return resultObject;
+      }, {});
+    } else {
+      return undefined;
+    }
+  };
+
+  const removeLoginApiError = (formField) => {
+    // Check if loginApiError is undefined or is an empty object
+    if (loginApiError && Object.keys(loginApiError).length > 0) {
+      setLoginApiError((prevState) => {
+        let newState = { ...prevState };
+
+        if (loginApiError[formField]) {
+          delete newState[formField];
+        }
+        if (loginApiError["non_field_errors"]) {
+          delete newState["non_field_errors"];
+        }
+        return newState;
+      });
+    }
+  };
+
   return (
     <Box className={styles.loginContent}>
       <Box component="form" onSubmit={handleSubmit(submitLoginForm)}>
         <AuthInput
           label="Email address"
           id="login-email"
-          register={register("email")}
+          register={register("email", {
+            onChange: () => removeLoginApiError("email"),
+          })}
           error={
             errors.email ||
             loginApiError?.email ||
@@ -102,7 +141,11 @@ const LoginForm = () => {
         <AuthInput
           label="Password"
           id="login-password"
-          register={register("password")}
+          register={register("password", {
+            onChange: () => {
+              removeLoginApiError("password");
+            },
+          })}
           error={
             errors.password ||
             loginApiError?.password ||

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import AuthInput from "../AuthInput/AuthInput";
@@ -26,11 +27,12 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [signupApiError, setSignupApiError] = useState();
   const { setStatus } = useStatusNotification();
+  const router = useRouter();
 
   const signUpSchema = z.object({
-    username: z.string().regex(/^[a-zA-Z0-9]{3,30}$/, {
+    username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
       message:
-        "Username must be 3-30 characters long, only letters and numbers are allowed.",
+        "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
     }),
     email: z.string().email({ message: "Invalid email address" }),
     password: z
@@ -102,10 +104,10 @@ const SignupForm = () => {
 
     try {
       const requestBody = {
-        ...data,
-        first_name: data.username,
-        last_name: "placeholder",
+        email: data.email,
+        password: data.password,
         password2: data.password,
+        username: data.username,
         has_agreed_to_terms: data.hasAgreedToTerms,
         has_agreed_to_privacy_policy: data.hasAgreedToTerms,
       };
@@ -116,7 +118,9 @@ const SignupForm = () => {
         setStatus(
           "A verification email has been sent. Please check your inbox.",
           "success",
+          10000,
         );
+        router.push("/auth?type=login");
       }
 
       // TODO: Handle post account creation (e.g., navigate to onboarding)
@@ -124,13 +128,14 @@ const SignupForm = () => {
       const statusCode = err?.response?.status;
 
       if (statusCode === 400) {
-        setSignupApiError(err?.response?.data);
+        setSignupApiError(mapArrayToObject(err?.response?.data?.errors));
         setStatus(
           "There is an error with your inputs. Please double-check the inputs marked in red.",
           "error",
+          10000,
         );
       } else {
-        setStatus("An error ocurred. Please try again alter.", "error");
+        setStatus("An error ocurred. Please try again alter.", "error", 10000);
       }
     } finally {
       setIsLoading(false);
@@ -141,13 +146,58 @@ const SignupForm = () => {
   const isPasswordValid =
     passwordValidationResults.filter((p) => p.isValid === false).length === 0;
 
+  const mapArrayToObject = (inputArray) => {
+    if (inputArray && inputArray.length > 0) {
+      return inputArray.reduce((resultObject, currentValue) => {
+        const field = currentValue?.field || "";
+        if (field && !resultObject[field]) {
+          resultObject[field] = [];
+        }
+
+        if (field) {
+          resultObject[field].push(currentValue?.message);
+        }
+
+        return resultObject;
+      }, {});
+    } else {
+      return undefined;
+    }
+  };
+
+  const removeSignupApiError = (formField) => {
+    // Check if signupApiError is undefined or is an empty object
+    if (signupApiError && Object.keys(signupApiError).length > 0) {
+      setSignupApiError((prevState) => {
+        let newState = { ...prevState };
+
+        if (signupApiError[formField]) {
+          delete newState[formField];
+        }
+        if (signupApiError["non_field_errors"]) {
+          delete newState["non_field_errors"];
+        }
+        return newState;
+      });
+    }
+  };
+
+  const onChangePassword = (newPass) => {
+    setPassword(newPass);
+    removeSignupApiError("password");
+  };
+
   return (
     <Box className={styles.signupContent}>
       <Box component="form" onSubmit={handleSubmit(submitSignupForm)}>
         <AuthInput
           label="Username"
           id="signup-username"
-          register={register("username")}
+          register={register("username", {
+            onChange: () => {
+              removeSignupApiError("username");
+            },
+          })}
           error={errors.username || signupApiError?.username}
           helperText={errors.username?.message || signupApiError?.username}
           autocomplete="new-username"
@@ -155,7 +205,11 @@ const SignupForm = () => {
         <AuthInput
           label="Email address"
           id="signup-email"
-          register={register("email")}
+          register={register("email", {
+            onChange: () => {
+              removeSignupApiError("email");
+            },
+          })}
           error={errors.email || signupApiError?.email}
           helperText={errors.email?.message || signupApiError?.email}
           variant="email"
@@ -167,7 +221,9 @@ const SignupForm = () => {
           label="Password"
           id="signup-password"
           register={register("password", {
-            onChange: (e) => setPassword(e.target.value),
+            onChange: (e) => {
+              onChangePassword(e.target.value);
+            },
           })}
           error={errors.password || signupApiError?.password}
           helperText={signupApiError?.password || ""}
