@@ -60,14 +60,16 @@ const OnboardingQuestion = ({
             {steps[onboardingStep].options.map((option, index) => (
               <ButtonBase
                 className={`${styles.optionButton} ${
-                  selectedOptions[onboardingStep] === option.id
+                  selectedOptions[onboardingStep]?.id === option.id
                     ? styles.selected
                     : ""
                 }`}
                 key={index}
                 variant="outlined"
                 disableRipple
-                onClick={() => handleOptionSelect(onboardingStep, option.id)}
+                onClick={() =>
+                  handleOptionSelect(onboardingStep, option.id, option.value)
+                }
               >
                 <Typography
                   component="span"

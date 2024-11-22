@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import useStatusNotification from "@/hooks/useStatusNotification";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import OnboardingLanguageSelect from "@/components/Onboarding/OnboardingLanguageSelect/OnboardingLanguageSelect";
@@ -9,9 +11,11 @@ import OnboardingQuestion from "@/components/Onboarding/OnboardingQuestion/Onboa
 
 const OnboardingForm = ({ onboardingStep, steps }) => {
   const router = useRouter();
+  const { setStatus } = useStatusNotification();
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [inputValue, setInputValue] = useState("");
+
   const [currentLanguage, setCurrentLanguage] = useState({
     language: "English",
     languageCode: "en",
@@ -21,34 +25,38 @@ const OnboardingForm = ({ onboardingStep, steps }) => {
     router.push(`/onboarding?step=${onboardingStep + 2}`);
   };
 
-  const handleOptionSelect = (stepIndex, optionId) => {
+  const handleOptionSelect = (stepIndex, optionId, optionValue) => {
     setSelectedOptions((prev) => ({
       ...prev,
-      [stepIndex]: optionId,
+      [stepIndex]: {
+        id: optionId,
+        value: optionValue,
+      },
     }));
   };
 
-  const handleSubmitOnboarding = () => {
-    const onboardingData = {
-      selectedOptions,
-      language: currentLanguage.languageCode,
-    };
+  const handleSubmitOnboarding = async () => {
+    let data = {};
+    if (selectedOptions[0]?.value) {
+      data.content_preference = selectedOptions[0].value;
+    }
+    if (selectedOptions[1]?.value) {
+      data.preferred_language = selectedOptions[1].value;
+    }
+    if (selectedOptions[2]?.value) {
+      data.usage_intent = selectedOptions[2].value;
+    }
 
-    const shouldCheck = false;
-    if (onboardingData && shouldCheck) {
-      // Dummy condition for committing code, since onboardingData stays unused
+    try {
+      const response = await axios.post("/api/onboarding", data);
+      if (response?.status === 200) {
+        setStatus("User preferences saved", "success");
+        router.push("/home?tab=featured");
+      }
+    } catch (error) {
+      setStatus("Error saving user preferences", "error");
     }
   };
-
-  // Handle invalid onboardingSteps, navigate to step 1
-  if (
-    isNaN(onboardingStep) ||
-    onboardingStep < 0 ||
-    onboardingStep > steps.length
-  ) {
-    router.replace("/onboarding?step=1");
-    return null;
-  }
 
   return (
     <>
