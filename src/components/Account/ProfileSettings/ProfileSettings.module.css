@@ -3,6 +3,8 @@
   margin: 40px auto;
   color: black;
   font-family: "Arial", sans-serif;
+  background-color: #414141;
+  border-radius: 12px;
 }
 
 .profile-title {
@@ -20,7 +22,7 @@
 
 .profile-edit-panel {
   display: flex;
-  background-color: #ffffff;
+
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

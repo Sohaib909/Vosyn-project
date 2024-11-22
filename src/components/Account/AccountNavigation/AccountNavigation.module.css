@@ -4,7 +4,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   height: 100%; /* Ensure the sidebar takes the full height */
-  background-color: #fafafa;
+  background-color: #414141;
   padding-top: 20px;
 }
 /* back button */
@@ -34,7 +34,7 @@
 }
 
 .search-bar {
-  background-color: #ffffff;
+  background-color: #464444;
   width: 100%;
   padding: 8px 0px 8px 15px;
   border-radius: 12px;
@@ -63,6 +63,7 @@
   font-size: 20px;
   justify-content: flex-start;
   cursor: pointer;
+  padding-left: 100px;
 }
 
 /* Active item styling */
@@ -72,7 +73,7 @@
 }
 .list-item:hover {
   background-color: #000000; /* Active background color */
-  color: rgb(0, 0, 0); /* Active text color */
+  color: rgb(255, 255, 255); /* Active text color */
 }
 .sidebar {
   color: white; /* Make icon white when the item is active */

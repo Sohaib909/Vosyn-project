@@ -1,109 +1,106 @@
 /* AccountLanguageSettingsPage.module.css */
 .accountBodyContainer {
-    display: flex;
-    flex-direction: row;
-    min-height: 90vh !important;
-  }
-  
-  .navigationContainer {
-    width: 22%;
-    box-sizing: border-box;
-  }
-  
-  .profileContent {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #ffffff;
-    margin-left: 20px;
-    overflow-y: auto;
-  }
-  
-  .languageSettingsContainer {
-    color:black; /* Changed color to black, had issues that all text were white, so changed to black */
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
-  .languageTitle {
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  
-  .languageSubtitle {
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .languageSettingSection {
-    margin-bottom: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  min-height: 90vh !important;
+  background-color: #414141;
+}
 
-    max-width: flex;
-    margin:0 auto;
+.navigationContainer {
+  width: 22%;
+  box-sizing: border-box;
+}
 
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .inlineSetting {
-    display: flex;
-    /* flex-direction: row;*/ /* tried this to align the flag selection option to right*/
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-  
-  .textArea {
-    flex-grow: 1;
-  }
-  
-  .languageLabel {
-    font-weight: 550;
-  }
-  
-  .languageDescription {
-    color: #999;
-  }
-  
-  .languageSelect {
-    min-width: 20%;
-    margin-left: 20px;
-    /* align-self: flex-end; tried this to align the flag selection option to right */
-  }
-  
-  .divider {
-    margin: 20px 0;
-  }
-  
-  .flagsSelectSelectedOption {
-    width: 30%;
-    height: 20%;
-  }
-  
-  .flagsSelectSelectOptions {
-    height: 100%;
-  }
-  
-  .renderValueContainer,
-  .menuItem {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    white-space: nowrap;
-  }
-  
-  .languageText {
-    font-size: 16px;
-    margin: 0 8px 0 8px;
-  }
-  
-  .menuText {
-    font-size: 14px;
-    margin-left: 8px;
-  }
-  
+.profileContent {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 20px;
+  overflow-y: auto;
+}
+
+.languageSettingsContainer {
+  color: black; /* Changed color to black, had issues that all text were white, so changed to black */
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.languageTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.languageSubtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.languageSettingSection {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: flex;
+  margin: 0 auto;
+  background-color: #414141;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inlineSetting {
+  display: flex;
+  /* flex-direction: row;*/ /* tried this to align the flag selection option to right*/
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.textArea {
+  flex-grow: 1;
+}
+
+.languageLabel {
+  font-weight: 550;
+}
+
+.languageDescription {
+  color: #999;
+}
+
+.languageSelect {
+  min-width: 20%;
+  margin-left: 20px;
+  /* align-self: flex-end; tried this to align the flag selection option to right */
+}
+
+.divider {
+  margin: 20px 0;
+}
+
+.flagsSelectSelectedOption {
+  width: 30%;
+  height: 20%;
+}
+
+.flagsSelectSelectOptions {
+  height: 100%;
+}
+
+.renderValueContainer,
+.menuItem {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  white-space: nowrap;
+}
+
+.languageText {
+  font-size: 16px;
+  margin: 0 8px 0 8px;
+}
+
+.menuText {
+  font-size: 14px;
+  margin-left: 8px;
+}
