@@ -9,10 +9,16 @@ import { NextResponse } from "next/server";
  * @returns - request response
  */
 export const POST = async (request) => {
-  const requestBody = await request.json();
+  try {
+    const requestBody = await request.json();
+    const response = await axios.post(SIGNUP_URL, requestBody);
 
-  const response = await axios.post(SIGNUP_URL, requestBody);
+    return NextResponse.json(response.data, { status: response.status });
+  } catch (error) {
+    console.error("Error in signup API:", error.response);
 
-  // Forward the backend response as JSON
-  return NextResponse.json(response.data, { status: response.status });
+    return NextResponse.json(error?.response?.data, {
+      status: error?.response?.status,
+    });
+  }
 };
