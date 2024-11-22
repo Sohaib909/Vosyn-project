@@ -6,7 +6,9 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  IconButton,
 } from "@mui/material";
+import { YouTube } from "@mui/icons-material"; // Import YouTube icon
 import { useRouter } from "next/navigation";
 import useQueryParam from "@/hooks/useQueryParam";
 
@@ -52,14 +54,16 @@ const TrendingCarousel = ({ featuredMedia }) => {
               width: "inherit",
               position: "absolute",
               display: "flex",
-              columnGap: "1rem",
-              alignItems: "center",
-              justifyContent: "space-between",
+              flexDirection: "row", // Align title and icon horizontally
+              justifyContent: "space-between", // Space out elements
+              alignItems: "center", // Vertically center the items
               px: "1rem", // Converted 16px
-              bottom: "0",
+              bottom: "0", // Position the content at the bottom
               borderRadius: "0 0 0.75rem 0.75rem", // Converted 12px
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               backdropFilter: "blur(0.3125rem)", // Converted 5px
+              paddingBottom: "0.3125rem", // Converted 5px
+              gap: "0.3125rem", // Converted 5px
             }}
           >
             <Typography
@@ -70,10 +74,28 @@ const TrendingCarousel = ({ featuredMedia }) => {
                 textWrap: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                textAlign: "left", // Align title to the left
+                flexGrow: 1, // Allow title to take available space
+                margin: 0, // Remove margin for tighter spacing
               }}
             >
               {featuredMedia?.[0]?.document?.titles?.[0]}
             </Typography>
+            <IconButton
+              aria-label="YouTube"
+              color="inherit"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering card click
+                console.log("YouTube icon clicked");
+              }}
+              sx={{
+                color: "#FF0000",
+                padding: "0.1875rem", // Converted 3px
+                marginLeft: "0.3125rem", // Converted 5px
+              }}
+            >
+              <YouTube />
+            </IconButton>
           </CardContent>
         </CardActionArea>
       </Card>
