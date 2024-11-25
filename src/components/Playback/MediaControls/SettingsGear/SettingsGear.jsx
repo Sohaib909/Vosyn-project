@@ -11,55 +11,31 @@ const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [resolution, setResolution] = useState("1080p");
 
-  const settingsRef = useRef(null);
-  const settingsTimeout = useRef(null);
+  const handleMenuToggle = () => {
+    setShowSettings(!showSettings); // Toggle the menu visibility
+  };
 
-  const handleMenuClose = () => {
-    settingsTimeout.current = setTimeout(() => {
-      setShowSettings(false);
-    });
+  const handleResolutionChange = (res) => {
+    setResolution(res);
+    setShowSettings(false); // Close the menu after selection
   };
 
   const resolutions = ["1080p", "720p", "480p", "240p"];
 
   return (
-    <Grid2
-      item
-      size={3}
-      ref={settingsRef}
-      sx={{ position: "relative", width: "fit-content" }}
-    >
-      <PlaybackButtons
-        onMouseOver={() => setShowSettings(true)}
-        onMouseLeave={handleMenuClose}
-        Icon={SettingsRoundedIcon}
-      />
+    <Grid2 item size={3} sx={{ position: "relative", width: "fit-content" }}>
+      <PlaybackButtons onClick={handleMenuToggle} Icon={SettingsRoundedIcon} />
 
-      {/* Settings Menu */}
       {showSettings && (
-        <Box
-          className={styles.itemsContainer}
-          onMouseLeave={handleMenuClose}
-          onMouseEnter={() => clearTimeout(settingsTimeout.current)}
-        >
-          <Typography
-            variant="body2"
-            sx={{
-              textAlign: "center",
-            }}
-          >
+        <Box className={styles.itemsContainer}>
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
             Quality
           </Typography>
           {resolutions.map((res) => (
             <Typography
               variant="caption"
               key={res}
-              onMouseLeave={handleMenuClose}
-              onMouseEnter={() => clearTimeout(settingsTimeout.current)}
-              onClick={() => {
-                setResolution(res);
-                handleMenuClose();
-              }}
+              onClick={() => handleResolutionChange(res)}
               className={styles.item}
               sx={{
                 justifyContent: "center",

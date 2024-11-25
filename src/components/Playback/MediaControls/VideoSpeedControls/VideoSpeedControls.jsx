@@ -7,8 +7,6 @@ import styles from "../SettingsGear/SettingsGear.module.css";
 
 const VideoSpeedControls = () => {
   const playbackSpeedRef = useRef(null);
-  const playSpeedTimeout = useRef(null);
-
   const [showPlaybackSpeedMenu, setShowPlaybackSpeedMenu] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
 
@@ -17,12 +15,11 @@ const VideoSpeedControls = () => {
   const handleSpeedChange = (speedValue) => {
     mediaRef.current.playbackRate = speedValue;
     setPlaybackSpeed(speedValue);
+    setShowPlaybackSpeedMenu(false);
   };
 
-  const handleMenuClose = () => {
-    playSpeedTimeout.current = setTimeout(() => {
-      setShowPlaybackSpeedMenu(false);
-    });
+  const handleClick = () => {
+    setShowPlaybackSpeedMenu(!showPlaybackSpeedMenu);
   };
 
   const speedOptions = [
@@ -39,46 +36,25 @@ const VideoSpeedControls = () => {
       sx={{ position: "relative", width: "fit-content" }}
       ref={playbackSpeedRef}
     >
-      <IconButton
-        onMouseOver={() => setShowPlaybackSpeedMenu(true)}
-        onMouseLeave={handleMenuClose}
-        style={{ cursor: "pointer" }}
-        ref={playbackSpeedRef}
-      >
-        {/* Display current playback speed as text using Typography with fixed size and centered */}
+      <IconButton onClick={handleClick} style={{ cursor: "pointer" }}>
         <Typography variant="body2">{`${playbackSpeed}x`}</Typography>
       </IconButton>
 
-      {/* Playback Speed Menu */}
       {showPlaybackSpeedMenu && (
-        <Box
-          className={styles.itemsContainer}
-          onMouseLeave={handleMenuClose}
-          onMouseEnter={() => clearTimeout(playSpeedTimeout.current)}
-        >
-          <Typography
-            variant="body2"
-            sx={{
-              textAlign: "center",
-            }}
-          >
+        <Box className={styles.itemsContainer}>
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
             Speed
           </Typography>
-          {speedOptions.map((res) => (
+          {speedOptions.map((option) => (
             <Typography
               variant="caption"
-              key={res?.value}
-              onMouseLeave={handleMenuClose}
-              onMouseEnter={() => clearTimeout(playSpeedTimeout.current)}
-              onClick={() => {
-                handleSpeedChange(res?.value);
-                handleMenuClose();
-              }}
+              key={option.value}
+              onClick={() => handleSpeedChange(option.value)}
               className={styles.item}
               sx={{
                 justifyContent: "center",
                 backgroundColor:
-                  playbackSpeed === res?.value &&
+                  playbackSpeed === option.value &&
                   "var(--mui-palette-neutral-700)",
                 cursor: "pointer",
                 "&:hover": {
@@ -88,7 +64,7 @@ const VideoSpeedControls = () => {
                 borderRadius: "4px",
               }}
             >
-              {res?.value}
+              {option.label}
             </Typography>
           ))}
         </Box>
