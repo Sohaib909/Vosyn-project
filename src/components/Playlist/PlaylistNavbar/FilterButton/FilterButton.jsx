@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import useQueryParam from "@/hooks/useQueryParam";
 import CloseIcon from "@mui/icons-material/Close";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 import {
@@ -17,12 +18,13 @@ import {
   Typography,
 } from "@mui/material";
 
-const FilterButton = ({ onFilterApply }) => {
+const FilterButton = ({ filters }) => {
   const [open, setOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [type, setType] = useState("");
   const [language, setLanguage] = useState("");
   const [date, setDate] = useState("");
+  const { updateQueryParam } = useQueryParam();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,19 +32,28 @@ const FilterButton = ({ onFilterApply }) => {
   };
 
   const handleClose = () => {
+    setType("");
+    setLanguage("");
+    setDate("");
     setOpen(false);
     setIsMenuOpen(false);
   };
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
-    if (name === "type") setType(value);
-    if (name === "language") setLanguage(value);
-    if (name === "date") setDate(value);
+    if (name === "type") {
+      setType(value);
+    } else if (name === "language") {
+      setLanguage(value);
+    } else if (name === "date") {
+      setDate(value);
+    }
   };
 
   const handleApplyFilter = () => {
-    onFilterApply(type);
+    if (type) updateQueryParam("type", type);
+    if (language) updateQueryParam("language", language);
+    if (date) updateQueryParam("date", date);
     handleClose();
   };
 
@@ -128,9 +139,10 @@ const FilterButton = ({ onFilterApply }) => {
                   label="Type"
                   sx={{ width: "170px" }}
                 >
-                  <MenuItem value={"video"}>Video</MenuItem>
-                  <MenuItem value={"audio"}>Audio</MenuItem>
-                  <MenuItem value={"text"}>Text</MenuItem>
+                  <MenuItem value={"MP4 Video"}>Video</MenuItem>
+                  <MenuItem value={"Audio"}>Audio</MenuItem>
+                  <MenuItem value={"Article"}>Article</MenuItem>
+                  <MenuItem value={"PDF Document"}>PDF Document</MenuItem>
                 </Select>
               </FormControl>
             </Box>

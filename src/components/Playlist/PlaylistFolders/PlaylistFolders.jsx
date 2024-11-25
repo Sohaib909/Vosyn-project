@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 
+import useQueryParam from "@/hooks/useQueryParam";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { Box, Typography } from "@mui/material";
 
@@ -45,6 +46,8 @@ const PlaylistFolders = () => {
   const [isNewFolderOpen, setIsNewFolderOpen] = useState(false);
   const [isAddFromSavedOpen, setIsAddFromSavedOpen] = useState(false);
   const [openFolder, setOpenFolder] = useState(false);
+  const { getAllParams } = useQueryParam();
+  const filters = getAllParams();
 
   const handleOpenNewFolder = () => setIsNewFolderOpen(true);
   const handleCloseNewFolder = () => setIsNewFolderOpen(false);
@@ -144,7 +147,7 @@ const PlaylistFolders = () => {
               );
             })}
           </Box>
-          <SinglePlaylist />
+          <SinglePlaylist filters={filters} />
           <NewFolderModal
             open={isNewFolderOpen}
             onClose={handleCloseNewFolder}

@@ -3,7 +3,8 @@
 import React from "react";
 
 import useQueryParam from "@/hooks/useQueryParam";
-import { Box, Link, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Button, Grid2, Link, Typography } from "@mui/material";
 
 import PlaylistCard from "./PlaylistCard/PlaylistCard";
 
@@ -12,7 +13,7 @@ const videos = [
     id: 1,
     title: "Money heist",
     type: "Article",
-    description: "Netflix | Spanish",
+    description: "Netflix | English",
     date: "Saved in July 1, 2018",
     image:
       "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg",
@@ -94,10 +95,39 @@ const groupByType = (data) => {
   return grouped;
 };
 
-const SinglePlaylist = ({ data = videos, icons = true }) => {
-  const { getAllParams } = useQueryParam();
-  const params = getAllParams();
+const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
+  const { updateQueryParam, getAllParams } = useQueryParam();
 
+  const params = getAllParams();
+  const { type, language, date } = filters;
+
+  const isFilterApplied = type || language || date;
+
+  // Filter data based on applied filters
+  const filterData = (data) => {
+    return data.filter((item) => {
+      const matchesType = filters.type
+        ? item.type.toLowerCase().includes(filters.type.toLowerCase())
+        : true;
+      const matchesLanguage = filters.language
+        ? item.description
+            .toLowerCase()
+            .includes(filters.language.toLowerCase())
+        : true;
+      const matchesDate = filters.date
+        ? (filters.date === "today" &&
+            new Date(item.date).toDateString() === new Date().toDateString()) ||
+          (filters.date === "this_week" &&
+            new Date(item.date) >
+              new Date(new Date() - 7 * 24 * 60 * 60 * 1000)) ||
+          (filters.date === "this_month" &&
+            new Date(item.date).getMonth() === new Date().getMonth())
+        : true;
+      return matchesType && matchesLanguage && matchesDate;
+    });
+  };
+
+  const filteredVideos = filterData(videos);
   // Determine sorting strategy
   const sortedData =
     params.sort === "savedDate"
@@ -106,6 +136,56 @@ const SinglePlaylist = ({ data = videos, icons = true }) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
+      <Grid2 container>
+        <Grid2 item xs={12}>
+          {/* Conditionally rendered the filter close button here */}
+          {isFilterApplied && (
+            <>
+              {["type", "language", "date"].map(
+                (key) =>
+                  filters[key] && (
+                    <Button
+                      key={key}
+                      sx={{
+                        marginBottom: "30px",
+                        marginRight: "30px",
+                        color: "#fff",
+                        backgroundColor: "dimgray",
+                      }}
+                      className={`${key}-filter-button`}
+                      variant="contained"
+                      onClick={() => updateQueryParam(key, undefined)}
+                      endIcon={<CloseIcon />}
+                    >
+                      <Typography variant="body1">
+                        {key === "date"
+                          ? filters[key]
+                              .replace("_", " ")
+                              .charAt(0)
+                              .toUpperCase() +
+                            filters[key].replace("_", " ").slice(1)
+                          : filters[key].charAt(0).toUpperCase() +
+                            filters[key].slice(1)}
+                      </Typography>
+                    </Button>
+                  ),
+              )}
+            </>
+          )}
+        </Grid2>
+      </Grid2>
+      {filteredVideos.map((item) => (
+        <PlaylistCard
+          icons={icons}
+          key={item.id}
+          itemID={item.id}
+          itemImage={item.image}
+          itemType={item.type}
+          itemTitle={item.title}
+          itemDate={item.date}
+          itemDescription={item.description}
+        />
+      ))}
       {params.sort === "type" &&
         Object.entries(sortedData).map(([key, items]) => (
           <Box key={key}>
