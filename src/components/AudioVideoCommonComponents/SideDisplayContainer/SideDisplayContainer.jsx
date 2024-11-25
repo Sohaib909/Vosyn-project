@@ -60,9 +60,12 @@ const SideDisplayContainer = ({
 
   return (
     <>
-      <Grid2 item size={12} className={styles.ContextualContainer}>
-        <ContextualInfo />
+      {containerType === "playlist" && (
+      // eslint-disable-next-line prettier/prettier
+      <Grid2 item size={12}  className={styles.sectionContainer}>
+      <ContextualInfo />
       </Grid2>
+    )}
 
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>
