@@ -157,6 +157,7 @@ const SearchBar = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") handleClickSearch();
           }}
+          aria-label="Search VosynVerse"
         />
       </Box>
       {popupOpen &&

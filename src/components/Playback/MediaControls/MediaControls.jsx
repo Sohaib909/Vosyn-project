@@ -152,9 +152,9 @@ const MediaControls = ({ children, type }) => {
           <VolumeControl />
         </Grid2>
 
-        <Grid2 item size={2} className={styles.passedChildren}>
-          {children}
-        </Grid2>
+        {/* <Grid2 item size={2} className={styles.passedChildren}>// {children}{/* </Grid2> */}
+
+        {console.log("Child componant", children)}
 
         <Grid2 item container size={6} sx={{ width: "fit-content" }}>
           <AutoDubbingSwitch />
