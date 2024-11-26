@@ -139,7 +139,7 @@ const FilterButton = ({ filters }) => {
                   label="Type"
                   sx={{ width: "170px" }}
                 >
-                  <MenuItem value={"MP4 Video"}>Video</MenuItem>
+                  <MenuItem value={"Video"}>Video</MenuItem>
                   <MenuItem value={"Audio"}>Audio</MenuItem>
                   <MenuItem value={"Article"}>Article</MenuItem>
                   <MenuItem value={"PDF Document"}>PDF Document</MenuItem>
