@@ -17,7 +17,7 @@ import {
 
 import FilterButton from "../FilterButton/FilterButton";
 
-const FilterLayoutButtons = ({ onFilterApply }) => {
+const FilterLayoutButtons = ({ filters }) => {
   const { updateQueryParam, getAllParams } = useQueryParam();
   const params = getAllParams();
 
@@ -62,7 +62,7 @@ const FilterLayoutButtons = ({ onFilterApply }) => {
         alignItems: "center",
       }}
     >
-      <FilterButton onFilterApply={onFilterApply} />
+      <FilterButton filters={filters} />
       <ToggleButtonGroup
         aria-label="playlists layout"
         value={layouts}

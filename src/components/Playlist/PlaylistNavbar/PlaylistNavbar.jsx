@@ -15,7 +15,7 @@ import useQueryParam from "../../../hooks/useQueryParam";
 import FilterLayoutButtons from "./FilterLayoutButton/FilterLayoutButton";
 import PlaylistTabs from "./PlaylistTabs/PlaylistTabs";
 
-const PlaylistHeader = ({ onFilterApply }) => {
+const PlaylistHeader = ({ filters }) => {
   const { updateQueryParam, getAllParams } = useQueryParam();
   const params = getAllParams();
   const [activeTab, setActiveTab] = useState(params.tab || "all");
@@ -139,7 +139,7 @@ const PlaylistHeader = ({ onFilterApply }) => {
                 }}
               />
             </Box>
-            <FilterLayoutButtons onFilterApply={onFilterApply} />
+            <FilterLayoutButtons filters={filters} />
           </Box>
         </Box>
       </Box>
