@@ -174,63 +174,67 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
           )}
         </Grid2>
       </Grid2>
-      {filteredVideos.map((item) => (
-        <PlaylistCard
-          icons={icons}
-          key={item.id}
-          itemID={item.id}
-          itemImage={item.image}
-          itemType={item.type}
-          itemTitle={item.title}
-          itemDate={item.date}
-          itemDescription={item.description}
-        />
-      ))}
-      {params.sort === "type" &&
-        Object.entries(sortedData).map(([key, items]) => (
-          <Box key={key}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: "bold", textTransform: "capitalize", mb: 2 }}
-              >
-                {key}
-              </Typography>
 
-              <Link
-                variant="p"
-                sx={{ mb: 2, fontWeight: "bold" }}
-                underline="always"
-                color="inherit"
-              >
-                more
-              </Link>
-            </Box>
+      {(() => {
+        // Determine the data to render based on sort and filters
+        let renderData;
+        if (params.sort === "savedDate") {
+          renderData = [...filteredVideos].sort(
+            (a, b) => parseDate(b.date) - parseDate(a.date),
+          );
+        } else if (params.sort === "type") {
+          return Object.entries(groupByType(filteredVideos)).map(
+            ([key, items]) => (
+              <Box key={key}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "capitalize",
+                      mb: 2,
+                    }}
+                  >
+                    {key}
+                  </Typography>
 
-            {items.map((item) => (
-              <PlaylistCard
-                key={item.id}
-                itemID={item.id}
-                itemImage={item.image}
-                itemType={item.type}
-                itemTitle={item.title}
-                itemDate={item.date}
-                itemDescription={item.description}
-                icons={icons}
-              />
-            ))}
-          </Box>
-        ))}
+                  <Link
+                    variant="p"
+                    sx={{ mb: 2, fontWeight: "bold" }}
+                    underline="always"
+                    color="inherit"
+                  >
+                    more
+                  </Link>
+                </Box>
 
-      {params.sort === "savedDate" &&
-        sortedData.map((item) => (
+                {items.map((item) => (
+                  <PlaylistCard
+                    key={item.id}
+                    itemID={item.id}
+                    itemImage={item.image}
+                    itemType={item.type}
+                    itemTitle={item.title}
+                    itemDate={item.date}
+                    itemDescription={item.description}
+                    icons={icons}
+                  />
+                ))}
+              </Box>
+            ),
+          );
+        } else {
+          renderData = filteredVideos;
+        }
+
+        return renderData.map((item) => (
           <PlaylistCard
             key={item.id}
             itemID={item.id}
@@ -241,21 +245,8 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
             itemDescription={item.description}
             icons={icons}
           />
-        ))}
-
-      {!params.sort &&
-        data.map((item) => (
-          <PlaylistCard
-            icons={icons}
-            key={item.id}
-            itemID={item.id}
-            itemImage={item.image}
-            itemType={item.type}
-            itemTitle={item.title}
-            itemDate={item.date}
-            itemDescription={item.description}
-          />
-        ))}
+        ));
+      })()}
     </Box>
   );
 };
