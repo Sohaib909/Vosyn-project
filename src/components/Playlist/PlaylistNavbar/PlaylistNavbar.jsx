@@ -27,6 +27,9 @@ const PlaylistHeader = ({ filters }) => {
   };
 
   const handleKeyDown = (event) => {
+    if (event.key === "Backspace" && searchTerm === "") {
+      updateQueryParam("playlist_query", "");
+    }
     if (event.key === "Enter") {
       updateQueryParam("playlist_query", searchTerm);
     }
