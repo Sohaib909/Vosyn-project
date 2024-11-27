@@ -13,6 +13,7 @@ const videos = [
     id: 1,
     title: "Money heist",
     type: "Article",
+    savedtype: "bookmarks",
     description: "Netflix | English",
     date: "Saved in July 1, 2018",
     image:
@@ -40,6 +41,7 @@ const videos = [
     id: 4,
     title: "Money heist",
     type: "PDF Document",
+    savedtype: "bookmarks",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2021",
     image:
@@ -80,6 +82,7 @@ const groupByType = (data) => {
     Videos: [],
     Audio: [],
     Text: [],
+    Bookmarked: [],
   };
 
   data.forEach((item) => {
@@ -87,6 +90,8 @@ const groupByType = (data) => {
       grouped.Videos.push(item);
     } else if (item.type.includes("Audio")) {
       grouped.Audio.push(item);
+    } else if (item.savedtype.includes("bookmarks")) {
+      grouped.Bookmarked.push(item);
     } else {
       grouped.Text.push(item); // Articles and PDFs fall under Text
     }
@@ -127,12 +132,8 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
     });
   };
 
-  const filteredVideos = filterData(videos);
+  const filteredVideos = filterData(data);
   // Determine sorting strategy
-  const sortedData =
-    params.sort === "savedDate"
-      ? [...data].sort((a, b) => parseDate(b.date) - parseDate(a.date)) // Sort by date
-      : groupByType(data); // Group by type
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
@@ -220,6 +221,7 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
                     key={item.id}
                     itemID={item.id}
                     itemImage={item.image}
+                    itemSavedType={item.savedtype}
                     itemType={item.type}
                     itemTitle={item.title}
                     itemDate={item.date}
@@ -234,18 +236,25 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
           renderData = filteredVideos;
         }
 
-        return renderData.map((item) => (
-          <PlaylistCard
-            key={item.id}
-            itemID={item.id}
-            itemImage={item.image}
-            itemType={item.type}
-            itemTitle={item.title}
-            itemDate={item.date}
-            itemDescription={item.description}
-            icons={icons}
-          />
-        ));
+        return renderData.map((item) => {
+          if (
+            !(!(item.savedtype === "bookmarks") && params.tab === "bookmarks")
+          ) {
+            return (
+              <PlaylistCard
+                key={item.id}
+                itemID={item.id}
+                itemImage={item.image}
+                itemType={item.type}
+                itemSavedType={item.savedtype}
+                itemTitle={item.title}
+                itemDate={item.date}
+                itemDescription={item.description}
+                icons={icons}
+              />
+            );
+          }
+        });
       })()}
     </Box>
   );

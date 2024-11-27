@@ -36,7 +36,7 @@ const PlaylistHeader = ({ filters }) => {
 
   const allContent = 20;
   const downloadedContent = 7;
-  const bookmarkedContent = 6;
+  const bookmarkedContent = 2;
   const playlistContent = 7;
 
   return (

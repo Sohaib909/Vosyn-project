@@ -1,5 +1,6 @@
 import React from "react";
 
+import { BookmarkAddOutlined } from "@mui/icons-material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
@@ -10,6 +11,7 @@ const PlaylistCard = ({
   itemID,
   itemImage,
   itemType,
+  itemSavedType,
   itemTitle,
   itemDescription,
   itemDate,
@@ -112,7 +114,11 @@ const PlaylistCard = ({
         ) : (
           <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
             <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-            <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            {itemSavedType === "bookmarks" ? (
+              <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            ) : (
+              <BookmarkAddOutlined fontSize="small" sx={{ mr: "0.5vw" }} />
+            )}
             <MoreVertIcon fontSize="small" />
           </Box>
         )}
