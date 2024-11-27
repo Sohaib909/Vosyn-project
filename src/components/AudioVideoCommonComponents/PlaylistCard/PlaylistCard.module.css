@@ -6,7 +6,6 @@
   align-items: center;
   row-gap: 0.5rem;
   cursor: pointer;
-  padding: 1rem;
   width: 10rem;
   justify-content: space-between;
 }

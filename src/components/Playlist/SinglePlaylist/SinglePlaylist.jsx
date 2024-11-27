@@ -129,12 +129,7 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
     });
   };
 
-  const filteredVideos = filterData(videos);
-  // Determine sorting strategy
-  const sortedData =
-    params.sort === "savedDate"
-      ? [...data].sort((a, b) => parseDate(b.date) - parseDate(a.date)) // Sort by date
-      : groupByType(data); // Group by type
+  const filteredVideos = filterData(data);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
@@ -179,63 +174,76 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
 
       {(() => {
         // Determine the data to render based on sort and filters
-        let renderData;
+        let renderData = [];
         if (params.sort === "savedDate") {
           renderData = [...filteredVideos].sort(
             (a, b) => parseDate(b.date) - parseDate(a.date),
           );
         } else if (params.sort === "type") {
-          return Object.entries(groupByType(filteredVideos)).map(
-            ([key, items]) => (
-              <Box key={key}>
-                <Box
+          if (params?.playlist_query && params?.playlist_query !== "") {
+            renderData = filteredVideos.filter((item) =>
+              item.title
+                .toLowerCase()
+                .includes(params.playlist_query.toLowerCase()),
+            );
+          } else {
+            renderData = filteredVideos;
+          }
+          return Object.entries(groupByType(renderData)).map(([key, items]) => (
+            <Box key={key}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h5"
                   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    fontWeight: "bold",
+                    textTransform: "capitalize",
+                    mb: 2,
                   }}
                 >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: "bold",
-                      textTransform: "capitalize",
-                      mb: 2,
-                    }}
-                  >
-                    {key}
-                  </Typography>
+                  {key}
+                </Typography>
 
-                  <Link
-                    variant="p"
-                    sx={{ mb: 2, fontWeight: "bold" }}
-                    underline="always"
-                    color="inherit"
-                  >
-                    more
-                  </Link>
-                </Box>
-
-                {items.map((item) => (
-                  <PlaylistCard
-                    key={item.id}
-                    itemID={item.id}
-                    itemImage={item.image}
-                    itemType={item.type}
-                    itemTitle={item.title}
-                    itemDate={item.date}
-                    itemDescription={item.description}
-                    icons={icons}
-                  />
-                ))}
+                <Link
+                  variant="p"
+                  sx={{ mb: 2, fontWeight: "bold" }}
+                  underline="always"
+                  color="inherit"
+                >
+                  more
+                </Link>
               </Box>
-            ),
-          );
+
+              {items.map((item) => (
+                <PlaylistCard
+                  key={item.id}
+                  itemID={item.id}
+                  itemImage={item.image}
+                  itemType={item.type}
+                  itemTitle={item.title}
+                  itemDate={item.date}
+                  itemDescription={item.description}
+                  icons={icons}
+                />
+              ))}
+            </Box>
+          ));
         } else {
           renderData = filteredVideos;
         }
-
+        if (params?.playlist_query && params?.playlist_query !== "") {
+          renderData = renderData.filter((item) =>
+            item.title
+              .toLowerCase()
+              .includes(params.playlist_query.toLowerCase()),
+          );
+        }
         return renderData.map((item) => {
           if (
             !(!(item.savedType === "offline") && params.tab === "downloads")
