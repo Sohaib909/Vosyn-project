@@ -31,6 +31,7 @@ const videos = [
     id: 3,
     title: "Money heist",
     type: "MP3 Audio",
+    savedType: "offline",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -40,6 +41,7 @@ const videos = [
     id: 4,
     title: "Money heist",
     type: "PDF Document",
+    savedType: "offline",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2021",
     image:
@@ -242,18 +244,25 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
               .includes(params.playlist_query.toLowerCase()),
           );
         }
-        return renderData.map((item) => (
-          <PlaylistCard
-            key={item.id}
-            itemID={item.id}
-            itemImage={item.image}
-            itemType={item.type}
-            itemTitle={item.title}
-            itemDate={item.date}
-            itemDescription={item.description}
-            icons={icons}
-          />
-        ));
+        return renderData.map((item) => {
+          if (
+            !(!(item.savedType === "offline") && params.tab === "downloads")
+          ) {
+            return (
+              <PlaylistCard
+                key={item.id}
+                itemID={item.id}
+                itemImage={item.image}
+                itemType={item.type}
+                itemSavedType={item.savedType}
+                itemTitle={item.title}
+                itemDate={item.date}
+                itemDescription={item.description}
+                icons={icons}
+              />
+            );
+          }
+        });
       })()}
     </Box>
   );
