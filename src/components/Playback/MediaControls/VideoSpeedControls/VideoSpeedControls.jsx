@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
-import { Box, Grid2, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 
 import styles from "../SettingsGear/SettingsGear.module.css";
 
@@ -9,6 +9,7 @@ const VideoSpeedControls = () => {
   const playbackSpeedRef = useRef(null);
   const [showPlaybackSpeedMenu, setShowPlaybackSpeedMenu] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [hoveredSpeed, setHoveredSpeed] = useState(null);
 
   const mediaRef = useMediaRef();
 
@@ -18,8 +19,23 @@ const VideoSpeedControls = () => {
     setShowPlaybackSpeedMenu(false);
   };
 
-  const handleClick = () => {
-    setShowPlaybackSpeedMenu(!showPlaybackSpeedMenu);
+  const handleMouseEnterContainer = () => {
+    setShowPlaybackSpeedMenu(true);
+  };
+
+  const handleMouseLeaveContainer = (e) => {
+    const relatedTarget = e.relatedTarget;
+    if (!playbackSpeedRef.current.contains(relatedTarget)) {
+      setShowPlaybackSpeedMenu(false);
+    }
+  };
+
+  const handleOptionMouseEnter = (speedValue) => {
+    setHoveredSpeed(speedValue);
+  };
+
+  const handleOptionMouseLeave = () => {
+    setHoveredSpeed(null);
   };
 
   const speedOptions = [
@@ -30,38 +46,66 @@ const VideoSpeedControls = () => {
   ];
 
   return (
-    <Grid2
-      item
-      size={3}
-      sx={{ position: "relative", width: "fit-content" }}
+    <Box
       ref={playbackSpeedRef}
+      onMouseEnter={handleMouseEnterContainer}
+      onMouseLeave={handleMouseLeaveContainer}
+      sx={{ position: "relative", display: "inline-block" }}
     >
-      <IconButton onClick={handleClick} style={{ cursor: "pointer" }}>
-        <Typography variant="body2">{`${playbackSpeed}x`}</Typography>
+      <IconButton>
+        <Typography
+          variant="body2"
+          sx={{ color: "#fff" }}
+        >{`${playbackSpeed}x`}</Typography>
       </IconButton>
 
       {showPlaybackSpeedMenu && (
-        <Box className={styles.itemsContainer}>
-          <Typography variant="body2" sx={{ textAlign: "center" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: "100%",
+            right: 0,
+            backgroundColor: "#1a1a1a",
+            color: "#fff",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            minWidth: "50px",
+            zIndex: 10,
+            padding: "8px 0",
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              textAlign: "center",
+              marginBottom: "8px",
+              color: "#aaa",
+              fontSize: "12px",
+            }}
+          >
             Speed
           </Typography>
           {speedOptions.map((option) => (
             <Typography
-              variant="caption"
               key={option.value}
               onClick={() => handleSpeedChange(option.value)}
-              className={styles.item}
+              onMouseEnter={() => handleOptionMouseEnter(option.value)}
+              onMouseLeave={handleOptionMouseLeave}
               sx={{
-                justifyContent: "center",
-                backgroundColor:
-                  playbackSpeed === option.value &&
-                  "var(--mui-palette-neutral-700)",
+                padding: "8px 12px",
+                fontSize: "14px",
                 cursor: "pointer",
+                backgroundColor:
+                  playbackSpeed === option.value
+                    ? "#333"
+                    : hoveredSpeed === option.value
+                      ? "#444"
+                      : "transparent",
+                color: playbackSpeed === option.value ? "#fff" : "#aaa",
                 "&:hover": {
-                  backgroundColor: "var(--mui-palette-neutral-600)",
+                  backgroundColor: "#444",
+                  color: "#fff",
                 },
-                padding: "8px",
-                borderRadius: "4px",
               }}
             >
               {option.label}
@@ -69,7 +113,7 @@ const VideoSpeedControls = () => {
           ))}
         </Box>
       )}
-    </Grid2>
+    </Box>
   );
 };
 
