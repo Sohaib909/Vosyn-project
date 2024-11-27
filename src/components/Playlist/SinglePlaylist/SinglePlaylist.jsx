@@ -128,11 +128,6 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
   };
 
   const filteredVideos = filterData(data);
-  // Determine sorting strategy
-  // const sortedData =
-  //   params.sort === "savedDate"
-  //     ? [...data].sort((a, b) => parseDate(b.date) - parseDate(a.date)) // Sort by date
-  //     : groupByType(data); // Group by type
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
