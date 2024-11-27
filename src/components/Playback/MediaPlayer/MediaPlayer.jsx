@@ -27,13 +27,25 @@ const MediaPlayer = ({ showScreen = true }) => {
 
   // Initialize Dash.js when video ref is set and ready
   useEffect(() => {
-    if (mediaObj?.file_stream_cdn_url && mediaRef?.current) {
-      const player = dashjs.MediaPlayer().create();
-      player.initialize(mediaRef.current, mediaObj.file_stream_cdn_url, false);
+    const player = dashjs.MediaPlayer().create();
+    player.initialize(mediaRef.current, "/testVideo/example_dash1.mpd", false);
+    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      // Get all audio tracks
 
-      // Cleanup function to reset the player when unmounted
-      return () => player.reset();
-    }
+      const audioTracks = player.getTracksFor("audio");
+      console.log("Audio Tracks:", audioTracks);
+
+      // Get all caption (text) tracks
+      const textTracks = player.getTracksFor("text");
+      console.log("Caption/Text Tracks:", textTracks);
+    });
+
+    player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
+      console.error(player, "Dash.js error:", e);
+    });
+
+    // Cleanup function to reset the player when unmounted
+    return () => player.reset();
   }, [mediaObj, mediaRef]);
 
   return (
