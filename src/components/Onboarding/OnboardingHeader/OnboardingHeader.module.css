@@ -1,0 +1,35 @@
+.onboardingNavbar {
+  padding: 30px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageStepper {
+  display: flex;
+  gap: 20px;
+}
+
+.pageStepper .skipButton {
+  text-transform: none;
+  font-size: 1rem;
+  color: #6969f9;
+}
+
+.pageStepper .stepperComponent {
+  max-width: 400px;
+  flex-grow: 1;
+  background-color: white;
+}
+
+.pageStepper .stepperDots {
+  gap: 30px;
+}
+
+.pageStepper .stepperDot {
+  background-color: #d9d9d9;
+}
+
+.pageStepper .stepperDotActive {
+  background-color: #6969f9;
+}
