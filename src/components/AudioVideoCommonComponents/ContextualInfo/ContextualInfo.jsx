@@ -23,7 +23,7 @@ import "./ContextualInfo.module.css";
 
 const sampleData = {
   recap:
-    "Quick Recap: One of the key patient cases involves a kidney transplant between two patients...",
+    "Quick Recap: One of the key patient cases involves a kidney transplant between two patients. A man is supposed to donate his kidney to his friend, but it turns out that he didn’t quit smoking as he claimed, which complicates the surgery. This causes tension as the doctors work to figure out a solution, while also dealing with the ethical dilemma surrounding his dishonesty.",
   ethicalDilemma:
     "Ethical Dilemma: The ethical issue involves organ donation from a patient who is not fully honest...",
   medicalTerm:
@@ -42,6 +42,7 @@ const MyButton = styled(Button)({
   boxShadow: "none",
   border: "1px solid #A3A3A8",
   whiteSpace: "nowrap",
+  backgroundColor: "#1F1E1E",
   overflow: "hidden",
   "&:hover": {
     backgroundColor: "#e0e0e0",
@@ -191,10 +192,10 @@ const ContextualInfo = () => {
                     : "Explain Medical term “aneurysm”."}
               </MyButton>
             ))}
-
+             
             <Box
               className="displayArea"
-              sx={{ mt: "15px", color: "white", fontSize: "0.675rem" }}
+              sx={{ mt: "15px", color: "#F7F9FF", fontSize: "0.675rem" }}
             >
               <Typography variant="body2" className="displayText">
                 {displayContent}

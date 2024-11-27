@@ -13,6 +13,7 @@ import useSWR from "swr";
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 // eslint-disable-next-line prettier/prettier
 import RecommendedCard from "../RecommendedCard/RecommendedCard";
+// eslint-disable-next-line prettier/prettier
 import ContextualInfo from "../ContextualInfo/ContextualInfo";
 
 import styles from "./SideDisplayContainer.module.css";
@@ -61,12 +62,11 @@ const SideDisplayContainer = ({
   return (
     <>
       {containerType === "playlist" && (
-      // eslint-disable-next-line prettier/prettier
+        // eslint-disable-next-line prettier/prettier
       <Grid2 item size={12}  className={styles.sectionContainer}>
       <ContextualInfo />
       </Grid2>
     )}
-
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>
           <Grid2 item size={12} className={styles.header}>
