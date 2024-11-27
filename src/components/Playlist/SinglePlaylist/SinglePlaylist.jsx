@@ -234,18 +234,42 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
           renderData = filteredVideos;
         }
 
-        return renderData.map((item) => (
-          <PlaylistCard
-            key={item.id}
-            itemID={item.id}
-            itemImage={item.image}
-            itemType={item.type}
-            itemTitle={item.title}
-            itemDate={item.date}
-            itemDescription={item.description}
-            icons={icons}
-          />
-        ));
+        return renderData.map((item) => {
+          // render the PlaylistCard for offline tab
+          if (params?.tab === "downloads") {
+            if (
+              !(item.type === "Audio Playlist") &&
+              !(item.type === "Video Playlist")
+            ) {
+              return (
+                <PlaylistCard
+                  key={item.id}
+                  itemID={item.id}
+                  itemImage={item.image}
+                  itemType={item.type}
+                  itemTitle={item.title}
+                  itemDate={item.date}
+                  itemDescription={item.description}
+                  icons={icons}
+                />
+              );
+            }
+            // otherwise render the PlaylistCard as is
+          } else {
+            return (
+              <PlaylistCard
+                key={item.id}
+                itemID={item.id}
+                itemImage={item.image}
+                itemType={item.type}
+                itemTitle={item.title}
+                itemDate={item.date}
+                itemDescription={item.description}
+                icons={icons}
+              />
+            );
+          }
+        });
       })()}
     </Box>
   );
