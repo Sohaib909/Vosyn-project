@@ -1,6 +1,5 @@
 import React from "react";
 
-import useQueryParam from "@/hooks/useQueryParam";
 import { BookmarkAddOutlined } from "@mui/icons-material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -12,16 +11,12 @@ const PlaylistCard = ({
   itemID,
   itemImage,
   itemType,
+  itemSavedType,
   itemTitle,
   itemDescription,
   itemDate,
   icons = true,
 }) => {
-  const { getAllParams } = useQueryParam();
-
-  // get current tab
-  const currTab = getAllParams().tab;
-
   return (
     <Card
       key={itemID}
@@ -119,10 +114,10 @@ const PlaylistCard = ({
         ) : (
           <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
             <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-            {!(currTab === "downloads") ? (
-              <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-            ) : (
+            {itemSavedType === "offline" ? (
               <BookmarkAddOutlined fontSize="small" sx={{ mr: "0.5vw" }} />
+            ) : (
+              <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
             )}
             <MoreVertIcon fontSize="small" />
           </Box>
