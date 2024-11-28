@@ -31,7 +31,7 @@ export const POST = async (req) => {
       );
     }
 
-    await createSession({ token, username, userId }, "7d");
+    await createSession({ token, username, userId }, "1d");
 
     return NextResponse.json(response.data, { status: response.status });
   } catch (error) {

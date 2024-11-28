@@ -12,7 +12,7 @@ export const middleware = async (request) => {
 
   // Check user authentication state
   let isUserAuthenticated = false;
-  const cookie = (await cookies()).get("session")?.value;
+  const cookie = cookies().get("session")?.value;
   const session = await decrypt(cookie);
   if (session?.userId) {
     isUserAuthenticated = true;

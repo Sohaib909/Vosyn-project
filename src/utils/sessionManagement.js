@@ -23,10 +23,10 @@ export async function encrypt(payloadObject, expirationTime) {
 // Decrypt/decodes a user's session token (JWT)
 export async function decrypt(sessionToken) {
   try {
-    const { payloadObject } = await jwtVerify(sessionToken, encodedKey, {
+    const { payload } = await jwtVerify(sessionToken, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payloadObject;
+    return payload;
   } catch (error) {
     return undefined;
   }
@@ -35,13 +35,14 @@ export async function decrypt(sessionToken) {
 // Creates a user session by creating a JWT with user session information and storing it in the user's browser cookies
 export async function createSession(sessionObject, expirationDate) {
   // TODO: Update expiresAt to get expiration time from server response (i.e. expirationDate)
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
 
   // TODO: After changing expiration time to get response from server, update expirationDate passed to encrypt
   const session = await encrypt(
     { ...sessionObject, expiresAt },
     expirationDate,
-  )(await cookies()).set("session", session, {
+  );
+  cookies().set("session", session, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -52,6 +53,5 @@ export async function createSession(sessionObject, expirationDate) {
 
 // Deletes a user session by removing the session token from the user's browser cookies
 export async function deleteSession() {
-  const cookieStore = await cookies();
-  cookieStore.delete("session");
+  cookies().delete("session");
 }
