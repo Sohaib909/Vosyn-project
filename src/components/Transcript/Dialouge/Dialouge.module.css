@@ -10,10 +10,10 @@
 
 .transcript_content {
   display: flex;
-  align-items: center;
   width: -webkit-fill-available;
   cursor: pointer;
   gap: 5px;
+  flex-direction: column;
 }
 
 .transcript_content:hover,

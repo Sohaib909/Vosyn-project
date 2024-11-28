@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectLanguage } from "@/reduxSlices/languageSlice";
-import { setCurrentTime } from "@/reduxSlices/playerSlice";
+import { selectPlayer, setCurrentTime } from "@/reduxSlices/playerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FlagIcon from "@mui/icons-material/Flag";
@@ -33,6 +33,8 @@ const Dialogue = ({
   const [showSuggestionTextbox, setShowSuggestionTextbox] = useState(false);
   const [suggestionText, setSuggestionText] = useState("");
   const { selectedOriginalLanguage } = useSelector(selectLanguage);
+  const { selectedTranslatedLanguage } = useSelector(selectLanguage);
+  const { showTranslatedTranscript } = useSelector(selectPlayer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -109,13 +111,20 @@ const Dialogue = ({
             handleTranscriptClick();
           }}
         >
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: 500 }}
-          >{`${transcript.speaker}: `}</Typography>
-          <Typography variant="body1">
-            {transcript?.text[selectedOriginalLanguage]}
-          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: 500 }}
+            >{`${transcript.speaker}:`}</Typography>
+            <Typography variant="body1">
+              {transcript?.text[selectedOriginalLanguage]}
+            </Typography>
+          </Box>
+          {showTranslatedTranscript && (
+            <Typography variant="body1">
+              {transcript?.text[selectedTranslatedLanguage]}
+            </Typography>
+          )}
         </Box>
         {showSuggestionTextbox && (
           <Box className={styles.suggestion_wrapper}>

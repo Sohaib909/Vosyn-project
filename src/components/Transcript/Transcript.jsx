@@ -27,7 +27,8 @@ const Transcript = ({ transcriptJson }) => {
   const { hasEnded } = useSelector(selectPlayer);
   const [activeItemIndex, setActiveItemTndex] = useState(0);
   const [showResumeScrolling, setShowResumeScrolling] = useState(false);
-  const LIST_ITEM_HEIGHT = 53;
+  const { showTranslatedTranscript } = useSelector(selectPlayer);
+  const LIST_ITEM_HEIGHT = showTranslatedTranscript ? 73 : 53;
   const [isAnyTranscriptflagged, setIsAnyTranscriptflagged] = useState(false);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
