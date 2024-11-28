@@ -30,6 +30,7 @@
     "axios": "^1.7.7",
     "dashjs": "^4.7.4",
     "next": "14.2.13",
+    "phosphor-react": "^1.4.1",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.3.5",
@@ -38,6 +39,7 @@
     "react-redux": "^9.1.2",
     "react-world-flags": "^1.6.0",
     "sharp": "^0.33.5",
+    "styled-components": "^6.1.13",
     "swr": "^2.2.5"
   },
   "devDependencies": {
