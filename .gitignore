@@ -36,5 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 .eslintcache
-
-.idea/
+.idea
+.vscode
+package-lock.json

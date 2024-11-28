@@ -16,6 +16,7 @@ import FilterLayoutButtons from "./FilterLayoutButton/FilterLayoutButton";
 import PlaylistTabs from "./PlaylistTabs/PlaylistTabs";
 
 const PlaylistHeader = ({ filters }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const { updateQueryParam, getAllParams } = useQueryParam();
   const params = getAllParams();
   const [activeTab, setActiveTab] = useState(params.tab || "all");
@@ -23,6 +24,20 @@ const PlaylistHeader = ({ filters }) => {
   const handleTabClick = (tabName) => {
     updateQueryParam("tab", tabName.toLowerCase());
     setActiveTab(tabName.toLowerCase());
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Backspace" && searchTerm === "") {
+      updateQueryParam("playlist_query", "");
+    }
+    if (event.key === "Enter") {
+      updateQueryParam("playlist_query", searchTerm);
+    }
+  };
+  const handleSearchClick = () => {};
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
@@ -119,6 +134,9 @@ const PlaylistHeader = ({ filters }) => {
                 className="playlistSearch"
                 type="text"
                 variant="standard"
+                value={searchTerm}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
                 sx={{
                   input: {
                     color: "white",
@@ -128,7 +146,10 @@ const PlaylistHeader = ({ filters }) => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Button className="searchIcon">
+                      <Button
+                        className="searchIcon"
+                        onClick={handleSearchClick}
+                      >
                         <SearchOutlinedIcon />
                       </Button>
                     </InputAdornment>

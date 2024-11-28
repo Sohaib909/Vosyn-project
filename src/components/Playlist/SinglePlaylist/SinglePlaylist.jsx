@@ -13,7 +13,7 @@ const videos = [
     id: 1,
     title: "Money heist",
     type: "Article",
-    savedtype: "bookmarks",
+    savedType: "bookmarks",
     description: "Netflix | English",
     date: "Saved in July 1, 2018",
     image:
@@ -23,7 +23,7 @@ const videos = [
     id: 2,
     title: "Money heist",
     type: "MP4 Video",
-    savedtype: "bookmarks",
+    savedType: "bookmarks",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -33,6 +33,7 @@ const videos = [
     id: 3,
     title: "Money heist",
     type: "MP3 Audio",
+    savedType: "offline",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -42,7 +43,7 @@ const videos = [
     id: 4,
     title: "Money heist",
     type: "PDF Document",
-
+    savedType: "offline",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2021",
     image:
@@ -134,7 +135,6 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
   };
 
   const filteredVideos = filterData(data);
-  // Determine sorting strategy
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
@@ -179,21 +179,37 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
 
       {(() => {
         // Determine the data to render based on sort and filters
-        let renderData;
+        let renderData = [];
         if (params.sort === "savedDate") {
           renderData = [...filteredVideos].sort(
             (a, b) => parseDate(b.date) - parseDate(a.date),
           );
         } else if (params.sort === "type") {
-          return Object.entries(groupByType(filteredVideos)).map(
-            ([key, items]) => (
-              <Box key={key}>
-                <Box
+          if (params?.playlist_query && params?.playlist_query !== "") {
+            renderData = filteredVideos.filter((item) =>
+              item.title
+                .toLowerCase()
+                .includes(params.playlist_query.toLowerCase()),
+            );
+          } else {
+            renderData = filteredVideos;
+          }
+          return Object.entries(groupByType(renderData)).map(([key, items]) => (
+            <Box key={key}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h5"
                   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    fontWeight: "bold",
+                    textTransform: "capitalize",
+                    mb: 2,
                   }}
                 >
                   <Typography
@@ -230,16 +246,22 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
                     icons={icons}
                   />
                 ))}
-              </Box>
-            ),
-          );
+            </Box>
+          ));
         } else {
           renderData = filteredVideos;
-        }
+        }  
 
+        if (params?.playlist_query && params?.playlist_query !== "") {
+          renderData = renderData.filter((item) =>
+            item.title
+              .toLowerCase()
+              .includes(params.playlist_query.toLowerCase()),
+          );
+        }
         return renderData.map((item) => {
           if (
-            !(!(item.savedtype === "bookmarks") && params.tab === "bookmarks")
+            !(!(item.savedType === "offline") && params.tab === "downloads") || !(!(item.savedtype === "bookmarks") && params.tab === "bookmarks")
           ) {
             return (
               <PlaylistCard
@@ -247,7 +269,7 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
                 itemID={item.id}
                 itemImage={item.image}
                 itemType={item.type}
-                itemSavedType={item.savedtype}
+                itemSavedType={item.savedType}
                 itemTitle={item.title}
                 itemDate={item.date}
                 itemDescription={item.description}
