@@ -10,7 +10,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
-import { setLoggedIn } from "../../../reduxSlices/authSlice";
 import { setUserInfo } from "../../../reduxSlices/userSlice";
 import AuthInput from "../AuthInput/AuthInput";
 
@@ -50,7 +49,6 @@ const LoginForm = () => {
       if (res?.status === 200) {
         setStatus("Login successful", "success");
 
-        dispatch(setLoggedIn(true));
         dispatch(
           setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
         );
