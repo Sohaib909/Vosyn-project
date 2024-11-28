@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import useDebounce from "@/hooks/useDebounce";
+import useQueryParam from "@/hooks/useQueryParam.js";
 import { normalizeSearchString } from "@/utils/requests";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import {
@@ -31,6 +32,7 @@ const SearchBar = () => {
     useState(null);
   const [currentSuggestions, setCurrentSuggestions] = useState([]);
 
+  const { updateQueryParam } = useQueryParam();
   const {
     popupOpen,
     getRootProps,
@@ -136,6 +138,12 @@ const SearchBar = () => {
     }
   };
 
+  // Redirect to the search page when the user clicks on the search button
+  const handleClickSearch = () => {
+    if (!searchTerm) return;
+    updateQueryParam("query", searchTerm);
+  };
+
   return (
     <Box className={styles.searchBarContainer}>
       <Box {...getRootProps()} className={styles.searchInputWrapper}>
@@ -145,8 +153,11 @@ const SearchBar = () => {
         />
         <input
           {...getInputProps()}
-          aria-label="Search VosynVerse"
           className={styles.searchInput}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleClickSearch();
+          }}
+          aria-label="Search VosynVerse"
         />
       </Box>
       {popupOpen &&
@@ -199,6 +210,7 @@ const SearchBar = () => {
         ))}
 
       <ButtonBase
+        onClick={handleClickSearch}
         sx={{
           backgroundColor: "var(--mui-palette-neutral-200)",
           borderRadius: "0rem 0.75rem 0.75rem 0rem",
