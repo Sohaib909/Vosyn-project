@@ -4,6 +4,7 @@ const initialState = {
   showStatusNotification: false,
   message: "",
   severity: "success",
+  timeout: 2000,
 };
 
 const statusNotificationSlice = createSlice({
@@ -12,9 +13,10 @@ const statusNotificationSlice = createSlice({
   reducers: {
     // Set notification
     setStatusNotification: (state, action) => {
-      (state.showStatusNotification = true),
-        (state.message = action.payload.message),
-        (state.severity = action.payload.severity);
+      state.showStatusNotification = true;
+      state.message = action.payload.message;
+      state.severity = action.payload.severity;
+      state.timeout = action.payload.timeout;
     },
     // Hide notification
     hideStatusNotification: (state) => {

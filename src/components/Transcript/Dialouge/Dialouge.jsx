@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectLanguage } from "@/reduxSlices/languageSlice";
-import { selectPlayer, setCurrentTime } from "@/reduxSlices/playerSlice";
+import { setCurrentTime } from "@/reduxSlices/playerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FlagIcon from "@mui/icons-material/Flag";

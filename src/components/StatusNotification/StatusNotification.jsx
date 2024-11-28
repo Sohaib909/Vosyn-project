@@ -16,17 +16,17 @@ import { Alert, AlertTitle, IconButton } from "@mui/material";
  * @returns - A pop up status notification at the bottom left of the screen.
  */
 const StatusNotification = () => {
-  const { showStatusNotification, message, severity } = useSelector(
+  const { showStatusNotification, message, severity, timeout } = useSelector(
     selectStatusNotification,
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // If there is currently a notification shown hide it after 2 seconds.
-    if (showStatusNotification) {
+    // If there is currently a notification shown (and the message is not "permanent"/timeout === -1), hide it after 2 seconds.
+    if (showStatusNotification && timeout !== -1) {
       const timer = setTimeout(() => {
         dispatch(hideStatusNotification());
-      }, 2000);
+      }, timeout);
 
       return () => clearTimeout(timer);
     }
