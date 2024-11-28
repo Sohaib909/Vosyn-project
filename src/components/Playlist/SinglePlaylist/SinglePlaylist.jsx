@@ -13,7 +13,7 @@ const videos = [
     id: 1,
     title: "Money heist",
     type: "Article",
-    savedType: "bookmarks",
+    savedType: "bookmark",
     description: "Netflix | English",
     date: "Saved in July 1, 2018",
     image:
@@ -23,7 +23,7 @@ const videos = [
     id: 2,
     title: "Money heist",
     type: "MP4 Video",
-    savedType: "bookmarks",
+    savedType: "bookmark",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -84,16 +84,12 @@ const groupByType = (data) => {
     Videos: [],
     Audio: [],
     Text: [],
-    Bookmarked: [],
   };
-  console.log("bookmarked array", grouped.Videos[0]);
   data.forEach((item) => {
     if (item.type.includes("Video")) {
       grouped.Videos.push(item);
     } else if (item.type.includes("Audio")) {
       grouped.Audio.push(item);
-    } else if (item.savedtype.includes("bookmarks")) {
-      grouped.Bookmarked.push(item);
     } else {
       grouped.Text.push(item); // Articles and PDFs fall under Text
     }
@@ -212,45 +208,37 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
                     mb: 2,
                   }}
                 >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: "bold",
-                      textTransform: "capitalize",
-                      mb: 2,
-                    }}
-                  >
-                    {key}
-                  </Typography>
+                  {key}
+                </Typography>
 
-                  <Link
-                    variant="p"
-                    sx={{ mb: 2, fontWeight: "bold" }}
-                    underline="always"
-                    color="inherit"
-                  >
-                    more
-                  </Link>
-                </Box>
+                <Link
+                  variant="p"
+                  sx={{ mb: 2, fontWeight: "bold" }}
+                  underline="always"
+                  color="inherit"
+                >
+                  more
+                </Link>
+              </Box>
 
-                {items.map((item) => (
-                  <PlaylistCard
-                    key={item.id}
-                    itemID={item.id}
-                    itemImage={item.image}
-                    itemSavedType={item.savedtype}
-                    itemType={item.type}
-                    itemTitle={item.title}
-                    itemDate={item.date}
-                    itemDescription={item.description}
-                    icons={icons}
-                  />
-                ))}
+              {items.map((item) => (
+                <PlaylistCard
+                  key={item.id}
+                  itemID={item.id}
+                  itemImage={item.image}
+                  itemSavedType={item.savedtype}
+                  itemType={item.type}
+                  itemTitle={item.title}
+                  itemDate={item.date}
+                  itemDescription={item.description}
+                  icons={icons}
+                />
+              ))}
             </Box>
           ));
         } else {
           renderData = filteredVideos;
-        }  
+        }
 
         if (params?.playlist_query && params?.playlist_query !== "") {
           renderData = renderData.filter((item) =>
@@ -261,8 +249,23 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
         }
         return renderData.map((item) => {
           if (
-            !(!(item.savedType === "offline") && params.tab === "downloads") || !(!(item.savedtype === "bookmarks") && params.tab === "bookmarks")
+            (params.tab === "downloads" && item.savedType === "offline") ||
+            (params.tab === "bookmarks" && item.savedType === "bookmark")
           ) {
+            return (
+              <PlaylistCard
+                key={item.id}
+                itemID={item.id}
+                itemImage={item.image}
+                itemType={item.type}
+                itemSavedType={item.savedType}
+                itemTitle={item.title}
+                itemDate={item.date}
+                itemDescription={item.description}
+                icons={icons}
+              />
+            );
+          } else if (params.tab !== "downloads" && params.tab !== "bookmarks") {
             return (
               <PlaylistCard
                 key={item.id}
