@@ -1,0 +1,12 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 375px;
+  min-height: 100vh;
+  overflow-y: hidden;
+  height: auto;
+  background-color: white;
+  gap: 0px;
+  color: black;
+}

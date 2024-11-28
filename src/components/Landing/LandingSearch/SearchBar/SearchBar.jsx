@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import {
   MoreHorizRounded,
@@ -7,13 +7,36 @@ import {
 } from "@mui/icons-material";
 import { Box, Button, Grid2, IconButton, TextField } from "@mui/material";
 
-const SearchBar = () => {
+const SearchBar = ({
+  searchInput,
+  setSearchInput,
+  isProcessingMessage,
+  sendMessageToGemini,
+}) => {
+  const searchInputRef = useRef(null);
+
+  const handleEnterKeyPress = (event) => {
+    if (
+      event.key === "Enter" &&
+      searchInputRef.current === document.activeElement &&
+      searchInput.length &&
+      !isProcessingMessage
+    ) {
+      sendMessageToGemini();
+    }
+  };
+
   return (
-    <Grid2 item size={12} sx={{ display: "flex", alignItems: "center" }}>
-      <SearchRounded sx={{ fontSize: "2.5rem" }} />
+    <Grid2 item sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+      <SearchRounded sx={{ fontSize: 32 }} />
       <TextField
+        autoComplete="off"
         fullWidth
-        placeholder="AI Search...."
+        placeholder="Start exploring by searching or uploading anything"
+        onChange={(e) => setSearchInput(e.target.value)}
+        value={searchInput}
+        inputRef={searchInputRef}
+        onKeyDown={handleEnterKeyPress}
         sx={{
           "& fieldset": { border: "none" },
           "& input": { padding: "10px" },
@@ -21,10 +44,18 @@ const SearchBar = () => {
       />
 
       <Box sx={{ display: "flex", columnGap: "1rem" }}>
-        <IconButton>
+        <IconButton aria-label="VosynAssist more optiions">
           <MoreHorizRounded />
         </IconButton>
-        <Button variant="contained">
+        <Button
+          variant="contained"
+          onClick={sendMessageToGemini}
+          sx={{ borderRadius: 3 }}
+          disabled={
+            searchInput.length === 0 || isProcessingMessage ? true : false
+          }
+          aria-label="Send message to VosynAssist"
+        >
           <SendRounded />
         </Button>
       </Box>

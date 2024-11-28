@@ -24,7 +24,7 @@ const useQueryParam = () => {
           ? `/search?${urlSearchParams.toString()}`
           : `${pathname}?${urlSearchParams.toString()}`;
 
-      router.replace(newUrl);
+      router.replace(newUrl, { scroll: false });
     },
     [pathname, search, router],
   );

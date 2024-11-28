@@ -1,0 +1,68 @@
+.filterContainer {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.filterToggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mui-palette-background-paper);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.filterOptions {
+  position: absolute;
+  top: -46px;
+  left: -4.5vw;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 100vh;
+  background-color: var(--mui-palette-background-default);
+  border: 1px solid var(--mui-palette-divider);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+
+.filterOptions.show {
+  transform: translateX(0);
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.filterOptions.hide {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+.filterField {
+  margin-bottom: 16px;
+}
+
+.MuiMenuItem-root:hover {
+  background-color: var(--mui-palette-action-hover);
+}
