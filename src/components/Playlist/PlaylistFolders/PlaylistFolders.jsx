@@ -90,7 +90,7 @@ const PlaylistFolders = () => {
               {currentFolder}
             </Typography>
           </Box>
-          <SinglePlaylist data={videos} />
+          <SinglePlaylist data={videos} filters={filters} />
         </Box>
       ) : (
         <Box>
