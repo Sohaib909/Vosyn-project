@@ -23,6 +23,7 @@ const videos = [
     id: 2,
     title: "Money heist",
     type: "MP4 Video",
+    savedtype: "bookmarks",
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2019",
     image:
@@ -41,7 +42,7 @@ const videos = [
     id: 4,
     title: "Money heist",
     type: "PDF Document",
-    savedtype: "bookmarks",
+
     description: "Netflix | Spanish",
     date: "Saved in December 1, 2021",
     image:
@@ -84,7 +85,7 @@ const groupByType = (data) => {
     Text: [],
     Bookmarked: [],
   };
-
+  console.log("bookmarked array", grouped.Videos[0]);
   data.forEach((item) => {
     if (item.type.includes("Video")) {
       grouped.Videos.push(item);
