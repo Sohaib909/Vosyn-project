@@ -115,15 +115,21 @@ const Dialogue = ({
             <Typography
               variant="body1"
               sx={{ fontWeight: 500 }}
-            >{`${transcript.speaker}:`}</Typography>
+            >{`${transcript?.speaker[selectedOriginalLanguage]}:`}</Typography>
             <Typography variant="body1">
               {transcript?.text[selectedOriginalLanguage]}
             </Typography>
           </Box>
           {showTranslatedTranscript && (
-            <Typography variant="body1">
-              {transcript?.text[selectedTranslatedLanguage]}
-            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+              <Typography
+                variant="body1"
+                sx={{ fontWeight: 500 }}
+              >{`${transcript?.speaker[selectedTranslatedLanguage]}:`}</Typography>
+              <Typography variant="body1">
+                {transcript?.text[selectedTranslatedLanguage]}
+              </Typography>
+            </Box>
           )}
         </Box>
         {showSuggestionTextbox && (

@@ -25,7 +25,7 @@ const Transcript = ({ transcriptJson }) => {
   const { currentTime } = useSelector(selectPlayer);
   const [autoScroll, setAutoScroll] = useState(true);
   const { hasEnded } = useSelector(selectPlayer);
-  const [activeItemIndex, setActiveItemTndex] = useState(0);
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [showResumeScrolling, setShowResumeScrolling] = useState(false);
   const { showTranslatedTranscript } = useSelector(selectPlayer);
   const LIST_ITEM_HEIGHT = showTranslatedTranscript ? 73 : 53;
@@ -77,10 +77,11 @@ const Transcript = ({ transcriptJson }) => {
           });
         }
       }
-      const activeItemIdx = transcripts.findIndex(
-        (transcript) => transcript.timestamp === activeItemId,
-      );
-      setActiveItemTndex(activeItemIdx);
+      const activeItemIdx = transcripts.findIndex((transcript) => {
+        return transcript.timestamp === activeItemId;
+      });
+      setActiveItemIndex(activeItemIdx != -1 ? activeItemIdx : 0);
+
       if (!showResumeScrolling && autoScroll) {
         setCurrentItemPosition(activeItemIdx);
       }
