@@ -114,10 +114,10 @@ const PlaylistCard = ({
         ) : (
           <Box sx={{ position: "absolute", top: "5%", right: "2%" }}>
             <ShareIcon fontSize="small" sx={{ mr: "0.5vw" }} />
-            {itemSavedType === "offline" ? (
-              <BookmarkAddOutlined fontSize="small" sx={{ mr: "0.5vw" }} />
-            ) : (
+            {itemSavedType === "bookmark" ? (
               <BookmarkIcon fontSize="small" sx={{ mr: "0.5vw" }} />
+            ) : (
+              <BookmarkAddOutlined fontSize="small" sx={{ mr: "0.5vw" }} />
             )}
             <MoreVertIcon fontSize="small" />
           </Box>
