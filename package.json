@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,css}": [
@@ -27,7 +29,9 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
     "dashjs": "^4.7.4",
+    "framer-motion": "^11.11.17",
     "next": "14.2.13",
+    "phosphor-react": "^1.4.1",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.3.5",
@@ -36,17 +40,29 @@
     "react-redux": "^9.1.2",
     "react-world-flags": "^1.6.0",
     "sharp": "^0.33.5",
-    "swr": "^2.2.5"
+    "styled-components": "^6.1.13",
+    "swr": "^2.2.5",
+    "zod": "^3.23.8",
+    "@hookform/resolvers": "^3.9.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-redux": "^4.2.0",
+    "eslint-plugin-testing-library": "^6.4.0",
     "husky": "^9.1.6",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2"
   }
 }

@@ -1,0 +1,109 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  width: 100%;
+}
+
+.authFormLayout {
+  width: 80%;
+  align-self: center;
+}
+
+.authContent {
+  width: 100%;
+}
+
+.logoImg {
+  align-self: flex-start;
+  height: 39px;
+}
+
+.auth .tagline {
+  padding: 15px 0 20px 0;
+  font-size: 1.5rem;
+  line-height: 38.4px;
+  color: #000;
+}
+
+.tagline > span {
+  font-size: 1.5rem;
+  line-height: 38.4px;
+}
+
+.highlight {
+  color: #6576fa;
+}
+
+.authFormLayout .languageSelectorBox {
+  padding: 0 0;
+  display: flex;
+  justify-self: right;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.languageSelectorBox p,
+.languageSelectorBox svg {
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.line {
+  border: none;
+  border-top: 1px solid #000;
+  width: 45%;
+}
+
+.auth .text {
+  padding: 0 5px;
+  font-size: 14px;
+  color: #000;
+}
+
+@media (max-width: 1024px) {
+  .auth {
+    padding: 0;
+  }
+
+  .authFormLayout {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth {
+    width: 100%;
+  }
+
+  .authFormLayout {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .authFormLayout {
+    width: 70%;
+  }
+
+  .auth {
+    padding: 30px 0;
+  }
+
+  .divider {
+    margin-top: 0;
+  }
+
+  .tagline,
+  .highlight {
+    font-size: large !important;
+  }
+}

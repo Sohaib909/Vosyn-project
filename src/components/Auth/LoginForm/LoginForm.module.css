@@ -1,0 +1,53 @@
+.loginContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgotPwd {
+  color: grey;
+  display: flex;
+  font-size: 12px;
+  text-decoration: underline;
+  margin: 10px 0;
+}
+
+.loginContent .noAccountText {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  color: #000;
+  gap: 0.3rem;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.noAccountText .signupLink {
+  text-decoration: underline;
+  color: #5891fa;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.loginContent .formbtn {
+  margin-top: 15px;
+  text-transform: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.loginbtn {
+  background: linear-gradient(90deg, #7949fa, #6576fa);
+  height: 52px;
+}
+
+.buttonLoading {
+  cursor: none;
+  opacity: 0.5;
+}
+
+.loginContent .error {
+  font-size: 0.875rem;
+  color: red;
+}
