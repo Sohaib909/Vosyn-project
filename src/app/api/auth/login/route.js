@@ -1,6 +1,6 @@
 import { LOGIN_URL } from "@/constants/URLs/constants";
+import { createSession } from "@/utils/sessionManagement";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 /**
@@ -12,12 +12,33 @@ import { NextResponse } from "next/server";
 export const POST = async (req) => {
   const { data } = await req.json();
 
-  const response = await axios.post(LOGIN_URL, data);
+  try {
+    const response = await axios.post(LOGIN_URL, data);
 
-  if (response?.status === 200) {
-    const cookieStore = cookies();
-    cookieStore.set("authToken", response?.data?.token);
+    // Retrieve auth token from set-cookie header in login response
+    const token = response.headers["set-cookie"]
+      .find((cookie) => cookie.includes("token"))
+      ?.match(new RegExp("^token=(.+?);"))?.[1];
+
+    // Retrieve other user information from response to store in JWT
+    const username = response?.data?.user?.username;
+    const userId = response?.data?.user?.id;
+
+    if (!token || !username || !userId) {
+      return NextResponse.json(
+        { message: "Error creating user session" },
+        { status: 500 },
+      );
+    }
+
+    await createSession({ token, username, userId }, "1d");
+
+    return NextResponse.json(response.data, { status: response.status });
+  } catch (error) {
+    console.error("Error in login API:", error.response);
+
+    return NextResponse.json(error?.response?.data, {
+      status: error?.response?.status,
+    });
   }
-
-  return NextResponse.json(response.data, { status: response.status });
 };

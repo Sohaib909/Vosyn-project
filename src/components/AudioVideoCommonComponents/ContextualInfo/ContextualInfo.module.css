@@ -1,0 +1,72 @@
+.contextual-info-section {
+  width: 326px;
+  height: 806px;
+  margin: 20px auto;
+  padding: 1rem;
+  transition: background-color ease 0.3s;
+  background: #efefef;
+  border-radius: 20px;
+  font-family: "Inter", sans-serif;
+  padding-bottom: 20px;
+}
+
+.contextual-info-accordion {
+  transition: background-color ease 0.3s;
+  background: #efefef;
+  box-shadow: none;
+}
+
+.accordion-summary-text {
+  color: rgb(133, 132, 132);
+  width: 100%;
+  font-size: large;
+}
+
+.accordion-summary-icon {
+  color: #9d9595;
+}
+.MuiAccordionSummary-expandIconWrapper {
+  color: #9d9595;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.buttonContainer {
+  width: 100%;
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+}
+
+.displayArea {
+  margin-bottom: 10rem;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #efefef;
+  color: #9d9595;
+}
+
+.inputContainer {
+  display: flex;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+.inputField {
+  flex-grow: 1;
+  margin-right: 0.5rem;
+}
+
+.response {
+  margin-top: 1rem;
+  color: #9d9595;
+  font-style: italic;
+}
+
+.MuiAccordion-root {
+  border: none;
+}
+
+/* Responsive Design */
+@media;

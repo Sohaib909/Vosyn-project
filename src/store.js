@@ -1,4 +1,3 @@
-import authSlice from "@/reduxSlices/authSlice";
 import dashObjectSlice from "@/reduxSlices/dashObjectSlice";
 import languageSlice from "@/reduxSlices/languageSlice";
 import playerSlice from "@/reduxSlices/playerSlice";
@@ -12,7 +11,6 @@ import textObjectSlice from "./reduxSlices/textObjectSlice";
 const combineReducer = combineReducers({
   statusNotification: statusNotificationSlice,
   user: userSlice,
-  auth: authSlice,
   textObject: textObjectSlice,
   player: playerSlice,
   dashObject: dashObjectSlice,
@@ -21,10 +19,6 @@ const combineReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === "auth/logout") {
-    state = undefined;
-  }
-
   return combineReducer(state, action);
 };
 

@@ -1,144 +1,183 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import { selectLanguage } from "@/reduxSlices/languageSlice";
-import { selectPlayer, setCurrentTime } from "@/reduxSlices/playerSlice";
+import { setCurrentTime } from "@/reduxSlices/playerSlice";
 import CheckIcon from "@mui/icons-material/Check";
-import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FlagIcon from "@mui/icons-material/Flag";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-import "./Dialouge.module.css";
+import styles from "./Dialouge.module.css";
 
-const Dialogue = ({ transcript, containerRef, nextTimestamp, flagItem }) => {
+const Dialogue = ({
+  transcript,
+  handleflagging,
+  showFlagAndTime,
+  handleSubmitSuggestionText,
+  setCurrentItemPosition,
+  index,
+  setAutoScroll,
+  setShowResumeScrolling,
+  activeItemIndex,
+  isAnyTranscriptflagged,
+  transcriptList,
+  LIST_ITEM_HEIGHT,
+  setIsSnackbarOpen,
+  setSnackMessage,
+}) => {
   const listItem = useRef();
   const [showSuggestionTextbox, setShowSuggestionTextbox] = useState(false);
   const [suggestionText, setSuggestionText] = useState("");
-  const { hasEnded, currentTime } = useSelector(selectPlayer);
-
-  const { selectedTranslatedLanguage, selectedOriginalLanguage } =
-    useSelector(selectLanguage);
-
-  const { showTranslatedTranscript } = useSelector(selectPlayer);
-
-  const mediaRef = useMediaRef();
-
-  const formatDuration = (value) => {
-    const [hours, minutes, seconds] = value.toString().split(":").map(Number);
-    return hours * 3600 + minutes * 60 + seconds;
-  };
-
+  const { selectedOriginalLanguage } = useSelector(selectLanguage);
   const dispatch = useDispatch();
 
-  // Smooth auto-scrolling only within the transcript container
   useEffect(() => {
-    if (Math.floor(currentTime) === formatDuration(transcript.timestamp)) {
-      if (containerRef.current && listItem.current) {
-        const { offsetTop } = listItem.current;
-        const { scrollTop, offsetHeight } = containerRef.current;
-
-        // Smooth scroll only if the item isn't fully in view
-        if (
-          offsetTop < scrollTop ||
-          offsetTop > scrollTop + offsetHeight - listItem.current.offsetHeight
-        ) {
-          containerRef.current.scrollTo({
-            top:
-              offsetTop - offsetHeight / 2 + listItem.current.offsetHeight / 2,
-            behavior: "smooth",
-          });
-        }
-      }
+    if (transcript.flagged) {
+      setShowSuggestionTextbox(true);
+    } else {
+      setShowSuggestionTextbox(false);
     }
-  }, [currentTime, transcript.timestamp, containerRef]);
+  }, [transcript.flagged]);
 
-  const isActive = () => {
-    const current = formatDuration(transcript.timestamp);
-    const next = nextTimestamp ? formatDuration(nextTimestamp) : Infinity;
-    return currentTime >= current && currentTime < next;
-  };
-
-  const handleDialougeClick = () => {
-    const time = formatDuration(transcript?.timestamp);
-    dispatch(setCurrentTime(time));
-
-    if (mediaRef?.current && isFinite(time)) {
-      mediaRef.current.currentTime = time;
+  const handleTranscriptClick = () => {
+    if (!isAnyTranscriptflagged) {
+      setAutoScroll(false);
+      dispatch(setCurrentTime(transcript.startTime));
+      setCurrentItemPosition(index);
+      if (index == 0) {
+        setAutoScroll(true);
+        setShowResumeScrolling(false);
+      }
+    } else {
+      setSnackMessage("Please complete the open suggestion");
+      setIsSnackbarOpen(true);
     }
   };
 
   return (
-    <Box ref={listItem} sx={{ display: "flex", alignItems: "start" }}>
-      <IconButton sx={{ pt: "1rem" }}>
-        {transcript.flagged ? (
-          <FlagIcon onClick={() => flagItem(transcript.timestamp)} />
-        ) : (
-          <FlagOutlinedIcon onClick={() => flagItem(transcript.timestamp)} />
-        )}
-        {hasEnded && (
-          <EditNoteOutlinedIcon
-            onClick={() => setShowSuggestionTextbox((prevState) => !prevState)}
-          />
-        )}
-      </IconButton>
-
-      <Box
-        sx={{
-          backgroundColor: isActive()
-            ? "var(--mui-palette-neutral-700)"
-            : "transparent",
-          display: "flex",
-          columnGap: "1rem",
-          padding: "1rem",
-          borderRadius: "12px",
-        }}
-        onClick={handleDialougeClick}
-      >
-        <Typography variant="body1" sx={{ opacity: "70%" }}>
-          {transcript.timestamp}
-        </Typography>
-
-        <Box sx={{ display: "flex", columnGap: "10px" }}>
-          <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-            {`${transcript.speaker}:`}
-          </Typography>
-
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="body1">
-              {transcript?.text[selectedOriginalLanguage]}
-            </Typography>
-            {showTranslatedTranscript && (
-              <Typography variant="body1">
-                {transcript?.text[selectedTranslatedLanguage]}
-              </Typography>
-            )}
-          </Box>
-        </Box>
-      </Box>
-
-      {showSuggestionTextbox && (
-        <Box className="suggestion-wrapper">
-          <Typography variant="h3">Suggested Translation :</Typography>
-          <Box className="suggestion-content">
-            <input
-              type="text"
-              placeholder="Type here"
-              onChange={(e) => setSuggestionText(e.target.value)}
-              value={suggestionText}
-            />
-            <Button
-              variant="contained"
+    <Box
+      className={styles.transcript_list_item}
+      ref={listItem}
+      sx={{
+        minHeight: LIST_ITEM_HEIGHT,
+        maxHeight: transcript.flagged ? "100%" : LIST_ITEM_HEIGHT,
+      }}
+    >
+      {showFlagAndTime && (
+        <>
+          {transcript.flagged ? (
+            <FlagIcon
               onClick={() => {
-                setShowSuggestionTextbox(false);
+                handleflagging(transcript.timestamp);
+                setCurrentItemPosition(activeItemIndex);
+                if (
+                  transcriptList.current.scrollTop ==
+                  activeItemIndex * LIST_ITEM_HEIGHT
+                ) {
+                  setShowResumeScrolling(false);
+                  setAutoScroll(true);
+                }
               }}
-            >
-              <CheckIcon />
-            </Button>
-          </Box>
-        </Box>
+            />
+          ) : (
+            <FlagOutlinedIcon
+              data-testid="FlagOutlinedIcon"
+              onClick={() => {
+                if (!isAnyTranscriptflagged) {
+                  handleflagging(transcript.timestamp);
+                  setShowResumeScrolling(true);
+                } else {
+                  setSnackMessage("Please complete the open suggestion");
+                  setIsSnackbarOpen(true);
+                }
+              }}
+            />
+          )}
+          <Typography variant="body1" className={styles.transcript_time}>
+            {transcript.timestamp}
+          </Typography>
+        </>
       )}
+      <Box sx={{ width: "-webkit-fill-available" }}>
+        <Box
+          className={styles.transcript_content}
+          onClick={() => {
+            handleTranscriptClick();
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{ fontWeight: 500 }}
+          >{`${transcript.speaker}: `}</Typography>
+          <Typography variant="body1">
+            {transcript?.text[selectedOriginalLanguage]}
+          </Typography>
+        </Box>
+        {showSuggestionTextbox && (
+          <Box className={styles.suggestion_wrapper}>
+            <Typography variant="body1">Suggested Translation :</Typography>
+            <Box className={styles.suggestion_content}>
+              <input
+                type="text"
+                name="suggestion_textbox"
+                placeholder="Type here"
+                onChange={(e) => setSuggestionText(e.target.value)}
+                value={suggestionText}
+              />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setSuggestionText("");
+                  if (
+                    transcriptList.current.scrollTop ==
+                    activeItemIndex * LIST_ITEM_HEIGHT
+                  ) {
+                    handleflagging(transcript.timestamp);
+                    setShowResumeScrolling(false);
+                    setAutoScroll(true);
+                  } else {
+                    handleflagging(transcript.timestamp);
+                    setCurrentItemPosition(activeItemIndex);
+                  }
+                }}
+              >
+                <CloseOutlinedIcon />
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (suggestionText) {
+                    handleSubmitSuggestionText(
+                      suggestionText,
+                      transcript.timestamp,
+                    );
+                    if (
+                      transcriptList.current.scrollTop ==
+                      activeItemIndex * LIST_ITEM_HEIGHT
+                    ) {
+                      handleflagging(transcript.timestamp);
+                      setShowResumeScrolling(false);
+                      setAutoScroll(true);
+                    } else {
+                      handleflagging(transcript.timestamp);
+                      setCurrentItemPosition(activeItemIndex);
+                    }
+                  } else {
+                    setSnackMessage("cannot leave suggestion empty ");
+                    setIsSnackbarOpen(true);
+                  }
+                }}
+              >
+                <CheckIcon />
+              </Button>
+            </Box>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
