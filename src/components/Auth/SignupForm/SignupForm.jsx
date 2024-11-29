@@ -130,8 +130,6 @@ const SignupForm = () => {
         dispatch(setUserInfo(res?.data?.user || {}));
         router.push("/onboarding");
       }
-
-      // TODO: Handle post account creation (e.g., navigate to onboarding)
     } catch (err) {
       const statusCode = err?.response?.status;
 
