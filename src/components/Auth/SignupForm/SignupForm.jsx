@@ -257,15 +257,19 @@ const SignupForm = () => {
             <Checkbox
               {...register("hasAgreedToTerms")}
               className={styles.checkbox}
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 15 } }}
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  fontSize: 16,
+                  color: "#527AF9",
+                },
+              }}
             />
             <Typography className={styles.acknowledgement}>
-              By clicking &quot;Sign Up/Log In&quot;, you acknowledge that you
-              have read and agree to our{" "}
+              I have read and agree with Vosyn&apos;s{" "}
               <Link className={styles.hyperlink} href={"/terms"}>
-                General Terms and Conditions
+                Terms of Service
               </Link>{" "}
-              and the{" "}
+              and{" "}
               <Link className={styles.hyperlink} href={"/privacy-policy"}>
                 Privacy Policy.
               </Link>
@@ -278,6 +282,7 @@ const SignupForm = () => {
               sx={{
                 color: "#d32f2f",
                 marginLeft: 0,
+                fontSize: "0.875rem",
               }}
             >
               {errors.hasAgreedToTerms?.message}

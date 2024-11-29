@@ -1,17 +1,17 @@
 .formfieldControl {
-  padding-top: 10px !important;
+  padding-top: 20px !important;
 }
 
 .formfieldControl .formfieldLabel {
-  font-size: 0.75rem !important;
+  font-size: 1rem !important;
   font-weight: 400;
-  color: #0a0a0a;
+  color: #f7f9ff;
 }
 
 .formfieldControl .formfield {
   width: 100%;
-  margin-top: 2px;
-  background-color: #ededed;
+  margin-top: 4px;
+  background-color: #3b3b3e;
   border-radius: 8px;
   padding: 4px;
 }
@@ -20,11 +20,11 @@
   -webkit-box-shadow: unset;
   -webkit-text-fill-color: unset;
   box-shadow: unset;
-  height: 10px;
-  font-size: 12px;
+  height: 16px;
+  font-size: 1rem;
   border-radius: 8px;
-  color: black;
-  color-scheme: light; /* not sure from where the color-scheme:dark is getting applied */
+  color: white;
+  color-scheme: light;
 }
 
 .formfield input::placeholder {
@@ -47,5 +47,7 @@
 .formfieldControl .visibilityIcon {
   width: 19px;
   height: 19px;
-  color: black;
+  top: 0.67px;
+  left: 0.67px;
+  color: #f7f9ff;
 }

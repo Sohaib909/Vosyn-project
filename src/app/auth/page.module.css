@@ -1,17 +1,24 @@
 .pageLayout {
   height: 100%;
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: radial-gradient(
+    circle at 97.64% 0%,
+    rgba(18, 17, 24, 0.82) 0%,
+    rgba(18, 17, 24, 0.9) 13.17%,
+    rgba(18, 17, 24, 1) 68.42%,
+    rgba(18, 17, 24, 0.92) 87.42%,
+    rgba(18, 17, 24, 0.86) 98.76%
+  );
 }
 
 .pageLeftSide {
   padding: 2.5rem 1.5rem 1.5rem;
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
 
 .pageRightSide {
   position: relative;
-  background-color: #f9f9f9;
+  background-color: transparent;
   font-size: 3.5rem;
 }
 
