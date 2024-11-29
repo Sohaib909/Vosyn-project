@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   min-height: 90vh !important;
-  background-color: #414141;
+
   flex-direction: row;
   /* Ensures left-to-right alignment */
 }
@@ -18,7 +18,7 @@
   flex-grow: 1;
   /* Allows the content to take up remaining space on the right */
   padding: 20px;
-  background-color: #414141;
+
   overflow-y: auto;
   margin-left: 0px;
   /* Aligns profileContent to the right */

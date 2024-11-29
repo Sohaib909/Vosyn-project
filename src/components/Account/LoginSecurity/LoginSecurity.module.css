@@ -1,7 +1,6 @@
 /* LoginSecurityPage.scoped.css */
 .login-security-page {
   color: #f0f0f0; /* Light text for dark mode */
-  background: #121212; /* Dark background */
   padding: 24px;
   min-height: 100vh; /* Ensure it covers full height */
 }

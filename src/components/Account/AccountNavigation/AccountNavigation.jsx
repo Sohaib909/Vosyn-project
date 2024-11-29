@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 
 import MuiIcon from "@/utils/MuiIcon";
@@ -14,6 +15,7 @@ import {
 } from "@mui/material";
 // Import CSS module
 import { useRouter } from "next/navigation";
+
 import styles from "./AccountNavigation.module.css";
 
 //  import { useTheme } from "@mui/material/styles";
@@ -58,53 +60,55 @@ function AccountNavigation({ activeTab, onTabChange }) {
           Back
         </Button>
       </Box>
-      <Box className={styles["search-bar-container"]}>
-        <TextField
-          variant="standard"
-          placeholder="Search"
-          slotProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <InputAdornment position="start">
-                <MuiIcon name="Search" />
-              </InputAdornment>
-            ),
-          }}
-          sx={{
-            "input::placeholder": {
-              color: "#656565",
-              opacity: 1,
-            },
-          }}
-          className={styles["search-bar"]}
-        />
-      </Box>
-      <List className={styles.sidebar}>
-        {menuItems.map((item) => (
+      <Box className={styles["border"]}>
+        <Box className={styles["search-bar-container"]}>
+          <TextField
+            variant="standard"
+            placeholder="Search"
+            slotProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MuiIcon name="Search" />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              "input::placeholder": {
+                color: "#656565",
+                opacity: 1,
+              },
+            }}
+            className={styles["search-bar"]}
+          />
+        </Box>
+        <List className={styles.sidebar}>
+          {menuItems.map((item) => (
+            <ListItem
+              key={item.value}
+              button
+              className={`${styles["list-item"]} ${
+                activeTab === item.value ? styles.active : ""
+              }`}
+              onClick={() => onTabChange(item.value)}
+            >
+              <ListItemIcon>
+                <MuiIcon name={item.icon} />
+              </ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItem>
+          ))}
+        </List>
+        <Box className={styles["sign-out-container"]}>
           <ListItem
-            key={item.value}
             button
-            className={`${styles["list-item"]} ${
-              activeTab === item.value ? styles.active : ""
-            }`}
-            onClick={() => onTabChange(item.value)}
+            className={styles["sign-out-button"]}
+            onClick={handleSignOut}
           >
-            <ListItemIcon>
-              <MuiIcon name={item.icon} />
-            </ListItemIcon>
-            <ListItemText primary={item.label} />
+            <ListItemIcon>{<MuiIcon name="Logout" />}</ListItemIcon>
+            <ListItemText primary="Sign Out" />
           </ListItem>
-        ))}
-      </List>
-      <Box className={styles["sign-out-container"]}>
-        <ListItem
-          button
-          className={styles["sign-out-button"]}
-          onClick={handleSignOut}
-        >
-          <ListItemIcon>{<MuiIcon name="Logout" />}</ListItemIcon>
-          <ListItemText primary="Sign Out" />
-        </ListItem>
+        </Box>
       </Box>
     </Box>
   );
