@@ -32,7 +32,7 @@ const fetchAndHandleTextDetails = async (textId, dispatch, setStatus) => {
 };
 
 const TextPage = ({ params }) => {
-  const { textId } = React.use(params);
+  const { textId } = params;
   const [data, setData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [pageLength, setPageLength] = useState(0);
