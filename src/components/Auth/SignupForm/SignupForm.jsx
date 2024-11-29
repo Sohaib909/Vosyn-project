@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
+import { setUserInfo } from "@/reduxSlices/userSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -27,6 +29,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [signupApiError, setSignupApiError] = useState();
   const { setStatus } = useStatusNotification();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const signUpSchema = z.object({
@@ -114,6 +117,17 @@ const SignupForm = () => {
       const res = await axios.post("/api/auth/signup", requestBody);
 
       if (res?.status === 201) {
+        if (res?.data?.sessionCreationFailed) {
+          setStatus(
+            "Account created, but user session not established. Try logging in.",
+            "warning",
+          );
+          router.push("/auth?type=login");
+          return;
+        }
+
+        setStatus("Account created", "success");
+        dispatch(setUserInfo(res?.data?.user || {}));
         router.push("/onboarding");
       }
 

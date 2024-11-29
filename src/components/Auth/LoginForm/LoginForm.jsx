@@ -48,11 +48,7 @@ const LoginForm = () => {
       // On success, save token, set status to imform user, set logged in status and set user info.
       if (res?.status === 200) {
         setStatus("Login successful", "success");
-
-        dispatch(
-          setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
-        );
-
+        dispatch(setUserInfo(res?.data?.user || {}));
         router.push("/home?tab=featured");
       }
     } catch (err) {

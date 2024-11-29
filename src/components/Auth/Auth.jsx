@@ -37,14 +37,14 @@ const Auth = ({ activeTab }) => {
 
   const vosynLogoImg =
     colorScheme === "dark"
-      ? "/mediaFiles/Logos/darkmodeLogo.png"
+      ? "/mediaFiles/Logos/vosyn_logo_long.png"
       : "/mediaFiles/Logos/vosyn-logo-dark.svg";
 
   return (
     <Box className={styles.auth}>
       <Image
         src={vosynLogoImg}
-        width={141}
+        width={139}
         height={39}
         alt="Vosyn logo"
         className={styles.logoImg}
