@@ -36,7 +36,7 @@ const layout = ({ children }) => {
         sx={{ height: "fit-content", marginTop: "7rem", gap: "2rem" }}
       >
         <TranslationPanel>
-          <TranslationPanelFileUpload />
+          <TranslationPanelFileUpload mediaType={"text"} />
           <Button
             variant="contained"
             sx={{

@@ -85,7 +85,7 @@ const ImagePage = () => {
       <Box maxWidth="350px" m="0 0 0 2rem">
         {image && (
           <TranslationPanel fileUrl={image.translated}>
-            <TranslationPanelFileUpload />
+            <TranslationPanelFileUpload mediaType={"image"} />
             <TranslationSlider handleTranslation={handleTranslation} />
           </TranslationPanel>
         )}

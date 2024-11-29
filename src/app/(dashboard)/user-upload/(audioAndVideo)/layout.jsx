@@ -58,7 +58,7 @@ const layout = ({ children }) => {
           sx={{ height: "fit-content" }}
         >
           <TranslationPanel>
-            <TranslationPanelFileUpload />
+            <TranslationPanelFileUpload mediaType={"audio/video"} />
             <Button
               variant="contained"
               sx={{
