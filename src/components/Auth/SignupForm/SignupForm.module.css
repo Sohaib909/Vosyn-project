@@ -13,15 +13,16 @@
 }
 
 .signupContent .signupPasswordHelperText {
-  font-size: 0.75rem;
-  color: #777;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #f7f9ff;
 }
 
 .signupContent .passwordValidation {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .passwordValidation .passwordValidationItem {
@@ -31,7 +32,7 @@
   line-height: 1rem;
   position: relative;
   padding: 0;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 
 .passwordValidation .passwordValidationItem::before {
@@ -71,28 +72,27 @@
 }
 
 .signupContent .checkbox {
-  width: 2px;
-  height: 2px;
-  padding-top: 0.6rem;
-  margin-top: 8px;
-  margin-right: 2px;
+  width: 4px;
+  height: 4px;
+  padding-top: 1rem;
+  margin-right: 4px;
   color: #7c7c7c;
 }
 
 .signupContent .acknowledgement {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 14px;
   margin-top: 8px;
-  color: #7c7c7c;
+  color: #f7f9ff;
 }
 
 .hyperlink {
-  color: #1e88e5;
+  color: #527af9;
   text-decoration: none;
 }
 
 .signupContent .signupBtn {
-  background: linear-gradient(90deg, #7949fa, #6576fa);
+  background: #324da3;
   color: white;
   text-transform: none;
   height: 52px;
@@ -112,18 +112,16 @@
 
 .signupContent .signupText {
   display: flex;
-  color: #000;
+  color: #f7f9ff;
   gap: 0.3rem;
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 1rem;
   justify-content: left;
   margin: 10px 0;
 }
 
 .signupContent .existingUsr {
   text-decoration: underline;
-  color: #5891fa;
+  color: #527af9;
   font-weight: 700;
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 1rem;
 }
