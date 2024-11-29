@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
+import { setUserInfo } from "@/reduxSlices/userSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -27,6 +29,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [signupApiError, setSignupApiError] = useState();
   const { setStatus } = useStatusNotification();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const signUpSchema = z.object({
@@ -113,17 +116,20 @@ const SignupForm = () => {
       };
       const res = await axios.post("/api/auth/signup", requestBody);
 
-      // Upon account creation, the user will have to verify their account
       if (res?.status === 201) {
-        setStatus(
-          "A verification email has been sent. Please check your inbox.",
-          "success",
-          10000,
-        );
-        router.push("/auth?type=login");
-      }
+        if (res?.data?.sessionCreationFailed) {
+          setStatus(
+            "Account created, but user session not established. Try logging in.",
+            "warning",
+          );
+          router.push("/auth?type=login");
+          return;
+        }
 
-      // TODO: Handle post account creation (e.g., navigate to onboarding)
+        setStatus("Account created", "success");
+        dispatch(setUserInfo(res?.data?.user || {}));
+        router.push("/onboarding");
+      }
     } catch (err) {
       const statusCode = err?.response?.status;
 
@@ -135,7 +141,7 @@ const SignupForm = () => {
           10000,
         );
       } else {
-        setStatus("An error ocurred. Please try again alter.", "error", 10000);
+        setStatus("An error ocurred. Please try again later.", "error", 10000);
       }
     } finally {
       setIsLoading(false);
@@ -257,15 +263,19 @@ const SignupForm = () => {
             <Checkbox
               {...register("hasAgreedToTerms")}
               className={styles.checkbox}
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 15 } }}
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  fontSize: 16,
+                  color: "#527AF9",
+                },
+              }}
             />
             <Typography className={styles.acknowledgement}>
-              By clicking &quot;Sign Up/Log In&quot;, you acknowledge that you
-              have read and agree to our{" "}
+              I have read and agree with Vosyn&apos;s{" "}
               <Link className={styles.hyperlink} href={"/terms"}>
-                General Terms and Conditions
+                Terms of Service
               </Link>{" "}
-              and the{" "}
+              and{" "}
               <Link className={styles.hyperlink} href={"/privacy-policy"}>
                 Privacy Policy.
               </Link>
@@ -278,6 +288,7 @@ const SignupForm = () => {
               sx={{
                 color: "#d32f2f",
                 marginLeft: 0,
+                fontSize: "0.875rem",
               }}
             >
               {errors.hasAgreedToTerms?.message}

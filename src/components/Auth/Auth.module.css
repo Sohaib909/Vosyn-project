@@ -6,7 +6,7 @@
 }
 
 .authFormLayout {
-  width: 80%;
+  width: 90%;
   align-self: center;
 }
 
@@ -23,7 +23,8 @@
   padding: 15px 0 20px 0;
   font-size: 1.5rem;
   line-height: 38.4px;
-  color: #000;
+  font-size: 500;
+  color: #f7f9ff;
 }
 
 .tagline > span {
@@ -32,7 +33,7 @@
 }
 
 .highlight {
-  color: #6576fa;
+  color: #527af9;
 }
 
 .authFormLayout .languageSelectorBox {
@@ -46,8 +47,8 @@
 
 .languageSelectorBox p,
 .languageSelectorBox svg {
-  font-size: 0.9rem;
-  color: #000;
+  font-size: 1rem;
+  color: #f7f9ff;
 }
 
 .divider {
@@ -59,14 +60,14 @@
 
 .line {
   border: none;
-  border-top: 1px solid #000;
+  border-top: 1px solid #f7f9ff;
   width: 45%;
 }
 
 .auth .text {
   padding: 0 5px;
-  font-size: 14px;
-  color: #000;
+  font-size: 1rem;
+  color: #f7f9ff;
 }
 
 @media (max-width: 1024px) {

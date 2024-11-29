@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-
+import useStatusNotification from "@/hooks/useStatusNotification";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Box, ButtonBase, Typography } from "@mui/material";
+import Image from "next/image";
 
 import AlternateSignIn from "./AlternateSignIn/AlternateSignIn";
 import LoginForm from "./LoginForm/LoginForm";
@@ -24,22 +24,30 @@ const loginHeaderText = {
 };
 
 const Auth = ({ activeTab }) => {
-  const [language, setLanguage] = useState("English");
+  const { setStatus } = useStatusNotification();
+
   const headerText =
     activeTab === "signup" ? signupHeaderText : loginHeaderText;
+  const colorScheme = "dark"; // hardcoding dark mode for now
 
+  // TODO: Implement switching between different languages on login/signup page
   const toggleLanguage = () => {
-    setLanguage((prevLanguage) =>
-      prevLanguage === "English" ? "French" : "English",
-    );
+    setStatus("This feature has not been implemented yet", "info", 5000);
   };
+
+  const vosynLogoImg =
+    colorScheme === "dark"
+      ? "/mediaFiles/Logos/vosyn_logo_long.png"
+      : "/mediaFiles/Logos/vosyn-logo-dark.svg";
 
   return (
     <Box className={styles.auth}>
-      <img
-        className={styles.logoImg}
-        src="/mediaFiles/Logos/vosyn-logo-dark.svg"
+      <Image
+        src={vosynLogoImg}
+        width={139}
+        height={39}
         alt="Vosyn logo"
+        className={styles.logoImg}
       />
 
       <Box className={styles.authFormLayout}>
@@ -60,7 +68,7 @@ const Auth = ({ activeTab }) => {
           onClick={toggleLanguage}
         >
           <LanguageIcon />
-          <Typography>{language}</Typography>
+          <Typography>English</Typography>
         </ButtonBase>
 
         <Box className={styles.authContent}>
@@ -72,7 +80,6 @@ const Auth = ({ activeTab }) => {
           <Typography className={styles.text}>Or</Typography>
           <Box component="span" className={styles.line} />
         </Box>
-
         <AlternateSignIn />
       </Box>
     </Box>
