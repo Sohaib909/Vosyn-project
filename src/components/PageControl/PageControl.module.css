@@ -1,59 +1,62 @@
 .pageControlMainDiv {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 1.5rem;
   z-index: 10;
+  width: 100%;
 }
 
-.paginationDiv {
+.pageControlSubDiv {
   background-color: var(--mui-palette-neutral-800);
-  border-radius: 40px;
+  border-radius: 5px;
+  padding: 0.2rem 0.5em;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--mui-palette-neutral-25);
+  cursor: pointer;
+  position: relative;
+  font-size: 0.7rem;
+}
+
+.pageControlSubDiv:hover {
+  background: var(--mui-palette-neutral-600);
+}
+
+.searchInputContainer {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  right: 0;
+  background-color: var(--mui-palette-neutral-700);
+  padding: 0.1rem;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageJumpInputContainer {
+  position: absolute;
+  top: 1.7rem;
+  left: 50%;
+  width: 10em;
+  transform: translateX(-50%);
+  background-color: var(--mui-palette-neutral-700);
+  padding: 0.1rem;
+  border-radius: 3px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  position: relative;
+  z-index: 5;
 }
 
-.pagination-div p {
-  color: var(--mui-palette-common-white);
-  font-size: 12px;
-}
-
-.pageControlIcon {
-  color: var(--mui-palette-common-white);
-  margin: 0 5px;
-}
-
-.pageSearchIcon {
-  margin-right: 0px;
-  color: var(--mui-palette-common-white);
-  width: 15%;
-}
-.pageControlText {
-  color: var(--mui-palette-common-white);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-}
-
-.inputPopUpDivSearch {
-  top: 4rem;
-}
-
-.input-pop-up-div.pageControlIcon[data-v-1f6effab] {
-  color: var(--mui-palette-common-white);
-  width: 15%;
-}
-
-.inputPopUpDiv {
-  position: absolute;
-  background-color: var(--mui-palette-neutral-800);
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  height: 27px;
-  top: 4rem;
+@media (max-width: 480px) {
+  .pageControlMainDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5em;
+  }
 }
