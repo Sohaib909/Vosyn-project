@@ -1,10 +1,12 @@
 import React from "react";
 
+import TranslateIcon from "@mui/icons-material/Translate";
 import { Button, Grid2 } from "@mui/material";
 
 import Summary from "@/components/Summary/Summary";
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
 
 const layout = ({ children }) => {
   return (
@@ -34,16 +36,19 @@ const layout = ({ children }) => {
         sx={{ height: "fit-content", marginTop: "7rem", gap: "2rem" }}
       >
         <TranslationPanel>
+          <TranslationPanelFileUpload mediaType={"text"} />
           <Button
             variant="contained"
             sx={{
+              marginTop: "7px",
               background: "var(--mui-palette-primary-400)",
               "&:hover": {
                 background: "var(--mui-palette-primary-300)",
               },
             }}
+            startIcon={<TranslateIcon />}
           >
-            Compare
+            Translate
           </Button>
         </TranslationPanel>
 
