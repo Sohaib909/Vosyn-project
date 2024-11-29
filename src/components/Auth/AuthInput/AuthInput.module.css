@@ -17,14 +17,21 @@
 }
 
 .formfieldControl .formfield input {
-  -webkit-box-shadow: unset;
-  -webkit-text-fill-color: unset;
+  -webkit-box-shadow: 0 0 0px 1000px #3b3b3e inset !important;
+  -webkit-text-fill-color: white !important;
   box-shadow: unset;
   height: 16px;
   font-size: 1rem;
   border-radius: 8px;
   color: white;
-  color-scheme: light;
+  background-color: #3b3b3e;
+}
+
+.formfieldControl .formfield input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #3b3b3e inset !important;
+  -webkit-text-fill-color: white !important;
+  background-color: #3b3b3e !important;
+  color: white !important;
 }
 
 .formfield input::placeholder {

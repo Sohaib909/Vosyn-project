@@ -130,6 +130,7 @@ const LoginForm = () => {
           helperText={errors.email?.message || loginApiError?.email}
           variant="email"
           placeholderText="username@example.com"
+          autocomplete="email"
         />
 
         <AuthInput
@@ -149,6 +150,7 @@ const LoginForm = () => {
           variant="password"
           togglePasswordVisibility={togglePasswordVisibility}
           showPassword={showPassword}
+          autocomplete="current-password"
         />
 
         <Link href="/forgot-password" className={styles.forgotPwd}>
