@@ -61,7 +61,6 @@ const TranslationPanelFileUpload = () => {
               justifyContent: "space-between",
               mt: 1,
               borderRadius: "8px",
-              overflow: "hidden",
               width: "100%",
             }}
           >

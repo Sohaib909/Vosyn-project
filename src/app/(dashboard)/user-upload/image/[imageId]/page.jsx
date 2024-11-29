@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
 import TranslationSlider from "@/components/TranslationPanel/TranslationPanelToggle/TranslationPanelToggle";
 
 import Original from "../../../../../../public/mediaFiles/Images/Original.png";
@@ -84,6 +85,7 @@ const ImagePage = () => {
       <Box maxWidth="350px" m="0 0 0 2rem">
         {image && (
           <TranslationPanel fileUrl={image.translated}>
+            <TranslationPanelFileUpload />
             <TranslationSlider handleTranslation={handleTranslation} />
           </TranslationPanel>
         )}
