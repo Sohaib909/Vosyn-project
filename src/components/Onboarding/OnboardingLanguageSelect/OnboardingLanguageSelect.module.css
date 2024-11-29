@@ -8,23 +8,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 24px;
   width: 50%;
+  gap: 35px;
 }
 
 .stepperHeader .stepperTitle {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
 }
 
 .titleHighlight {
-  color: #6871fb;
+  color: #527af9;
 }
 
 .stepperSubheading {
-  margin-top: 8px;
-  color: gray;
+  margin-top: 0px;
   width: 450px;
   text-align: center;
 }
@@ -33,7 +32,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
   width: 100%;
   max-width: 400px;
 }
@@ -42,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid;
+  border: 1px solid #97affb33;
   padding: 10px 15px;
   border-radius: 10px;
   width: 400px;
@@ -76,12 +74,12 @@
   font-size: 1rem;
   border-radius: 8px;
   color: #6871fb;
-  border: 1px solid #6871fb;
+  border: 1px solid #97affb33;
   background-color: #e5e5ff;
 }
 
 .enterButtonContainer .activeEnterButton {
-  background-color: #6871fb;
+  background-color: var(--mui-palette-primary-main);
   text-transform: none;
   width: 300px;
   padding: 12px 0px;

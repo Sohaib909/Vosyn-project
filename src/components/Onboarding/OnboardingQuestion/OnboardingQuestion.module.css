@@ -1,5 +1,5 @@
 .instructionBody {
-  color: #6871fb;
+  color: #527af9;
   border-radius: 8px;
   padding: 10px 16px 8px 16px;
   background-color: #e3f0ff;
@@ -14,37 +14,35 @@
 }
 
 .onboardingBodyContainer {
-  margin-top: 24px;
   display: flex;
   flex-direction: column;
+  gap: 37px;
   justify-content: center;
   align-items: center;
-  width: 50%;
   padding-bottom: 48px;
 }
 
 .infoIcon {
-  margin-left: 4px;
   cursor: pointer;
   color: #a3a3a3;
 }
 
 .stepperHeader .stepperTitle {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
 }
 
 .titleHighlight {
-  color: #6871fb;
+  color: #527af9;
 }
 
 .stepperOptions {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  max-width: 466px;
   width: 100%;
   text-align: center;
 }
@@ -53,15 +51,14 @@
   padding: 15px 0px;
   text-transform: none;
   font-size: 1rem;
-  border: 1px solid black;
   border-radius: 8px;
-  color: #545454;
-  max-width: 400px;
+  color: white;
+  background-color: #3b3b3e;
   width: 100%;
 }
 
 .optionButton.selected {
-  background-color: #6f6fff;
+  background-color: #6c8efa;
   color: white;
   border: none;
 }
@@ -75,17 +72,13 @@
   font-weight: 100;
 }
 
-.continueButtonContainer {
-  margin-top: 40px;
-}
-
 .continueButtonContainer .continueButton {
   text-transform: none;
   width: 300px;
   padding: 12px 0px;
   font-size: 1rem;
   border-radius: 8px;
-  background-color: #6871fb;
+  background-color: #527af9;
 }
 
 .instructionTextContainer {

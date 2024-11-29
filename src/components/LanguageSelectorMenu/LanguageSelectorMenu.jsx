@@ -15,13 +15,12 @@ const Listbox = styled("ul")(() => ({
   position: "relative",
   listStyle: "none",
   overflowY: "auto",
-  backgroundColor: "white",
   maxHeight: 200,
   margin: 0,
   padding: 0,
 
   "& li.Mui-focused": {
-    backgroundColor: "#F3F3F3",
+    backgroundColor: "var(--mui-palette-neutral-600)",
   },
 }));
 
@@ -48,7 +47,6 @@ export default function LanguageSelectorMenu({
     getListboxProps,
     getOptionProps,
     groupedOptions,
-    popupOpen,
   } = useAutocomplete({
     inputValue: inputValue === "Select language" ? "" : inputValue,
     options: languages,
@@ -62,11 +60,7 @@ export default function LanguageSelectorMenu({
   });
 
   return (
-    <Box
-      className={styles.languageSelectorContainer}
-      sx={{ position: popupOpen ? "absolute" : "relative" }}
-      {...getRootProps()}
-    >
+    <Box className={styles.languageSelectorContainer} {...getRootProps()}>
       <Box className={styles.languageListContainerTop}>
         <Box className={styles.listContainerTopHeader}>
           <Typography
@@ -74,6 +68,7 @@ export default function LanguageSelectorMenu({
             className={styles.selectorButton}
             variant="button"
             gutterBottom
+            sx={{ color: "var(--mui-palette-primary-25)" }}
           >
             Select language
           </Typography>
