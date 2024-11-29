@@ -1,5 +1,6 @@
 .pageLayout {
   height: fit-content;
+  min-height: 100%;
   width: 100%;
   background: radial-gradient(
     104% 167% at 98% 0%,
