@@ -3,7 +3,7 @@
   height: 20rem;
   scrollbar-width: none; /* For Firefox */
 }
-.ContextualContainer{
+.ContextualContainer {
   border-radius: 12px;
   padding: 1rem;
 }
