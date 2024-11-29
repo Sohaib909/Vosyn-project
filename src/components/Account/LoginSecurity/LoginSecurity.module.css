@@ -1,0 +1,144 @@
+/* LoginSecurityPage.scoped.css */
+.login-security-page {
+  color: #f0f0f0; /* Light text for dark mode */
+  padding: 24px;
+  min-height: 100vh; /* Ensure it covers full height */
+}
+
+.login-security-page h1 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 8px; /* Adjust spacing below the heading */
+  color: #ffffff; /* White heading */
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #b3b3b3; /* Light gray for subtitle */
+  margin-bottom: 32px; /* More space below the subtitle */
+}
+
+.settings-container {
+  background: #1e1e1e; /* White background for the details container */
+  padding: 24px; /* Inner padding around the content */
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.settings-container h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f0f0f0; /* Light heading */
+  margin-bottom: 100px; /* Increase space below the section title */
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0; /* Increase padding for more spacing */
+  border-bottom: 1px solid #333333; /* Divider line */
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.icon-placeholder {
+  width: 40px;
+  height: 40px;
+  background: #333333; /* Slightly lighter color for the icon */
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.setting-info {
+  flex-grow: 1;
+}
+
+.setting-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: #f0f0f0; /* Darker color for better contrast */
+}
+
+.setting-value {
+  margin: 4px 0 0;
+  color: #b3b3b3;
+  font-size: 14px; /* Adjust font size for value text */
+}
+
+.edit-icon {
+  width: 24px;
+  height: 24px;
+  background: url("/mediaFiles/EditIcon/img_edit_icon.png");
+  background-size: contain;
+  cursor: pointer;
+}
+
+.delete-account {
+  color: #d32f2f !important; /* Red text color */
+  background: none !important; /* No background */
+  border: none !important; /* No border */
+  font-size: 14px !important; /* Font size */
+  cursor: pointer !important; /* Pointer cursor */
+  margin-top: 24px !important; /* Space between settings and Delete Account */
+  padding: 0 !important; /* No padding */
+  text-align: left !important; /* Align text to the left */
+}
+
+/* Popup styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensures the popup is on top */
+}
+
+.popup-content {
+  background: #1e1e1e; /* Light grey background for the popup */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.popup-buttons {
+  margin-top: 20px;
+}
+
+.popup-buttons button {
+  margin: 0 10px; /* Spacing between buttons */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-buttons button:nth-child(1) {
+  /* Yes button */
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* White text */
+}
+
+.popup-buttons button:nth-child(2) {
+  /* No button */
+  background-color: #ccc; /* Grey background */
+  color: #333; /* Dark text for contrast */
+}
+
+.popup-buttons button:hover:nth-child(1) {
+  /* Yes button hover effect */
+  background-color: #0056b3; /* Darker blue */
+}
+
+.popup-buttons button:hover:nth-child(2) {
+  /* No button hover effect */
+  background-color: #aaa; /* Darker grey */
+}
