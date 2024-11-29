@@ -1,20 +1,22 @@
-
 // AccountLanguageSettingsPage.js
 import React, { useEffect, useState } from "react";
+import Flags from "react-world-flags";
+
+// Import CSS module
 import {
+  getAccountLanguage,
+  updateAccountLanguage,
+} from "@/app/api/account/account.js";
+import {
+  Box,
   FormControl,
   MenuItem,
   Select,
-  Typography,
-  Box,
   styled,
+  Typography,
 } from "@mui/material";
-import Flags from "react-world-flags";
-import styles from "./AccountLanguageSettings.module.css"; // Import CSS module
-import {
-  updateAccountLanguage,
-  getAccountLanguage,
-} from "@/app/api/account/account.js";
+
+import styles from "./AccountLanguageSettings.module.css";
 
 // Language data with associated country codes
 const languages = [
@@ -25,7 +27,9 @@ const languages = [
 ];
 
 const getFlagComponent = (code, className) => {
-  return code ? <Flags className={`${styles.flagsSelect} ${className}`} code={code} /> : null;
+  return code ? (
+    <Flags className={`${styles.flagsSelect} ${className}`} code={code} />
+  ) : null;
 };
 
 const AccountLanguageSettingsPage = () => {
@@ -47,9 +51,14 @@ const AccountLanguageSettingsPage = () => {
 
   const handleLanguageChange = (settingType) => async (event) => {
     const newValue = event.target.value;
-    const languageCode = languages.find((lang) => lang.label === newValue).code.toLowerCase();
+    const languageCode = languages
+      .find((lang) => lang.label === newValue)
+      .code.toLowerCase();
 
-    const updatedAccountLanguages = { ...allLanguages, [settingType]: languageCode };
+    const updatedAccountLanguages = {
+      ...allLanguages,
+      [settingType]: languageCode,
+    };
     setAllLanguages(updatedAccountLanguages);
     await updateAccountLanguage(updatedAccountLanguages);
   };
@@ -60,7 +69,6 @@ const AccountLanguageSettingsPage = () => {
     padding: 0,
     minWidth: "120px",
     maxWidth: "240px",
-    backgroundColor: "#f2f2f0",
   });
 
   const menuProps = {
@@ -82,21 +90,35 @@ const AccountLanguageSettingsPage = () => {
         {/* Display Language Setting */}
         <Box className={styles.inlineSetting}>
           <Box className={styles.textArea}>
-            <Typography variant="h6" className={styles.languageLabel}>Display language</Typography>
-            <Typography variant="subtitle1" className={styles.languageDescription}>
+            <Typography variant="h6" className={styles.languageLabel}>
+              Display language
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className={styles.languageDescription}
+            >
               The text you can see on the VosynVerse platform
             </Typography>
           </Box>
           <FormControl className={styles.languageSelect}>
             <StyledSelect
-              value={languages.find((lang) => lang.code === allLanguages.display_language).label}
+              value={
+                languages.find(
+                  (lang) => lang.code === allLanguages.display_language,
+                ).label
+              }
               onChange={handleLanguageChange("display_language")}
               MenuProps={menuProps}
               renderValue={(value) => {
-                const selectedLanguage = languages.find((lang) => lang.label === value);
+                const selectedLanguage = languages.find(
+                  (lang) => lang.label === value,
+                );
                 return (
                   <Box className={styles.renderValueContainer}>
-                    {getFlagComponent(selectedLanguage?.code, styles.selectedOption)}
+                    {getFlagComponent(
+                      selectedLanguage?.code,
+                      styles.selectedOption,
+                    )}
                     <Typography variant="body1" className={styles.languageText}>
                       {selectedLanguage.label}
                     </Typography>
@@ -106,9 +128,14 @@ const AccountLanguageSettingsPage = () => {
             >
               {languages.map((lang) => (
                 <MenuItem key={lang.label} value={lang.label}>
-                  <Box className={styles.renderValueContainer}>
+                  <Box
+                    className={styles.renderValueContainer}
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
                     {getFlagComponent(lang.code, styles.selectedOption)}
-                    <Typography variant="body1" className={styles.languageText}>{lang.label}</Typography>
+                    <Typography variant="body1" className={styles.languageText}>
+                      {lang.label}
+                    </Typography>
                   </Box>
                 </MenuItem>
               ))}
@@ -119,21 +146,35 @@ const AccountLanguageSettingsPage = () => {
         {/* Subtitle Language Setting */}
         <Box className={styles.inlineSetting}>
           <Box className={styles.textArea}>
-            <Typography variant="h6" className={styles.languageLabel}>Subtitle language</Typography>
-            <Typography variant="subtitle1" className={styles.languageDescription}>
+            <Typography variant="h6" className={styles.languageLabel}>
+              Subtitle language
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className={styles.languageDescription}
+            >
               The written text translating spoken words in a video
             </Typography>
           </Box>
           <FormControl className={styles.languageSelect}>
             <StyledSelect
-              value={languages.find((lang) => lang.code === allLanguages.subtitle_language).label}
+              value={
+                languages.find(
+                  (lang) => lang.code === allLanguages.subtitle_language,
+                ).label
+              }
               onChange={handleLanguageChange("subtitle_language")}
               MenuProps={menuProps}
               renderValue={(value) => {
-                const selectedLanguage = languages.find((lang) => lang.label === value);
+                const selectedLanguage = languages.find(
+                  (lang) => lang.label === value,
+                );
                 return (
                   <Box className={styles.renderValueContainer}>
-                    {getFlagComponent(selectedLanguage?.code, styles.selectedOption)}
+                    {getFlagComponent(
+                      selectedLanguage?.code,
+                      styles.selectedOption,
+                    )}
                     <Typography variant="body1" className={styles.languageText}>
                       {selectedLanguage.label}
                     </Typography>
@@ -145,7 +186,9 @@ const AccountLanguageSettingsPage = () => {
                 <MenuItem key={lang.label} value={lang.label}>
                   <Box className={styles.renderValueContainer}>
                     {getFlagComponent(lang.code, styles.selectedOption)}
-                    <Typography variant="body1" className={styles.languageText}>{lang.label}</Typography>
+                    <Typography variant="body1" className={styles.languageText}>
+                      {lang.label}
+                    </Typography>
                   </Box>
                 </MenuItem>
               ))}
@@ -156,21 +199,35 @@ const AccountLanguageSettingsPage = () => {
         {/* Dubbing Language Setting */}
         <Box className={styles.inlineSetting}>
           <Box className={styles.textArea}>
-            <Typography variant="h6" className={styles.languageLabel}>Dubbing language</Typography>
-            <Typography variant="subtitle1" className={styles.languageDescription}>
+            <Typography variant="h6" className={styles.languageLabel}>
+              Dubbing language
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className={styles.languageDescription}
+            >
               The language used to replace original speech in films or shows
             </Typography>
           </Box>
           <FormControl className={styles.languageSelect}>
             <StyledSelect
-              value={languages.find((lang) => lang.code === allLanguages.dubbing_language).label}
+              value={
+                languages.find(
+                  (lang) => lang.code === allLanguages.dubbing_language,
+                ).label
+              }
               onChange={handleLanguageChange("dubbing_language")}
               MenuProps={menuProps}
               renderValue={(value) => {
-                const selectedLanguage = languages.find((lang) => lang.label === value);
+                const selectedLanguage = languages.find(
+                  (lang) => lang.label === value,
+                );
                 return (
                   <Box className={styles.renderValueContainer}>
-                    {getFlagComponent(selectedLanguage?.code, styles.selectedOption)}
+                    {getFlagComponent(
+                      selectedLanguage?.code,
+                      styles.selectedOption,
+                    )}
                     <Typography variant="body1" className={styles.languageText}>
                       {selectedLanguage.label}
                     </Typography>
@@ -182,7 +239,9 @@ const AccountLanguageSettingsPage = () => {
                 <MenuItem key={lang.label} value={lang.label}>
                   <Box className={styles.renderValueContainer}>
                     {getFlagComponent(lang.code, styles.selectedOption)}
-                    <Typography variant="body1" className={styles.languageText}>{lang.label}</Typography>
+                    <Typography variant="body1" className={styles.languageText}>
+                      {lang.label}
+                    </Typography>
                   </Box>
                 </MenuItem>
               ))}
@@ -193,21 +252,36 @@ const AccountLanguageSettingsPage = () => {
         {/* Secondary Language Setting */}
         <Box className={styles.inlineSetting}>
           <Box className={styles.textArea}>
-            <Typography variant="h6" className={styles.languageLabel}>Preferred secondary language</Typography>
-            <Typography variant="subtitle1" className={styles.languageDescription}>
+            <Typography variant="h6" className={styles.languageLabel}>
+              Preferred secondary language
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className={styles.languageDescription}
+            >
               Select your preferred secondary language
             </Typography>
           </Box>
           <FormControl className={styles.languageSelect}>
             <StyledSelect
-              value={languages.find((lang) => lang.code === allLanguages.prefered_secondary_language).label}
+              value={
+                languages.find(
+                  (lang) =>
+                    lang.code === allLanguages.prefered_secondary_language,
+                ).label
+              }
               onChange={handleLanguageChange("prefered_secondary_language")}
               MenuProps={menuProps}
               renderValue={(value) => {
-                const selectedLanguage = languages.find((lang) => lang.label === value);
+                const selectedLanguage = languages.find(
+                  (lang) => lang.label === value,
+                );
                 return (
                   <Box className={styles.renderValueContainer}>
-                    {getFlagComponent(selectedLanguage?.code, styles.selectedOption)}
+                    {getFlagComponent(
+                      selectedLanguage?.code,
+                      styles.selectedOption,
+                    )}
                     <Typography variant="body1" className={styles.languageText}>
                       {selectedLanguage.label}
                     </Typography>
@@ -219,7 +293,9 @@ const AccountLanguageSettingsPage = () => {
                 <MenuItem key={lang.label} value={lang.label}>
                   <Box className={styles.renderValueContainer}>
                     {getFlagComponent(lang.code, styles.selectedOption)}
-                    <Typography variant="body1" className={styles.languageText}>{lang.label}</Typography>
+                    <Typography variant="body1" className={styles.languageText}>
+                      {lang.label}
+                    </Typography>
                   </Box>
                 </MenuItem>
               ))}

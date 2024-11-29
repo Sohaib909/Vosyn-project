@@ -1,31 +1,35 @@
 /* LoginSecurityPage.scoped.css */
 .login-security-page {
-  color: black;
+  color: #f0f0f0; /* Light text for dark mode */
+  background: #121212; /* Dark background */
   padding: 24px;
+  min-height: 100vh; /* Ensure it covers full height */
 }
 
 .login-security-page h1 {
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 8px; /* Adjust spacing below the heading */
+  color: #ffffff; /* White heading */
 }
 
 .subtitle {
   font-size: 15px;
-  color: #6a6a6a; /* Slightly darker shade for subtitle text */
+  color: #b3b3b3; /* Light gray for subtitle */
   margin-bottom: 32px; /* More space below the subtitle */
 }
 
 .settings-container {
-  background: #414141; /* White background for the details container */
+  background: #1e1e1e; /* White background for the details container */
   padding: 24px; /* Inner padding around the content */
   border-radius: 8px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for subtle elevation */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 .settings-container h2 {
   font-size: 18px;
   font-weight: bold;
+  color: #f0f0f0; /* Light heading */
   margin-bottom: 100px; /* Increase space below the section title */
 }
 
@@ -33,6 +37,7 @@
   display: flex;
   align-items: center;
   padding: 16px 0; /* Increase padding for more spacing */
+  border-bottom: 1px solid #333333; /* Divider line */
 }
 
 .setting-item:last-child {
@@ -42,7 +47,7 @@
 .icon-placeholder {
   width: 40px;
   height: 40px;
-  background: #e0e0e0; /* Slightly lighter color for the icon */
+  background: #333333; /* Slightly lighter color for the icon */
   border-radius: 50%;
   margin-right: 16px;
 }
@@ -55,12 +60,12 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  color: #333333; /* Darker color for better contrast */
+  color: #f0f0f0; /* Darker color for better contrast */
 }
 
 .setting-value {
   margin: 4px 0 0;
-  color: #757575;
+  color: #b3b3b3;
   font-size: 14px; /* Adjust font size for value text */
 }
 
@@ -90,7 +95,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,11 +103,11 @@
 }
 
 .popup-content {
-  background: #f0f0f0; /* Light grey background for the popup */
+  background: #1e1e1e; /* Light grey background for the popup */
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .popup-buttons {
