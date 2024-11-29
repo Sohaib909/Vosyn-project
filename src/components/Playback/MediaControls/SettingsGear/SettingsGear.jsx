@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { Box, IconButton, Typography } from "@mui/material";
 
-import PlaybackButtons from "../../PlaybackButtons/PlaybackButtons";
-
-import styles from "./SettingsGear.module.css";
-
 const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [resolution, setResolution] = useState("1080p");
