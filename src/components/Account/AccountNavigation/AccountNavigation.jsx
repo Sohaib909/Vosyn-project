@@ -13,6 +13,7 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 // Import CSS module
 import { useRouter } from "next/navigation";
 
@@ -46,8 +47,14 @@ function AccountNavigation({ activeTab, onTabChange }) {
     router.back();
   };
 
-  const handleSignOut = () => {
-    console.log("Signing out");
+  const handleSignOut = async () => {
+    try {
+      const res = await axios.post("/api/auth/logout");
+
+      if (res?.status === 200) router.push("/auth?type=login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
