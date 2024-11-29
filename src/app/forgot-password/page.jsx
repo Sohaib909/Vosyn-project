@@ -39,10 +39,7 @@ const ForgotPassword = () => {
 
       //If email exists, set the status notifiction for the user action and notify them email has been sent to the given email.
       if (res?.status === 200) {
-        setStatus(
-          "A verification email has been sent. Please check your inbox.",
-          "success",
-        );
+        setStatus("Email sent for changing password.", "success");
       }
     } catch (err) {
       const statusCode = err?.response?.status;

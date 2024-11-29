@@ -113,14 +113,8 @@ const SignupForm = () => {
       };
       const res = await axios.post("/api/auth/signup", requestBody);
 
-      // Upon account creation, the user will have to verify their account
       if (res?.status === 201) {
-        setStatus(
-          "A verification email has been sent. Please check your inbox.",
-          "success",
-          10000,
-        );
-        router.push("/auth?type=login");
+        router.push("/onboarding");
       }
 
       // TODO: Handle post account creation (e.g., navigate to onboarding)
@@ -135,7 +129,7 @@ const SignupForm = () => {
           10000,
         );
       } else {
-        setStatus("An error ocurred. Please try again alter.", "error", 10000);
+        setStatus("An error ocurred. Please try again later.", "error", 10000);
       }
     } finally {
       setIsLoading(false);
