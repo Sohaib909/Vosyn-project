@@ -3,10 +3,10 @@ import Image from "next/image";
 const OnboardingLogo = () => {
   return (
     <Image
-      src={"/mediaFiles/Logos/vosyn-logo-dark.svg"}
+      src={"/mediaFiles/Logos/vosyn_logo_long.png"}
       alt="Vosyn logo"
-      width={160}
-      height={40}
+      width={139}
+      height={39}
     />
   );
 };

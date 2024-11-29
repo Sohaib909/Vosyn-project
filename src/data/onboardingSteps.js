@@ -4,60 +4,56 @@ export const steps = [
       text: "What kind of content gets you",
       highlightText: "excited?",
     },
+    subHeader: {
+      text: "Select one option to personalize your content feed",
+    },
     options: [
       {
         id: 1,
         optionText: {
-          boldText: "Videos",
-          italicText: "that I can binge",
+          boldText: "Videos that I can binge",
         },
         value: "video",
       },
       {
         id: 2,
         optionText: {
-          boldText: "Podcasts",
-          italicText: "to vibe with",
+          boldText: "Podcasts to vibe with",
         },
         value: "podcasts",
       },
       {
         id: 3,
         optionText: {
-          boldText: "Articles",
-          italicText: "I'll 'totally' read later",
+          boldText: 'Articles I\'ll "totally" read later',
         },
         value: "articles",
       },
       {
         id: 4,
         optionText: {
-          boldText: "Documents",
-          italicText: "when I'm feeling professional",
+          boldText: "Documents when I'm feeling professional",
         },
         value: "documents",
       },
       {
         id: 5,
         optionText: {
-          boldText: "Books",
-          italicText: "that keep me turning the pages",
+          boldText: "Books that keep me turning the pages",
         },
         value: "books",
       },
       {
         id: 6,
         optionText: {
-          boldText: "Movies",
-          italicText: "that deserve a popcorn break",
+          boldText: "Movies that deserve a popcorn break",
         },
         value: "movies",
       },
       {
         id: 7,
         optionText: {
-          boldText: "Music",
-          italicText: "to soundtrack my life",
+          boldText: "Music to soundtrack my life",
         },
         value: "music",
       },
@@ -74,6 +70,9 @@ export const steps = [
     stepperTitle: {
       text: "Which language do you",
       highlightText: "vibe with most?",
+    },
+    subHeader: {
+      text: "Select one option to personalize your content feed",
     },
     options: [
       {
@@ -122,6 +121,9 @@ export const steps = [
     stepperTitle: {
       text: "How will you use",
       highlightText: "VosynVerse?",
+    },
+    subHeader: {
+      text: "Select one option to personalize your content feed",
     },
     options: [
       {
