@@ -1,0 +1,51 @@
+.formfieldControl {
+  padding-top: 10px !important;
+}
+
+.formfieldControl .formfieldLabel {
+  font-size: 0.75rem !important;
+  font-weight: 400;
+  color: #0a0a0a;
+}
+
+.formfieldControl .formfield {
+  width: 100%;
+  margin-top: 2px;
+  background-color: #ededed;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.formfieldControl .formfield input {
+  -webkit-box-shadow: unset;
+  -webkit-text-fill-color: unset;
+  box-shadow: unset;
+  height: 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  color: black;
+  color-scheme: light; /* not sure from where the color-scheme:dark is getting applied */
+}
+
+.formfield input::placeholder {
+  color: #999;
+}
+
+.formfield fieldset {
+  border: none;
+}
+
+.formfieldControl .inputError {
+  border: 1px solid #d32f2f;
+  outline: none;
+}
+
+.formfieldControl .visibilityIconBox {
+  width: 60px;
+}
+
+.formfieldControl .visibilityIcon {
+  width: 19px;
+  height: 19px;
+  color: black;
+}

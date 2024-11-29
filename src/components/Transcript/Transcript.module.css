@@ -1,5 +1,4 @@
-.transcripts-container {
-  border-bottom: 1px solid var(--lightgrey);
+.transcripts_container {
   min-height: 100px;
   margin-bottom: 20px;
   scroll-behavior: smooth;
@@ -7,24 +6,24 @@
   overflow: hidden;
 }
 
-.transcript-list {
-  padding: 15px 20px;
+.transcript_list {
+  padding: 20px;
   height: 250px;
   overflow-y: scroll;
   margin: 20px 0px;
 }
 
-.scroll-badge {
+.scroll_badge {
   text-align: center;
   cursor: pointer;
   padding: 10px 20px;
   position: absolute;
-  bottom: 0;
-  background-color: var(--pink);
+  background: var(--mui-palette-primary-400);
+  top: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  box-shadow: 1px 1px 8px 0.5px var(--bg);
+  transform: translateX(-50%) translateY(-100%);
   opacity: 0;
+  border-radius: 4px;
   transition:
     transform 100ms ease-in-out,
     opacity 200ms ease-in-out;

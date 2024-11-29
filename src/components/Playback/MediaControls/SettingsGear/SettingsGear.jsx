@@ -1,76 +1,75 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import { Box, Grid2, Typography } from "@mui/material";
-
-import PlaybackButtons from "../../PlaybackButtons/PlaybackButtons";
-
-import styles from "./SettingsGear.module.css";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [resolution, setResolution] = useState("1080p");
 
-  const settingsRef = useRef(null);
-  const settingsTimeout = useRef(null);
-
-  const handleMenuClose = () => {
-    settingsTimeout.current = setTimeout(() => {
-      setShowSettings(false);
-    }, 2000);
+  const handleResolutionChange = (res) => {
+    setResolution(res);
+    setShowSettings(false);
   };
 
   const resolutions = ["1080p", "720p", "480p", "240p"];
 
   return (
-    <Grid2
-      item
-      size={3}
-      ref={settingsRef}
-      sx={{ position: "relative", width: "fit-content" }}
+    <Box
+      onMouseEnter={() => setShowSettings(true)}
+      onMouseLeave={() => setShowSettings(false)}
+      sx={{ position: "relative", display: "inline-block" }}
     >
-      <PlaybackButtons
-        onMouseOver={() => setShowSettings(true)}
-        onMouseLeave={handleMenuClose}
-        Icon={SettingsRoundedIcon}
-      />
+      {/* Button to toggle settings */}
+      <IconButton>
+        <SettingsRoundedIcon sx={{ color: "#fff" }} />
+      </IconButton>
 
-      {/* Settings Menu */}
+      {/* Menu for resolution options */}
       {showSettings && (
         <Box
-          className={styles.itemsContainer}
-          onMouseLeave={handleMenuClose}
-          onMouseEnter={() => clearTimeout(settingsTimeout.current)}
+          sx={{
+            position: "absolute",
+            bottom: "100%",
+            right: 0,
+            backgroundColor: "#1a1a1a",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            zIndex: 10,
+            minWidth: "40px",
+            padding: "8px 0",
+          }}
         >
           <Typography
             variant="body2"
             sx={{
               textAlign: "center",
+              marginBottom: "8px",
+              color: "#aaa",
+              fontSize: "12px",
             }}
           >
             Quality
           </Typography>
           {resolutions.map((res) => (
             <Typography
-              variant="caption"
               key={res}
-              onMouseLeave={handleMenuClose}
-              onMouseEnter={() => clearTimeout(settingsTimeout.current)}
-              onClick={() => {
-                setResolution(res);
-                handleMenuClose();
-              }}
-              className={styles.item}
+              onClick={() => handleResolutionChange(res)}
               sx={{
-                justifyContent: "center",
-                backgroundColor:
-                  resolution === res && "var(--mui-palette-neutral-700)",
+                padding: "8px 12px",
+                fontSize: "14px",
                 cursor: "pointer",
+                backgroundColor:
+                  resolution === res
+                    ? "var(--mui-palette-neutral-700)"
+                    : "transparent",
+                color: resolution === res ? "#fff" : "#aaa",
                 "&:hover": {
                   backgroundColor: "var(--mui-palette-neutral-600)",
+                  color: "#fff",
                 },
-                padding: "8px",
                 borderRadius: "4px",
+                textAlign: "center",
               }}
             >
               {res}
@@ -78,7 +77,7 @@ const SettingsGear = () => {
           ))}
         </Box>
       )}
-    </Grid2>
+    </Box>
   );
 };
 

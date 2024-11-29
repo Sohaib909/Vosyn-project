@@ -31,7 +31,11 @@ const PlaybackStatus = ({
           sx={{
             zIndex: 2, // Ensure it's on top of the backdrop
           }}
-          onClick={togglePlayPause}
+          // onClick={togglePlayPause}
+          onClick={(e) => {
+            e.stopPropagation(); // Preventing the parent box onClick from trigerring
+            togglePlayPause();
+          }}
         >
           {hasEnded ? (
             <ReplayOutlined sx={{ fontSize: "5rem" }} color="secondary" />

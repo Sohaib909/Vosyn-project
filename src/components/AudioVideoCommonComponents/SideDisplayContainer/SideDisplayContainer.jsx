@@ -9,12 +9,15 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
+import ContextualInfo from "../ContextualInfo/ContextualInfo";
 // eslint-disable-next-line prettier/prettier
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 // eslint-disable-next-line prettier/prettier
 import RecommendedCard from "../RecommendedCard/RecommendedCard";
+
 // eslint-disable-next-line prettier/prettier
 import ContextualInfo from "../ContextualInfo/ContextualInfo";
+
 
 import styles from "./SideDisplayContainer.module.css";
 
@@ -32,7 +35,7 @@ const SideDisplayContainer = ({
     containerType === "recommended"
       ? `/api/video?sort_by=view_count&limit=6&page=${getRandValue()}`
       : null,
-    fetcher
+    fetcher,
   );
 
   // Using SWR to fetch playlists
@@ -40,7 +43,7 @@ const SideDisplayContainer = ({
     containerType === "playlist"
       ? `/api/playlist/singlePlaylist/${playlistId}?limit=4&order_by=video_name&page=1`
       : null,
-    fetcher
+    fetcher,
   );
 
   const { setStatus } = useStatusNotification();
@@ -67,6 +70,7 @@ const SideDisplayContainer = ({
       <ContextualInfo />
       </Grid2>
     )}
+
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>
           <Grid2 item size={12} className={styles.header}>

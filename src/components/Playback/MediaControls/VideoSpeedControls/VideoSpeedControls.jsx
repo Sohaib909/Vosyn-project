@@ -1,28 +1,39 @@
 import React, { useRef, useState } from "react";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
-import { Box, Grid2, IconButton, Typography } from "@mui/material";
-
-import styles from "../SettingsGear/SettingsGear.module.css";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const VideoSpeedControls = () => {
   const playbackSpeedRef = useRef(null);
-  const playSpeedTimeout = useRef(null);
-
   const [showPlaybackSpeedMenu, setShowPlaybackSpeedMenu] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [hoveredSpeed, setHoveredSpeed] = useState(null);
 
   const mediaRef = useMediaRef();
 
   const handleSpeedChange = (speedValue) => {
     mediaRef.current.playbackRate = speedValue;
     setPlaybackSpeed(speedValue);
+    setShowPlaybackSpeedMenu(false);
   };
 
-  const handleMenuClose = () => {
-    playSpeedTimeout.current = setTimeout(() => {
+  const handleMouseEnterContainer = () => {
+    setShowPlaybackSpeedMenu(true);
+  };
+
+  const handleMouseLeaveContainer = (e) => {
+    const relatedTarget = e.relatedTarget;
+    if (!playbackSpeedRef.current.contains(relatedTarget)) {
       setShowPlaybackSpeedMenu(false);
-    }, 2000);
+    }
+  };
+
+  const handleOptionMouseEnter = (speedValue) => {
+    setHoveredSpeed(speedValue);
+  };
+
+  const handleOptionMouseLeave = () => {
+    setHoveredSpeed(null);
   };
 
   const speedOptions = [
@@ -33,67 +44,74 @@ const VideoSpeedControls = () => {
   ];
 
   return (
-    <Grid2
-      item
-      size={3}
-      sx={{ position: "relative", width: "fit-content" }}
+    <Box
       ref={playbackSpeedRef}
+      onMouseEnter={handleMouseEnterContainer}
+      onMouseLeave={handleMouseLeaveContainer}
+      sx={{ position: "relative", display: "inline-block" }}
     >
-      <IconButton
-        onMouseOver={() => setShowPlaybackSpeedMenu(true)}
-        onMouseLeave={handleMenuClose}
-        style={{ cursor: "pointer" }}
-        ref={playbackSpeedRef}
-      >
-        {/* Display current playback speed as text using Typography with fixed size and centered */}
-        <Typography variant="body2">{`${playbackSpeed}x`}</Typography>
+      <IconButton>
+        <Typography
+          variant="body2"
+          sx={{ color: "#fff" }}
+        >{`${playbackSpeed}x`}</Typography>
       </IconButton>
 
-      {/* Playback Speed Menu */}
       {showPlaybackSpeedMenu && (
         <Box
-          className={styles.itemsContainer}
-          onMouseLeave={handleMenuClose}
-          onMouseEnter={() => clearTimeout(playSpeedTimeout.current)}
+          sx={{
+            position: "absolute",
+            bottom: "100%",
+            right: 0,
+            backgroundColor: "#1a1a1a",
+            color: "#fff",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            minWidth: "50px",
+            zIndex: 10,
+            padding: "8px 0",
+          }}
         >
           <Typography
             variant="body2"
             sx={{
               textAlign: "center",
+              marginBottom: "8px",
+              color: "#aaa",
+              fontSize: "12px",
             }}
           >
             Speed
           </Typography>
-          {speedOptions.map((res) => (
+          {speedOptions.map((option) => (
             <Typography
-              variant="caption"
-              key={res?.value}
-              onMouseLeave={handleMenuClose}
-              onMouseEnter={() => clearTimeout(playSpeedTimeout.current)}
-              onClick={() => {
-                handleSpeedChange(res?.value);
-                handleMenuClose();
-              }}
-              className={styles.item}
+              key={option.value}
+              onClick={() => handleSpeedChange(option.value)}
+              onMouseEnter={() => handleOptionMouseEnter(option.value)}
+              onMouseLeave={handleOptionMouseLeave}
               sx={{
-                justifyContent: "center",
-                backgroundColor:
-                  playbackSpeed === res?.value &&
-                  "var(--mui-palette-neutral-700)",
+                padding: "8px 12px",
+                fontSize: "14px",
                 cursor: "pointer",
+                backgroundColor:
+                  playbackSpeed === option.value
+                    ? "#333"
+                    : hoveredSpeed === option.value
+                      ? "#444"
+                      : "transparent",
+                color: playbackSpeed === option.value ? "#fff" : "#aaa",
                 "&:hover": {
-                  backgroundColor: "var(--mui-palette-neutral-600)",
+                  backgroundColor: "#444",
+                  color: "#fff",
                 },
-                padding: "8px",
-                borderRadius: "4px",
               }}
             >
-              {res?.value}
+              {option.label}
             </Typography>
           ))}
         </Box>
       )}
-    </Grid2>
+    </Box>
   );
 };
 
