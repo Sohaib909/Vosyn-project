@@ -1,12 +1,10 @@
 "use client";
-import React, { useState } from "react";
+
+import { ArrowsInSimple } from "phosphor-react";
+import { useState } from "react";
 
 import MicNone from "@mui/icons-material/MicNone";
-
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { ArrowsInSimple } from 'phosphor-react';
-
 import {
   Accordion,
   AccordionDetails,
@@ -17,8 +15,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import MuiIcon from "@mui/material/Icon";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import styled from "styled-components";
+
 import "./ContextualInfo.module.css";
 
 const sampleData = {
@@ -120,7 +119,7 @@ const ContextualInfo = () => {
                 width: "24px",
                 height: "24px",
                 top: "18.97px",
-           left: "282.74px",
+                left: "282.74px",
                 transform: "rotate(135deg)",
               }}
             />
@@ -165,7 +164,7 @@ const ContextualInfo = () => {
             variant="body2"
             sx={{ color: "gray", marginBottom: "3px", fontSize: "0.75rem" }}
           >
-            Watching Video "Grey's Anatomy S5 E7 at 25:11"
+            {`Watching Video "Grey's Anatomy S5 E7 at 25:11"`}
           </Typography>
 
           <Box
