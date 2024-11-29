@@ -1,0 +1,129 @@
+.signupContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signupForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.signupContent .signupPasswordHelperText {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.signupContent .passwordValidation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.passwordValidation .passwordValidationItem {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  line-height: 1rem;
+  position: relative;
+  padding: 0;
+  font-size: 0.75rem;
+}
+
+.passwordValidation .passwordValidationItem::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 10px;
+}
+
+.passwordValidation .passwordValidationItem.red {
+  color: red;
+}
+
+.passwordValidation .passwordValidationItem.green {
+  color: green;
+}
+.passwordValidation .passwordValidationItem.green {
+  color: #28a745;
+}
+.passwordValidation .passwordValidationItem.green::before {
+  background-color: #28a745; /* Green for met criteria */
+}
+
+.passwordValidation .passwordValidationItem.red::before {
+  background-color: #dc3545;
+}
+
+.signupContent .acknowledgementBox {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.signupContent .acknowledgementTop {
+  display: flex;
+}
+
+.signupContent .checkbox {
+  width: 2px;
+  height: 2px;
+  padding-top: 0.6rem;
+  margin-top: 8px;
+  margin-right: 2px;
+  color: #7c7c7c;
+}
+
+.signupContent .acknowledgement {
+  font-size: 0.75rem;
+  line-height: 14px;
+  margin-top: 8px;
+  color: #7c7c7c;
+}
+
+.hyperlink {
+  color: #1e88e5;
+  text-decoration: none;
+}
+
+.signupContent .signupBtn {
+  background: linear-gradient(90deg, #7949fa, #6576fa);
+  color: white;
+  text-transform: none;
+  height: 52px;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.signupContent .signupBtn:disabled {
+  background-color: #b0bec5;
+}
+
+.signupContent .error {
+  font-size: 0.875rem;
+  color: red;
+}
+
+.signupContent .signupText {
+  display: flex;
+  color: #000;
+  gap: 0.3rem;
+  font-size: 12px;
+  line-height: 12px;
+  justify-content: left;
+  margin: 10px 0;
+}
+
+.signupContent .existingUsr {
+  text-decoration: underline;
+  color: #5891fa;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+}

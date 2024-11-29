@@ -1,3 +1,5 @@
+"use client";
+
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";

@@ -23,6 +23,7 @@ const theme = createTheme({
       500: "#777777",
       600: "#575757",
       700: "#3B3E3B",
+      750: "#6b6e6b",
       800: "#1F1E1E",
       900: "#121118",
     },
@@ -63,6 +64,7 @@ const theme = createTheme({
       "linear-gradient(0deg, var(--mui-palette-neutral-900) 0%, transparent 90%)",
     linearGradientVideoForground2:
       "linear-gradient(180deg, var(--mui-palette-neutral-900) 10%, transparent 100%)",
+    boxShadowColor: "#c8c8c84d",
   },
 });
 

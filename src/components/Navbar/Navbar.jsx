@@ -31,7 +31,7 @@ const Navbar = () => {
             src="/mediaFiles/Logos/vosyn_logo_long.png"
             width={684}
             height={195}
-            alt="Vosyn Logo"
+            alt="VosynVerse home"
             priority={true}
             className={styles.vosynLogo}
           />
