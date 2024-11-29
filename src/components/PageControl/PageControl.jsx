@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import ArrowCircleDownRoundedIcon from "@mui/icons-material/ArrowCircleDownRounded";
 import ArrowCircleUpRoundedIcon from "@mui/icons-material/ArrowCircleUpRounded";
@@ -17,48 +17,17 @@ const PageControl = ({
   handlePrevPage,
   currentPage,
   setCurrentPage,
-  pageRefs,
   pageLength,
   setFontSize,
   searchText,
+  pageRefs,
 }) => {
-  const [openPageTextInput, setOpenPageTextInput] = useState(false);
-  const [openSearchTextInput, setOpenSearchTextInput] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isPageJumpActive, setIsPageJumpActive] = useState(false);
   const [inputPageNumber, setInputPageNumber] = useState(currentPage);
-  const [searchInputValue, setSearchInputValue] = useState(null);
-
-  useEffect(() => {
-    const pageNum = parseInt(inputPageNumber, 10);
-
-    if (!isNaN(pageNum)) {
-      if (pageNum < 1) {
-        setInputPageNumber(1);
-      } else if (pageNum > pageLength) {
-        setInputPageNumber(pageLength);
-      } else {
-        setCurrentPage(pageNum);
-      }
-      if (pageRefs.current && pageRefs.current[pageNum - 1]) {
-        setTimeout(() => {
-          pageRefs.current[pageNum - 1].scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
-    }
-  }, [inputPageNumber, setCurrentPage, pageLength, pageRefs]);
-
-  useEffect(() => {
-    setInputPageNumber(currentPage);
-  }, [currentPage]);
-
-  const toggleTextInput = () => {
-    setOpenPageTextInput((prev) => !prev);
-    setOpenSearchTextInput(false);
-  };
-
-  const toggleSearchInput = () => {
-    setOpenSearchTextInput((prev) => !prev);
-    setOpenPageTextInput(false);
-  };
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const [fontSizePercentage, setFontSizePercentage] = useState(100);
+  const searchInputRef = useRef(null);
 
   const adjustFontSizes = (factor) => {
     setFontSize((prevSizes) => ({
@@ -67,6 +36,7 @@ const PageControl = ({
       paragraph: Math.round(factor * prevSizes.paragraph),
       subtitle: Math.round(factor * prevSizes.subtitle),
     }));
+    setFontSizePercentage((prev) => Math.round(prev * factor));
   };
 
   const zoomIn = () => {
@@ -79,121 +49,150 @@ const PageControl = ({
     adjustFontSizes(decrease);
   };
 
-  const handleSearchTextChange = (event) => {
-    event.preventDefault();
-    const value = event.target.value;
-    setSearchInputValue(value);
-
-    searchText(value);
+  const toggleSearchInput = () => {
+    setIsSearchActive((prev) => {
+      const newState = !prev;
+      if (newState) {
+        setTimeout(() => {
+          searchInputRef.current?.focus();
+        }, 0);
+      }
+      return newState;
+    });
   };
 
-  const handleChange = (event) => {
-    setInputPageNumber(event.target.value);
+  const togglePageJumpInput = () => {
+    setIsPageJumpActive((prev) => !prev);
+  };
+
+  const handlePageJumpChange = (event) => {
+    const value = event.target.value;
+    setInputPageNumber(value);
+  };
+
+  const handlePageJumpSubmit = (event) => {
+    if (event.key === "Enter") {
+      const pageNum = parseInt(inputPageNumber, 10);
+      if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= pageLength) {
+        setCurrentPage(pageNum);
+        // Scroll to the specified page
+        if (pageRefs.current && pageRefs.current[pageNum - 1]) {
+          pageRefs.current[pageNum - 1].scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        setInputPageNumber(currentPage); // Reset to current page if invalid
+      }
+    }
+  };
+
+  const handleSearchInputChange = (event) => {
+    const value = event.target.value;
+    setSearchInputValue(value);
+    searchText(value);
   };
 
   return (
     <Box className={styles.pageControlMainDiv}>
-      <Box className={styles.paginationDiv}>
-        <ArrowCircleUpRoundedIcon
-          onClick={handlePrevPage}
-          className={styles.pageControlIcon}
-        />
-        <ArrowCircleDownRoundedIcon
-          onClick={handleNextPage}
-          className={styles.pageControlIcon}
-        />
-        <SearchRoundedIcon
-          onClick={toggleSearchInput}
-          className={styles.pageControlIcon}
-        />
-        <Typography fontSize="12px" onClick={toggleTextInput}>
-          {currentPage} of {pageLength}
-        </Typography>
-        <ZoomInRoundedIcon
-          onClick={zoomIn}
-          className={styles.pageControlIcon}
-        />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "12.5rem",
+        }}
+      >
+        <Box className={`${styles.pageControlSubDiv}`}>
+          <Box sx={{ margin: "0 0.1em" }}>
+            <ArrowCircleUpRoundedIcon
+              onClick={handlePrevPage}
+              fontSize="small"
+            />
+          </Box>
+          <Box sx={{ margin: "0 0.1em" }}>
+            <ArrowCircleDownRoundedIcon
+              onClick={handleNextPage}
+              fontSize="small"
+            />
+          </Box>
+          <Box sx={{ margin: "0 0.1em", position: "relative" }}>
+            <Typography
+              sx={{ fontSize: "0.7rem", cursor: "pointer" }}
+              onClick={togglePageJumpInput}
+            >
+              {currentPage} of {pageLength}
+            </Typography>
+            {isPageJumpActive && (
+              <Box className={styles.pageJumpInputContainer}>
+                <Input
+                  type="number"
+                  value={inputPageNumber}
+                  onChange={handlePageJumpChange}
+                  onKeyDown={handlePageJumpSubmit}
+                  placeholder="Skip to a page"
+                  sx={{
+                    fontSize: "0.7rem",
+                    width: "100%",
+                    color: "var(--mui-palette-neutral-25)",
+                    background: "var(--mui-palette-neutral-900)",
+                    borderRadius: "3px",
+                    padding: "0 0.2rem",
+                    "&::before": { borderBottom: "none" },
+                    "&::after": { borderBottom: "none" },
+                    "&:hover:not(.Mui-disabled)::before": {
+                      borderBottom: "none",
+                    },
+                  }}
+                  inputProps={{ min: 1, max: pageLength }}
+                />
+              </Box>
+            )}
+          </Box>
+        </Box>
 
-        <ZoomOutRoundedIcon
-          onClick={zoomOut}
-          className={styles.pageControlIcon}
-        />
-        <ListIcon className={styles.pageControlIcon} />
+        <Box className={`${styles.pageControlSubDiv}`}>
+          <ZoomInRoundedIcon onClick={zoomIn} fontSize="small" />
+          <ZoomOutRoundedIcon onClick={zoomOut} fontSize="small" />
+          <Box sx={{ margin: "0 0.2em" }}>
+            <Typography sx={{ fontSize: "0.7rem" }}>
+              {fontSizePercentage}%
+            </Typography>
+          </Box>
+          <ListIcon fontSize="small" />
+        </Box>
       </Box>
-      {openPageTextInput && (
-        <Box
-          sx={{
-            "& > :not(style)": { m: 1 },
-            display: "flex",
-            justifyContent: "center",
-          }}
-          noValidate
-          autoComplete="off"
-          className={styles.inputPopUpDiv}
-        >
-          <SearchRoundedIcon className={styles.pageSearchIcon} />
-          <Input
-            type="number"
-            placeholder="Skip to a page"
-            value={inputPageNumber}
-            min={1}
-            max={pageLength}
-            sx={{
-              margin: "0.5rem",
-              width: "100%",
-              fontSize: "12px",
-              padding: "0px",
-              color: "var(--mui-palette-primary-contrastText)",
-              "&::before": {
-                borderBottom: "none", // Remove default underline
-              },
-              "&::after": {
-                borderBottom: "none", // Ensure no underline after focus
-              },
-              "&:hover:not(.Mui-disabled)::before": {
-                borderBottom: "none", // Remove underline on hover
-              },
-            }}
-            onChange={handleChange}
-            inputProps={{ min: 1, max: pageLength }}
-          />
-        </Box>
-      )}
 
-      {openSearchTextInput && (
-        <Box
-          sx={{
-            "& > :not(style)": { m: 1 },
-            display: "flex",
-            justifyContent: "center",
-          }}
-          noValidate
-          autoComplete="off"
-          className={styles.inputPopUpDiv}
-        >
-          <SearchRoundedIcon className={styles.pageControlIcon} />
-          <Input
-            type="text"
-            placeholder="Search a word"
-            value={searchInputValue}
-            sx={{
-              fontSize: "12px",
-              padding: "0px",
-              color: "var(--mui-palette-primary-contrastText)",
-              "&::before": {
-                borderBottom: "none", // Remove default underline
-              },
-              "&::after": {
-                borderBottom: "none", // Ensure no underline after focus
-              },
-              "&:hover:not(.Mui-disabled)::before": {
-                borderBottom: "none", // Remove underline on hover
-              },
-            }}
-            onChange={handleSearchTextChange}
-          />
+      <Box
+        className={`${styles.pageControlSubDiv}`}
+        onClick={toggleSearchInput}
+      >
+        <SearchRoundedIcon fontSize="small" />
+        <Box sx={{ margin: "0 0.3em" }}>
+          <Typography sx={{ fontSize: "0.65rem" }}>
+            Search for a word
+          </Typography>
         </Box>
-      )}
+        {isSearchActive && (
+          <Box className={styles.searchInputContainer}>
+            <Input
+              ref={searchInputRef}
+              type="text"
+              value={searchInputValue}
+              onClick={(event) => event.stopPropagation()}
+              onChange={handleSearchInputChange}
+              placeholder="Search"
+              sx={{
+                color: "var(--mui-palette-neutral-25)",
+                fontSize: "0.65rem",
+                background: "var(--mui-palette-neutral-900)",
+                borderRadius: "3px",
+                padding: "0 0.2rem",
+                "&::before": { borderBottom: "none" },
+                "&::after": { borderBottom: "none" },
+                "&:hover:not(.Mui-disabled)::before": { borderBottom: "none" },
+              }}
+            />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
