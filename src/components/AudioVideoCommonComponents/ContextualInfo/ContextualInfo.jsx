@@ -1,12 +1,10 @@
 "use client";
+
+import { ArrowsInSimple } from "phosphor-react";
 import React, { useState } from "react";
 
 import MicNone from "@mui/icons-material/MicNone";
-
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { ArrowsInSimple } from 'phosphor-react';
-
 import {
   Accordion,
   AccordionDetails,
@@ -17,8 +15,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import MuiIcon from "@mui/material/Icon";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import styled from "styled-components";
+
 import "./ContextualInfo.module.css";
 
 const sampleData = {
@@ -36,6 +35,7 @@ const MyButton = styled(Button)({
   padding: "4px 8px",
   fontSize: "0.675rem",
   fontFamily: "Inter, sans-serif",
+  color: "white",
   borderRadius: 28,
   textTransform: "none",
   boxShadow: "none",
@@ -120,7 +120,7 @@ const ContextualInfo = () => {
                 width: "24px",
                 height: "24px",
                 top: "18.97px",
-           left: "282.74px",
+                left: "282.74px",
                 transform: "rotate(135deg)",
               }}
             />
@@ -143,7 +143,7 @@ const ContextualInfo = () => {
           <Typography
             className="accordion-summary-text"
             sx={{
-              color: "#575757",
+              color: "white",
               fontWeight: "bold",
               fontSize: "1rem",
               marginRight: "8px",
@@ -154,7 +154,7 @@ const ContextualInfo = () => {
           {isAccordionOpen && (
             <Typography
               variant="body2"
-              sx={{ color: "gray", fontSize: "0.75rem", textAlign: "left" }}
+              sx={{ color: "white", fontSize: "0.75rem", textAlign: "left" }}
             >
               Powered by VosynAssist
             </Typography>
@@ -163,9 +163,9 @@ const ContextualInfo = () => {
         <AccordionDetails>
           <Typography
             variant="body2"
-            sx={{ color: "gray", marginBottom: "3px", fontSize: "0.75rem" }}
+            sx={{ color: "white", marginBottom: "3px", fontSize: "0.75rem" }}
           >
-            Watching Video "Grey's Anatomy S5 E7 at 25:11"
+            Watching Video &quot;Grey&apos;s Anatomy S5 E7 at 25:11&quot;
           </Typography>
 
           <Box
@@ -178,7 +178,7 @@ const ContextualInfo = () => {
           >
             {Object.keys(sampleData).map((key) => (
               <MyButton
-                sx={{ color: "#A3A3A8" }}
+                sx={{ color: "primary" }}
                 key={key}
                 variant="contained"
                 onClick={() => handleButtonClick(key)}
@@ -193,7 +193,7 @@ const ContextualInfo = () => {
 
             <Box
               className="displayArea"
-              sx={{ mt: "8px", color: "#575757", fontSize: "0.675rem" }}
+              sx={{ mt: "15px", color: "white", fontSize: "0.675rem" }}
             >
               <Typography variant="body2" className="displayText">
                 {displayContent}
@@ -219,13 +219,13 @@ const ContextualInfo = () => {
                   <Box display="flex" alignItems="center">
                     <IconButton
                       onClick={() => console.log("Microphone clicked")}
-                      sx={{ color: "gray" }}
+                      sx={{ color: "white" }}
                     >
                       <MicNone />
                     </IconButton>
                     <IconButton
                       onClick={handleAssistQuery}
-                      sx={{ color: "gray" }}
+                      sx={{ color: "white" }}
                     >
                       <SendOutlinedIcon />
                     </IconButton>
@@ -246,7 +246,7 @@ const ContextualInfo = () => {
             <Typography
               variant="body2"
               className="response"
-              sx={{ mt: "8px", color: "gray" }}
+              sx={{ mt: "8px", color: "white" }}
             >
               {response}
             </Typography>

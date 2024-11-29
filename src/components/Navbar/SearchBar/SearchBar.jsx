@@ -143,7 +143,11 @@ const SearchBar = () => {
           sx={{ fontSize: "1.75rem", color: "white" }}
           className={styles.searchInputIcon}
         />
-        <input {...getInputProps()} className={styles.searchInput} />
+        <input
+          {...getInputProps()}
+          aria-label="Search VosynVerse"
+          className={styles.searchInput}
+        />
       </Box>
       {popupOpen &&
         (groupedOptions.length > 0 ? (

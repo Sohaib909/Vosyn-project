@@ -6,7 +6,10 @@
       "FR": "À gauche, on peut voir...",
       "ES": "A la izquierda podemos ver..."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -16,7 +19,10 @@
       "FR": "À droite, on peut voir le...",
       "ES": "A la derecha podemos ver el..."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -26,7 +32,10 @@
       "FR": "...les têtes-enrouleurs.",
       "ES": "...los enroscadores de cabezas."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -36,7 +45,10 @@
       "FR": "Tout est sûr. Parfaitement sûr.",
       "ES": "Todo está seguro. Perfectamente seguro."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -46,7 +58,10 @@
       "FR": "Emo?",
       "ES": "¿Emo?"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -56,7 +71,10 @@
       "FR": "Attention!",
       "ES": "¡Cuidado!"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -66,7 +84,10 @@
       "FR": "Es-tu blessé?",
       "ES": "¿Estás herido?"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -76,7 +97,10 @@
       "FR": "Je ne pense pas. Toi.",
       "ES": "No lo creo. Tú."
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -86,7 +110,10 @@
       "FR": "Je vais bien.",
       "ES": "Estoy bien."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -96,7 +123,10 @@
       "FR": "Lève-toi. Emo, ce n'est pas sûr ici.",
       "ES": "Levántate. Emo, aquí no es seguro."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -106,7 +136,10 @@
       "FR": "Allons-y.",
       "ES": "Vamos."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -116,7 +149,10 @@
       "FR": "Qu'est-ce qu'il y a après?",
       "ES": "¿Qué sigue?"
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -126,7 +162,10 @@
       "FR": "Tu verras!",
       "ES": "¡Lo verás!"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -136,7 +175,10 @@
       "FR": "Emo. Par ici.",
       "ES": "Emo. Por aquí."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -146,7 +188,10 @@
       "FR": "Suis-moi!",
       "ES": "¡Sígueme!"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -156,7 +201,10 @@
       "FR": "Dépêche-toi Emo!",
       "ES": "¡Date prisa, Emo!"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -166,7 +214,10 @@
       "FR": "Tu ne fais pas attention!",
       "ES": "¡No estás prestando atención!"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -176,7 +227,10 @@
       "FR": "Je veux juste répondre au... téléphone.",
       "ES": "Solo quiero contestar el... teléfono."
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -186,7 +240,10 @@
       "FR": "Emo, regarde, enfin écoute.",
       "ES": "Emo, mira, o sea, escucha."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -196,7 +253,10 @@
       "FR": "Tu dois apprendre à écouter.",
       "ES": "Tienes que aprender a escuchar."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -206,7 +266,10 @@
       "FR": "Ce n'est pas un jeu.",
       "ES": "Esto no es un juego."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -216,7 +279,10 @@
       "FR": "Toi, enfin nous, on pourrait facilement mourir ici.",
       "ES": "Tú, o sea, nosotros, podríamos morir fácilmente aquí."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -226,7 +292,10 @@
       "FR": "Écoute, écoute les sons de la machine.",
       "ES": "Escucha, escucha los sonidos de la máquina."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -236,7 +305,10 @@
       "FR": "Écoute ta respiration.",
       "ES": "Escucha tu respiración."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -246,7 +318,10 @@
       "FR": "Eh bien, tu ne te lasses jamais de ça?",
       "ES": "Bueno, ¿nunca te cansas de esto?"
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -256,7 +331,10 @@
       "FR": "Las-tu?!?",
       "ES": "¿Cansado?!?"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -266,7 +344,10 @@
       "FR": "Emo, la machine est comme une horloge.",
       "ES": "Emo, la máquina es como un reloj."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -276,7 +357,10 @@
       "FR": "Un mouvement hors de place... et tu es réduit en bouillie.",
       "ES": "Un movimiento fuera de lugar... y eres hecho pulpa."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -286,7 +370,10 @@
       "FR": "Mais n'est-ce pas -",
       "ES": "¿Pero no es -"
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -296,7 +383,10 @@
       "FR": "De la pulpe, Emo! C'est ça que tu veux, de la pulpe?",
       "ES": "¡Pulpa, Emo! ¿Eso es lo que quieres, pulpa?"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -306,7 +396,10 @@
       "FR": "Emo, ferme les yeux.",
       "ES": "Emo, cierra los ojos."
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {
@@ -326,7 +419,10 @@
       "FR": "D'accord.",
       "ES": "Está bien."
     },
-    "speaker": "Emo",
+    "speaker": {
+      "CA": "Emo",
+      "FR": "Emoo",
+      "ES": "Eemo"},
     "flagged": false
   },
   {
@@ -336,7 +432,10 @@
       "FR": "Que vois-tu à ta gauche, Emo?",
       "ES": "¿Qué ves a tu izquierda, Emo?"
     },
-    "speaker": "Proog",
+    "speaker": {
+      "CA": "Proog",
+      "FR": "Prog",
+      "ES": "Prooɠ"},
     "flagged": false
   },
   {

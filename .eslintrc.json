@@ -28,5 +28,12 @@
       "version": "detect"
     }
   },
+  "overrides": [
+    {
+      "files": ["**/*.test.{js,jsx}"],
+      "plugins": ["jest", "testing-library"],
+      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"]
+    }
+  ],
   "ignorePatterns": ["**/*.css"]
 }

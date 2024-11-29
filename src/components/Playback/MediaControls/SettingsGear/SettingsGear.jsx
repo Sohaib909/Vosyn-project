@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { Box, IconButton, Typography } from "@mui/material";
+
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
+
 
 const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);

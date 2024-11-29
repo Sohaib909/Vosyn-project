@@ -3,8 +3,6 @@ import React, { useRef, useState } from "react";
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import { Box, IconButton, Typography } from "@mui/material";
 
-import styles from "../SettingsGear/SettingsGear.module.css";
-
 const VideoSpeedControls = () => {
   const playbackSpeedRef = useRef(null);
   const [showPlaybackSpeedMenu, setShowPlaybackSpeedMenu] = useState(false);
