@@ -23,7 +23,6 @@
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@hookform/resolvers": "^3.9.0",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
     "@mui/material-nextjs": "^6.1.1",
@@ -32,7 +31,7 @@
     "dashjs": "^4.7.4",
     "framer-motion": "^11.11.17",
     "jose": "^5.9.6",
-    "next": "^15.0.3",
+    "next": "14.2.13",
     "phosphor-react": "^1.4.1",
     "react": "^18",
     "react-dom": "^18",
@@ -44,7 +43,8 @@
     "sharp": "^0.33.5",
     "styled-components": "^6.1.13",
     "swr": "^2.2.5",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@hookform/resolvers": "^3.9.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
