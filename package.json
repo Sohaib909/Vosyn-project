@@ -30,6 +30,7 @@
     "axios": "^1.7.7",
     "dashjs": "^4.7.4",
     "framer-motion": "^11.11.17",
+    "jose": "^5.9.6",
     "next": "14.2.13",
     "phosphor-react": "^1.4.1",
     "react": "^18",

@@ -165,7 +165,7 @@ const ContextualInfo = () => {
             variant="body2"
             sx={{ color: "white", marginBottom: "3px", fontSize: "0.75rem" }}
           >
-            Watching Video &quot;Grey&apos;s Anatomy S5 E7 at 25:11&quot;
+            {`Watching Video "Grey's Anatomy S5 E7 at 25:11"`}
           </Typography>
 
           <Box
