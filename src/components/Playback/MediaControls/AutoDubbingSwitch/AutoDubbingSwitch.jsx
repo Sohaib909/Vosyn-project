@@ -16,7 +16,6 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
   const { setStatus } = useStatusNotification();
   const { mediaObj } = useSelector(selectDashObject);
   const mediaRef = useMediaRef();
-
   const player = useRef(null);
   const audioLangIndexRef = useRef(-1);
   const audioLangRef = useRef(null);
@@ -47,7 +46,6 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
       try {
         const tracks = player.current.getTracksFor("audio");
         setAudioTracks(tracks);
-
         // Set audio track
         if (tracks && tracks.length > 0) {
           const trackToSet =
@@ -189,6 +187,9 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
               languageList={audioTracks}
               selectedTrackIndex={selectedTrackIndex}
               handleAudioChange={handleAudioChange}
+              setShowLanguagePopup={setShowLanguagePopup}
+              setSelectedLanguage={setSelectedLanguage}
+              setChangeLanguagePopup={setChangeLanguagePopup}
             />
           )}
         </Box>
