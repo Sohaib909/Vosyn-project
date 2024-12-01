@@ -150,7 +150,7 @@ const TextPage = ({ params }) => {
             key={index}
             ref={(el) => (pageRefs.current[index] = el)}
             sx={{
-              mt: "45px",
+              mt: "1.5em",
               mb: 4,
               p: "2.5rem",
               border: "1px solid var(--mui-palette-neutral-50)",
