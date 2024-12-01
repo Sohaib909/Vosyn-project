@@ -6,6 +6,7 @@ import { Button, Grid2, Typography } from "@mui/material";
 import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/VideoAudioActionButtons/VideoAudioActionButtons";
 import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
 import UploadAudioVideoTranscriptPanel from "@/components/UploadAudioVideoTranscriptPanel/UploadVideoPageTranscript/UploadAudioVideoTranscriptPanel";
 
 const layout = ({ children }) => {
@@ -57,6 +58,7 @@ const layout = ({ children }) => {
           sx={{ height: "fit-content" }}
         >
           <TranslationPanel>
+            <TranslationPanelFileUpload mediaType={"audio/video"} />
             <Button
               variant="contained"
               sx={{
