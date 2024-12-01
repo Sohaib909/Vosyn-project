@@ -1,8 +1,9 @@
 import React from "react";
 
 import TranslateIcon from "@mui/icons-material/Translate";
-import { Button, Grid2 } from "@mui/material";
+import { Box, Button, Grid2 } from "@mui/material";
 
+import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import Summary from "@/components/Summary/Summary";
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
@@ -53,6 +54,14 @@ const layout = ({ children }) => {
         </TranslationPanel>
 
         <TextAndImageActionBtns />
+        <Box
+          component="section"
+          sx={{
+            width: "100%",
+          }}
+        >
+          <ContextualInfo />
+        </Box>
         <Summary />
       </Grid2>
     </Grid2>
