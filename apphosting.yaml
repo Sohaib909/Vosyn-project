@@ -19,5 +19,12 @@ runConfig:
 
   # Grant access to secrets in Cloud Secret Manager.
   # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  - variable: SESSION_SECRET
-    secret: sessionSecret
+  # - variable: SESSION_SECRET
+  #   secret: sessionSecret
+
+env_variables:
+  SESSION_SECRET: ${secrets.sessionSecret}  # Maps the secret to the environment variable
+
+secrets:
+  - name: sessionSecret                     # Reference the secret in Secret Manager
+    version: latest                         # Use the latest version of the secret
