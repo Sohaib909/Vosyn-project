@@ -16,12 +16,12 @@ const layout = ({ children }) => {
         <Grid2
           item
           container
-          spacing={4}
+          spacing={2}
           size={{ xs: 12, sm: 12, md: 8, lg: 8, xl: 9 }}
         >
           <Grid2 item container size={12} spacing={2}>
             {children}
-
+            <VideoAudioActionButtons />
             <Grid2
               item
               container
@@ -44,7 +44,6 @@ const layout = ({ children }) => {
                   沈黙の危険 | クリント・スミス |テッド
                 </Typography>
               </Grid2>
-              <VideoAudioActionButtons />
             </Grid2>
           </Grid2>
           <VideoAudioAISummary />

@@ -9,6 +9,7 @@ const ButtonWithIconAndText = ({
   variant = "contained",
   size = "small",
   height = "fit-content",
+  sx = {},
 }) => {
   return (
     <Button
@@ -18,16 +19,22 @@ const ButtonWithIconAndText = ({
       sx={{
         background: "var(--mui-palette-neutral-700)",
         width: "fit-content",
-        paddingX: "1rem",
-        fontSize: "12px",
+        padding: "0.4rem 1.5rem",
         display: "flex",
-        columnGap: "8px",
+        columnGap: "0.5rem",
         whiteSpace: "nowrap",
         textTransform: "none",
         height: height,
-        "&:hover": {
-          background: "var(--mui-palette-primary-600)",
-        },
+        color: " var(--mui-palette-primary-25)",
+        borderRadius: "0.5rem",
+        fontSize: "0.875rem",
+        fontWeight: "500",
+        border: "0.06rem solid var(--mui-palette-neutral-750)",
+        boxShadow: "inset 0 0 1.25rem 0 var(--mui-palette-boxShadowColor)",
+        // "&:hover": {
+        //   background: "var(--mui-palette-primary-600)",
+        // },
+        ...sx,
       }}
     >
       {icon} {text}
