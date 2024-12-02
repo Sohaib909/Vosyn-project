@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
+import Summary from "@/components/Summary/Summary";
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
@@ -78,7 +79,9 @@ const ImagePage = () => {
             borderRadius: "1rem",
           }}
         >
-          {image && <Image src={image.current} alt="uploaded image" />}
+          <Box>
+            {image && <Image src={image.current} alt="uploaded image" />}
+          </Box>
         </Box>
       </Box>
 
@@ -92,20 +95,20 @@ const ImagePage = () => {
         {/* Uncomment once ContextualInfo and Summary are migrated over */}
         {/* <Box className="contextual-info-wrapper">
             <ContextualInfo />
+        </Box> */}
+
+        {image && image.current === image.translated && (
+          <Box width="100%">
+            <Summary summary={`The Gold Dragon`} title="Image Description" />
           </Box>
+        )}
 
-          {image.current === image.translated && (
-            <Box width="100%" m={isMobile && "1rem 0"}>
-              <Summary summary={`The Gold Dragon`} title="Translation" />
-            </Box>
-          )}
-
-          <Box width="100%" m={isMobile && "1rem 0"}>
-            <Summary
-              summary={`Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`}
-              title="Image Description"
-            />
-          </Box> */}
+        {/* <Box width="100%" m={isMobile && "1rem 0"}>
+          <Summary
+            summary={`Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`}
+            title="Image Description"
+          />
+        </Box> */}
       </Box>
     </Box>
   );
