@@ -1,0 +1,12 @@
+.TextPageActionButton{
+    background-color: var(--mui-palette-neutral-600)
+  }
+
+  .translation-panel-flag {
+    width: 25px;
+    color: var(--mui-palette-neutral-600);
+  }
+
+  .translation-panel-select {
+    border: 1px solid var(--mui-palette-neutral-600);
+  }

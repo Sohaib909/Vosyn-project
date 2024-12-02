@@ -1,16 +1,18 @@
 import React from "react";
+
+import useQueryParam from "@/hooks/useQueryParam";
+import { YouTube } from "@mui/icons-material";
 import { Grid2 } from "@mui/material";
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
-  Typography,
   IconButton,
+  Typography,
 } from "@mui/material";
-import { YouTube } from "@mui/icons-material"; // Import YouTube icon
+// Import YouTube icon
 import { useRouter } from "next/navigation";
-import useQueryParam from "@/hooks/useQueryParam";
 
 const TrendingCarousel = ({ featuredMedia }) => {
   const router = useRouter();
