@@ -1,67 +1,53 @@
-"use client";
+import React from "react";
 
-import React, { Suspense, useEffect, useState } from "react";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { Box, Grid2 } from "@mui/material";
+import { redirect } from "next/navigation";
 
-import { Box, Tab, Tabs } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
-
-import Login from "@/components/Login/Login";
-import LogoWithText from "@/components/LogoWithText/LogoWithText";
-import Signup from "@/components/Signup/Signup";
-import VABlobWithText from "@/components/VABlobWithText/VABlobWithText";
+import Auth from "@/components/Auth/Auth";
 
 import styles from "./page.module.css";
 
-const AuthContent = () => {
-  const [type, setType] = useState("login");
-  const searchParams = useSearchParams();
-  const route = useRouter();
-
-  useEffect(() => {
-    const currentType = searchParams.get("type") || "login";
-    setType(currentType);
-  }, [searchParams]);
-
-  return (
-    <>
-      <Box className={styles.formContainer}>
-        <VABlobWithText
-          text={type === "login" ? "Welcome Back" : "Welcome! I’m AIRIS"}
-        />
-        <Tabs indicatorColor="secondary" textColor="inherit" value={type}>
-          <Tab
-            sx={{ fontSize: "larger" }}
-            value="login"
-            label="Log In"
-            onClick={() => route.push("/auth?type=login")}
-          />
-          <Tab
-            sx={{ fontSize: "larger" }}
-            value="signup"
-            label="Sign Up"
-            onClick={() => route.push("/auth?type=signup")}
-          />
-        </Tabs>
-        {type === "login" ? <Login /> : <Signup />}
-      </Box>
-
-      <LogoWithText />
-    </>
-  );
-};
-
 /**
- * Wrap the page content in Suspense due to the useSearchParams method
+ * Wrap the page content
  *
  * @returns - auth page with relavent components
  */
-const AuthPage = () => {
+const AuthPage = ({ searchParams }) => {
+  const currentType = searchParams?.type;
+  const validTypes = ["login", "signup"];
+  const colorScheme = "dark";
+
+  if (!validTypes.includes(currentType)) {
+    redirect("/auth?type=login");
+  }
+
   return (
-    <Box component="main" className={styles.authContainer}>
-      <Suspense>
-        <AuthContent />
-      </Suspense>
-    </Box>
+    <Grid2
+      container
+      component="main"
+      className={styles.pageLayout}
+      data-theme={colorScheme}
+    >
+      <Grid2
+        size={{ xs: 12, sm: 7, md: 6, lg: 5, xl: 4 }}
+        className={styles.pageLeftSide}
+      >
+        <Auth activeTab={currentType} />
+      </Grid2>
+      <Grid2
+        size={{ xs: 0, sm: 5, md: 6, lg: 7, xl: 8 }}
+        className={styles.pageRightSide}
+      >
+        <Box
+          className={styles.backgroundImgContainer}
+          style={{
+            backgroundImage: `url(/mediaFiles/Background/auth-page-image.png)`,
+          }}
+        ></Box>
+        <PlayArrowIcon className={styles.authPlayIcon} fontSize="inherit" />
+      </Grid2>
+    </Grid2>
   );
 };
 

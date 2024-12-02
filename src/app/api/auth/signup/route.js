@@ -1,4 +1,5 @@
 import { SIGNUP_URL } from "@/constants/URLs/constants";
+import { createSession } from "@/utils/sessionManagement";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
@@ -9,10 +10,30 @@ import { NextResponse } from "next/server";
  * @returns - request response
  */
 export const POST = async (request) => {
-  const requestBody = await request.json();
+  try {
+    const requestBody = await request.json();
+    const response = await axios.post(SIGNUP_URL, requestBody);
 
-  const response = await axios.post(SIGNUP_URL, requestBody);
+    // Retrieve user information + auth token from response to store in JWT
+    const token = response?.data?.token;
+    const username = response?.data?.user?.username;
+    const userId = response?.data?.user?.id;
 
-  // Forward the backend response as JSON
-  return NextResponse.json(response.data, { status: response.status });
+    if (!token || !username || !userId) {
+      return NextResponse.json(
+        { message: "Error creating user session", sessionCreationFailed: true },
+        { status: 201 },
+      );
+    }
+
+    await createSession({ token, username, userId }, "1d");
+
+    return NextResponse.json(response.data, { status: response.status });
+  } catch (error) {
+    console.error("Error in signup API:", error.response);
+
+    return NextResponse.json(error?.response?.data, {
+      status: error?.response?.status,
+    });
+  }
 };

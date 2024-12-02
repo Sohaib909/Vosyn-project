@@ -60,7 +60,7 @@ const DragAndDrap = () => {
     } catch (err) {
       setStatus(err?.response?.statusText, "error");
     }
-  }, []);
+  });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

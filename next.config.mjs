@@ -29,6 +29,16 @@ const nextConfig = {
   experimental: {
     webVitalsAttribution: ["CLS", "FID", "LCP"],
   },
+  async redirects() {
+    return [
+      // Redirect users from the base path to /home
+      {
+        source: "/",
+        destination: "/home?tab=featured",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,0 +1,105 @@
+.onboardingBody {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.onboardingBodyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  gap: 35px;
+}
+
+.stepperHeader .stepperTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.titleHighlight {
+  color: #527af9;
+}
+
+.stepperSubheading {
+  margin-top: 0px;
+  width: 450px;
+  text-align: center;
+}
+
+.languageSelectorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.languageSelectorContainer .languageSelectorButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #97affb33;
+  padding: 10px 15px;
+  border-radius: 10px;
+  width: 400px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 400px;
+}
+
+.languageSelectorButtonContainer:focus-visible {
+  border: 2px solid gray;
+}
+
+.languageSelectorButtonContainer:focus-visible {
+  border: 2px solid gray;
+}
+
+.languageSelectorButtonContainer .selectorButton {
+  margin-top: 5px;
+  text-transform: none;
+  display: block;
+}
+
+.enterButtonContainer {
+  margin-top: 40px;
+}
+
+.enterButtonContainer .enterButton {
+  text-transform: none;
+  width: 300px;
+  padding: 12px 0px;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: #6871fb;
+  border: 1px solid #97affb33;
+  background-color: #e5e5ff;
+}
+
+.enterButtonContainer .activeEnterButton {
+  background-color: var(--mui-palette-primary-main);
+  text-transform: none;
+  width: 300px;
+  padding: 12px 0px;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: white;
+}
+
+.arrowIcon {
+  font-size: 1.875rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .onboardingBodyContainer {
+    width: 100%;
+    padding: 0px 10px;
+    margin-top: 50px;
+  }
+
+  .stepperSubheading {
+    width: 100%;
+  }
+}

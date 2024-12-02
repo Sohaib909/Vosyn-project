@@ -1,0 +1,121 @@
+/* Sidebar container */
+.navigation-menu {
+  width: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  height: 100%; /* Ensure the sidebar takes the full height */
+  padding-top: 20px;
+}
+/* back button */
+.back-button .MuiButtonBase-root {
+  text-transform: none; /* Prevent the text from being capitalized */
+  color: #656565; /* Set the text color to black */
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 16px; /* Set the text size */
+}
+
+.back-button {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.back-button .MuiButton-icon .MuiSvgIcon-root {
+  font-size: 16px; /* Set the icon size */
+}
+
+/* search bar */
+.search-bar-container {
+  padding: 0 20px;
+  margin-top: 35px;
+  margin-bottom: 30px;
+  height: 46px;
+}
+
+.search-bar {
+  background-color: #464444;
+  width: 100%;
+  padding: 8px 0px 8px 15px;
+  border-radius: 12px;
+  border: solid 1px #f5f5f5;
+}
+
+.search-bar .MuiSvgIcon-root {
+  font-size: 22px;
+}
+
+.MuiInputBase-input {
+  padding: 0;
+}
+
+/* side bar */
+.sidebar {
+  padding: 20px;
+}
+
+/* Menu list item styles */
+.list-item {
+  border-radius: 15px;
+  margin-bottom: 12px;
+  color: white;
+  font-size: 20px;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* Active item styling */
+.active {
+  background-color: #c7c7c7; /* Active background color */
+  color: black; /* Active text color */
+}
+.list-item:hover {
+  background-color: #000000; /* Active background color */
+  color: rgb(255, 255, 255); /* Active text color */
+}
+.sidebar {
+  color: white; /* Make icon white when the item is active */
+}
+
+.MuiListItemIcon-root {
+  min-width: unset;
+  margin-right: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.MuiSvgIcon-root {
+  font-size: 22px;
+}
+
+/* sign out button */
+.sign-out-container {
+  bottom: 20px;
+  width: 100%;
+}
+
+.sign-out-button {
+  text-transform: none; /* Prevent the text from being capitalized */
+  font-weight: normal; /* Set text weight to normal */
+  color: white;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 5px 5px 5px 15px;
+  background-color: transparent; /* Transparent background */
+  border-radius: 12px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.sign-out-button .MuiSvgIcon-root {
+  font-size: 22px; /* Set the icon size */
+}
+
+.sign-out-button .MuiButton-startIcon {
+  margin-right: 8px; /* Add space between the icon and text */
+}
+
+.border {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+}

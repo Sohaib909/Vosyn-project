@@ -1,0 +1,108 @@
+.instructionBody {
+  color: #527af9;
+  border-radius: 8px;
+  padding: 10px 16px 8px 16px;
+  background-color: #e3f0ff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.onboardingBody {
+  display: flex;
+  justify-content: center;
+}
+
+.onboardingBodyContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 48px;
+}
+
+.infoIcon {
+  cursor: pointer;
+  color: #a3a3a3;
+}
+
+.stepperHeader .stepperTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.titleHighlight {
+  color: #527af9;
+}
+
+.stepperOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 466px;
+  width: 100%;
+  text-align: center;
+}
+
+.stepperOptions .optionButton {
+  padding: 15px 0px;
+  text-transform: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: white;
+  background-color: #3b3b3e;
+  width: 100%;
+}
+
+.optionButton.selected {
+  background-color: #6c8efa;
+  color: white;
+  border: none;
+}
+
+.optionButton .optionBold {
+  font-weight: 500;
+}
+
+.optionButton .optionItalic {
+  font-style: italic;
+  font-weight: 100;
+}
+
+.continueButtonContainer .continueButton {
+  text-transform: none;
+  width: 300px;
+  padding: 12px 0px;
+  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #527af9;
+}
+
+.instructionTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: -45px;
+  height: 40px;
+}
+
+@media only screen and (max-width: 900px) {
+  .instructionBody {
+    width: 100%;
+    margin: 0px 15px !important;
+  }
+
+  .onboardingBodyContainer {
+    width: 100%;
+    padding: 48px 10px;
+    margin-top: 10px;
+  }
+
+  .instructionTextContainer {
+    margin-top: 20px;
+  }
+}

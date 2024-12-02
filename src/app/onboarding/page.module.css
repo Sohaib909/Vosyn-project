@@ -1,0 +1,19 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 375px;
+  min-height: 100vh;
+  overflow-y: hidden;
+  height: auto;
+  gap: 0px;
+  color: white;
+  background: radial-gradient(
+    104% 167% at 98% 0%,
+    rgba(18, 17, 24, 0.82) 0%,
+    rgba(18, 17, 24, 0.9) 13%,
+    #121118 68%,
+    rgba(18, 17, 24, 0.92) 88%,
+    rgba(18, 17, 24, 0.86) 99%
+  );
+}

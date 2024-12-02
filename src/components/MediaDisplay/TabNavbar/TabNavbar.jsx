@@ -60,10 +60,10 @@ const TabNavbar = () => {
         }}
         onChange={handleSetSelectedTab}
       >
-        <Tab label="Watch" sx={{ mr: "1vw" }} value="video" />
-        <Tab label="Listen" sx={{ mr: "1vw" }} value="audio" />
+        <Tab label="Watch" sx={{ mr: "1vw" }} value="watch" />
+        <Tab label="Listen" sx={{ mr: "1vw" }} value="listen" />
         <Tab label="Featured" sx={{ mr: "1vw" }} value="featured" />
-        <Tab label="Read" sx={{ mr: "1vw" }} value="text" />
+        <Tab label="Read" sx={{ mr: "1vw" }} value="read" />
         <Tab label="My Channel" value="my channel" />
       </Tabs>
     </Box>

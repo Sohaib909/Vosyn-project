@@ -1,0 +1,30 @@
+.alternateSignin {
+  display: flex;
+  flex-direction: column;
+}
+
+.alternateSignin .formbtn {
+  margin-top: 15px;
+  text-transform: none;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #f7f9ff;
+}
+
+.formbtn.googleLoginbtn {
+  color: black;
+  background-color: #f7f9ff;
+  border: 1px solid black;
+  font-weight: 300;
+  margin-top: 12px;
+  height: 46px;
+}
+
+.formbtn.otherOptionsbtn {
+  color: black;
+  background-color: #f7f9ff;
+  border: 1px solid black;
+  font-weight: 300;
+  margin-top: 15px;
+  height: 46px;
+}

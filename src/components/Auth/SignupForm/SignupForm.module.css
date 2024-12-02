@@ -1,0 +1,127 @@
+.signupContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signupForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.signupContent .signupPasswordHelperText {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #f7f9ff;
+}
+
+.signupContent .passwordValidation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.passwordValidation .passwordValidationItem {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  line-height: 1rem;
+  position: relative;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.passwordValidation .passwordValidationItem::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 10px;
+}
+
+.passwordValidation .passwordValidationItem.red {
+  color: red;
+}
+
+.passwordValidation .passwordValidationItem.green {
+  color: green;
+}
+.passwordValidation .passwordValidationItem.green {
+  color: #28a745;
+}
+.passwordValidation .passwordValidationItem.green::before {
+  background-color: #28a745; /* Green for met criteria */
+}
+
+.passwordValidation .passwordValidationItem.red::before {
+  background-color: #dc3545;
+}
+
+.signupContent .acknowledgementBox {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.signupContent .acknowledgementTop {
+  display: flex;
+}
+
+.signupContent .checkbox {
+  width: 4px;
+  height: 4px;
+  padding-top: 1rem;
+  margin-right: 4px;
+  color: #7c7c7c;
+}
+
+.signupContent .acknowledgement {
+  font-size: 0.875rem;
+  line-height: 14px;
+  margin-top: 8px;
+  color: #f7f9ff;
+}
+
+.hyperlink {
+  color: #527af9;
+  text-decoration: none;
+}
+
+.signupContent .signupBtn {
+  background: #324da3;
+  color: white;
+  text-transform: none;
+  height: 52px;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.signupContent .signupBtn:disabled {
+  background-color: #b0bec5;
+}
+
+.signupContent .error {
+  font-size: 0.875rem;
+  color: red;
+}
+
+.signupContent .signupText {
+  display: flex;
+  color: #f7f9ff;
+  gap: 0.3rem;
+  font-size: 1rem;
+  justify-content: left;
+  margin: 10px 0;
+}
+
+.signupContent .existingUsr {
+  text-decoration: underline;
+  color: #527af9;
+  font-weight: 700;
+  font-size: 1rem;
+}

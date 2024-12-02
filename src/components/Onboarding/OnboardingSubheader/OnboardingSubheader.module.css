@@ -1,0 +1,42 @@
+.onboardingSubheader {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+}
+
+.backButtonContainer {
+  position: absolute;
+  left: 135px;
+  z-index: 1;
+}
+
+.backButtonContainer .backButton {
+  text-transform: none;
+  font-size: 0.938rem;
+  font-weight: 400;
+  color: white;
+  display: flex;
+  gap: 8px;
+}
+
+.backButton .backButtonIcon {
+  width: 16px;
+}
+
+@media only screen and (max-width: 900px) {
+  .onboardingSubheader {
+    flex-direction: column;
+    height: 80px;
+    margin-top: 24px;
+  }
+
+  .backButtonContainer {
+    position: unset;
+    margin-bottom: 10px;
+  }
+
+  .instructionBody {
+    width: 100%;
+    margin: 0px 15px !important;
+  }
+}
