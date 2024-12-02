@@ -15,6 +15,10 @@ import PlaylistCard from "../PlaylistCard/PlaylistCard";
 // eslint-disable-next-line prettier/prettier
 import RecommendedCard from "../RecommendedCard/RecommendedCard";
 
+// eslint-disable-next-line prettier/prettier
+import ContextualInfo from "../ContextualInfo/ContextualInfo";
+
+
 import styles from "./SideDisplayContainer.module.css";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -62,10 +66,10 @@ const SideDisplayContainer = ({
     <>
       {containerType === "playlist" && (
         // eslint-disable-next-line prettier/prettier
-        <Grid2 item size={12} className={styles.sectionContainer}>
-          <ContextualInfo />
-        </Grid2>
-      )}
+      <Grid2 item size={12}  className={styles.sectionContainer}>
+      <ContextualInfo />
+      </Grid2>
+    )}
 
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>
