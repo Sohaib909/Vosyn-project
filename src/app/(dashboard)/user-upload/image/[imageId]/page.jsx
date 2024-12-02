@@ -99,7 +99,7 @@ const ImagePage = () => {
 
         {image && image.current === image.translated && (
           <Box width="100%">
-            <Summary summary={`The Gold Dragon`} title="Translation" />
+            <Summary summary={`The Gold Dragon`} title="Image Description" />
           </Box>
         )}
 
