@@ -4,3 +4,6 @@ runConfig:
 env:
   - variable: SESSION_SECRET
     secret: sessionSecret
+    availability:
+    -   BUILD
+    -   RUNTIME
