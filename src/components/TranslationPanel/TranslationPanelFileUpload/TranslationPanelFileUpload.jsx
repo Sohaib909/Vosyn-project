@@ -22,7 +22,7 @@ const TranslationPanelFileUpload = ({ mediaType }) => {
 
   // const selectedFile = useSelector((state) => state.languages.selectedFile);
 
-  const selector = (state) => state.property;
+  const selector = (state) => state.languages.selectedFile;
 
   const selectedFile = useSelector(selector);
 
