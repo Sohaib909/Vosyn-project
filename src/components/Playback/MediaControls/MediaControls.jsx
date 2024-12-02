@@ -22,13 +22,12 @@ import ClosedCaptionOffOutlinedIcon from "@mui/icons-material/ClosedCaptionOffOu
 import ClosedCaptionOffRoundedIcon from "@mui/icons-material/ClosedCaptionOffRounded";
 import FullscreenExitRoundedIcon from "@mui/icons-material/FullscreenExitRounded";
 import FullscreenRoundedIcon from "@mui/icons-material/FullscreenRounded";
-import { Box, Grid2, Slider, Typography } from "@mui/material";
+import { Box, Grid2, IconButton, Slider, Typography } from "@mui/material";
 
 import PlaybackButtons from "../PlaybackButtons/PlaybackButtons";
 import AutoDubbingSwitch from "./AutoDubbingSwitch/AutoDubbingSwitch";
 import SettingsGear from "./SettingsGear/SettingsGear";
 import SkipButtons from "./SkipButtons/SkipButtons";
-import VideoSpeedControls from "./VideoSpeedControls/VideoSpeedControls";
 import VolumeControl from "./VolumeControl/VolumeControl";
 
 import styles from "./MediaControls.module.css";
@@ -152,16 +151,29 @@ const MediaControls = ({ children, type }) => {
           <VolumeControl />
         </Grid2>
 
-        {/* <Grid2 item size={2} className={styles.passedChildren}>// {children}{/* </Grid2> */}
-
-        {console.log("Child componant", children)}
-
-        <Grid2 item container size={6} sx={{ width: "fit-content" }}>
-          <AutoDubbingSwitch />
-
-          <Grid2 item size={3} sx={{ width: "fit-content" }}>
+        <Grid2
+          item
+          container
+          justifyContent="flex-end"
+          alignItems={"center"}
+          spacing={1}
+          sx={{ width: "fit-content" }}
+        >
+          <Grid2 item>
+            <AutoDubbingSwitch />
+          </Grid2>
+          <Grid2 item>
             <PlaybackButtons
               onClick={handleCaptionsToggle}
+              sx={{ 
+                color: captionsEnabled ? "#3498db" : "#fff",
+                "&:hover": {
+                  color: captionsEnabled
+                    ? "#2980b9 !important"
+                    : "#3498db !important",
+                  backgroundColor: "var(--mui-palette-neutral-800)",
+                } 
+              }}
               Icon={
                 captionsEnabled
                   ? ClosedCaptionOffRoundedIcon
@@ -169,14 +181,33 @@ const MediaControls = ({ children, type }) => {
               }
             />
           </Grid2>
-
-          <VideoSpeedControls />
-
-          <SettingsGear />
-
-          <Grid2 item size={3} sx={{ width: "fit-content" }}>
+          <Grid2 item>
+            <SettingsGear
+              sx={{
+                color: "#fff",
+                "&:hover": {
+                  color: "#3498db",
+                  backgroundColor: "var(--mui-palette-neutral-800)",
+                },
+                "& .MuiIconButton-root:hover": {
+                  backgroundColor: "var(--mui-palette-neutral-700)",
+                },
+              }}
+            />
+      
+          </Grid2>
+          <Grid2 item>
             <PlaybackButtons
               onClick={handleFullscreen}
+              sx={{ 
+                color: isFullScreen ? "#3498db" : "#fff",
+                "&:hover": {
+                  color: isFullScreen
+                    ? "#2980b9 !important"
+                    : "#3498db !important",
+                  backgroundColor: "var(--mui-palette-neutral-800)",
+                },
+              }}
               Icon={
                 isFullScreen ? FullscreenExitRoundedIcon : FullscreenRoundedIcon
               }
