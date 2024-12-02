@@ -64,7 +64,7 @@ const layout = ({ children }) => {
               </IconButton>
             </Box>
             <Box>
-              <TextPageCollapsablePanel setLanguage={setLanguage} language={language}/>
+              <TextPageCollapsablePanel setLanguage={setLanguage}/>
             </Box>
           </Box>
         ) : (
