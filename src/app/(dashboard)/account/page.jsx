@@ -8,6 +8,7 @@ import AccountLanguageSettings from "@/components/Account/AccountLanguageSetting
 import AccountNavigation from "@/components/Account/AccountNavigation/AccountNavigation";
 import LoginSecurityPage from "@/components/Account/LoginSecurity/LoginSecurity";
 import ProfileSettings from "@/components/Account/ProfileSettings/ProfileSettings";
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
 import styles from "./AccountPage.module.css";
 
@@ -23,7 +24,11 @@ const AccountPage = () => {
         {activeTab === "language" && <AccountLanguageSettings />}
         {activeTab === "profiles" && <ProfileSettings />}
         {activeTab === "security" && <LoginSecurityPage />}
-        {activeTab === "dashboard" && <Box>Dashboard Content Here</Box>}
+        {activeTab === "dashboard" && <ComingSoon />}
+        {activeTab === "payment" && <ComingSoon />}
+        {activeTab === "appearance" && <ComingSoon />}
+        {activeTab === "shortcuts" && <ComingSoon />}
+        {activeTab === "help" && <ComingSoon />}
       </Box>
     </Box>
   );
