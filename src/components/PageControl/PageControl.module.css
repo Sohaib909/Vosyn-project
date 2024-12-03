@@ -6,6 +6,9 @@
   top: 1.5rem;
   z-index: 10;
   width: 100%;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin: 0 0 2.5em 0;
 }
 
 .pageControlSubDiv {
@@ -53,10 +56,10 @@
   z-index: 5;
 }
 
-@media (max-width: 480px) {
-  .pageControlMainDiv {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5em;
-  }
+.customActionButtons button {
+  background-color: var(--mui-palette-neutral-800);
+}
+
+.customActionButtons button:hover {
+  background-color: var(--mui-palette-neutral-600);
 }

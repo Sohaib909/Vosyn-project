@@ -9,7 +9,6 @@ import { Box, Button, Grid2, IconButton } from "@mui/material";
 
 import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import Summary from "@/components/Summary/Summary";
-import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TextPageCollapsablePanel from "@/components/TextPageCollapsablePanel/TextPageCollapsablePanel";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
@@ -54,7 +53,14 @@ const layout = ({ children }) => {
         sx={{ height: "fit-content", gap: "2rem" }}
       >
         {isCollapsed ? (
-          <Box component="section">
+          <Box
+            component="section"
+            sx={{
+              borderRadius: "12px",
+              backgroundColor: "var(--mui-palette-neutral-800)",
+              padding: "0 0.75em",
+            }}
+          >
             <Box
               component="section"
               sx={{ display: "flex", justifyContent: "left" }}
@@ -64,7 +70,7 @@ const layout = ({ children }) => {
               </IconButton>
             </Box>
             <Box>
-              <TextPageCollapsablePanel setLanguage={setLanguage}/>
+              <TextPageCollapsablePanel setLanguage={setLanguage} />
             </Box>
           </Box>
         ) : (
@@ -78,36 +84,51 @@ const layout = ({ children }) => {
           >
             <Box
               component="section"
-              sx={{ display: "flex", justifyContent: "left" }}
+              sx={{
+                borderRadius: "12px",
+                backgroundColor: "var(--mui-palette-neutral-800)",
+              }}
             >
-              <IconButton onClick={toggleRightPanel}>
-                <KeyboardDoubleArrowRightIcon sx={{ color: "neutral.25" }} />
-              </IconButton>
+              <Box
+                component="section"
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                }}
+              >
+                <IconButton onClick={toggleRightPanel}>
+                  <KeyboardDoubleArrowRightIcon sx={{ color: "neutral.25" }} />
+                </IconButton>
+              </Box>
+              <Box component="section">
+                <TranslationPanel>
+                  <TranslationPanelFileUpload mediaType={"text"} />
+                  <Button
+                    variant="contained"
+                    sx={{
+                      marginTop: "7px",
+                      background: "var(--mui-palette-primary-400)",
+                      "&:hover": {
+                        background: "var(--mui-palette-primary-300)",
+                      },
+                    }}
+                    startIcon={<TranslateIcon />}
+                  >
+                    Translate
+                  </Button>
+                </TranslationPanel>
+              </Box>
             </Box>
-            <Box component="section">
-              <TranslationPanel>
-                <TranslationPanelFileUpload mediaType={"text"} />
-                <Button
-                  variant="contained"
-                  sx={{
-                    marginTop: "7px",
-                    background: "var(--mui-palette-primary-400)",
-                    "&:hover": {
-                      background: "var(--mui-palette-primary-300)",
-                    },
-                  }}
-                  startIcon={<TranslateIcon />}
-                >
-                  Translate
-                </Button>
-              </TranslationPanel>
-            </Box>
-            <TextAndImageActionBtns />
-            <Box component="section" sx={{ marginTop: "1rem" }}>
+
+            <Box
+              component="section"
+              sx={{ marginTop: "1rem", marginBottom: "1rem" }}
+            >
               <Box
                 component="section"
                 sx={{
                   width: "100%",
+                  marginBottom: "1rem",
                 }}
               >
                 <ContextualInfo />

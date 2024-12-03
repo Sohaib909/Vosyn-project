@@ -10,6 +10,8 @@ import ZoomInRoundedIcon from "@mui/icons-material/ZoomInRounded";
 import ZoomOutRoundedIcon from "@mui/icons-material/ZoomOutRounded";
 import { Box, Input, Typography } from "@mui/material";
 
+import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
+
 import styles from "./PageControl.module.css";
 
 const PageControl = ({
@@ -160,38 +162,45 @@ const PageControl = ({
         </Box>
       </Box>
 
-      <Box
-        className={`${styles.pageControlSubDiv}`}
-        onClick={toggleSearchInput}
-      >
-        <SearchRoundedIcon fontSize="small" />
-        <Box sx={{ margin: "0 0.3em" }}>
-          <Typography sx={{ fontSize: "0.65rem" }}>
-            Search for a word
-          </Typography>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1em" }}>
+        <Box className={styles.customActionButtons}>
+          <TextAndImageActionBtns />
         </Box>
-        {isSearchActive && (
-          <Box className={styles.searchInputContainer}>
-            <Input
-              ref={searchInputRef}
-              type="text"
-              value={searchInputValue}
-              onClick={(event) => event.stopPropagation()}
-              onChange={handleSearchInputChange}
-              placeholder="Search"
-              sx={{
-                color: "var(--mui-palette-neutral-25)",
-                fontSize: "0.65rem",
-                background: "var(--mui-palette-neutral-900)",
-                borderRadius: "3px",
-                padding: "0 0.2rem",
-                "&::before": { borderBottom: "none" },
-                "&::after": { borderBottom: "none" },
-                "&:hover:not(.Mui-disabled)::before": { borderBottom: "none" },
-              }}
-            />
+        <Box
+          className={`${styles.pageControlSubDiv} ${styles.searchContainerBox}`}
+          onClick={toggleSearchInput}
+        >
+          <SearchRoundedIcon fontSize="small" />
+          <Box sx={{ padding: "0.2em", width: "10em" }}>
+            <Typography sx={{ fontSize: "0.75rem" }}>
+              Search for a word
+            </Typography>
           </Box>
-        )}
+          {isSearchActive && (
+            <Box className={styles.searchInputContainer}>
+              <Input
+                ref={searchInputRef}
+                type="text"
+                value={searchInputValue}
+                onClick={(event) => event.stopPropagation()}
+                onChange={handleSearchInputChange}
+                placeholder="Search"
+                sx={{
+                  color: "var(--mui-palette-neutral-25)",
+                  fontSize: "0.65rem",
+                  background: "var(--mui-palette-neutral-900)",
+                  borderRadius: "3px",
+                  padding: "0 0.2rem",
+                  "&::before": { borderBottom: "none" },
+                  "&::after": { borderBottom: "none" },
+                  "&:hover:not(.Mui-disabled)::before": {
+                    borderBottom: "none",
+                  },
+                }}
+              />
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   );
