@@ -3,6 +3,7 @@ import React from "react";
 import data from "@/data/videos-new.json";
 import { Button, Grid2, Typography } from "@mui/material";
 
+import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/VideoAudioActionButtons/VideoAudioActionButtons";
 import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
@@ -56,20 +57,25 @@ const layout = ({ children }) => {
           size={{ xs: 12, sm: 12, md: 4, lg: 4, xl: 3 }}
           sx={{ height: "fit-content" }}
         >
-          <TranslationPanel>
-            <TranslationPanelFileUpload mediaType={"audio/video"} />
-            <Button
-              variant="contained"
-              sx={{
-                background: "var(--mui-palette-primary-400)",
-                "&:hover": {
-                  background: "var(--mui-palette-primary-300)",
-                },
-              }}
-            >
-              Compare
-            </Button>
-          </TranslationPanel>
+          <Grid2 container sx={{ width: "100%" }}>
+            <TranslationPanel>
+              <TranslationPanelFileUpload mediaType={"audio/video"} />
+              <Button
+                variant="contained"
+                sx={{
+                  background: "var(--mui-palette-primary-400)",
+                  "&:hover": {
+                    background: "var(--mui-palette-primary-300)",
+                  },
+                }}
+              >
+                Compare
+              </Button>
+            </TranslationPanel>
+          </Grid2>
+          <Grid2 sx={{ width: "100%" }}>
+            <ContextualInfo />
+          </Grid2>
         </Grid2>
       </Grid2>
     </Grid2>
