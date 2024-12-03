@@ -1,3 +1,8 @@
+.selectTranslationPanel {
+  border: solid 0.15rem var(--mui-palette-neutral-700);
+  background-color: var(--mui-palette-neutral-700);
+}
+
 #multipleLanguage {
   display: flex;
 }

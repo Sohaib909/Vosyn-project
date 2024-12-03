@@ -64,7 +64,18 @@ const layout = ({ children }) => {
               <TranslationPanelFileUpload mediaType={"audio/video"} />
               <ButtonWithIconAndText
                 text="Compare"
-                icon={<TranslateIcon sx={{ fontSize: "1rem" }} />}
+                icon={
+                  <TranslateIcon
+                    sx={{
+                      fontSize: "1rem",
+                      border: "solid 0.1rem",
+                      borderRadius: "6.25rem",
+                      padding: "0.13rem",
+                      width: "1.4rem",
+                      height: "1.4rem",
+                    }}
+                  />
+                }
                 variant="contained"
                 sx={{
                   width: "100%",
