@@ -36,9 +36,12 @@ const VideoAudioActionButtons = () => {
         variant="contained"
         method={toggleTranscripts}
         sx={{
-          backgroundColor: "var(--mui-palette-primary-main)",
-          boxShadow: "none",
-          border: "1px solid var(--mui-palette-primary-main)",
+          backgroundColor: showTranscripts && "var(--mui-palette-primary-main)",
+          boxShadow: showTranscripts
+            ? "none"
+            : "inset 0 0 1.25rem 0 var(--mui-palette-boxShadowColor)",
+
+          borderColor: showTranscripts && "var(--mui-palette-primary-main)",
         }}
       />
 

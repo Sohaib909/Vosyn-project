@@ -9,7 +9,7 @@ const ButtonWithIconAndText = ({
   variant = "contained",
   size = "small",
   height = "fit-content",
-  sx = {},
+  sx,
 }) => {
   return (
     <Button
@@ -31,9 +31,6 @@ const ButtonWithIconAndText = ({
         fontWeight: "500",
         border: "0.06rem solid var(--mui-palette-neutral-750)",
         boxShadow: "inset 0 0 1.25rem 0 var(--mui-palette-boxShadowColor)",
-        // "&:hover": {
-        //   background: "var(--mui-palette-primary-600)",
-        // },
         ...sx,
       }}
     >

@@ -47,7 +47,11 @@ export const handleFileUpload = async (
       });
 
       // Handle `201` status from video API
-      if (response.status === 201) {
+      if (
+        response.status === 201 ||
+        response.status === 200 ||
+        response.status === 204
+      ) {
         return { route: `/user-upload/video/${response.data.id}` };
       }
     } else {
