@@ -1,11 +1,13 @@
 import React from "react";
 
 import data from "@/data/videos-new.json";
-import { Button, Grid2, Typography } from "@mui/material";
+import TranslateIcon from "@mui/icons-material/Translate";
+import { Grid2, Typography } from "@mui/material";
 
 import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/VideoAudioActionButtons/VideoAudioActionButtons";
 import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
+import ButtonWithIconAndText from "@/components/Buttons/ButtonWithIconAndText/ButtonWithIconAndText";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
 import UploadAudioVideoTranscriptPanel from "@/components/UploadAudioVideoTranscriptPanel/UploadVideoPageTranscript/UploadAudioVideoTranscriptPanel";
@@ -60,17 +62,17 @@ const layout = ({ children }) => {
           <Grid2 container sx={{ width: "100%" }}>
             <TranslationPanel>
               <TranslationPanelFileUpload mediaType={"audio/video"} />
-              <Button
+              <ButtonWithIconAndText
+                text="Compare"
+                icon={<TranslateIcon sx={{ fontSize: "1rem" }} />}
                 variant="contained"
                 sx={{
-                  background: "var(--mui-palette-primary-400)",
-                  "&:hover": {
-                    background: "var(--mui-palette-primary-300)",
-                  },
+                  width: "100%",
+                  backgroundColor: "var(--mui-palette-primary-main)",
+                  boxShadow: "none",
+                  borderColor: "var(--mui-palette-primary-main)",
                 }}
-              >
-                Compare
-              </Button>
+              />
             </TranslationPanel>
           </Grid2>
           <Grid2 sx={{ width: "100%" }}>

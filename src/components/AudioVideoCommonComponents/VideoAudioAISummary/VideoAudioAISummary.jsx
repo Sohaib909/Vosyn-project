@@ -13,7 +13,6 @@ const VideoAudioAISummary = () => {
         width: "100%",
         justifyContent: "space-between",
         padding: "1rem",
-        backgroundColor: "var(--mui-palette-neutral-800)",
         borderRadius: "12px",
       }}
     >
