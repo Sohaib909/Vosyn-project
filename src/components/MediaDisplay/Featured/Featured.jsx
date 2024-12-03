@@ -1,7 +1,9 @@
 import React from "react";
 
-import { Grid2 } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
 import TrendingCarousel from "../TrendingCarousel/TrendingCarousel";
 import VideoCardFeatured from "./VideoCardFeatured/VideoCardFeatured";
@@ -18,43 +20,46 @@ const VideoDatas = {
 
 const FeaturedTab = () => {
   return (
-    <Grid2 container size={11} spacing={4} sx={{ paddingY: "3rem" }}>
-      <Grid container item size={12} spacing={2}>
-        <Grid2 container item size={9} spacing={2}>
-          <TrendingCarousel />
-        </Grid2>
-        <Grid2 item container size={3}>
-          <VideoCardFeatured videoData={VideoDatas} />
-        </Grid2>
-      </Grid>
-      <Grid container item size={12} spacing={2}>
-        <Grid2 container item size={3} spacing={2} sx={{ height: "25rem" }}>
-          <VideoCardFeatured videoData={VideoDatas} />
-        </Grid2>
-        <Grid2 item container size={3}>
-          <VideoCardFeatured videoData={VideoDatas} />
-        </Grid2>
+    <Box sx={{ position: "relative", width: "100%", justifyItems: "center" }}>
+      <ComingSoon />
+      <Grid2 container size={11} spacing={4} sx={{ paddingY: "3rem" }}>
+        <Grid container item size={12} spacing={2}>
+          <Grid2 container item size={9} spacing={2}>
+            <TrendingCarousel />
+          </Grid2>
+          <Grid2 item container size={3}>
+            <VideoCardFeatured videoData={VideoDatas} />
+          </Grid2>
+        </Grid>
+        <Grid container item size={12} spacing={2}>
+          <Grid2 container item size={3} spacing={2} sx={{ height: "25rem" }}>
+            <VideoCardFeatured videoData={VideoDatas} />
+          </Grid2>
+          <Grid2 item container size={3}>
+            <VideoCardFeatured videoData={VideoDatas} />
+          </Grid2>
 
-        <Grid2 container item size={6}>
-          <Grid2 container item size={12} sx={{ height: "12" }}>
-            <Grid2 container item size={6} spacing={2}>
-              <VideoCardFeatured videoData={VideoDatas} />
+          <Grid2 container item size={6}>
+            <Grid2 container item size={12} sx={{ height: "12" }}>
+              <Grid2 container item size={6} spacing={2}>
+                <VideoCardFeatured videoData={VideoDatas} />
+              </Grid2>
+              <Grid2 item container size={6}>
+                <VideoCardFeatured videoData={VideoDatas} />
+              </Grid2>
             </Grid2>
-            <Grid2 item container size={6}>
-              <VideoCardFeatured videoData={VideoDatas} />
+            <Grid2 container item size={12} sx={{ height: "12" }}>
+              <Grid2 container item size={6} spacing={2}>
+                <VideoCardFeatured videoData={VideoDatas} />
+              </Grid2>
+              <Grid2 item container size={6}>
+                <VideoCardFeatured videoData={VideoDatas} />
+              </Grid2>
             </Grid2>
           </Grid2>
-          <Grid2 container item size={12} sx={{ height: "12" }}>
-            <Grid2 container item size={6} spacing={2}>
-              <VideoCardFeatured videoData={VideoDatas} />
-            </Grid2>
-            <Grid2 item container size={6}>
-              <VideoCardFeatured videoData={VideoDatas} />
-            </Grid2>
-          </Grid2>
-        </Grid2>
-      </Grid>
-    </Grid2>
+        </Grid>
+      </Grid2>
+    </Box>
   );
 };
 export default FeaturedTab;
