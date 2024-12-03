@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { setSelectedFile } from "@/reduxSlices/languageSlice";
 import { selectUser } from "@/reduxSlices/userSlice";
+import { handleFileUpload } from "@/utils/fileUploader";
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import styles from "./DragAndDrop.module.css";
@@ -22,45 +22,29 @@ const DragAndDrap = () => {
 
   const { setStatus } = useStatusNotification();
 
-  // Function to determine file category
-  const getFileCategory = (type) => {
-    if (type.startsWith("video/")) {
-      return "video";
-    } else if (type.startsWith("audio/")) {
-      return "audio";
-    } else if (type.startsWith("text/") || type.startsWith("application/")) {
-      return "text";
-    } else if (type.startsWith("image/")) {
-      return "image";
-    } else {
-      return "unknown";
-    }
-  };
-
-  const onDrop = useCallback(async (acceptedFiles) => {
-    const currentDate = new Date(); // Capture the current date as the upload date
-
-    const file = acceptedFiles[0];
-    const fileType = file.type;
-    const fileCat = getFileCategory(fileType);
-
-    const newFiles = acceptedFiles.map((file) => ({
-      dateUploaded: currentDate,
-      user: userProfile?.userName,
-      fileName: file.name,
-    }));
-
-    try {
-      const res = await axios.post("/api/upload", newFiles); // Change when end point is ready
-
-      if (res.status === 200) {
-        dispatch(setSelectedFile(file?.name));
-        router.push(`/user-upload/${fileCat}/${file?.name}`); // Replace the last part with id returned by server when end is ready
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (!file) {
+        setStatus("No file selected", "error");
+        return;
       }
-    } catch (err) {
-      setStatus(err?.response?.statusText, "error");
-    }
-  }, []);
+
+      try {
+        // Pass file and user information to the handleFileUpload utility
+        const { route } = await handleFileUpload(
+          file,
+          file.type,
+          (fileName) => dispatch(setSelectedFile(fileName)),
+          { user: userProfile?.userName }, // Additional metadata
+        );
+        router.push(route);
+      } catch (err) {
+        setStatus(err.message || "Upload failed", "error");
+      }
+    },
+    [dispatch, router, setStatus, userProfile],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
