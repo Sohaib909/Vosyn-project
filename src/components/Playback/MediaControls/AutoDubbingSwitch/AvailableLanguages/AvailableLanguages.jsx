@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { LANGUAGES_URL } from "@/constants/URLs/constants";
 import useStatusNotification from "@/hooks/useStatusNotification";
+import {
+  selectPlayer,
+  setDubbedLanguage,
+  setPinnedLanguage,
+} from "@/reduxSlices/playerSlice";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import axios from "axios";
@@ -11,13 +17,18 @@ import styles from "./AvailableLanguages.module.css";
 const AvailableLanguages = ({
   languageTimeout,
   languageList,
-  addToPinnedLanguages,
   selectedTrackIndex,
   handleAudioChange,
+  setShowLanguagePopup,
+  setSelectedLanguage,
+  setChangeLanguagePopup,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
 
   const { setStatus } = useStatusNotification();
+  const { pinnedLanguages } = useSelector(selectPlayer);
+  const [alpha, setAlpha] = useState();
+  const dispatch = useDispatch();
 
   // Fetches languages and filters them based on the search string
   const getLanguages = async (searchString) => {
@@ -40,10 +51,22 @@ const AvailableLanguages = ({
             language.toLowerCase().includes(searchString.toLowerCase()),
         );
 
+      const lan = data?.filter((item) =>
+        item["English"]?.toLowerCase().includes(searchString.toLowerCase()),
+      );
+      setAlpha(lan);
+
       setSearchResults(result);
     } catch (error) {
       setStatus("Error fetching the data", "error");
     }
+  };
+
+  // Function to get the alpha2 of the selected dubbedLanguage
+  const getSelectedLanguageAlpha2 = (lan) => {
+    const language =
+      alpha?.find((item) => item["English"] === lan)?.["alpha2"] || null;
+    dispatch(setDubbedLanguage(language));
   };
 
   // Updates search input and makes a call to fetch languages
@@ -59,8 +82,13 @@ const AvailableLanguages = ({
     if (index === selectedTrackIndex) {
       return;
     }
-
     handleAudioChange(langObj);
+  };
+
+  const addToPinnedLanguages = (language) => {
+    if (!pinnedLanguages.some((item) => item.name === language)) {
+      setPinnedLanguage([...pinnedLanguages, { name: language }]);
+    }
   };
 
   return (
@@ -106,7 +134,9 @@ const AvailableLanguages = ({
                   backgroundColor: "var(--mui-palette-neutral-400)",
                 },
               }}
-              onClick={() => handleLanguageClick(languageObj)}
+              onClick={() => {
+                handleLanguageClick(languageObj);
+              }}
             >
               {languageObj.lang}
             </Typography>
@@ -142,6 +172,10 @@ const AvailableLanguages = ({
               onClick={(e) => {
                 e.stopPropagation();
                 addToPinnedLanguages(language);
+                setShowLanguagePopup(false);
+                setSelectedLanguage(language);
+                setChangeLanguagePopup(false);
+                getSelectedLanguageAlpha2(language);
               }}
             >
               {language}

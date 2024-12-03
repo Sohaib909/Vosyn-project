@@ -9,6 +9,7 @@ import {
   setCurrentTime,
   setDuration,
   setHasEnded,
+  setPlaying,
 } from "@/reduxSlices/playerSlice";
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
@@ -18,7 +19,7 @@ import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 import styles from "./MediaPlayer.module.css";
 
 const MediaPlayer = ({ showScreen = true }) => {
-  const { playing, hasEnded, captionsEnabled, isBuffering } =
+  const { playing, hasEnded, captionsEnabled, isBuffering, dubbedLanguage } =
     useSelector(selectPlayer);
   const mediaObj = useSelector(selectDashObject);
   const dispatch = useDispatch();
@@ -29,24 +30,33 @@ const MediaPlayer = ({ showScreen = true }) => {
   useEffect(() => {
     const player = dashjs.MediaPlayer().create();
     player.initialize(mediaRef.current, "/testVideo/example_dash1.mpd", false);
+
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
       // Get all audio tracks
-
       const audioTracks = player.getTracksFor("audio");
-      console.log("Audio Tracks:", audioTracks);
+
+      const selectedAudio = audioTracks.find((track) =>
+        dubbedLanguage ? track.lang === dubbedLanguage : "en",
+      );
+      player.setCurrentTrack(selectedAudio);
 
       // Get all caption (text) tracks
       const textTracks = player.getTracksFor("text");
-      console.log("Caption/Text Tracks:", textTracks);
+      console.log(textTracks, "textTracks");
+      // const selectedTrack = textTracks.find((track) => track.lang === "fr");
+      // player.setCurrentTrack(audioTracks[0]);
     });
 
     player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
-      console.error(player, "Dash.js error:", e);
+      console.error("Dash.js error:", e);
     });
 
     // Cleanup function to reset the player when unmounted
-    return () => player.reset();
-  }, [mediaObj, mediaRef]);
+    return () => {
+      player.reset();
+      dispatch(setPlaying(false));
+    };
+  }, [mediaObj, mediaRef, dubbedLanguage]);
 
   return (
     <Box
@@ -73,7 +83,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            default
+            // default
           />
           {/** Media source */}
           <source
@@ -101,7 +111,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            default
+            // default
           />
           {/** Media source */}
           <source
