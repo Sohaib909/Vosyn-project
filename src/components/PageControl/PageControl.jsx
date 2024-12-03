@@ -111,25 +111,36 @@ const PageControl = ({
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          width: "12.5rem",
+          gap: "1em",
         }}
       >
-        <Box className={`${styles.pageControlSubDiv}`}>
-          <Box sx={{ margin: "0 0.1em" }}>
+        <Box
+          className={`${styles.pageControlSubDiv}`}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "0.4em 0.5em",
+            gap: "0.1em",
+          }}
+        >
+          <Box>
             <ArrowCircleUpRoundedIcon
               onClick={handlePrevPage}
               fontSize="small"
             />
           </Box>
-          <Box sx={{ margin: "0 0.1em" }}>
+          <Box>
             <ArrowCircleDownRoundedIcon
               onClick={handleNextPage}
               fontSize="small"
             />
           </Box>
-          <Box sx={{ margin: "0 0.1em", position: "relative" }}>
+          <Box sx={{ position: "relative" }}>
             <Typography
-              sx={{ fontSize: "0.7rem", cursor: "pointer" }}
+              sx={{
+                cursor: "pointer",
+                fontSize: "0.875rem",
+              }}
               onClick={togglePageJumpInput}
             >
               {currentPage} of {pageLength}
@@ -162,15 +173,23 @@ const PageControl = ({
           </Box>
         </Box>
 
-        <Box className={`${styles.pageControlSubDiv}`}>
-          <ZoomInRoundedIcon onClick={zoomIn} fontSize="small" />
-          <ZoomOutRoundedIcon onClick={zoomOut} fontSize="small" />
-          <Box sx={{ margin: "0 0.2em" }}>
-            <Typography sx={{ fontSize: "0.7rem" }}>
+        <Box
+          className={`${styles.pageControlSubDiv}`}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "0.4em 0.5em",
+            gap: "0.1em",
+          }}
+        >
+          <ZoomInRoundedIcon onClick={zoomIn} />
+          <ZoomOutRoundedIcon onClick={zoomOut} />
+          <Box>
+            <Typography sx={{ fontSize: "0.875rem" }}>
               {fontSizePercentage}%
             </Typography>
           </Box>
-          <ListIcon fontSize="small" />
+          <ListIcon />
         </Box>
       </Box>
 
@@ -179,12 +198,18 @@ const PageControl = ({
           <TextAndImageActionBtns />
         </Box>
         <Box
-          className={`${styles.pageControlSubDiv} ${styles.searchContainerBox}`}
+          className={`${styles.pageControlSubDiv}`}
           onClick={toggleSearchInput}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "0.4em 0.9em",
+            gap: "0.5em",
+          }}
         >
           <SearchRoundedIcon fontSize="small" />
-          <Box sx={{ padding: "0.2em", width: "10em" }}>
-            <Typography sx={{ fontSize: "0.75rem" }}>
+          <Box>
+            <Typography sx={{ fontSize: "0.875rem" }}>
               Search for a word
             </Typography>
           </Box>
@@ -199,6 +224,7 @@ const PageControl = ({
                 placeholder="Search"
                 sx={{
                   color: "var(--mui-palette-neutral-25)",
+                  width: "100%",
                   fontSize: "0.65rem",
                   background: "var(--mui-palette-neutral-900)",
                   borderRadius: "3px",
