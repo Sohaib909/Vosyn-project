@@ -32,13 +32,25 @@ const PageControl = ({
   const searchInputRef = useRef(null);
 
   const adjustFontSizes = (factor) => {
-    setFontSize((prevSizes) => ({
-      title: Math.round(factor * prevSizes.title),
-      summary: Math.round(factor * prevSizes.summary),
-      paragraph: Math.round(factor * prevSizes.paragraph),
-      subtitle: Math.round(factor * prevSizes.subtitle),
-    }));
-    setFontSizePercentage((prev) => Math.round(prev * factor));
+    setFontSizePercentage((prev) => {
+      const newPercentage = Math.round(prev * factor);
+
+      // Restrict the newPercentage to stay within 100 and 400
+      const clampedPercentage =
+        newPercentage < 100 ? 100 : newPercentage > 400 ? 400 : newPercentage;
+
+      if (clampedPercentage !== prev) {
+        const adjustmentFactor = clampedPercentage / prev;
+        setFontSize((prevSizes) => ({
+          title: Math.round(adjustmentFactor * prevSizes.title),
+          summary: Math.round(adjustmentFactor * prevSizes.summary),
+          paragraph: Math.round(adjustmentFactor * prevSizes.paragraph),
+          subtitle: Math.round(adjustmentFactor * prevSizes.subtitle),
+        }));
+      }
+
+      return clampedPercentage;
+    });
   };
 
   const zoomIn = () => {
