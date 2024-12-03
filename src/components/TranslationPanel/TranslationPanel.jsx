@@ -19,8 +19,16 @@ const TranslationPanel = ({ children }) => {
       }}
     >
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1.5rem" }}>
-        <TranslationPanelInput array={languages} label="Translated Language" />
-        <TranslationPanelInput array={languages} label="Detected Language" />
+        <TranslationPanelInput
+          array={languages}
+          label="Translated Language"
+          classNameSelect={true}
+        />
+        <TranslationPanelInput
+          array={languages}
+          label="Detected Language"
+          classNameSelect={true}
+        />
       </Box>
 
       {children}
