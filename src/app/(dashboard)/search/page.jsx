@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 import SearchResultSection from "@/components/SearchResult/SearchResultSection.jsx";
 
 // Generate dynamic metadata for the search result page
@@ -29,7 +30,8 @@ const SearchResultPage = ({ searchParams }) => {
   const query = searchParams?.query ?? "";
 
   return (
-    <Box sx={{ padding: "2rem" }}>
+    <Box sx={{ padding: "2rem", maxHeight: "85vh", overflow: "hidden" }}>
+      <ComingSoon />
       {query ? (
         <Typography
           sx={{ marginBottom: "2rem", fontSize: "1.125rem", fontWeight: "700" }}
