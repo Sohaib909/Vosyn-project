@@ -6,4 +6,6 @@
   z-index: 5;
   align-items: center;
   justify-content: center;
+  object-fit: cover;
+  object-position: center;
 }

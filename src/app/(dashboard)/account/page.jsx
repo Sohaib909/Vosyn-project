@@ -17,6 +17,7 @@ const AccountPage = () => {
 
   return (
     <Box className={styles.accountPageContainer}>
+      <ComingSoon />
       <Box className={styles.navigationContainer}>
         <AccountNavigation activeTab={activeTab} onTabChange={setActiveTab} />
       </Box>
