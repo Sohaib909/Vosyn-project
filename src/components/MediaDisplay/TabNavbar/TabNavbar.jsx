@@ -64,7 +64,7 @@ const TabNavbar = () => {
         <Tab label="Listen" sx={{ mr: "1vw" }} value="listen" />
         <Tab label="Featured" sx={{ mr: "1vw" }} value="featured" />
         <Tab label="Read" sx={{ mr: "1vw" }} value="read" />
-        <Tab label="My Channel" value="my channel" />
+        {/* <Tab label="My Channel" value="my channel" /> */}
       </Tabs>
     </Box>
   );
