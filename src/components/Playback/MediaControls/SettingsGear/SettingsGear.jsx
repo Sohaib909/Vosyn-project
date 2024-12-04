@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import { Box, IconButton, Typography } from "@mui/material";
+import React, { useRef, useState } from "react";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
-
+import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -60,6 +59,7 @@ const SettingsGear = () => {
       sx={{
         position: "relative",
         display: "inline-block",
+        marginBottom: "3px",
       }}
     >
       {/* Button to toggle settings */}
@@ -118,7 +118,7 @@ const SettingsGear = () => {
             >
               Speed:
             </Typography>
-            <Box sx={{ display: "flex", gap: "8px" }}> 
+            <Box sx={{ display: "flex", gap: "8px" }}>
               {speedOptions.map((option) => (
                 <Typography
                   key={option.value}
@@ -131,11 +131,13 @@ const SettingsGear = () => {
                     cursor: "pointer",
                     borderRadius: "4px",
                     backgroundColor:
-                      hoveredSpeed === option.value || playbackSpeed === option.value
+                      hoveredSpeed === option.value ||
+                      playbackSpeed === option.value
                         ? "#222"
                         : "transparent",
                     color:
-                      hoveredSpeed === option.value || playbackSpeed === option.value
+                      hoveredSpeed === option.value ||
+                      playbackSpeed === option.value
                         ? "#fff"
                         : "#aaa",
                     fontWeight: playbackSpeed === option.value ? 600 : 400,

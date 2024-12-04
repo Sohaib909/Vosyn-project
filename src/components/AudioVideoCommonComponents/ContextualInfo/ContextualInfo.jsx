@@ -191,7 +191,7 @@ const ContextualInfo = () => {
                     : "Explain Medical term “aneurysm”."}
               </MyButton>
             ))}
-             
+
             <Box
               className="displayArea"
               sx={{ mt: "15px", color: "#F7F9FF", fontSize: "0.675rem" }}
