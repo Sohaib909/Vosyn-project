@@ -14,7 +14,7 @@ import styles from "./AvailableLanguages.module.css";
 const AvailableLanguages = ({ languageTimeout, setSelectedLanguage }) => {
   const languageList = ["en", "fr", "es"];
 
-  const { pinnedLanguages } = useSelector(selectPlayer);
+  const { pinnedLanguages, dubbedLanguage } = useSelector(selectPlayer);
 
   const dispatch = useDispatch();
 
@@ -48,7 +48,10 @@ const AvailableLanguages = ({ languageTimeout, setSelectedLanguage }) => {
               key={index}
               sx={{
                 width: "fit-content",
-                backgroundColor: "var(--mui-palette-primary-main)",
+                backgroundColor:
+                  dubbedLanguage === languageObj
+                    ? "var(--mui-palette-primary-main)"
+                    : "var(--mui-palette-neutral-500)",
                 borderRadius: "4px",
                 padding: "2px 15px",
                 "&:hover": {

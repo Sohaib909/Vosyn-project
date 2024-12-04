@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   selectPlayer,
   setCaptionLanguage,
   setCaptionsEnabled,
-  setHovering,
 } from "@/reduxSlices/playerSlice";
 // Correct import for Tooltip
 import ClosedCaption from "@mui/icons-material/ClosedCaption";
@@ -16,11 +15,11 @@ import styles from "./CaptionButton.module.css";
 
 const CaptionButton = () => {
   const dispatch = useDispatch();
-  const { captionsEnabled } = useSelector(selectPlayer);
+  const { captionsEnabled, captionLanguage } = useSelector(selectPlayer);
   const languageList = ["en", "fr", "es"];
   const [showCaption, setShowCaption] = useState(false);
 
-  const mouseMoveTimer = useRef(null);
+  let hideTimeout = null;
 
   const handleCaptionsToggle = () => {
     dispatch(setCaptionsEnabled(!captionsEnabled));
@@ -37,33 +36,40 @@ const CaptionButton = () => {
     }
   };
 
+  const handleMouseEnter = () => {
+    clearTimeout(hideTimeout);
+    setShowCaption(true);
+  };
+
+  const handleMouseLeave = () => {
+    hideTimeout = setTimeout(() => setShowCaption(false), 1000);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(hideTimeout); // Cleanup on component unmount
+  }, []);
+
   return (
     <Box
-      onMouseEnter={() => {
-        clearTimeout(mouseMoveTimer.current);
-        dispatch(setHovering(true));
-      }}
-      onMouseLeave={() => {
-        dispatch(setHovering(false));
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       sx={{ display: "flex", flexDirection: "column", rowGap: "1rem" }}
     >
-      <Tooltip title={captionsEnabled ? "Captions On" : "Captions Off"}>
-        {captionsEnabled ? (
-          <ClosedCaption
-            onClick={handleCaptionsToggle}
-            style={{ cursor: "pointer" }}
-            id="controls-btn-captions"
-          />
-        ) : (
+      {!captionsEnabled ? (
+        <Tooltip title="Captions Off">
           <ClosedCaptionOffOutlined
             onClick={handleCaptionsToggle}
             style={{ cursor: "pointer" }}
             id="controls-btn-captions"
           />
-        )}
-      </Tooltip>
-
+        </Tooltip>
+      ) : (
+        <ClosedCaption
+          onClick={handleCaptionsToggle}
+          style={{ cursor: "pointer" }}
+          id="controls-btn-captions"
+        />
+      )}
       {captionsEnabled && showCaption && (
         <Box className={styles.captionActive}>
           {languageList.length > 0 &&
@@ -74,7 +80,10 @@ const CaptionButton = () => {
                 sx={{
                   width: "fit-content",
                   //This is hardCoded data.
-                  backgroundColor: "var(--mui-palette-primary-main)",
+                  backgroundColor:
+                    captionLanguage === languageObj
+                      ? "var(--mui-palette-primary-main)"
+                      : "var(--mui-palette-neutral-500)",
                   // This should be uncommented for the real data.
                   // backgroundColor:
                   //   selectedTrackIndex === languageObj?.streamInfo.index
