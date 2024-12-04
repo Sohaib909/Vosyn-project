@@ -49,7 +49,7 @@ const LoginForm = () => {
       if (res?.status === 200) {
         setStatus("Login successful", "success");
         dispatch(setUserInfo(res?.data?.user || {}));
-        router.push("/home?tab=featured");
+        router.push("/home?tab=watch");
       }
     } catch (err) {
       const statusCode = err?.response?.status;

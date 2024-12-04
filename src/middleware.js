@@ -25,9 +25,7 @@ export const middleware = async (request) => {
 
   // If a user tries to access a public route (e.g., login page) when they are already authenticated
   if (!isProtectedRoute && isUserAuthenticated) {
-    return NextResponse.redirect(
-      new URL("/home?tab=featured", request.nextUrl),
-    );
+    return NextResponse.redirect(new URL("/home?tab=watch", request.nextUrl));
   }
 
   return NextResponse.next();

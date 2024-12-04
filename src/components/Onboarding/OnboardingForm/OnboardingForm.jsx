@@ -51,7 +51,7 @@ const OnboardingForm = ({ onboardingStep, steps }) => {
       const response = await axios.post("/api/onboarding", data);
       if (response?.status === 200) {
         setStatus("User preferences saved", "success");
-        router.push("/home?tab=featured");
+        router.push("/home?tab=watch");
       }
     } catch (error) {
       setStatus("Error saving user preferences", "error");
