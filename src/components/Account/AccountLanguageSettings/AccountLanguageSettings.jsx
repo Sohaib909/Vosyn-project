@@ -16,6 +16,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
+
 import styles from "./AccountLanguageSettings.module.css";
 
 // Language data with associated country codes
@@ -79,6 +81,10 @@ const AccountLanguageSettingsPage = () => {
 
   return (
     <Box className={styles.languageSettingsContainer}>
+      <Box sx={{ width: "73%", height: "70vh", position: "absolute" }}>
+        <ComingSoon />
+      </Box>
+
       <Typography variant="h4" className={styles.languageTitle}>
         Language
       </Typography>

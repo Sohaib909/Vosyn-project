@@ -17,7 +17,6 @@ const AccountPage = () => {
 
   return (
     <Box className={styles.accountPageContainer}>
-      <ComingSoon />
       <Box className={styles.navigationContainer}>
         <AccountNavigation activeTab={activeTab} onTabChange={setActiveTab} />
       </Box>
@@ -25,11 +24,31 @@ const AccountPage = () => {
         {activeTab === "language" && <AccountLanguageSettings />}
         {activeTab === "profiles" && <ProfileSettings />}
         {activeTab === "security" && <LoginSecurityPage />}
-        {activeTab === "dashboard" && <ComingSoon />}
-        {activeTab === "payment" && <ComingSoon />}
-        {activeTab === "appearance" && <ComingSoon />}
-        {activeTab === "shortcuts" && <ComingSoon />}
-        {activeTab === "help" && <ComingSoon />}
+        {activeTab === "dashboard" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "payment" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "appearance" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "shortcuts" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "help" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
       </Box>
     </Box>
   );

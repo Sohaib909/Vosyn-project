@@ -4,6 +4,8 @@ import React, { useState } from "react";
 // Importing the necessary MUI components
 import { Box, Button, Typography } from "@mui/material";
 
+import ComingSoon from "@/components/ComingSoon/ComingSoon.jsx";
+
 // Updated for CSS modules
 import MuiIcon from "../../../utils/MuiIcon.js";
 
@@ -22,6 +24,9 @@ function LoginSecurityPage() {
 
   return (
     <Box className={styles["login-security-page"]}>
+      <Box sx={{ width: "73%", height: "75vh", position: "absolute" }}>
+        <ComingSoon />
+      </Box>
       <Typography variant="h1">Login and Security</Typography>
       <Typography variant="body1" className={styles.subtitle}>
         Account access and protection

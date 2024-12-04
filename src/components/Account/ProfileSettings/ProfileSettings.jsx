@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import CustomSwitch from "@/components/Buttons/Switch/CustomSwitch";
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
 import styles from "./ProfileSettings.module.css";
 
@@ -50,7 +51,13 @@ const ProfileSettings = () => {
   };
 
   return (
-    <Box className={styles["profile-edit-container"]}>
+    <Box
+      className={styles["profile-edit-container"]}
+      sx={{ position: "relative" }}
+    >
+      <Box sx={{ width: "100%", height: "75vh", position: "absolute" }}>
+        <ComingSoon />
+      </Box>
       <Typography variant="h4" className={styles["profile-title"]}>
         Profiles
       </Typography>
