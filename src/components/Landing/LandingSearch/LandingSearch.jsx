@@ -8,8 +8,8 @@ import axios from "axios";
 import SearchBar from "@/components/Landing/LandingSearch/SearchBar/SearchBar";
 import VosynAssistChatContainer from "@/components/Landing/LandingSearch/VosynAssist/VosynAssistChatContainer";
 
-import DragAndDrap from "../DragAndDrop/DragAndDrap";
-import UploadInteractions from "../UploadInteractions/UploadInteractions";
+// import DragAndDrap from "../DragAndDrop/DragAndDrap";
+// import UploadInteractions from "../UploadInteractions/UploadInteractions";
 
 const LandingSearch = () => {
   const [chatHistory, setChatHistory] = useState([]);
@@ -135,12 +135,12 @@ const LandingSearch = () => {
             justifyContent: "space-between",
           }}
         >
-          <Grid2 item size={{ xs: 12, sm: 8, md: 8, lg: 9, xl: 9 }}>
+          {/* <Grid2 item size={{ xs: 12, sm: 8, md: 8, lg: 9, xl: 9 }}>
             <DragAndDrap />
           </Grid2>
           <Grid2 item size={{ xs: 12, sm: 4, md: 4, lg: 3, xl: 3 }}>
             <UploadInteractions />
-          </Grid2>
+          </Grid2> */}
         </Grid2>
       )}
     </Grid2>
