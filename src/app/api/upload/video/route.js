@@ -10,6 +10,10 @@ export const POST = async (req) => {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
+    if (!response?.data) {
+      throw new Error("No Data found");
+    }
+
     return NextResponse.json(response.data, { status: response.status });
   } catch (error) {
     console.error("Error uploading video:", error.response);

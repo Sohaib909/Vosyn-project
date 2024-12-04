@@ -63,7 +63,7 @@ const layout = ({ children }) => {
             <TranslationPanel>
               <TranslationPanelFileUpload mediaType={"audio/video"} />
               <ButtonWithIconAndText
-                text="Compare"
+                text="Translate"
                 icon={
                   <TranslateIcon
                     sx={{

@@ -1,59 +1,55 @@
 .pageControlMainDiv {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 1.5rem;
   z-index: 10;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin: 0 0 2.5em 0;
 }
 
-.paginationDiv {
-  background-color: var(--mui-palette-neutral-800);
-  border-radius: 40px;
+.pageControlSubDiv {
+  background-color: var(--mui-palette-neutral-700);
+  border-radius: 0.5rem;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--mui-palette-neutral-25);
+  cursor: pointer;
+  position: relative;
+  border: 0.06rem solid var(--mui-palette-neutral-750);
+  box-shadow: inset 0 0 1.25rem 0 var(--mui-palette-boxShadowColor);
+}
+
+.pageControlSubDiv:hover {
+  box-shadow: none;
+}
+
+.searchInputContainer {
+  position: absolute;
+  top: 2.5rem;
+  transform: translateX(-6%);
+  background-color: var(--mui-palette-neutral-700);
+  padding: 0.1rem;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageJumpInputContainer {
+  position: absolute;
+  top: 2rem;
+  width: 7em;
+  transform: translateX(-45%);
+  background-color: var(--mui-palette-neutral-700);
+  padding: 0.1rem;
+  border-radius: 3px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  position: relative;
-}
-
-.pagination-div p {
-  color: var(--mui-palette-common-white);
-  font-size: 12px;
-}
-
-.pageControlIcon {
-  color: var(--mui-palette-common-white);
-  margin: 0 5px;
-}
-
-.pageSearchIcon {
-  margin-right: 0px;
-  color: var(--mui-palette-common-white);
-  width: 15%;
-}
-.pageControlText {
-  color: var(--mui-palette-common-white);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-}
-
-.inputPopUpDivSearch {
-  top: 4rem;
-}
-
-.input-pop-up-div.pageControlIcon[data-v-1f6effab] {
-  color: var(--mui-palette-common-white);
-  width: 15%;
-}
-
-.inputPopUpDiv {
-  position: absolute;
-  background-color: var(--mui-palette-neutral-800);
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  height: 27px;
-  top: 4rem;
+  z-index: 5;
 }

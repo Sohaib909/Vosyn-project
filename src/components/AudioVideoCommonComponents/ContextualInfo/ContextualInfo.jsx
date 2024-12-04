@@ -1,12 +1,10 @@
 "use client";
+
+import { ArrowsInSimple } from "phosphor-react";
 import React, { useState } from "react";
 
 import MicNone from "@mui/icons-material/MicNone";
-
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { ArrowsInSimple } from 'phosphor-react';
-
 import {
   Accordion,
   AccordionDetails,
@@ -17,8 +15,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import MuiIcon from "@mui/material/Icon";
 import styled from "styled-components";
+
 import "./ContextualInfo.module.css";
 
 const sampleData = {
@@ -120,7 +120,7 @@ const ContextualInfo = () => {
                 width: "24px",
                 height: "24px",
                 top: "18.97px",
-           left: "282.74px",
+                left: "282.74px",
                 transform: "rotate(135deg)",
               }}
             />

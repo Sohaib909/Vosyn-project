@@ -7,10 +7,18 @@ import { textMockData } from "@/data/text";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { selectLanguage } from "@/reduxSlices/languageSlice";
 import { setTextObject } from "@/reduxSlices/textObjectSlice";
-import { Box, Typography } from "@mui/material";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import TranslateIcon from "@mui/icons-material/Translate";
+import { Box, Button, Grid2, IconButton, Typography } from "@mui/material";
 import Image from "next/image";
 
+import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import PageControl from "@/components/PageControl/PageControl";
+import Summary from "@/components/Summary/Summary";
+import TextPageCollapsablePanel from "@/components/TextPageCollapsablePanel/TextPageCollapsablePanel";
+import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
 
 import styles from "./page.module.css";
 
@@ -37,6 +45,11 @@ const TextPage = ({ params }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageLength, setPageLength] = useState(0);
   const [paginatedContent, setPaginatedContent] = useState([]);
+
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [language, setLanguage] = useState("EN");
+
+  const toggleRightPanel = () => setIsCollapsed(!isCollapsed);
 
   const { selectedTranslatedLanguage } = useSelector(selectLanguage);
 
@@ -131,90 +144,211 @@ const TextPage = ({ params }) => {
   };
 
   return (
-    <Box className={styles.container}>
-      <Box flexGrow={1}>
-        <PageControl
-          handleNextPage={handleNextPage}
-          handlePrevPage={handlePrevPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageRefs={pageRefs}
-          pageLength={pageLength}
-          setFontSize={setFontSize}
-          fontSize={fontSize}
-          searchText={searchText}
-        />
+    <>
+      <Grid2
+        item
+        container
+        spacing={4}
+        size={
+          isCollapsed
+            ? { xs: 12, sm: 12, md: 11, lg: 11, xl: 11 }
+            : { xs: 12, sm: 12, md: 8, lg: 8, xl: 9 }
+        }
+      >
+        <Grid2 item container size={12} spacing={2}>
+          <Box className={styles.container}>
+            <Box flexGrow={1}>
+              <PageControl
+                handleNextPage={handleNextPage}
+                handlePrevPage={handlePrevPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                pageRefs={pageRefs}
+                pageLength={pageLength}
+                setFontSize={setFontSize}
+                fontSize={fontSize}
+                searchText={searchText}
+              />
 
-        {paginatedContent.map((pageContent, index) => (
-          <Box
-            key={index}
-            ref={(el) => (pageRefs.current[index] = el)}
-            sx={{
-              mt: "45px",
-              mb: 4,
-              p: "2.5rem",
-              border: "1px solid var(--mui-palette-neutral-50)",
-              borderRadius: "12px",
-              color: "var(--mui-palette-common-white)",
-            }}
-          >
-            {index === 0 && (
-              <Box mb={4} textAlign="center">
+              {paginatedContent.map((pageContent, index) => (
                 <Box
+                  key={index}
+                  ref={(el) => (pageRefs.current[index] = el)}
                   sx={{
-                    mb: 2,
-                    position: "relative",
-                    width: "100%",
-                    height: "25rem",
+                    mt: "1.5em",
+                    mb: 4,
+                    p: "2.5rem",
+                    border: "1px solid var(--mui-palette-neutral-50)",
+                    borderRadius: "12px",
+                    color: "var(--mui-palette-common-white)",
                   }}
                 >
-                  <Image
-                    fill
-                    src={
-                      featuredImage
-                        ? featuredImage
-                        : "https://placehold.co/800?text=No+Image&font=roboto"
-                    }
-                    alt="Featured"
-                    style={{ borderRadius: "4px", objectFit: "cover" }}
-                  />
+                  {index === 0 && (
+                    <Box mb={4} textAlign="center">
+                      <Box
+                        sx={{
+                          mb: 2,
+                          position: "relative",
+                          width: "100%",
+                          height: "25rem",
+                        }}
+                      >
+                        <Image
+                          fill
+                          src={
+                            featuredImage
+                              ? featuredImage
+                              : "https://placehold.co/800?text=No+Image&font=roboto"
+                          }
+                          alt="Featured"
+                          style={{ borderRadius: "4px", objectFit: "cover" }}
+                        />
+                      </Box>
+                      <Typography
+                        variant="h1"
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: `${fontSize.title}px`,
+                        }}
+                      >
+                        {title}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontSize: `${fontSize.subtitle}px` }}
+                      >
+                        {subtitle}
+                      </Typography>
+                    </Box>
+                  )}
+
+                  <Typography
+                    ref={(el) => (textRef.current[index] = el)}
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-wrap",
+                      fontSize: `${fontSize.paragraph}px`,
+                    }}
+                  >
+                    {pageContent}
+                  </Typography>
+
+                  <Box
+                    sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}
+                  >
+                    <Typography variant="caption"> {index + 1}</Typography>
+                  </Box>
                 </Box>
-                <Typography
-                  variant="h1"
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: `${fontSize.title}px`,
-                  }}
-                >
-                  {title}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  sx={{ fontSize: `${fontSize.subtitle}px` }}
-                >
-                  {subtitle}
-                </Typography>
-              </Box>
-            )}
-
-            <Typography
-              ref={(el) => (textRef.current[index] = el)}
-              variant="body1"
-              sx={{
-                whiteSpace: "pre-wrap",
-                fontSize: `${fontSize.paragraph}px`,
-              }}
-            >
-              {pageContent}
-            </Typography>
-
-            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}>
-              <Typography variant="caption"> {index + 1}</Typography>
+              ))}
             </Box>
           </Box>
-        ))}
-      </Box>
-    </Box>
+
+          <Grid2
+            item
+            container
+            size={12}
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          ></Grid2>
+        </Grid2>
+      </Grid2>
+
+      <Grid2
+        container
+        spacing={2}
+        size={
+          isCollapsed
+            ? { xs: 12, sm: 12, md: 1, lg: 1, xl: 1 }
+            : { xs: 12, sm: 12, md: 4, lg: 4, xl: 3 }
+        }
+        sx={{ height: "fit-content", gap: "2rem" }}
+      >
+        {isCollapsed ? (
+          <Box
+            component="section"
+            sx={{
+              borderRadius: "12px",
+              backgroundColor: "var(--mui-palette-neutral-800)",
+              padding: "0 0.75em",
+            }}
+          >
+            <Box
+              component="section"
+              sx={{ display: "flex", justifyContent: "left" }}
+            >
+              <IconButton onClick={toggleRightPanel}>
+                <KeyboardDoubleArrowLeftIcon sx={{ color: "neutral.25" }} />
+              </IconButton>
+            </Box>
+            <Box>
+              <TextPageCollapsablePanel setLanguage={setLanguage} />
+            </Box>
+          </Box>
+        ) : (
+          <Box
+            component="section"
+            sx={{
+              margin: "0 2rem",
+              width: "380px",
+            }}
+            startIcon={<TranslateIcon />}
+          >
+            <Box
+              component="section"
+              sx={{
+                borderRadius: "12px",
+                backgroundColor: "var(--mui-palette-neutral-800)",
+              }}
+            >
+              <Box
+                component="section"
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                }}
+              >
+                <IconButton onClick={toggleRightPanel}>
+                  <KeyboardDoubleArrowRightIcon sx={{ color: "neutral.25" }} />
+                </IconButton>
+              </Box>
+              <Box component="section">
+                <TranslationPanel>
+                  <TranslationPanelFileUpload mediaType={"text"} />
+                  <Button
+                    variant="contained"
+                    sx={{
+                      marginTop: "7px",
+                      background: "var(--mui-palette-primary-400)",
+                      "&:hover": {
+                        background: "var(--mui-palette-primary-300)",
+                      },
+                    }}
+                    startIcon={<TranslateIcon />}
+                  >
+                    Translate
+                  </Button>
+                </TranslationPanel>
+              </Box>
+            </Box>
+
+            <Box
+              component="section"
+              sx={{ marginTop: "1rem", marginBottom: "1rem" }}
+            >
+              <Box
+                component="section"
+                sx={{
+                  width: "100%",
+                  marginBottom: "1rem",
+                }}
+              >
+                <ContextualInfo />
+              </Box>
+              <Summary />
+            </Box>
+          </Box>
+        )}
+      </Grid2>
+    </>
   );
 };
 
