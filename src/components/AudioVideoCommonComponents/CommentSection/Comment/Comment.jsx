@@ -91,7 +91,9 @@ const Comment = ({ comment, onComment }) => {
         </Box>
 
         <Box>
-          <Typography variant="body1">{getText()}</Typography>
+          <Typography variant="body1" sx={{ overflowWrap: "anywhere" }}>
+            {getText()}
+          </Typography>
 
           <Typography
             variant="caption"
