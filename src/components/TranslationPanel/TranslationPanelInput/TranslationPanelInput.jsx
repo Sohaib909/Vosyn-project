@@ -21,7 +21,7 @@ import Image from "next/image";
 
 import styles from "./TranslationPanelInput.module.css";
 
-const TranslationPanelInput = ({ array, label }) => {
+const TranslationPanelInput = ({ array, label, classNameSelect }) => {
   const dispatch = useDispatch();
 
   const { selectedTranslatedLanguage, selectedOriginalLanguage } =
@@ -38,9 +38,28 @@ const TranslationPanelInput = ({ array, label }) => {
 
   return (
     <FormControl sx={{ width: "100%" }}>
-      <InputLabel id="selectLanguageLabel">{label}</InputLabel>
+      <InputLabel
+        sx={{
+          position: "relative",
+          left: "-1.1rem",
+          color: "var(--mui-palette-primary-25)",
+          "&.Mui-focused": {
+            color: "var(--mui-palette-primary-25)",
+          },
+        }}
+        id="selectLanguageLabel"
+      >
+        {label}
+      </InputLabel>
       <Select
-        sx={{ height: "3rem" }}
+        className={classNameSelect && styles.selectTranslationPanel}
+        sx={{
+          height: "3rem",
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: "none",
+          },
+          borderRadius: ".5rem",
+        }}
         labelId="selectLanguageLabel"
         id={styles.multipleLanguage}
         value={

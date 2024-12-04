@@ -1,0 +1,5 @@
+.transcript-panel {
+  .transcripts-container {
+    color: var(--mui-palette-common-white);
+  }
+}
