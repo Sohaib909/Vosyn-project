@@ -123,6 +123,9 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
   const handleChangeLanguage = () => {
     setChangeLanguagePopup(!changeLanguagePopup);
   };
+  const handleMouseEnter = () => {
+    clearTimeout(languageTimeout.current); // Clear the timeout when the mouse enters
+  };
 
   const handleMenuClose = () => {
     languageTimeout.current = setTimeout(() => {
@@ -159,6 +162,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
         <Box
           className={styles.languagePopup}
           ref={languagesListRef}
+          onMouseEnter={handleMouseEnter} // Prevent closing when mouse is over
           onMouseLeave={handleMenuClose}
         >
           <Box

@@ -26,6 +26,7 @@
 .accordion-summary-icon {
   color: #9d9595;
 }
+
 .MuiAccordionSummary-expandIconWrapper {
   color: #9d9595;
   position: absolute;
@@ -33,6 +34,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
 .buttonContainer {
   width: 100%;
   background-color: #efefef;
@@ -41,17 +43,24 @@
 }
 
 .displayArea {
-  margin-bottom: 10rem;
-  margin-top: 10rem;
-  padding: 1rem;
-  border-radius: 4px;
-  background-color: #efefef;
-  color: #9d9595;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+  padding: 1.5rem;
+  padding-bottom: 2.5rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333;
+  height: 500px;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .inputContainer {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 2rem;
   border-radius: 10px;
 }
 
@@ -68,4 +77,23 @@
 
 .MuiAccordion-root {
   border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contextual-info-section {
+    width: 90%;
+    height: auto;
+  }
+
+  .displayArea {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: auto;
+  }
+
+  .buttonContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

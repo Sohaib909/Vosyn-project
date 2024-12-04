@@ -52,20 +52,20 @@ const CaptionButton = () => {
         {captionsEnabled ? (
           <ClosedCaption
             onClick={handleCaptionsToggle}
-            style={{ cursor: "pointer", marginTop: "6px" }}
+            style={{ cursor: "pointer" }}
             id="controls-btn-captions"
           />
         ) : (
           <ClosedCaptionOffOutlined
             onClick={handleCaptionsToggle}
-            style={{ cursor: "pointer", marginTop: "6px" }}
+            style={{ cursor: "pointer" }}
             id="controls-btn-captions"
           />
         )}
       </Tooltip>
 
       {captionsEnabled && showCaption && (
-        <Box Box className={styles.captionActive}>
+        <Box className={styles.captionActive}>
           {languageList.length > 0 &&
             languageList.map((languageObj, index) => (
               <Typography
