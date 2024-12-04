@@ -1,0 +1,25 @@
+.accountPageContainer {
+  display: flex;
+  width: 100%;
+  min-height: 90vh !important;
+
+  flex-direction: row;
+  /* Ensures left-to-right alignment */
+}
+
+.navigationContainer {
+  width: 22%;
+  /* Fixed width for the navigation menu */
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.profileContent {
+  flex-grow: 1;
+  /* Allows the content to take up remaining space on the right */
+  padding: 20px;
+
+  overflow-y: auto;
+  margin-left: 0px;
+  /* Aligns profileContent to the right */
+}

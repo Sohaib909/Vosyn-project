@@ -6,8 +6,7 @@
 
 .backButtonContainer {
   position: absolute;
-  left: 0;
-  padding-left: 15px;
+  left: 135px;
   z-index: 1;
 }
 
@@ -15,7 +14,7 @@
   text-transform: none;
   font-size: 0.938rem;
   font-weight: 400;
-  color: black;
+  color: white;
   display: flex;
   gap: 8px;
 }

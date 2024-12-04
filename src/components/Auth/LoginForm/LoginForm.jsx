@@ -48,11 +48,7 @@ const LoginForm = () => {
       // On success, save token, set status to imform user, set logged in status and set user info.
       if (res?.status === 200) {
         setStatus("Login successful", "success");
-
-        dispatch(
-          setUserInfo({ ...res?.data?.user, has_finished_onboarding: false }),
-        );
-
+        dispatch(setUserInfo(res?.data?.user || {}));
         router.push("/home?tab=featured");
       }
     } catch (err) {
@@ -134,6 +130,7 @@ const LoginForm = () => {
           helperText={errors.email?.message || loginApiError?.email}
           variant="email"
           placeholderText="username@example.com"
+          autocomplete="email"
         />
 
         <AuthInput
@@ -153,6 +150,7 @@ const LoginForm = () => {
           variant="password"
           togglePasswordVisibility={togglePasswordVisibility}
           showPassword={showPassword}
+          autocomplete="current-password"
         />
 
         <Link href="/forgot-password" className={styles.forgotPwd}>

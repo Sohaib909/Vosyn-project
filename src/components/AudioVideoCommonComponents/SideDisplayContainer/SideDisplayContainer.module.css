@@ -6,10 +6,9 @@
 .contextualInfoContainer {
   padding: 16px;
   border-radius: 8px;
-  padding-bottom:10px;
-
+  padding-bottom: 10px;
 }
-.contextualContainer{
+.contextualContainer {
   width: 100%;
 }
 /* For Chrome, Edge, and Safari */

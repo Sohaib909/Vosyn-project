@@ -18,7 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const FilterButton = ({ filters }) => {
+const FilterButton = () => {
   const [open, setOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [type, setType] = useState("");

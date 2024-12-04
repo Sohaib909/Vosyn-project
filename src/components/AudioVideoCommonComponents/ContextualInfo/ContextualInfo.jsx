@@ -1,8 +1,6 @@
 "use client";
-
 import { ArrowsInSimple } from "phosphor-react";
 import React, { useState } from "react";
-
 import MicNone from "@mui/icons-material/MicNone";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import {
@@ -165,7 +163,7 @@ const ContextualInfo = () => {
             variant="body2"
             sx={{ color: "gray", marginBottom: "3px", fontSize: "0.75rem" }}
           >
-            Watching Video "Grey's Anatomy S5 E7 at 25:11"
+            {`Watching Video "Grey's Anatomy S5 E7 at 25:11"`}
           </Typography>
 
           <Box

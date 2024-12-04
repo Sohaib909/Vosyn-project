@@ -46,7 +46,7 @@ const DragAndDrap = () => {
     [dispatch, router, setStatus, userProfile],
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDro<<<<<<< pod-titanpzone({ onDrop });
 
   return (
     <Box {...getRootProps()} className={styles.border}>
