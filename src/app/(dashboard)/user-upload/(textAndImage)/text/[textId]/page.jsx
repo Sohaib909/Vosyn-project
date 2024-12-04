@@ -76,7 +76,7 @@ const TextPage = ({ params }) => {
       setData(fetchedData);
     };
     loadTextData();
-  }, [textId, dispatch]);
+  }, [textId, dispatch, setStatus]);
 
   useEffect(() => {
     const pages = [];

@@ -1,0 +1,36 @@
+.captionActive {
+  position: absolute;
+  bottom: 100%; /* Directly above the button */
+  transform: translateX(-50%);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0; /* Ensure no extra space */
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.captionActive::before,
+.captionActive::after {
+  content: none; /* Ensure no pseudo-elements */
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--mui-palette-neutral-800);
+  padding: 13px 8px;
+  border-radius: 4px;
+  bottom: 3.8rem;
+  z-index: 999999999999999999999999;
+}
+
+@media only screen and (max-width: 620px) {
+  .item {
+    font-size: 0.7rem !important;
+  }
+}

@@ -9,6 +9,7 @@ import {
   setCurrentTime,
   setDuration,
   setHasEnded,
+  setPlaying,
 } from "@/reduxSlices/playerSlice";
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
@@ -18,8 +19,14 @@ import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 import styles from "./MediaPlayer.module.css";
 
 const MediaPlayer = ({ showScreen = true }) => {
-  const { playing, hasEnded, captionsEnabled, isBuffering } =
-    useSelector(selectPlayer);
+  const {
+    playing,
+    hasEnded,
+    captionsEnabled,
+    isBuffering,
+    dubbedLanguage,
+    captionLanguage,
+  } = useSelector(selectPlayer);
   const mediaObj = useSelector(selectDashObject);
   const dispatch = useDispatch();
   const { togglePlayPause } = usePlaybackControls();
@@ -27,14 +34,40 @@ const MediaPlayer = ({ showScreen = true }) => {
 
   // Initialize Dash.js when video ref is set and ready
   useEffect(() => {
-    if (mediaObj?.file_stream_cdn_url && mediaRef?.current) {
-      const player = dashjs.MediaPlayer().create();
-      player.initialize(mediaRef.current, mediaObj.file_stream_cdn_url, false);
+    const player = dashjs.MediaPlayer().create();
+    player.initialize(mediaRef.current, "/testVideo/example_dash1.mpd", false);
 
-      // Cleanup function to reset the player when unmounted
-      return () => player.reset();
-    }
-  }, [mediaObj, mediaRef]);
+    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      // Get all audio tracks
+      const audioTracks = player.getTracksFor("audio");
+
+      console.log(captionLanguage, "DUBBEDLANGUAGE", dubbedLanguage);
+      const selectedAudio = audioTracks.find((track) =>
+        track && dubbedLanguage ? track?.lang === dubbedLanguage : "en",
+      );
+      player.setCurrentTrack(selectedAudio);
+
+      // Get all caption (text) tracks
+      const textTracks = player.getTracksFor("text");
+
+      // Set the default or selected caption track
+      const selectedTrack = textTracks.find((track) =>
+        track && captionLanguage ? track.lang === captionLanguage : "en",
+      );
+      player.setCurrentTrack(selectedTrack);
+    });
+    console.log(self, "self");
+
+    player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
+      console.error("Dash.js error:", e);
+    });
+
+    // Cleanup function to reset the player when unmounted
+    return () => {
+      player.reset();
+      dispatch(setPlaying(false));
+    };
+  }, [mediaObj, mediaRef, dubbedLanguage, captionLanguage]);
 
   return (
     <Box
@@ -61,7 +94,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            default
+            // default
           />
           {/** Media source */}
           <source
@@ -89,7 +122,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            default
+            // default
           />
           {/** Media source */}
           <source
