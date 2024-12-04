@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
+import TranslateIcon from "@mui/icons-material/Translate";
+import { Box, Button, Grid2 } from "@mui/material";
 import Image from "next/image";
 
+import ContextualInfo from "@/components/AudioVideoCommonComponents/ContextualInfo/ContextualInfo";
 import Summary from "@/components/Summary/Summary";
 import TextAndImageActionBtns from "@/components/TextAndImageActionBtns/TextAndImageActionBtns";
 import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 import TranslationPanelFileUpload from "@/components/TranslationPanel/TranslationPanelFileUpload/TranslationPanelFileUpload";
-import TranslationSlider from "@/components/TranslationPanel/TranslationPanelToggle/TranslationPanelToggle";
 
 import Original from "../../../../../../public/mediaFiles/Images/Original.png";
 import Translated from "../../../../../../public/mediaFiles/Images/Translated.png";
@@ -37,80 +38,80 @@ const ImagePage = () => {
     fetchImages();
   }, []);
 
-  const handleTranslation = () => {
-    if (image) {
-      setImage({
-        ...image,
-        current:
-          image.current === image.translated
-            ? image.original
-            : image.translated,
-      });
-    }
-  };
-
   return (
-    <Box
-      display="flex"
-      alignItems="start"
-      justifyContent="space-between"
-      flexDirection="row"
-      paddingTop="var(--mui-spacing-4)"
-      width={"100%"}
-    >
-      <Box display="flex" flexDirection="column" flex="1">
-        <Box display="flex" flexDirection="column" justifyContent="flex-end">
-          {image && (
-            <TextAndImageActionBtns
-              showRate={true}
-              fileUrl={image.translated}
-            />
-          )}
-        </Box>
+    <Grid2 item container size={12} spacing={4}>
+      <Grid2
+        item
+        container
+        spacing={4}
+        size={{ xs: 12, sm: 12, md: 8, lg: 8, xl: 9 }}
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignContent: "flex-start",
+        }}
+      >
+        <Box>{image && <TextAndImageActionBtns isImage={"image"} />}</Box>
         <Box
-          display="flex"
-          flex="1"
-          minHeight="70%"
-          justifyContent="center"
-          mt="1rem"
           sx={{
-            border: "2px solid var(--mui-palette-neutral-25)",
-            p: 8,
-            borderRadius: "1rem",
+            mb: 4,
+            p: "2.5rem",
+            border: "1px solid var(--mui-palette-neutral-50)",
+            borderRadius: "12px",
+            color: "var(--mui-palette-common-white)",
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
           }}
         >
-          <Box>
-            {image && <Image src={image.current} alt="uploaded image" />}
-          </Box>
+          {image && <Image src={image.current} alt="uploaded image" />}
         </Box>
-      </Box>
+      </Grid2>
 
-      <Box maxWidth="350px" m="0 0 0 2rem">
-        {image && (
-          <TranslationPanel fileUrl={image.translated}>
-            <TranslationPanelFileUpload mediaType={"image"} />
-            <TranslationSlider handleTranslation={handleTranslation} />
-          </TranslationPanel>
-        )}
-        {/* Uncomment once ContextualInfo and Summary are migrated over */}
-        {/* <Box className="contextual-info-wrapper">
-            <ContextualInfo />
-        </Box> */}
-
+      <Grid2
+        container
+        spacing={2}
+        size={{ xs: 12, sm: 12, md: 4, lg: 4, xl: 3 }}
+        sx={{ height: "fit-content", gap: "2rem" }}
+      >
+        <TranslationPanel>
+          <TranslationPanelFileUpload mediaType={"text"} />
+          <Button
+            variant="contained"
+            sx={{
+              marginTop: "7px",
+              background: "var(--mui-palette-primary-400)",
+              "&:hover": {
+                background: "var(--mui-palette-primary-300)",
+              },
+            }}
+            startIcon={<TranslateIcon />}
+          >
+            Translate
+          </Button>
+        </TranslationPanel>
+        <Box sx={{ width: "100%", borderRadius: "12px" }}>
+          <ContextualInfo />
+        </Box>
         {image && image.current === image.translated && (
           <Box width="100%">
-            <Summary summary={`The Gold Dragon`} title="Image Description" />
+            <Summary
+              summary={{ en: "The Gold Dragon", fr: "LE DRAGON D'OR" }}
+              title="Translation"
+            />
           </Box>
         )}
 
-        {/* <Box width="100%" m={isMobile && "1rem 0"}>
+        <Box width="100%">
           <Summary
-            summary={`Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`}
+            summary={{
+              en: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+            }}
             title="Image Description"
           />
-        </Box> */}
-      </Box>
-    </Box>
+        </Box>
+      </Grid2>
+    </Grid2>
   );
 };
 
