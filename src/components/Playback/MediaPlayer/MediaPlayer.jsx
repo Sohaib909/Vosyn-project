@@ -19,8 +19,14 @@ import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 import styles from "./MediaPlayer.module.css";
 
 const MediaPlayer = ({ showScreen = true }) => {
-  const { playing, hasEnded, captionsEnabled, isBuffering, dubbedLanguage } =
-    useSelector(selectPlayer);
+  const {
+    playing,
+    hasEnded,
+    captionsEnabled,
+    isBuffering,
+    dubbedLanguage,
+    captionLanguage,
+  } = useSelector(selectPlayer);
   const mediaObj = useSelector(selectDashObject);
   const dispatch = useDispatch();
   const { togglePlayPause } = usePlaybackControls();
@@ -35,17 +41,22 @@ const MediaPlayer = ({ showScreen = true }) => {
       // Get all audio tracks
       const audioTracks = player.getTracksFor("audio");
 
+      console.log(captionLanguage, "DUBBEDLANGUAGE", dubbedLanguage);
       const selectedAudio = audioTracks.find((track) =>
-        dubbedLanguage ? track.lang === dubbedLanguage : "en",
+        track && dubbedLanguage ? track?.lang === dubbedLanguage : "en",
       );
       player.setCurrentTrack(selectedAudio);
 
       // Get all caption (text) tracks
       const textTracks = player.getTracksFor("text");
-      console.log(textTracks, "textTracks");
-      // const selectedTrack = textTracks.find((track) => track.lang === "fr");
-      // player.setCurrentTrack(audioTracks[0]);
+
+      // Set the default or selected caption track
+      const selectedTrack = textTracks.find((track) =>
+        track && captionLanguage ? track.lang === captionLanguage : "en",
+      );
+      player.setCurrentTrack(selectedTrack);
     });
+    console.log(self, "self");
 
     player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
       console.error("Dash.js error:", e);
@@ -56,7 +67,7 @@ const MediaPlayer = ({ showScreen = true }) => {
       player.reset();
       dispatch(setPlaying(false));
     };
-  }, [mediaObj, mediaRef, dubbedLanguage]);
+  }, [mediaObj, mediaRef, dubbedLanguage, captionLanguage]);
 
   return (
     <Box

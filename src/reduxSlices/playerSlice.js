@@ -13,6 +13,7 @@ const initialState = {
   playbackSpeed: 1,
   pinnedLanguages: [],
   dubbedLanguage: "",
+  captionLanguage: "",
   subtitles: [],
   currentSubtitle: "",
   showTranscripts: false,
@@ -59,6 +60,9 @@ const playerSlice = createSlice({
     setDubbedLanguage: (state, action) => {
       state.dubbedLanguage = action.payload;
     },
+    setCaptionLanguage: (state, action) => {
+      state.captionLanguage = action.payload;
+    },
     setSubtitles: (state, action) => {
       state.subtitles = action.payload;
     },
@@ -87,6 +91,7 @@ export const {
   setPlaybackSpeed,
   setPinnedLanguage,
   setDubbedLanguage,
+  setCaptionLanguage,
   setSubtitles,
   setCurrentSubtitle,
   setShowTranscripts,

@@ -5,7 +5,6 @@ import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import usePlaybackControls from "@/hooks/usePlaybackControls";
 import {
   selectPlayer,
-  setCaptionsEnabled,
   setCurrentTime,
   setFullScreen,
   setHasEnded,
@@ -18,14 +17,13 @@ import {
   PlayArrowOutlined,
   ReplayOutlined,
 } from "@mui/icons-material";
-import ClosedCaptionOffOutlinedIcon from "@mui/icons-material/ClosedCaptionOffOutlined";
-import ClosedCaptionOffRoundedIcon from "@mui/icons-material/ClosedCaptionOffRounded";
 import FullscreenExitRoundedIcon from "@mui/icons-material/FullscreenExitRounded";
 import FullscreenRoundedIcon from "@mui/icons-material/FullscreenRounded";
 import { Box, Grid2, Slider, Typography } from "@mui/material";
 
 import PlaybackButtons from "../PlaybackButtons/PlaybackButtons";
 import AutoDubbingSwitch from "./AutoDubbingSwitch/AutoDubbingSwitch";
+import CaptionButton from "./CaptionButton/CaptionButton";
 import SettingsGear from "./SettingsGear/SettingsGear";
 import SkipButtons from "./SkipButtons/SkipButtons";
 import VideoSpeedControls from "./VideoSpeedControls/VideoSpeedControls";
@@ -34,7 +32,7 @@ import VolumeControl from "./VolumeControl/VolumeControl";
 import styles from "./MediaControls.module.css";
 
 const MediaControls = ({ children, type }) => {
-  const { playing, currentTime, isFullScreen, captionsEnabled, hasEnded } =
+  const { playing, currentTime, isFullScreen, hasEnded } =
     useSelector(selectPlayer);
   const dispatch = useDispatch();
   const { togglePlayPause } = usePlaybackControls();
@@ -55,7 +53,7 @@ const MediaControls = ({ children, type }) => {
   };
 
   const handleFullscreen = async () => {
-    const video = document.querySelector("#playback");
+    const video = document?.querySelector("#playback");
     if (!video) return;
 
     if (isFullScreen) {
@@ -76,9 +74,9 @@ const MediaControls = ({ children, type }) => {
     }
   };
 
-  const handleCaptionsToggle = () => {
-    dispatch(setCaptionsEnabled(!captionsEnabled));
-  };
+  // const handleCaptionsToggle = () => {
+  //   dispatch(setCaptionsEnabled(!captionsEnabled));
+  // };
 
   useKeyboardControls(mediaRef, togglePlayPause, handleSliderChange);
 
@@ -93,7 +91,7 @@ const MediaControls = ({ children, type }) => {
           value={currentTime}
           min={0}
           step={1}
-          max={mediaRef?.current?.duration}
+          max={mediaRef?.current?.duration || 0}
           onChange={(_, value) => handleSliderChange(value)}
           sx={(t) => ({
             color: "rgba(0,0,0,0.87)",
@@ -160,14 +158,15 @@ const MediaControls = ({ children, type }) => {
           <AutoDubbingSwitch />
 
           <Grid2 item size={3} sx={{ width: "fit-content" }}>
-            <PlaybackButtons
+            <CaptionButton />
+            {/* <PlaybackButtons
               onClick={handleCaptionsToggle}
               Icon={
                 captionsEnabled
                   ? ClosedCaptionOffRoundedIcon
                   : ClosedCaptionOffOutlinedIcon
               }
-            />
+            /> */}
           </Grid2>
 
           <VideoSpeedControls />

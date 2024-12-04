@@ -69,7 +69,7 @@ const layout = ({ children }) => {
             playlistId="ee5be34a-606c-4aca-8d35-1ee75c49007a"
             containerType="playlist"
           />
-          <SideDisplayContainer />
+          {/* <SideDisplayContainer /> */}
         </Grid2>
       </Grid2>
     </Grid2>
