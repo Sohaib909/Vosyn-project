@@ -34,11 +34,19 @@
   color: white;
   margin-bottom: 20px;
 }
+.background {
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+  margin-left: 20%;
+}
 
 .languageSettingSection {
+  position: relative;
   margin-bottom: 20px;
   width: 100%;
-  max-width: flex;
+  max-width: 73%;
+  max-height: 74vh;
   margin: 0 auto;
   background-color: #252526;
   color: white;

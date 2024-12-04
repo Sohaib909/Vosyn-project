@@ -9,7 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
-import ContextualInfo from "../ContextualInfo/ContextualInfo";
+// import ContextualInfo from "../ContextualInfo/ContextualInfo";
 // eslint-disable-next-line prettier/prettier
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 // eslint-disable-next-line prettier/prettier
@@ -60,9 +60,12 @@ const SideDisplayContainer = ({
 
   return (
     <>
-      <Grid2 item size={12} className={styles.ContextualContainer}>
-        <ContextualInfo />
-      </Grid2>
+      {/* {containerType === "playlist" && (
+        // eslint-disable-next-line prettier/prettier
+        <Grid2 item size={12} className={styles.sectionContainer}>
+          <ContextualInfo />
+        </Grid2>
+      )} */}
 
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>

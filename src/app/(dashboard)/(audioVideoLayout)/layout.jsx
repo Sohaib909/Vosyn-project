@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
 
 import CommentSection from "@/components/AudioVideoCommonComponents/CommentSection/CommentSection";
 import MediaDistrubutor from "@/components/AudioVideoCommonComponents/MediaDistrubutor/MediaDistrubutor";
@@ -9,7 +9,8 @@ import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/Vid
 import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
 import VideoAudioDescription from "@/components/AudioVideoCommonComponents/VideoAudioDescription/VideoAudioDescription";
 import BackButton from "@/components/Buttons/BackButton/BackButton";
-import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+
+// import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
 
 const layout = ({ children }) => {
   return (
@@ -50,7 +51,7 @@ const layout = ({ children }) => {
           size={{ xs: 12, sm: 12, md: 4, lg: 4, xl: 3 }}
           sx={{ height: "fit-content" }}
         >
-          <TranslationPanel>
+          {/* <TranslationPanel>
             <Button
               variant="contained"
               sx={{
@@ -62,13 +63,13 @@ const layout = ({ children }) => {
             >
               Compare
             </Button>
-          </TranslationPanel>
+          </TranslationPanel> */}
 
           {/** Make the rendering of playlist dynamic later on */}
-          <SideDisplayContainer
+          {/* <SideDisplayContainer
             playlistId="ee5be34a-606c-4aca-8d35-1ee75c49007a"
             containerType="playlist"
-          />
+          /> */}
           <SideDisplayContainer />
         </Grid2>
       </Grid2>

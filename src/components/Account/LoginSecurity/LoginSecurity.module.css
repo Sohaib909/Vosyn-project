@@ -12,6 +12,13 @@
   color: #ffffff; /* White heading */
 }
 
+.background {
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+  margin-left: 20%;
+}
+
 .subtitle {
   font-size: 15px;
   color: #b3b3b3; /* Light gray for subtitle */

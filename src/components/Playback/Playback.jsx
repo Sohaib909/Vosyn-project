@@ -33,11 +33,10 @@ const Playback = ({ id, type }) => {
       dispatch(setDashObject({ ...newData }));
       dispatch(setPlaying(false));
     },
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
   });
 
   if (error) {
+    console.log(error, "eror");
     setStatus(
       `${error?.response?.statusText}. Please try again later.`,
       "error",

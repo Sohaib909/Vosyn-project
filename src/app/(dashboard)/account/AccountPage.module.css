@@ -23,3 +23,10 @@
   margin-left: 0px;
   /* Aligns profileContent to the right */
 }
+
+.background {
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+  margin-left: 20%;
+}

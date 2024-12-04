@@ -3,13 +3,9 @@
   height: 20rem;
   scrollbar-width: none; /* For Firefox */
 }
-.contextualInfoContainer {
-  padding: 16px;
-  border-radius: 8px;
-  padding-bottom: 10px;
-}
-.contextualContainer {
-  width: 100%;
+.ContextualContainer {
+  border-radius: 12px;
+  padding: 1rem;
 }
 /* For Chrome, Edge, and Safari */
 .contentContainer::-webkit-scrollbar {

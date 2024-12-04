@@ -8,7 +8,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 const TabNavbar = () => {
   const { updateQueryParam, getAllParams } = useQueryParam();
   const params = getAllParams();
-  const [selectedTab, setSelectedTab] = useState(params.tab || "featured");
+  const [selectedTab, setSelectedTab] = useState(params.tab || "watch");
 
   // when the user clicks on a tab, it should direct to that tab
   const handleSetSelectedTab = (event, tabName) => {
@@ -18,8 +18,8 @@ const TabNavbar = () => {
 
   useEffect(() => {
     if (!params.tab) {
-      updateQueryParam("tab", "featured");
-      setSelectedTab("featured");
+      updateQueryParam("tab", "watch");
+      setSelectedTab("watch");
     } else {
       setSelectedTab(params.tab);
     }
@@ -64,7 +64,7 @@ const TabNavbar = () => {
         <Tab label="Listen" sx={{ mr: "1vw" }} value="listen" />
         <Tab label="Featured" sx={{ mr: "1vw" }} value="featured" />
         <Tab label="Read" sx={{ mr: "1vw" }} value="read" />
-        <Tab label="My Channel" value="my channel" />
+        {/* <Tab label="My Channel" value="my channel" /> */}
       </Tabs>
     </Box>
   );

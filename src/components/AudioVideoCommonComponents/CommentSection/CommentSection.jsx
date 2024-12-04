@@ -77,6 +77,14 @@ const CommentSection = () => {
           placeholder="Add comment"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && value.trim()) {
+              handleSubmitNewComment({
+                text: value,
+                video: mediaObj?.id,
+              });
+            }
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

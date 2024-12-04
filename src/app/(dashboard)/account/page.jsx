@@ -2,12 +2,16 @@
 
 import React, { useState } from "react";
 
+import appearance from "@/Images/appearance.png";
+import view from "@/Images/view.png";
 import Box from "@mui/material/Box";
+import Image from "next/image";
 
 import AccountLanguageSettings from "@/components/Account/AccountLanguageSettings/AccountLanguageSettings";
 import AccountNavigation from "@/components/Account/AccountNavigation/AccountNavigation";
 import LoginSecurityPage from "@/components/Account/LoginSecurity/LoginSecurity";
 import ProfileSettings from "@/components/Account/ProfileSettings/ProfileSettings";
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
 import styles from "./AccountPage.module.css";
 
@@ -23,7 +27,33 @@ const AccountPage = () => {
         {activeTab === "language" && <AccountLanguageSettings />}
         {activeTab === "profiles" && <ProfileSettings />}
         {activeTab === "security" && <LoginSecurityPage />}
-        {activeTab === "dashboard" && <Box>Dashboard Content Here</Box>}
+        {activeTab === "dashboard" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+            <Image src={view} className={styles["background"]}></Image>
+          </Box>
+        )}
+        {activeTab === "payment" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "appearance" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+            <Image src={appearance} className={styles["background"]}></Image>
+          </Box>
+        )}
+        {activeTab === "shortcuts" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
+        {activeTab === "help" && (
+          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
+            <ComingSoon />
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import useQueryParam from "@/hooks/useQueryParam";
 import { Box } from "@mui/material";
 
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
+
 import GeneralLayout from "./GeneralLayout/GeneralLayout";
 import Selection from "./Watch/Selection/Selection";
 
@@ -94,7 +96,12 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
     }
   };
 
-  return <Box>{getTab()}</Box>;
+  return (
+    <Box sx={{ position: "relative" }}>
+      {params.tab !== "watch" && <ComingSoon />}
+      {getTab()}
+    </Box>
+  );
 };
 
 export default GeneralTab;

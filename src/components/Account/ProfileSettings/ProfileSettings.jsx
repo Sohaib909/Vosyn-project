@@ -1,57 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
-import {
-  Avatar,
-  Box,
-  Grid2,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Profile from "@/Images/profile.png";
+import { Box } from "@mui/material";
+import Image from "next/image";
 
-import CustomSwitch from "@/components/Buttons/Switch/CustomSwitch";
+import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
 import styles from "./ProfileSettings.module.css";
 
 const ProfileSettings = () => {
-  const [profileData, setProfileData] = useState({
-    name: "",
-    birthday: "",
-    bio: "",
-    showName: false,
-    showBirthday: false,
-    showBio: false,
-  });
-  const [profilePic, setProfilePic] = useState(
-    "https://via.placeholder.com/100",
-  );
-
-  const handleChange = (e) => {
-    setProfileData({
-      ...profileData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSwitchChange = (field) => {
-    setProfileData({
-      ...profileData,
-      [field]: !profileData[field],
-    });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setProfilePic(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
-    <Box className={styles["profile-edit-container"]}>
-      <Typography variant="h4" className={styles["profile-title"]}>
+    <Box
+      className={styles["profile-edit-container"]}
+      sx={{ position: "relative" }}
+    >
+      <Box sx={{ width: "100%", height: "75vh", position: "absolute" }}>
+        <ComingSoon />
+        <Image src={Profile} className={styles["background"]}></Image>
+      </Box>
+
+      {/* <Typography variant="h4" className={styles["profile-title"]}>
         Profiles
       </Typography>
       <Typography variant="h9" className={styles["Subtitle"]}>
@@ -62,9 +30,7 @@ const ProfileSettings = () => {
           Edit Display Information
         </Typography>
         <Grid2 container spacing={4} className={styles["profile-edit-panel"]}>
-          {/* Left Panel */}
           <Grid2 item xs={12} md={6} className={styles["left-panel"]}>
-            {/* Profile Image Section */}
             <Box className={styles["profile-image-section"]}>
               <Typography
                 variant="body1"
@@ -87,7 +53,6 @@ const ProfileSettings = () => {
               </IconButton>
               <Box className={styles["display-info"]}>Display Publicly</Box>
             </Box>
-            {/* Name Input */}
             <Box className={styles["input-row"]}>
               <Typography variant="body1" className={styles["input-label"]}>
                 Name
@@ -101,7 +66,6 @@ const ProfileSettings = () => {
                 onChange={handleChange}
                 className={styles["input-field"]}
               />
-              {/* Privacy Toggles for name */}
               <Box className={styles["privacy-toggle"]}>
                 <CustomSwitch
                   checked={profileData.showName}
@@ -112,8 +76,6 @@ const ProfileSettings = () => {
                 />
               </Box>
             </Box>
-
-            {/* Birthday Input */}
             <Box className={styles["input-row"]}>
               <Typography
                 variant="body1"
@@ -136,7 +98,6 @@ const ProfileSettings = () => {
                   },
                 }}
               />
-              {/* Privacy toggle for birthday info*/}
               <Box className={styles["privacy-toggle"]}>
                 <CustomSwitch
                   checked={profileData.showBirthday}
@@ -147,8 +108,6 @@ const ProfileSettings = () => {
                 />
               </Box>
             </Box>
-
-            {/* Bio Input */}
             <Box className={styles["input-row"]}>
               <Typography variant="body1" className={styles["input-label"]}>
                 Note/Bio
@@ -164,7 +123,6 @@ const ProfileSettings = () => {
                 variant="outlined"
                 className={styles["input-field"]}
               />
-              {/* Privacy toggle for bio*/}
               <Box className={styles["privacy-toggle"]}>
                 <CustomSwitch
                   checked={profileData.showBio}
@@ -176,9 +134,8 @@ const ProfileSettings = () => {
               </Box>
             </Box>
           </Grid2>
-          {/* </Grid2> */}
         </Grid2>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

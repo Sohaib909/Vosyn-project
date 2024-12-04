@@ -8,7 +8,6 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 // Import YouTube icon
@@ -83,7 +82,10 @@ const TrendingCarousel = ({ featuredMedia }) => {
             >
               {featuredMedia?.[0]?.document?.titles?.[0]}
             </Typography>
-            <IconButton
+            {/* <IconButton
+              
+            > */}
+            <YouTube
               aria-label="YouTube"
               color="inherit"
               onClick={(e) => {
@@ -95,9 +97,8 @@ const TrendingCarousel = ({ featuredMedia }) => {
                 padding: "0.1875rem", // Converted 3px
                 marginLeft: "0.3125rem", // Converted 5px
               }}
-            >
-              <YouTube />
-            </IconButton>
+            />
+            {/* </IconButton> */}
           </CardContent>
         </CardActionArea>
       </Card>

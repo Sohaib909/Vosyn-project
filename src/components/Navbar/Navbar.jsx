@@ -26,7 +26,7 @@ const Navbar = () => {
       }}
     >
       <Toolbar className={styles.navContainer}>
-        <Link href="/home?tab=featured">
+        <Link href="/home?tab=watch">
           <Image
             src="/mediaFiles/Logos/vosyn_logo_long.png"
             width={684}

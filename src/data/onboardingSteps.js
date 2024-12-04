@@ -113,7 +113,8 @@ export const steps = [
           boldText: "All:",
           italicText: "I'm cultured, obviously",
         },
-        value: "all",
+        // TODO: this should be `all` but we have to check with Product and UI/UX to figure out what it does
+        value: "en",
       },
     ],
   },
@@ -144,7 +145,7 @@ export const steps = [
       {
         id: 4,
         optionText: "I'll wing it!",
-        value: "wing it",
+        value: "wing_it",
       },
     ],
   },
