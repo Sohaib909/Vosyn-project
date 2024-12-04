@@ -1,0 +1,9 @@
+runConfig:
+  minInstances: 0
+
+env:
+  - variable: SESSION_SECRET
+    secret: sessionSecret
+    availability:
+    -   BUILD
+    -   RUNTIME

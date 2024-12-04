@@ -30,12 +30,10 @@ const OnboardingQuestion = ({
       <Box className={styles.onboardingBody}>
         <Box className={styles.onboardingBodyContainer}>
           <Box className={styles.stepperHeader}>
-            <Typography
-              className={styles.stepperTitle}
-              variant="h5"
-              gutterBottom
-            >
-              {steps[onboardingStep].stepperTitle.text}{" "}
+            <Typography className={styles.stepperTitle} variant="h5">
+              <Typography component="span" className={`${styles.stepperTitle}`}>
+                {steps[onboardingStep].stepperTitle.text}{" "}
+              </Typography>
               <Typography
                 component="span"
                 variant="h5"
@@ -56,6 +54,11 @@ const OnboardingQuestion = ({
               </IconButton>
             </Typography>
           </Box>
+          <Typography
+            sx={{ fontWeight: 500, color: "var(--mui-palette-neutral-300)" }}
+          >
+            {steps[onboardingStep].subHeader.text}
+          </Typography>
           <Box className={styles.stepperOptions}>
             {steps[onboardingStep].options.map((option, index) => (
               <ButtonBase

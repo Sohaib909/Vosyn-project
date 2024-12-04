@@ -83,6 +83,7 @@ const AuthInput = ({
           sx={{
             color: "#d32f2f",
             marginLeft: 0,
+            fontSize: "0.875rem",
           }}
         >
           {helperText}

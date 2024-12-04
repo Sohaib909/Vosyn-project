@@ -16,13 +16,19 @@ import styles from "./page.module.css";
 const AuthPage = ({ searchParams }) => {
   const currentType = searchParams?.type;
   const validTypes = ["login", "signup"];
+  const colorScheme = "dark";
 
   if (!validTypes.includes(currentType)) {
     redirect("/auth?type=login");
   }
 
   return (
-    <Grid2 container component="main" className={styles.pageLayout}>
+    <Grid2
+      container
+      component="main"
+      className={styles.pageLayout}
+      data-theme={colorScheme}
+    >
       <Grid2
         size={{ xs: 12, sm: 7, md: 6, lg: 5, xl: 4 }}
         className={styles.pageLeftSide}

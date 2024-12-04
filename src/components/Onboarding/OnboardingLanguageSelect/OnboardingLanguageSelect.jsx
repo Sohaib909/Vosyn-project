@@ -43,7 +43,11 @@ const OnboardingLanguageSelect = ({
           </Typography>
         </Box>
         <Box className={styles.stepperSubheading}>
-          <Typography variant="body1" gutterBottom>
+          <Typography
+            variant="body1"
+            gutterBottom
+            sx={{ color: "var(--mui-palette-neutral-300)", fontWeight: "700" }}
+          >
             Now, let’s make VosynVerse speak your language.
             <br />
             Pick your browsing language below and let the fun begin!
@@ -66,16 +70,14 @@ const OnboardingLanguageSelect = ({
               className={styles.languageSelectorButtonContainer}
               onClick={showLanguageSelector}
               disableRipple
+              sx={{ backgroundColor: "#f7f9ff12" }}
             >
               <Typography
                 className={styles.selectorButton}
                 variant="button"
                 gutterBottom
                 sx={{
-                  color:
-                    currentLanguage.language === "Select language"
-                      ? "gray"
-                      : "black",
+                  color: "var(--mui-palette-primary-25)",
                 }}
               >
                 {currentLanguage.language}
