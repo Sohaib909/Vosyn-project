@@ -90,7 +90,7 @@ const ImagePage = () => {
             Translate
           </Button>
         </TranslationPanel>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", borderRadius: "12px" }}>
           <ContextualInfo />
         </Box>
         {image && image.current === image.translated && (
