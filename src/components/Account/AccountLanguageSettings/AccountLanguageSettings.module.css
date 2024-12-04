@@ -34,6 +34,12 @@
   color: white;
   margin-bottom: 20px;
 }
+.background {
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+  margin-left: 20%;
+}
 
 .languageSettingSection {
   position: relative;

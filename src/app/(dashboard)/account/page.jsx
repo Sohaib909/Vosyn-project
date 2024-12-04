@@ -2,7 +2,10 @@
 
 import React, { useState } from "react";
 
+import appearance from "@/Images/appearance.png";
+import view from "@/Images/view.png";
 import Box from "@mui/material/Box";
+import Image from "next/image";
 
 import AccountLanguageSettings from "@/components/Account/AccountLanguageSettings/AccountLanguageSettings";
 import AccountNavigation from "@/components/Account/AccountNavigation/AccountNavigation";
@@ -27,6 +30,7 @@ const AccountPage = () => {
         {activeTab === "dashboard" && (
           <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
             <ComingSoon />
+            <Image src={view} className={styles["background"]}></Image>
           </Box>
         )}
         {activeTab === "payment" && (
@@ -37,6 +41,7 @@ const AccountPage = () => {
         {activeTab === "appearance" && (
           <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
             <ComingSoon />
+            <Image src={appearance} className={styles["background"]}></Image>
           </Box>
         )}
         {activeTab === "shortcuts" && (

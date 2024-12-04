@@ -12,6 +12,13 @@
   color: white;
 }
 
+.background {
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+  margin-left: 20%;
+}
+
 .profile-subtitle {
   margin-top: 40px !important;
   color: white;
