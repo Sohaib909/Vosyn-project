@@ -29,7 +29,7 @@ const GeneralLayout = ({
       container
       size={11}
       spacing={4}
-      sx={{ paddingY: "3rem", width: "90vw" }}
+      sx={{ paddingY: "3rem", width: "100%" }}
     >
       <Grid2 spacing={2} container item size={12}>
         <HomeFilter />
