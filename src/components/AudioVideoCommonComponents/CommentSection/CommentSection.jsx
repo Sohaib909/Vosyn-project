@@ -105,13 +105,16 @@ const CommentSection = () => {
       </Grid2>
 
       <Grid2 container item size={12} spacing={2}>
-        {commentsData?.results?.slice(0, visibleCount).map((comment, index) => (
-          <Comment
-            key={index}
-            comment={comment}
-            onComment={handleSubmitNewComment}
-          />
-        ))}
+        {commentsData?.results
+          .filter((it) => it.parent === null)
+          ?.slice(0, visibleCount)
+          .map((comment, index) => (
+            <Comment
+              key={index}
+              comment={comment}
+              onComment={handleSubmitNewComment}
+            />
+          ))}
       </Grid2>
 
       <Grid2 item xs={12}>
