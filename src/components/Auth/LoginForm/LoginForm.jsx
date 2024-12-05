@@ -153,10 +153,6 @@ const LoginForm = () => {
           autocomplete="current-password"
         />
 
-        <Link href="/forgot-password" className={styles.forgotPwd}>
-          Forgot Password?
-        </Link>
-
         {loginApiError?.non_field_errors && (
           <Typography className={styles.error}>
             {loginApiError?.non_field_errors}

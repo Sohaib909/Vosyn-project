@@ -5,7 +5,6 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import Image from "next/image";
 
-import AlternateSignIn from "./AlternateSignIn/AlternateSignIn";
 import LoginForm from "./LoginForm/LoginForm";
 import SignupForm from "./SignupForm/SignupForm";
 
@@ -74,13 +73,6 @@ const Auth = ({ activeTab }) => {
         <Box className={styles.authContent}>
           {activeTab === "login" ? <LoginForm /> : <SignupForm />}
         </Box>
-
-        <Box className={styles.divider}>
-          <Box component="span" className={styles.line} />
-          <Typography className={styles.text}>Or</Typography>
-          <Box component="span" className={styles.line} />
-        </Box>
-        <AlternateSignIn />
       </Box>
     </Box>
   );

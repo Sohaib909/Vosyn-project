@@ -3,8 +3,7 @@
 import React from "react";
 
 import useStatusNotification from "@/hooks/useStatusNotification";
-import { Close, MoreVertRounded } from "@mui/icons-material";
-import { Box, Grid2, IconButton, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
@@ -60,13 +59,6 @@ const SideDisplayContainer = ({
 
   return (
     <>
-      {/* {containerType === "playlist" && (
-        // eslint-disable-next-line prettier/prettier
-        <Grid2 item size={12} className={styles.sectionContainer}>
-          <ContextualInfo />
-        </Grid2>
-      )} */}
-
       {containerType === "playlist" && (
         <Grid2 item size={12} className={styles.sectionContainer}>
           <Grid2 item size={12} className={styles.header}>
@@ -75,15 +67,6 @@ const SideDisplayContainer = ({
               <Typography variant="caption" sx={{ opacity: "0.7" }}>
                 {playlistData?.data?.length} videos
               </Typography>
-            </Box>
-
-            <Box>
-              <IconButton>
-                <MoreVertRounded />
-              </IconButton>
-              <IconButton>
-                <Close />
-              </IconButton>
             </Box>
           </Grid2>
 
@@ -112,15 +95,6 @@ const SideDisplayContainer = ({
               <Typography variant="caption" sx={{ opacity: "0.7" }}>
                 {videoListData?.length} videos
               </Typography>
-            </Box>
-
-            <Box>
-              <IconButton>
-                <MoreVertRounded />
-              </IconButton>
-              <IconButton>
-                <Close />
-              </IconButton>
             </Box>
           </Grid2>
 
