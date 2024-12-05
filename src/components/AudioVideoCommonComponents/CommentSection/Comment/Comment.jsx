@@ -9,21 +9,12 @@ import {
 import { Box, Button, Grid2, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 
-import LikeAndDislikeBtn from "@/components/LikeAndDislikeBtn/LikeAndDislikeBtn";
 import ProfileImage from "@/components/ProfileImage/ProfileImage";
 
 import styles from "./Comment.module.css";
 
 const Comment = ({ comment, onComment }) => {
-  const {
-    posted_by_user,
-    updated_at,
-    text,
-    replies,
-    like_count,
-    video_id,
-    id,
-  } = comment;
+  const { posted_by_user, updated_at, text, replies, video_id, id } = comment;
 
   const [showMore, setShowMore] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
@@ -112,28 +103,6 @@ const Comment = ({ comment, onComment }) => {
             }}
           >
             <Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  columnGap: "0.5rem",
-                  marginBottom: "10px",
-                }}
-              >
-                <LikeAndDislikeBtn
-                  likes={like_count}
-                  fontSize="1.2rem"
-                  height="1rem"
-                />
-
-                <Button
-                  variant="text"
-                  onClick={toggleShowReplyInput}
-                  className={styles.commentBtn}
-                >
-                  Reply
-                </Button>
-              </Box>
-
               {showReplyInput && (
                 <Box
                   sx={{

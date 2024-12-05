@@ -154,9 +154,11 @@ const SearchBar = () => {
         <input
           {...getInputProps()}
           className={styles.searchInput}
+          disabled
           onKeyDown={(e) => {
             if (e.key === "Enter") handleClickSearch();
           }}
+          value="Coming Soon"
           aria-label="Search VosynVerse"
         />
       </Box>
