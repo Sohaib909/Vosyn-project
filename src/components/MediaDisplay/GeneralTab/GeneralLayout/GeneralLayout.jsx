@@ -1,35 +1,27 @@
 import React from "react";
 
-import useQueryParam from "@/hooks/useQueryParam";
 import { Grid2 } from "@mui/material";
 
 import JumpIn from "@/components/MediaDisplay/ListenTab/JumpIn/JumpIn.jsx";
-import YouMightAlsoLike from "@/components/MediaDisplay/ListenTab/YouMightAlsoLike/YouMightAlsoLike.jsx";
 
 import HorizontalScrollDisplayContainer from "../../HorizontalScrollDisplayContainer/HorizontalScrollDisplayContainer";
 import TrendingCarousel from "../../TrendingCarousel/TrendingCarousel";
 import Built from "../Built/Built";
 import SectionHeader from "../SectionHeader/SectionHeader";
-import HomeFilter from "./HomeFilter/HomeFilter";
 
 const GeneralLayout = ({
   data,
   Component,
-  OptionalComponent,
   handleSelection,
   handleBuilt,
-  handleRecomend,
   tab,
 }) => {
-  const { getAllParams } = useQueryParam();
-  const params = getAllParams();
-
   return (
     <Grid2
       container
       size={11}
       spacing={4}
-      sx={{ paddingY: "3rem", px:"1rem", width: "100%" }}
+      sx={{ paddingY: "3rem", px: "1rem", width: "100%" }}
     >
       <Grid2 spacing={2} container item size={12}>
         {/* <HomeFilter /> */}
