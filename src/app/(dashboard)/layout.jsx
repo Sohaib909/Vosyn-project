@@ -11,7 +11,7 @@ const layout = ({ children }) => {
       <Grid2
         container
         component="main"
-        sx={{ display: "flex", px: "1rem", rowGap: "2rem" }}
+        sx={{ display: "flex", rowGap: "2rem" }}
       >
         <Navbar />
         <Grid2
