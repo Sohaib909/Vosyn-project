@@ -70,23 +70,25 @@ function AccountNavigation({ activeTab, onTabChange }) {
       <Box className={styles["border"]}>
         <Box className={styles["search-bar-container"]}>
           <TextField
+            className={styles["search-bar"]}
             variant="standard"
-            placeholder="Search"
-            slotProps={{
-              disableUnderline: true,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <MuiIcon name="Search" />
-                </InputAdornment>
-              ),
-            }}
+            placeholder="Search is coming soon"
+            disabled
             sx={{
               "input::placeholder": {
-                color: "#656565",
+                color: "#272626",
                 opacity: 1,
               },
             }}
-            className={styles["search-bar"]}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <MuiIcon name="Search" />
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         </Box>
         <List className={styles.sidebar}>
