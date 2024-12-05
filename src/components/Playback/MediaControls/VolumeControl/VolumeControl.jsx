@@ -41,6 +41,13 @@ const VolumeControl = () => {
     });
   };
 
+  const handleScroll = (e) => {
+    const delta = e.deltaY > 0 ? -0.05 : 0.05; // Increase or decrease volume
+    const newVolume = Math.min(Math.max(volume + delta, 0), 1); // Clamp between 0 and 1
+    dispatch(setVolume(newVolume));
+    mediaRef.current.volume = newVolume;
+  };
+
   const toggleMuteUnmute = () => {
     const currentVolume = mediaRef.current.volume;
 
@@ -60,12 +67,13 @@ const VolumeControl = () => {
       size={3}
       ref={volumeContainerRef}
       sx={{ position: "relative", width: "fit-content" }}
+      onWheel={handleScroll}
     >
       <PlaybackButtons
         Icon={volume === 0 ? VolumeOffRoundedIcon : VolumeUpRoundedIcon}
         onClick={toggleMuteUnmute}
         onMouseOver={() => setShowVolumeSlider(true)}
-        onMouseLeave={handleMenuClose}
+        // onMouseLeave={handleMenuClose}
       />
 
       {/* Volume Menu */}
