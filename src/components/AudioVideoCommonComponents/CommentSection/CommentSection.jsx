@@ -31,12 +31,21 @@ const CommentSection = () => {
   const [value, setValue] = useState();
   const [visibleCount, setVisibleCount] = useState(5);
 
+  // const {
+  //   data: commentsData,
+  //   error: commentsFetchError,
+  //   mutate: mutateComments,
+  //   isLoading,
+  // } = useSWR(`/api/comments?id=${mediaObj?.id}`, fetcher);
   const {
     data: commentsData,
     error: commentsFetchError,
     mutate: mutateComments,
     isLoading,
-  } = useSWR(`/api/comments?id=${mediaObj?.id}`, fetcher);
+  } = useSWR(
+    mediaObj?.id ? `/api/comments?video_id=${mediaObj.id}` : null, // Fetch only when mediaObj.id exists
+    fetcher,
+  );
 
   if (commentsFetchError) {
     setStatus(`${commentsData?.message}. Please try again.`, "error");
@@ -71,7 +80,7 @@ const CommentSection = () => {
   return (
     <Grid2 container spacing={2} size={12} className={styles.section}>
       <Grid2 item container xs={12} spacing={2} className={styles.input}>
-        <Typography>{commentsData?.results?.length} Comments</Typography>
+        <Typography>{commentsData?.length} Comments</Typography>
         <TextField
           fullWidth
           placeholder="Add comment"
@@ -105,8 +114,8 @@ const CommentSection = () => {
       </Grid2>
 
       <Grid2 container item size={12} spacing={2}>
-        {commentsData?.results
-          .filter((it) => it.parent === null)
+        {commentsData
+          ?.filter((it) => it.parent === null)
           ?.slice(0, visibleCount)
           .map((comment, index) => (
             <Comment
@@ -118,7 +127,7 @@ const CommentSection = () => {
       </Grid2>
 
       <Grid2 item xs={12}>
-        {visibleCount < commentsData?.results?.length && (
+        {visibleCount < commentsData?.length && (
           <Button sx={{ color: "inherit" }} onClick={handleLoadMore}>
             Load More
           </Button>
