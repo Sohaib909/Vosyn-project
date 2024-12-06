@@ -22,6 +22,7 @@ import FullscreenRoundedIcon from "@mui/icons-material/FullscreenRounded";
 import { Box, Grid2, Slider, Typography } from "@mui/material";
 
 import PlaybackButtons from "../PlaybackButtons/PlaybackButtons";
+import AutoDubbingSwitch from "./AutoDubbingSwitch/AutoDubbingSwitch";
 import CaptionButton from "./CaptionButton/CaptionButton";
 import SettingsGear from "./SettingsGear/SettingsGear";
 import SkipButtons from "./SkipButtons/SkipButtons";
@@ -156,6 +157,9 @@ const MediaControls = ({ type }) => {
           spacing={1}
           sx={{ width: "fit-content" }}
         >
+          <Grid2 item>
+            <AutoDubbingSwitch />
+          </Grid2>
           <Grid2
             item
             // sx={{
