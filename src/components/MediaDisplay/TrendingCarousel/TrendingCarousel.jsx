@@ -1,6 +1,5 @@
 import React from "react";
 
-import useQueryParam from "@/hooks/useQueryParam";
 import { YouTube } from "@mui/icons-material";
 import { Grid2 } from "@mui/material";
 import {
@@ -15,12 +14,10 @@ import { useRouter } from "next/navigation";
 
 const TrendingCarousel = ({ featuredMedia }) => {
   const router = useRouter();
-  const { getAllParams } = useQueryParam();
-  const params = getAllParams();
 
   // Click handler for navigating to the relevant link
   const handleCardClick = () => {
-    router.push(`/${params.tab}/${featuredMedia?.[0]?.document?.id}`);
+    router.push(`/video/${featuredMedia?.[0]?.document?.id}`);
   };
 
   return (
@@ -43,8 +40,8 @@ const TrendingCarousel = ({ featuredMedia }) => {
         <CardActionArea sx={{ height: "100%" }}>
           <CardMedia
             image={
-              "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg" ||
-              "https://via.placeholder.com/140"
+              featuredMedia?.[0]?.document?.thumbnail_url ||
+              "https://i.pinimg.com/originals/89/3e/5b/893e5bdf0499d714ddf77def68510bf2.jpg"
             }
             alt={featuredMedia?.[0]?.document?.titles?.[0]}
             component="img"

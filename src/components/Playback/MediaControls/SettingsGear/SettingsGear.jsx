@@ -6,25 +6,17 @@ import { Box, IconButton, Typography } from "@mui/material";
 
 const SettingsGear = () => {
   const [showSettings, setShowSettings] = useState(false);
-  const [resolution, setResolution] = useState("1080p");
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [hoveredSpeed, setHoveredSpeed] = useState(null);
 
   const playbackSpeedRef = useRef(null);
   const mediaRef = useMediaRef();
-
-  const resolutions = ["1080p", "720p", "480p", "240p"];
   const speedOptions = [
     { label: "1x", value: 1 },
     { label: "1.25x", value: 1.25 },
     { label: "1.5x", value: 1.5 },
     { label: "2x", value: 2 },
   ];
-
-  const handleResolutionChange = (res) => {
-    setResolution(res);
-    // Add logic to actually change the video resolution here
-  };
 
   const handleSpeedChange = (speedValue) => {
     if (mediaRef.current) {
@@ -149,46 +141,6 @@ const SettingsGear = () => {
                   }}
                 >
                   {option.label}
-                </Typography>
-              ))}
-            </Box>
-          </Box>
-
-          {/* Resolution Options Section */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography
-              variant="body2"
-              sx={{
-                marginRight: "16px",
-                color: "#aaa",
-                fontSize: "12px",
-                fontWeight: 500,
-              }}
-            >
-              Quality:
-            </Typography>
-            <Box sx={{ display: "flex", gap: "8px" }}>
-              {resolutions.map((res) => (
-                <Typography
-                  key={res}
-                  onClick={() => handleResolutionChange(res)}
-                  sx={{
-                    padding: "4px 8px",
-                    fontSize: "12px",
-                    cursor: "pointer",
-                    borderRadius: "4px",
-                    backgroundColor:
-                      resolution === res ? "#333" : "transparent",
-                    color: resolution === res ? "#fff" : "#aaa",
-                    "&:hover": {
-                      backgroundColor: "#222",
-                      color: "#fff",
-                    },
-                    fontWeight: resolution === res ? 600 : 400,
-                    transition: "background-color 0.2s ease, color 0.2s ease",
-                  }}
-                >
-                  {res}
                 </Typography>
               ))}
             </Box>
