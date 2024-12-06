@@ -1,0 +1,19 @@
+.spinner {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid white;
+  border-right-color: #ff00ff;
+  border-bottom-color: #00d8ff;
+  animation: rotate 0.8s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
