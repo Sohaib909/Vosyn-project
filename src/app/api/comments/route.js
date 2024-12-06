@@ -9,14 +9,13 @@ import { NextResponse } from "next/server";
  */
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
+  const videoId = searchParams.get("video_id") || "";
 
-  const data = {
-    id: searchParams.get("id") || "",
-  };
-
-  const queryParams = new URLSearchParams(data).toString();
+  // Build query params for backend API
+  const queryParams = new URLSearchParams({ video_id: videoId }).toString();
   const commentListUrl = `${COMMENTS_URL}?${queryParams}`;
 
+  // Make request to backend API
   const res = await axiosInstance.get(commentListUrl);
 
   return NextResponse.json(res.data, { status: res.status });
