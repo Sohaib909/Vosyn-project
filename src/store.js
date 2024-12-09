@@ -1,3 +1,4 @@
+import authSlice from "@/reduxSlices/authSlice.js";
 import dashObjectSlice from "@/reduxSlices/dashObjectSlice";
 import languageSlice from "@/reduxSlices/languageSlice";
 import playerSlice from "@/reduxSlices/playerSlice";
@@ -16,6 +17,7 @@ const combineReducer = combineReducers({
   dashObject: dashObjectSlice,
   languages: languageSlice,
   recorder: recordingSlice,
+  auth: authSlice,
 });
 
 const rootReducer = (state, action) => {

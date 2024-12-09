@@ -1,62 +1,104 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import appearance from "@/Images/appearance.png";
-import view from "@/Images/view.png";
-import Box from "@mui/material/Box";
-import Image from "next/image";
+import { Close } from "@mui/icons-material";
+import { Box, Icon, Typography } from "@mui/material";
 
-import AccountLanguageSettings from "@/components/Account/AccountLanguageSettings/AccountLanguageSettings";
-import AccountNavigation from "@/components/Account/AccountNavigation/AccountNavigation";
-import LoginSecurityPage from "@/components/Account/LoginSecurity/LoginSecurity";
-import ProfileSettings from "@/components/Account/ProfileSettings/ProfileSettings";
-import ComingSoon from "@/components/ComingSoon/ComingSoon";
+import SettingsAccount from "@/components/UserProfile/Settings/SettingsAccount";
+import SettingsAppearance from "@/components/UserProfile/Settings/SettingsAppearance";
+import SettingsHome from "@/components/UserProfile/Settings/SettingsHome";
+import SettingsLang from "@/components/UserProfile/Settings/SettingsLangPref";
+import "@/components/UserProfile/Settings/SettingsPage.css";
+import SettingsPrivacy from "@/components/UserProfile/Settings/SettingsPrivacy";
 
-import styles from "./AccountPage.module.css";
+const SettingsPage = () => {
+  const [currPage, setCurrPage] = useState("Settings");
+  const [showSavedAlert, setShowSavedAlert] = useState(false);
 
-const AccountPage = () => {
-  const [activeTab, setActiveTab] = useState("profiles");
+  useEffect(() => {
+    if (showSavedAlert) {
+      const timer = setTimeout(() => {
+        setShowSavedAlert(false);
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showSavedAlert]);
+
+  const renderContent = () => {
+    if (currPage === "Account") {
+      return (
+        <SettingsAccount
+          setCurrPage={setCurrPage}
+          setShowSavedAlert={setShowSavedAlert}
+        />
+      );
+    } else if (currPage === "Privacy & Security") {
+      return (
+        <SettingsPrivacy
+          setCurrPage={setCurrPage}
+          showSavedAlert={showSavedAlert}
+          setShowSavedAlert={setShowSavedAlert}
+        />
+      );
+    } else if (currPage === "Language Preferences") {
+      return (
+        <SettingsLang
+          setCurrPage={setCurrPage}
+          showSavedAlert={showSavedAlert}
+          setShowSavedAlert={setShowSavedAlert}
+        />
+      );
+    } else if (currPage === "Appearance") {
+      return (
+        <SettingsAppearance
+          setCurrPage={setCurrPage}
+          showSavedAlert={showSavedAlert}
+          setShowSavedAlert={setShowSavedAlert}
+        />
+      );
+    } else {
+      return (
+        <SettingsHome
+          setCurrPage={setCurrPage}
+          setShowSavedAlert={setShowSavedAlert}
+        />
+      );
+    }
+  };
 
   return (
-    <Box className={styles.accountPageContainer}>
-      <Box className={styles.navigationContainer}>
-        <AccountNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-      </Box>
-      <Box className={styles.profileContent}>
-        {activeTab === "language" && <AccountLanguageSettings />}
-        {activeTab === "profiles" && <ProfileSettings />}
-        {activeTab === "security" && <LoginSecurityPage />}
-        {activeTab === "dashboard" && (
-          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
-            <ComingSoon />
-            <Image src={view} className={styles["background"]}></Image>
-          </Box>
-        )}
-        {activeTab === "payment" && (
-          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
-            <ComingSoon />
-          </Box>
-        )}
-        {activeTab === "appearance" && (
-          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
-            <ComingSoon />
-            <Image src={appearance} className={styles["background"]}></Image>
-          </Box>
-        )}
-        {activeTab === "shortcuts" && (
-          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
-            <ComingSoon />
-          </Box>
-        )}
-        {activeTab === "help" && (
-          <Box sx={{ width: "70%", height: "75vh", position: "absolute" }}>
-            <ComingSoon />
+    <Box className="settings-container">
+      {currPage !== "Settings" && (
+        <Box className="crumbs">
+          <button
+            onClick={() => {
+              setCurrPage("Settings");
+              setShowSavedAlert(false);
+            }}
+          >
+            Settings
+          </button>{" "}
+          {" > "} {currPage}
+        </Box>
+      )}
+      <Box className="page-title">
+        {currPage}
+        {showSavedAlert && (
+          <Box className="saved-alert">
+            <Typography>Your changes have been saved</Typography>
+            <Icon
+              component={Close}
+              onClick={() => setShowSavedAlert(false)}
+            ></Icon>
           </Box>
         )}
       </Box>
+      <Box className="line"></Box>
+      {renderContent()}
     </Box>
   );
 };
 
-export default AccountPage;
+export default SettingsPage;
