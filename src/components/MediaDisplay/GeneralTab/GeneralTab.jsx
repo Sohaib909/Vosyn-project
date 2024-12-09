@@ -93,12 +93,7 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
           //   handleBuilt={handleBuilt}
           //   handleRecomend={handleRecomend}
           // />
-          <Image
-            src={read}
-            width={1920}
-            height={1080}
-            alt="figma read image"
-          ></Image>
+          <Image src={read} width={1920} alt="figma read image"></Image>
         );
       }
     }
@@ -111,6 +106,10 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
         width: "100%",
         textAlign: "center",
         minHeight: "1330px",
+        background:
+          params.tab === "read"
+            ? "linear-gradient(to right, #141319, #323137)"
+            : "transparent",
       }}
     >
       {params.tab !== "watch" && <ComingSoon />}
