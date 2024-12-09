@@ -52,11 +52,11 @@ const SettingsHome = () => {
   const handleLoginLogout = async () => {
     try {
       let res = await fetch("/api/auth/logout", { method: "POST" });
-      if (res.status == 204) {
+      if (res.status === 204 || res.status === 200) {
         console.log("user authenticated, logged out");
         localStorage.clear();
         dispatch(logout());
-        router.push("/auth?type=login");
+        await router.push("/auth?type=login");
       }
     } catch (err) {
       let statusCode = err?.response?.status;
@@ -64,7 +64,7 @@ const SettingsHome = () => {
         console.log("user not authenticated, logged out");
         localStorage.clear();
         dispatch(logout());
-        router.push("/auth?type=login");
+        await router.push("/auth?type=login");
       }
     }
   };
