@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
+import TranslateRoundedIcon from "@mui/icons-material/TranslateRounded";
 import { Box, FormControlLabel, Typography } from "@mui/material";
 
 // import dashjs from "dashjs";
@@ -138,14 +139,15 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
       <FormControlLabel
         sx={{ margin: "0" }}
         control={
-          <Typography
+          <Box
+            className={styles.switchIcon}
             onClick={() => {
               setShowLanguagePopup(true);
               handleToggleAutoDubbing();
             }}
           >
-            Change Language
-          </Typography>
+            <TranslateRoundedIcon sx={{ fontSize: "0.9 rem" }} />
+          </Box>
           // <Switch
           //   onMouseOver={() => autoDubbingEnabled && setShowLanguagePopup(true)}
           //   onMouseLeave={handleMenuClose}

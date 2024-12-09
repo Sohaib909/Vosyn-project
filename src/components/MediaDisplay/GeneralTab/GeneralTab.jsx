@@ -105,7 +105,14 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
   };
 
   return (
-    <Box sx={{ position: "relative", width: "100%", textAlign: "center" }}>
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+        textAlign: "center",
+        minHeight: "1330px",
+      }}
+    >
       {params.tab !== "watch" && <ComingSoon />}
       {getTab()}
     </Box>

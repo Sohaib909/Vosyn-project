@@ -7,9 +7,7 @@
 .switchIcon {
   width: 20px;
   height: 20px;
-
-  background-color: var(--mui-palette-neutral-25);
-  color: var(--mui-palette-neutral-900);
+  color: white;
 
   border-radius: 50%;
 
