@@ -121,6 +121,7 @@ const Comment = ({ comment, onComment }) => {
               >
                 <LikeAndDislikeBtn
                   likes={like_count}
+                  commentId={id}
                   fontSize="1.2rem"
                   height="1rem"
                 />

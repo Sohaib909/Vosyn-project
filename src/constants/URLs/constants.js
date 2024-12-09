@@ -23,3 +23,5 @@ export const VOSYN_ASSIST_CHAT = `${BASE_URL}/vosynassist/chat/`;
 export const LANGUAGES_URL = `https://pkgstore.datahub.io/core/language-codes/language-codes-full_json/data/573588525f24edb215c07bec3c309153/language-codes-full_json.json`;
 
 export const ACCOUNT_LANGUAGE_URL = `${BASE_URL}/user/profile/language/`;
+
+export const LIKE_AND_DISLIKE_COMMENT_URL = `${BASE_URL}/interactions/comments/`;
