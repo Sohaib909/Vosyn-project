@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import useQueryParam from "@/hooks/useQueryParam";
-import read from "@/Images/ReadPage.jpg";
+import read from "@/Images/ReadPage.svg";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
@@ -85,15 +85,34 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
         return <></>;
       } else {
         return (
-          // <GeneralLayout
-          //   data={data}
-          //   Component={Component}
-          //   OptionalComponent={OptionalComponent}
-          //   handleSelection={handleSelection}
-          //   handleBuilt={handleBuilt}
-          //   handleRecomend={handleRecomend}
-          // />
-          <Image src={read} width={1920} alt="figma read image"></Image>
+          <div
+            style={{
+              maxWidth: "100vw",
+              height: "1200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100vw",
+              maxHeight: "1000px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              style={{
+                marginTop: "400px",
+                maxWidth: "100vw",
+                height: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100vw",
+                maxHeight: "1330px",
+                scale: "1.3",
+              }}
+              src={read}
+              alt="figma read image"
+            />
+          </div>
         );
       }
     }
@@ -105,11 +124,6 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
         position: "relative",
         width: "100%",
         textAlign: "center",
-        minHeight: "1330px",
-        background:
-          params.tab === "read"
-            ? "linear-gradient(to right, #141319, #323137)"
-            : "transparent",
       }}
     >
       {params.tab !== "watch" && <ComingSoon />}
