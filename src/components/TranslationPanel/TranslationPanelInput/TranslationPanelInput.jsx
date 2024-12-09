@@ -37,7 +37,7 @@ const TranslationPanelInput = ({ array, label }) => {
   };
 
   return (
-    <FormControl sx={{ width: "100%" }}>
+    <FormControl disabled sx={{ width: "100%" }}>
       <InputLabel id="selectLanguageLabel">{label}</InputLabel>
       <Select
         sx={{ height: "3rem" }}

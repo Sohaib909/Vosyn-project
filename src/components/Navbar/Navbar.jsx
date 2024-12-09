@@ -1,5 +1,6 @@
 import { languages } from "@/data/languages";
 import { AppBar, Box, Toolbar } from "@mui/material";
+import { Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,21 +38,26 @@ const Navbar = () => {
           />
         </Link>
         <Box sx={{ display: "flex", columnGap: "1rem" }}>
-          <Box
-            sx={{
-              backgroundColor: "var(--mui-palette-neutral-800)",
-              borderRadius: "0.75rem",
-              boxShadow: "0 0 8px 1px var(--mui-palette-neutral-600)",
-              "& fieldset": { border: "none" },
-              "& .MuiListItemText-root": {
-                display: {
-                  xs: "none",
-                  sm: "block",
+          <Box>
+            <Box
+              sx={{
+                backgroundColor: "var(--mui-palette-neutral-800)",
+                borderRadius: "0.75rem",
+                boxShadow: "0 0 8px 1px var(--mui-palette-neutral-600)",
+                "& fieldset": { border: "none" },
+                "& .MuiListItemText-root": {
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
                 },
-              },
-            }}
-          >
-            <TranslationPanelInput array={languages} label="" />
+              }}
+            >
+              <TranslationPanelInput array={languages} label="" />
+            </Box>
+            <Typography sx={{ mt: "1vh", opacity: "0.7" }}>
+              * Under Development
+            </Typography>
           </Box>
           <SearchBar />
         </Box>
