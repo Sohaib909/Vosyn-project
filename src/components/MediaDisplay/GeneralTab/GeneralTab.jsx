@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 
 import useQueryParam from "@/hooks/useQueryParam";
+import read from "@/Images/ReadPage.svg";
 import { Box } from "@mui/material";
+import Image from "next/image";
 
 import ComingSoon from "@/components/ComingSoon/ComingSoon";
 
@@ -83,21 +85,47 @@ const GeneralTab = ({ data, Component, OptionalComponent }) => {
         return <></>;
       } else {
         return (
-          <GeneralLayout
-            data={data}
-            Component={Component}
-            OptionalComponent={OptionalComponent}
-            handleSelection={handleSelection}
-            handleBuilt={handleBuilt}
-            handleRecomend={handleRecomend}
-          />
+          <div
+            style={{
+              maxWidth: "100vw",
+              height: "1200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100vw",
+              maxHeight: "1000px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              style={{
+                marginTop: "400px",
+                maxWidth: "100vw",
+                height: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100vw",
+                maxHeight: "1330px",
+                scale: "1.3",
+              }}
+              src={read}
+              alt="figma read image"
+            />
+          </div>
         );
       }
     }
   };
 
   return (
-    <Box sx={{ position: "relative", width: "100%" }}>
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+        textAlign: "center",
+      }}
+    >
       {params.tab !== "watch" && <ComingSoon />}
       {getTab()}
     </Box>

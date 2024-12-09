@@ -59,38 +59,6 @@ const GeneralLayout = ({
           <Built data={data} Component={Component} handleClick={handleBuilt} />
         </Grid2>
       </Grid2>
-
-      {/* <Grid2 spacing={2} container item size={12}>
-        {params.tab === "watch" ? (
-          <SectionHeader
-            heading="Shorts"
-            subheading="Recommended based on your recent watch pattern"
-            handleClick={handleRecomend}
-          />
-        ) : params.tab == "read" ? (
-          <SectionHeader
-            heading="Entertainment & Media"
-            subheading="Based on your interest"
-            handleClick={handleRecomend}
-          />
-        ) : (
-          <SectionHeader
-            heading="You might also like: Society & Culture"
-            subheading="Based on your interest"
-            handleClick={handleRecomend}
-          />
-        )}
-
-      
-        {tab === "listen" ? (
-          <YouMightAlsoLike data={data} Component={Component} />
-        ) : (
-          <HorizontalScrollDisplayContainer
-            data={data}
-            Component={OptionalComponent ? OptionalComponent : Component}
-          />
-        )}
-      </Grid2> */}
     </Grid2>
   );
 };

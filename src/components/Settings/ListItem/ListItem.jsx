@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
 
@@ -68,13 +68,9 @@ export const ListItemWithCheckbox = ({
   );
 };
 
-export const ListItemWithIcon = ({
-  heading,
-  subheading,
-  start,
-  end,
-  onClick = () => {},
-}) => {
+export const ListItemWithIcon = ({ heading, subheading, start, end }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Box
       component="button"
@@ -95,7 +91,8 @@ export const ListItemWithIcon = ({
         },
         padding: "10px",
       }}
-      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Box
         sx={{
@@ -112,9 +109,11 @@ export const ListItemWithIcon = ({
             alignItems: "flex-start",
           }}
         >
-          <Typography id={`${heading}-label`}>{heading}</Typography>
+          <Typography id={`${heading}-label`}>
+            {isHovered ? "Coming Soon" : heading}
+          </Typography>
           <Typography variant="subtitle2" sx={{ opacity: "0.7" }}>
-            {subheading}
+            {isHovered ? "Coming Soon" : subheading}
           </Typography>
         </Box>
       </Box>

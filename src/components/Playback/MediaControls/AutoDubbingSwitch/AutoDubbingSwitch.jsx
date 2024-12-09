@@ -5,7 +5,7 @@ import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
 import TranslateRoundedIcon from "@mui/icons-material/TranslateRounded";
-import { Box, FormControlLabel, Switch, Typography } from "@mui/material";
+import { Box, FormControlLabel, Typography } from "@mui/material";
 
 // import dashjs from "dashjs";
 import AvailableLanguages from "./AvailableLanguages/AvailableLanguages";
@@ -139,22 +139,31 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
       <FormControlLabel
         sx={{ margin: "0" }}
         control={
-          <Switch
-            onMouseOver={() => autoDubbingEnabled && setShowLanguagePopup(true)}
-            onMouseLeave={handleMenuClose}
-            checked={autoDubbingEnabled}
-            onChange={handleToggleAutoDubbing}
-            icon={
-              <Box className={styles.switchIcon}>
-                <TranslateRoundedIcon sx={{ fontSize: "0.8rem" }} />
-              </Box>
-            }
-            checkedIcon={
-              <Box className={styles.switchIcon}>
-                <TranslateRoundedIcon sx={{ fontSize: "0.8rem" }} />
-              </Box>
-            }
-          />
+          <Box
+            className={styles.switchIcon}
+            onClick={() => {
+              setShowLanguagePopup(true);
+              handleToggleAutoDubbing();
+            }}
+          >
+            <TranslateRoundedIcon sx={{ fontSize: "0.9 rem" }} />
+          </Box>
+          // <Switch
+          //   onMouseOver={() => autoDubbingEnabled && setShowLanguagePopup(true)}
+          //   onMouseLeave={handleMenuClose}
+          //   checked={autoDubbingEnabled}
+          //   onChange={handleToggleAutoDubbing}
+          //   icon={
+          //     <Box className={styles.switchIcon}>
+          //       <TranslateRoundedIcon sx={{ fontSize: "0.8rem" }} />
+          //     </Box>
+          //   }
+          //   checkedIcon={
+          //     <Box className={styles.switchIcon}>
+          //       <TranslateRoundedIcon sx={{ fontSize: "0.8rem" }} />
+          //     </Box>
+          //   }
+          // />
         }
       />
 

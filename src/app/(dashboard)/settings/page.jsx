@@ -7,7 +7,6 @@ import { ChevronRight } from "@mui/icons-material";
 import { Box, Card, Container, Grid2, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-import ComingSoon from "@/components/ComingSoon/ComingSoon";
 import { ListItemWithIcon } from "@/components/Settings/ListItem/ListItem";
 
 const SettingsPage = () => {
@@ -28,7 +27,7 @@ const SettingsPage = () => {
         margin: "0 auto",
       }}
     >
-      <ComingSoon />
+      {/* <ComingSoon /> */}
       <Grid2 container size={{ xs: 12, md: 8, xl: 7 }}>
         <Container
           sx={{
