@@ -217,6 +217,7 @@ const SearchBar = () => {
           // backgroundColor: "var(--mui-palette-neutral-200)",
           backgroundColor: "rgba(0, 0, 0, 0.25)",
           borderRadius: "0rem 0.75rem 0.75rem 0rem",
+          cursor: "default",
         }}
         className={styles.vosynAssistButton}
       >

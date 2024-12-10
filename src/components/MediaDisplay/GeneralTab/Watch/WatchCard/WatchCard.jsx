@@ -8,6 +8,7 @@ function WatchCard({ item }) {
   const router = useRouter();
 
   const handleCardClick = () => {
+    console.log(item);
     router.push(`/video/${item.document.id}`);
   };
 
@@ -33,6 +34,7 @@ function WatchCard({ item }) {
           flexDirection: "column",
           justifyContent: "space-between",
           rowGap: "1rem",
+          textAlign: "left",
         }}
       >
         <Typography variant="p" sx={{ fontWeight: "bold" }}>
@@ -46,7 +48,7 @@ function WatchCard({ item }) {
             alignItems: "content",
           }}
         >
-          <Typography variant="p">Author</Typography>
+          <Typography variant="p">{`${item.document.description.slice(0, 25)}...`}</Typography>
           <YouTubeIcon />
         </Box>
       </CardContent>

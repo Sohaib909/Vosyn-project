@@ -1,11 +1,7 @@
 import React, { useRef } from "react";
 
-import {
-  MoreHorizRounded,
-  SearchRounded,
-  SendRounded,
-} from "@mui/icons-material";
-import { Box, Button, Grid2, IconButton, TextField } from "@mui/material";
+import { SearchRounded, SendRounded } from "@mui/icons-material";
+import { Box, Button, Grid2, TextField } from "@mui/material";
 
 const SearchBar = ({
   searchInput,
@@ -44,9 +40,6 @@ const SearchBar = ({
       />
 
       <Box sx={{ display: "flex", columnGap: "1rem" }}>
-        <IconButton aria-label="VosynAssist more optiions">
-          <MoreHorizRounded />
-        </IconButton>
         <Button
           variant="contained"
           onClick={sendMessageToGemini}

@@ -25,16 +25,16 @@ const SettingsGear = () => {
     setPlaybackSpeed(speedValue);
   };
 
-  const handleMouseEnterContainer = () => {
-    setShowSettings(true);
-  };
+  // const handleMouseEnterContainer = () => {
+  //   setShowSettings(true);
+  // };
 
-  const handleMouseLeaveContainer = (e) => {
-    const relatedTarget = e.relatedTarget;
-    if (!playbackSpeedRef.current.contains(relatedTarget)) {
-      setShowSettings(false);
-    }
-  };
+  // const handleMouseLeaveContainer = (e) => {
+  //   const relatedTarget = e.relatedTarget;
+  //   if (!playbackSpeedRef.current.contains(relatedTarget)) {
+  //     setShowSettings(false);
+  //   }
+  // };
 
   const handleOptionMouseEnter = (speedValue) => {
     setHoveredSpeed(speedValue);
@@ -46,8 +46,11 @@ const SettingsGear = () => {
 
   return (
     <Box
-      onMouseEnter={handleMouseEnterContainer}
-      onMouseLeave={handleMouseLeaveContainer}
+      // onMouseEnter={handleMouseEnterContainer}
+      // onMouseLeave={handleMouseLeaveContainer}
+      onClick={() => {
+        setShowSettings(!showSettings);
+      }}
       sx={{
         position: "relative",
         display: "inline-block",
