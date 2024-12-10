@@ -64,6 +64,9 @@ const CommentSection = () => {
       setStatus("Failed to add the comment.", "error");
     }
   };
+  const triggerRerender = () => {
+    mutateComments(); // Trigger a re-fetch of the comments data
+  };
 
   if (isLoading) {
     return <SkeletonLoader />;
@@ -122,6 +125,7 @@ const CommentSection = () => {
               key={index}
               comment={comment}
               onComment={handleSubmitNewComment}
+              triggerRerender={triggerRerender}
             />
           ))}
       </Grid2>
