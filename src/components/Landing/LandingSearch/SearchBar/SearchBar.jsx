@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 
-import { SearchRounded, SendRounded } from "@mui/icons-material";
+import logo from "@/Images/airis-logo.svg";
+import { SendRounded } from "@mui/icons-material";
 import { Box, Button, Grid2, TextField } from "@mui/material";
+import Image from "next/image";
 
 const SearchBar = ({
   searchInput,
@@ -24,7 +26,14 @@ const SearchBar = ({
 
   return (
     <Grid2 item sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-      <SearchRounded sx={{ fontSize: 32 }} />
+      {/* <SearchRounded sx={{ fontSize: 32 }} />
+       */}
+      <Image
+        alt="video result thumbnail"
+        src={logo}
+        height={60}
+        sx={{ transition: "opacity 2000ms ease-out 200ms" }}
+      />
       <TextField
         autoComplete="off"
         fullWidth
