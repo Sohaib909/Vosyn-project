@@ -19,6 +19,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import TermsAgreementModal from "@/components/TermsAgreement/TermsAgreementModal.jsx";
+
 import AuthInput from "../AuthInput/AuthInput";
 
 import styles from "./SignupForm.module.css";
@@ -28,6 +30,7 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [signupApiError, setSignupApiError] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { setStatus } = useStatusNotification();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -272,13 +275,29 @@ const SignupForm = () => {
             />
             <Typography className={styles.acknowledgement}>
               I have read and agree with Vosyn&apos;s{" "}
-              <Link className={styles.hyperlink} href={"/terms"}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+                onClick={() => setIsModalOpen(true)}
+                className={styles.hyperlink}
+              >
                 Terms of Service
-              </Link>{" "}
+              </Typography>{" "}
               and{" "}
-              <Link className={styles.hyperlink} href={"/privacy-policy"}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+                onClick={() => setIsModalOpen(true)}
+                className={styles.hyperlink}
+              >
                 Privacy Policy.
-              </Link>
+              </Typography>
             </Typography>
           </Box>
 
@@ -318,6 +337,10 @@ const SignupForm = () => {
           </Link>
         </Typography>
       </Box>
+      <TermsAgreementModal
+        isModalOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+      />
     </Box>
   );
 };
