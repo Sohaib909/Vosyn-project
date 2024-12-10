@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  box-shadow: 0 0 8px 1px var(--mui-palette-neutral-600);
+  /*box-shadow: 0 0 8px 1px var(--mui-palette-neutral-600);*/
 }
 
 .searchInputWrapper {

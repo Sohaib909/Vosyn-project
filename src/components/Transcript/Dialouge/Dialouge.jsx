@@ -5,8 +5,6 @@ import { selectLanguage } from "@/reduxSlices/languageSlice";
 import { selectPlayer, setCurrentTime } from "@/reduxSlices/playerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import FlagIcon from "@mui/icons-material/Flag";
-import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -71,34 +69,34 @@ const Dialogue = ({
     >
       {showFlagAndTime && (
         <>
-          {transcript.flagged ? (
-            <FlagIcon
-              onClick={() => {
-                handleflagging(transcript.timestamp);
-                setCurrentItemPosition(activeItemIndex);
-                if (
-                  transcriptList.current.scrollTop ==
-                  activeItemIndex * LIST_ITEM_HEIGHT
-                ) {
-                  setShowResumeScrolling(false);
-                  setAutoScroll(true);
-                }
-              }}
-            />
-          ) : (
-            <FlagOutlinedIcon
-              data-testid="FlagOutlinedIcon"
-              onClick={() => {
-                if (!isAnyTranscriptflagged) {
-                  handleflagging(transcript.timestamp);
-                  setShowResumeScrolling(true);
-                } else {
-                  setSnackMessage("Please complete the open suggestion");
-                  setIsSnackbarOpen(true);
-                }
-              }}
-            />
-          )}
+          {/*{transcript.flagged ? (*/}
+          {/*  <FlagIcon*/}
+          {/*    onClick={() => {*/}
+          {/*      handleflagging(transcript.timestamp);*/}
+          {/*      setCurrentItemPosition(activeItemIndex);*/}
+          {/*      if (*/}
+          {/*        transcriptList.current.scrollTop ==*/}
+          {/*        activeItemIndex * LIST_ITEM_HEIGHT*/}
+          {/*      ) {*/}
+          {/*        setShowResumeScrolling(false);*/}
+          {/*        setAutoScroll(true);*/}
+          {/*      }*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*) : (*/}
+          {/*  <FlagOutlinedIcon*/}
+          {/*    data-testid="FlagOutlinedIcon"*/}
+          {/*    onClick={() => {*/}
+          {/*      if (!isAnyTranscriptflagged) {*/}
+          {/*        handleflagging(transcript.timestamp);*/}
+          {/*        setShowResumeScrolling(true);*/}
+          {/*      } else {*/}
+          {/*        setSnackMessage("Please complete the open suggestion");*/}
+          {/*        setIsSnackbarOpen(true);*/}
+          {/*      }*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*)}*/}
           <Typography variant="body1" className={styles.transcript_time}>
             {transcript.timestamp}
           </Typography>

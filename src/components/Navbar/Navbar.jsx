@@ -43,7 +43,7 @@ const Navbar = () => {
               sx={{
                 backgroundColor: "var(--mui-palette-neutral-800)",
                 borderRadius: "0.75rem",
-                boxShadow: "0 0 8px 1px var(--mui-palette-neutral-600)",
+                // boxShadow: "0 0 8px 1px var(--mui-palette-neutral-600)",
                 "& fieldset": { border: "none" },
                 "& .MuiListItemText-root": {
                   display: {

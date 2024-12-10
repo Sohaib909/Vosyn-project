@@ -214,7 +214,8 @@ const SearchBar = () => {
       <ButtonBase
         onClick={handleClickSearch}
         sx={{
-          backgroundColor: "var(--mui-palette-neutral-200)",
+          // backgroundColor: "var(--mui-palette-neutral-200)",
+          backgroundColor: "rgba(0, 0, 0, 0.25)",
           borderRadius: "0rem 0.75rem 0.75rem 0rem",
         }}
         className={styles.vosynAssistButton}
