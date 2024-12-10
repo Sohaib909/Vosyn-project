@@ -19,13 +19,28 @@ function WatchCard({ item }) {
         width: "100%",
         cursor: "pointer",
         padding: "1rem",
+        transition: "all 0.3s ease",
+        "&:hover": {
+          transform: "scale(1.02)",
+          boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+        },
+        "&:hover .child": {
+          filter: "grayscale(0%)",
+        },
       }}
       onClick={handleCardClick}
     >
       <CardMedia
         component="img"
         image={item.document.thumbnail_url}
-        sx={{ borderRadius: "4px", maxHeight: "25vh", padding: "0" }}
+        className="child"
+        sx={{
+          borderRadius: "4px",
+          maxHeight: "25vh",
+          padding: "0",
+          filter: "grayscale(50%)",
+          transition: "filter 0.3s ease",
+        }}
       />
 
       <CardContent

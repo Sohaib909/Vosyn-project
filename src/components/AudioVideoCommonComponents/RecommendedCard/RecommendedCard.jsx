@@ -12,10 +12,28 @@ const RecommendedCard = ({ recommendedItem, onClick }) => {
     <Grid2
       item
       size={12}
+      sx={{
+        transition: "all 0.3s ease",
+        "&:hover": {
+          transform: "scale(1.02)",
+          boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+        },
+        "&:hover .child": {
+          filter: "grayscale(0%)",
+        },
+      }}
       className={styles.recommendedCard}
       onClick={() => onClick(id)}
     >
-      <Box className={styles.imageContainer}>
+      <Box
+        className="child"
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: "10rem",
+          filter: "grayscale(50%)",
+        }}
+      >
         <Image
           fill
           src={thumbnail_url}

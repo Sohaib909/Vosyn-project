@@ -148,7 +148,7 @@ const SearchBar = () => {
     <Box className={styles.searchBarContainer}>
       <Box {...getRootProps()} className={styles.searchInputWrapper}>
         <SearchRoundedIcon
-          sx={{ fontSize: "1.75rem", color: "white" }}
+          sx={{ fontSize: "1.75rem", color: "white", cursor: "default" }}
           className={styles.searchInputIcon}
         />
         <input
@@ -219,6 +219,7 @@ const SearchBar = () => {
           borderRadius: "0rem 0.75rem 0.75rem 0rem",
           cursor: "default",
         }}
+        disableTouchRipple
         className={styles.vosynAssistButton}
       >
         <Image

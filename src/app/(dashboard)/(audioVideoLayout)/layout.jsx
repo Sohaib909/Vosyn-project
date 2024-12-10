@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 
 import { Grid2 } from "@mui/material";
 
@@ -10,9 +12,32 @@ import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAu
 import VideoAudioDescription from "@/components/AudioVideoCommonComponents/VideoAudioDescription/VideoAudioDescription";
 import BackButton from "@/components/Buttons/BackButton/BackButton";
 
-// import TranslationPanel from "@/components/TranslationPanel/TranslationPanel";
+const Layout = ({ children }) => {
+  const [visibilityChangeTime, setVisibilityChangeTime] = useState(null);
 
-const layout = ({ children }) => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        setVisibilityChangeTime(Date.now());
+      } else if (
+        document.visibilityState === "visible" &&
+        visibilityChangeTime
+      ) {
+        const inactiveTime = (Date.now() - visibilityChangeTime) / 1000;
+        setVisibilityChangeTime(null);
+        if (inactiveTime >= 10) {
+          window.location.reload();
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [visibilityChangeTime]);
+
   return (
     <Grid2 container component="main" sx={{ px: "2rem" }} spacing={2}>
       <Grid2 item size={12}>
@@ -77,4 +102,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;
