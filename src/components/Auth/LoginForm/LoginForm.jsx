@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import Spinner from "@/components/Spinner/Spinner.jsx";
+
 import { setUserInfo } from "../../../reduxSlices/userSlice";
 import AuthInput from "../AuthInput/AuthInput";
 
@@ -112,6 +114,8 @@ const LoginForm = () => {
       });
     }
   };
+  // shows spinner when the user trys to login
+  if (isLoading) return <Spinner />;
 
   return (
     <Box className={styles.loginContent}>
