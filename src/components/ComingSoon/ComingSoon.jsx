@@ -17,7 +17,6 @@ const ComingSoon = ({ ht = true }) => {
         position: "absolute",
         zIndex: 5,
         overflow: "hidden",
-        pointerEvents: "none",
       }}
     >
       <Box
