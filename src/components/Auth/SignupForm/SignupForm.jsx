@@ -299,11 +299,7 @@ const SignupForm = () => {
                 compon
                 sx={{
                   display: "inline",
-                  textDecoration: "underline",
-                  cursor: "pointer",
                 }}
-                onClick={() => setIsModalOpen(true)}
-                className={styles.hyperlink}
               >
                 Terms of Service
               </Typography>{" "}
@@ -311,11 +307,7 @@ const SignupForm = () => {
               <Typography
                 sx={{
                   display: "inline",
-                  textDecoration: "underline",
-                  cursor: "pointer",
                 }}
-                onClick={() => setIsModalOpen(true)}
-                className={styles.hyperlink}
               >
                 Privacy Policy.
               </Typography>
