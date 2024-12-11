@@ -15,7 +15,7 @@ const TextScramble = ({ phrases }) => {
   const scrambleQueue = useRef([]);
   const frameRequest = useRef(null);
 
-  const chars = "!<>-_\\/[]{}—=+*^?#__";
+  const chars = "!<>-_/[]{}—=+?#_";
 
   const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
 
