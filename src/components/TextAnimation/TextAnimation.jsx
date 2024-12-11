@@ -4,9 +4,11 @@ import React, { useEffect, useRef } from "react";
 
 import { Box } from "@mui/material";
 
+import "./TextAnimation.css";
+
 const anminatedTexts = [
-  "In your language...",
-  "en tu idioma...",
+  "In your language... ",
+  "en tu idioma...     ",
   "Dans votre langue...",
 ];
 
@@ -16,6 +18,7 @@ const TextScramble = ({ phrases }) => {
   const frameRequest = useRef(null);
 
   const chars = "!<>-_/[]{}—=+?#_";
+  // const chars = "Vosyn";
 
   const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
 
@@ -25,8 +28,8 @@ const TextScramble = ({ phrases }) => {
     for (let i = 0; i < length; i++) {
       const from = oldText[i] || "";
       const to = newText[i] || "";
-      const start = Math.floor(Math.random() * 120);
-      const end = start + Math.floor(Math.random() * 120);
+      const start = Math.floor(Math.random() * 200);
+      const end = start + Math.floor(Math.random() * 200);
       scrambleQueue.current.push({ from, to, start, end, char: null });
     }
   };
@@ -41,7 +44,7 @@ const TextScramble = ({ phrases }) => {
         complete++;
         output += to;
       } else if (frame >= start) {
-        if (!char || Math.random() < 0.5) {
+        if (!char || Math.random() < 0.001) {
           char = randomChar();
           scrambleQueue.current[i].char = char;
         }
@@ -78,7 +81,7 @@ const TextScramble = ({ phrases }) => {
 
     const next = () => {
       setText(phrases[counter]).then(() => {
-        setTimeout(next, 2000);
+        setTimeout(next, 6000);
       });
       counter = (counter + 1) % phrases.length;
     };
@@ -94,14 +97,7 @@ const TextScramble = ({ phrases }) => {
 
   return (
     <Box sx={{ display: "inline" }}>
-      <span
-        ref={el}
-        style={{
-          fontSize: "2.125rem",
-          color: "#fff",
-          fontWeight: "bold",
-        }}
-      />
+      <span ref={el} class="text-gradient" />
     </Box>
   );
 };

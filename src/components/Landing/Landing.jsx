@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { Grid2, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 
 import LandingSearch from "@/components/Landing/LandingSearch/LandingSearch";
 import TextAnimation from "@/components/TextAnimation/TextAnimation.jsx";
@@ -18,15 +18,39 @@ const Landing = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "78vh",
+        minHeight: "48vh",
       }}
     >
-      <Typography variant="h4" sx={{ fontWeight: "bold", textAlign: "center" }}>
-        Access Global Content, <TextAnimation />
-      </Typography>
-
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          Access Global Content,&nbsp;
+        </Typography>
+        <Box
+          sx={{
+            width: "420px",
+            textAlign: "center",
+            display: "inline-block",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: "bold", textAlign: "left" }}
+          >
+            <TextAnimation />
+          </Typography>
+        </Box>
+      </Box>
       <LandingSearch />
     </Grid2>
   );
 };
+
 export default Landing;
