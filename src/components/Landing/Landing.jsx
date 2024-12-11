@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 
 import { Grid2, Typography } from "@mui/material";
 
 import LandingSearch from "@/components/Landing/LandingSearch/LandingSearch";
+import TextAnimation from "@/components/TextAnimation/TextAnimation.jsx";
 
 const Landing = () => {
   return (
@@ -19,11 +22,11 @@ const Landing = () => {
       }}
     >
       <Typography variant="h4" sx={{ fontWeight: "bold", textAlign: "center" }}>
-        Access Global Content, in your Language.
+        Access Global Content, <TextAnimation />
       </Typography>
+
       <LandingSearch />
     </Grid2>
   );
 };
-
 export default Landing;
