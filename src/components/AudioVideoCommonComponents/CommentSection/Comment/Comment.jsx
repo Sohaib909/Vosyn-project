@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { formatDate } from "@/utils/formatDate";
 import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
@@ -10,29 +10,24 @@ import ProfileImage from "@/components/ProfileImage/ProfileImage";
 
 import styles from "./Comment.module.css";
 
-const Comment = ({ comment, onComment, triggerRerender = null }) => {
-  const {
-    posted_by_user,
-    updated_at,
-    text,
-    replies,
-    like_count,
-    video_id,
-    like_status,
-    dislike_count,
-    id,
-  } = comment;
+// const Comment = ({ comment, onComment, triggerRerender = null }) => {
+const Comment = ({ comment, onComment }) => {
+  const { posted_by_user, updated_at, text, replies, video_id, id } = comment;
 
   const [showMore, setShowMore] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [value, setValue] = useState("");
 
-  const [stats, setStats] = useState({
-    likeCount: like_count,
-    dislikeCount: dislike_count,
-    likeStatus: like_status,
-  });
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    setStats({
+      likeCount: comment.like_count,
+      dislikeCount: comment.dislike_count,
+      likeStatus: comment.like_status ?? 0,
+    });
+  }, [comment]);
 
   const ToggleLike = async () => {
     try {
@@ -82,6 +77,7 @@ const Comment = ({ comment, onComment, triggerRerender = null }) => {
       text: value,
       video: video_id,
       parent: id,
+      like_status: 0,
     });
 
     toggleShowReplyInput();
@@ -156,14 +152,13 @@ const Comment = ({ comment, onComment, triggerRerender = null }) => {
                 }}
               >
                 <LikeAndDislikeBtn
-                  likes={stats.likeCount}
-                  like_status={stats.likeStatus}
+                  stats={stats}
                   ToggleLike={ToggleLike}
                   ToggleDislike={ToggleDislike}
                   fontSize="1.2rem"
                   height="1rem"
-                  commentId={id}
-                  triggerRerender={triggerRerender}
+                  // commentId={id}
+                  // triggerRerender={triggerRerender}
                 />
 
                 <Button
