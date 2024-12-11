@@ -10,7 +10,7 @@ import ProfileImage from "@/components/ProfileImage/ProfileImage";
 
 import styles from "./Comment.module.css";
 
-const Comment = ({ comment, onComment }) => {
+const Comment = ({ comment, onComment, triggerRerender = null }) => {
   const {
     posted_by_user,
     updated_at,
@@ -52,7 +52,6 @@ const Comment = ({ comment, onComment }) => {
       ? text
       : `${text.substring(0, 100)}...`;
   };
-
   return (
     <Grid2 container size={12} spacing={2} className={styles.commentContainer}>
       <Grid2 size={{ xs: 1.5, sm: 1, xl: 0.5 }} item>
@@ -117,6 +116,8 @@ const Comment = ({ comment, onComment }) => {
               >
                 <LikeAndDislikeBtn
                   likes={like_count}
+                  commentId={id}
+                  triggerRerender={triggerRerender}
                   fontSize="1.2rem"
                   height="1rem"
                 />

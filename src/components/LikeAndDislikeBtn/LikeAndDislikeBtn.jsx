@@ -1,10 +1,11 @@
-import React from "react";
-
 import { ThumbDownAltRounded, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box, Divider, IconButton, Typography } from "@mui/material";
+import axios from "axios";
 
 const LikeAndDislikeBtn = ({
   likes,
+  commentId,
+  triggerRerender = null,
   fontSize = "inherit",
   height = "1.6rem",
 }) => {
@@ -14,6 +15,16 @@ const LikeAndDislikeBtn = ({
     return count.toString();
   };
 
+  const actionHandler = async (action) => {
+    try {
+      const res = await axios.post(`/api/comments/${commentId}/${action}`);
+      if (res.status === 200) {
+        triggerRerender();
+      }
+    } catch (err) {
+      console.log(action, "=====>Failed");
+    }
+  };
   return (
     <Box
       sx={{
@@ -23,7 +34,7 @@ const LikeAndDislikeBtn = ({
         borderRadius: "12px",
       }}
     >
-      <IconButton>
+      <IconButton onClick={() => actionHandler("like")}>
         <ThumbUpAltRounded sx={{ fontSize: fontSize }} />
       </IconButton>
       <Typography sx={{ paddingRight: "10px" }}>
@@ -38,7 +49,7 @@ const LikeAndDislikeBtn = ({
           alignSelf: "center",
         }}
       />
-      <IconButton>
+      <IconButton onClick={() => actionHandler("dislike")}>
         <ThumbDownAltRounded sx={{ fontSize: fontSize }} />
       </IconButton>
     </Box>
