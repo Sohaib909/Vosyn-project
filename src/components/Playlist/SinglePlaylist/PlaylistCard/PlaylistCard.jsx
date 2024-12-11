@@ -27,6 +27,7 @@ const PlaylistCard = ({
         display: "flex",
         minWidth: "fit-content",
         alignItems: "center",
+        minHeight: "17vh",
         gap: 5,
         mb: 2,
       }}

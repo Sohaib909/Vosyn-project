@@ -73,6 +73,7 @@ const VolumeControl = () => {
         Icon={volume === 0 ? VolumeOffRoundedIcon : VolumeUpRoundedIcon}
         onClick={toggleMuteUnmute}
         onMouseOver={() => setShowVolumeSlider(true)}
+        onMouseLeave={() => setShowVolumeSlider(false)}
         // onMouseLeave={handleMenuClose}
       />
 

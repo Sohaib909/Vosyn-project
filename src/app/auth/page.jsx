@@ -42,7 +42,7 @@ const AuthPage = ({ searchParams }) => {
         <Box
           className={styles.backgroundImgContainer}
           style={{
-            backgroundImage: `url(/mediaFiles/Background/auth-page-image.png)`,
+            backgroundImage: `url(/mediaFiles/Background/auth-page-image-new.png)`,
           }}
         ></Box>
         <PlayArrowIcon className={styles.authPlayIcon} fontSize="inherit" />

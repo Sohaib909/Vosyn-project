@@ -1,6 +1,5 @@
 "use client";
 
-import useStatusNotification from "@/hooks/useStatusNotification";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import Image from "next/image";
@@ -23,16 +22,16 @@ const loginHeaderText = {
 };
 
 const Auth = ({ activeTab }) => {
-  const { setStatus } = useStatusNotification();
+  // const { setStatus } = useStatusNotification();
 
   const headerText =
     activeTab === "signup" ? signupHeaderText : loginHeaderText;
   const colorScheme = "dark"; // hardcoding dark mode for now
 
   // TODO: Implement switching between different languages on login/signup page
-  const toggleLanguage = () => {
-    setStatus("This feature has not been implemented yet", "info", 5000);
-  };
+  // const toggleLanguage = () => {
+  //   setStatus("This feature has not been implemented yet", "info", 5000);
+  // };
 
   const vosynLogoImg =
     colorScheme === "dark"
@@ -64,7 +63,8 @@ const Auth = ({ activeTab }) => {
 
         <ButtonBase
           className={styles.languageSelectorBox}
-          onClick={toggleLanguage}
+          // onClick={toggleLanguage}
+          disabled
         >
           <LanguageIcon />
           <Typography>English</Typography>

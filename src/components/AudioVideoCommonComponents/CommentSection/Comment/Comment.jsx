@@ -1,11 +1,7 @@
 import { useState } from "react";
 
 import { formatDate } from "@/utils/formatDate";
-import {
-  ArrowDropDownRounded,
-  ArrowDropUpRounded,
-  SentimentSatisfiedRounded,
-} from "@mui/icons-material";
+import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
 import { Box, Button, Grid2, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -141,16 +137,25 @@ const Comment = ({ comment, onComment }) => {
                     marginLeft: "1rem",
                   }}
                 >
-                  <Box sx={{ display: "flex", columnGap: "1rem" }}>
-                    <ProfileImage width="2rem" />
-                    <TextField
-                      fullWidth
-                      placeholder="Add a reply..."
-                      variant="standard"
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                    />
-                  </Box>
+                  <Grid2
+                    container
+                    spacing={8}
+                    // columnGap={2}
+                    sx={{ marginY: "2rem", alignItems: "center" }}
+                  >
+                    <Grid2 item size={{ xs: 4, md: 2 }}>
+                      <ProfileImage />
+                    </Grid2>
+                    <Grid2 item size={{ xs: 12, md: 10 }}>
+                      <TextField
+                        fullWidth
+                        placeholder="Add a reply..."
+                        variant="standard"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                      />
+                    </Grid2>
+                  </Grid2>
 
                   <Box
                     sx={{
@@ -159,7 +164,7 @@ const Comment = ({ comment, onComment }) => {
                       alignItems: "center",
                     }}
                   >
-                    <SentimentSatisfiedRounded sx={{ marginLeft: "3rem" }} />
+                    {/*<SentimentSatisfiedRounded sx={{ marginLeft: "3rem" }} />*/}
 
                     <Box>
                       <Button

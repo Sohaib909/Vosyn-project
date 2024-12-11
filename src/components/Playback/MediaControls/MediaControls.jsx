@@ -154,7 +154,7 @@ const MediaControls = ({ type }) => {
           container
           justifyContent="flex-end"
           alignItems={"center"}
-          spacing={1}
+          spacing={4}
           sx={{ width: "fit-content" }}
         >
           <Grid2 item>

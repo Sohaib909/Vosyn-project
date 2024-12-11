@@ -15,6 +15,7 @@ const ButtonWithIconAndText = ({
       onClick={method}
       variant={variant}
       size={size}
+      disabled={text === "Subscribe"}
       sx={{
         background: "var(--mui-palette-neutral-700)",
         width: "fit-content",

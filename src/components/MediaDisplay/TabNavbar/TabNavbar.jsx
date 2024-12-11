@@ -49,6 +49,7 @@ const TabNavbar = () => {
             fontWeight: "bold",
             bgcolor: "transparent",
             border: "1px solid var(--mui-palette-primary-main)",
+            textTransform: "none",
           },
           "& button:hover": {
             bgcolor: "var(--mui-palette-primary-600)",

@@ -133,7 +133,15 @@ const SinglePlaylist = ({ data = videos, icons = true, filters }) => {
   const filteredVideos = filterData(data);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "3vh",
+        maxHeight: "34vh",
+        overflowY: "scroll",
+      }}
+    >
       <Grid2 container>
         <Grid2 item xs={12}>
           {/* Conditionally rendered the filter close button here */}

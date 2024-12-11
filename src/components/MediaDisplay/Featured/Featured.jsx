@@ -21,7 +21,14 @@ const VideoDatas = {
 
 const FeaturedTab = () => {
   return (
-    <Box sx={{ position: "relative", width: "100%", justifyItems: "center" }}>
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+        justifyItems: "center",
+        pb: "10vh",
+      }}
+    >
       <ComingSoon />
       <Grid2 container size={11} spacing={4} sx={{ paddingY: "3rem" }}>
         <Grid container item size={12} spacing={2}>

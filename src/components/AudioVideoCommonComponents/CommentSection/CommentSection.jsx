@@ -80,7 +80,10 @@ const CommentSection = () => {
   return (
     <Grid2 container spacing={2} size={12} className={styles.section}>
       <Grid2 item container xs={12} spacing={2} className={styles.input}>
-        <Typography>{commentsData?.length} Comments</Typography>
+        <Typography>
+          {commentsData?.length}{" "}
+          {commentsData?.length === 1 ? "Comment" : "Comments"}
+        </Typography>
         <TextField
           fullWidth
           placeholder="Add comment"
