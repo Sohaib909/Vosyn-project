@@ -18,6 +18,8 @@ const Comment = ({ comment, onComment, triggerRerender = null }) => {
     replies,
     like_count,
     video_id,
+    like_status,
+    dislike_count,
     id,
   } = comment;
 
@@ -25,6 +27,45 @@ const Comment = ({ comment, onComment, triggerRerender = null }) => {
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [value, setValue] = useState("");
+
+  const [stats, setStats] = useState({
+    likeCount: like_count,
+    dislikeCount: dislike_count,
+    likeStatus: like_status,
+  });
+
+  const ToggleLike = async () => {
+    try {
+      setStats((prev) => ({
+        dislikeCount:
+          prev.likeStatus === -1 ? prev.dislikeCount - 1 : prev.dislikeCount,
+        likeCount:
+          prev.likeStatus === 0 || prev.likeStatus === -1
+            ? prev.likeCount + 1
+            : prev.likeCount - 1,
+        likeStatus: prev.likeStatus === 0 || prev.likeStatus === -1 ? 1 : 0,
+      }));
+      await fetch(`/api/comments/${id}/like`, { method: "POST" });
+    } catch (error) {
+      throw new Error("Error while liking video");
+    }
+  };
+
+  const ToggleDislike = async () => {
+    try {
+      setStats((prev) => ({
+        likeCount: prev.likeStatus === 1 ? prev.likeCount - 1 : prev.likeCount,
+        dislikeCount:
+          prev.likeStatus === 0 || prev.likeStatus === 1
+            ? prev.dislikeCount + 1
+            : prev.dislikeCount - 1,
+        likeStatus: prev.likeStatus === 0 || prev.likeStatus === 1 ? -1 : 0,
+      }));
+      await fetch(`/api/comments/${id}/dislike`, { method: "POST" });
+    } catch (error) {
+      throw new Error("Error while disliking video");
+    }
+  };
 
   const toggleShowMore = () => setShowMore((prev) => !prev);
   const toggleShowReplies = () => setShowReplies((prev) => !prev);
@@ -115,11 +156,14 @@ const Comment = ({ comment, onComment, triggerRerender = null }) => {
                 }}
               >
                 <LikeAndDislikeBtn
-                  likes={like_count}
-                  commentId={id}
-                  triggerRerender={triggerRerender}
+                  likes={stats.likeCount}
+                  like_status={stats.likeStatus}
+                  ToggleLike={ToggleLike}
+                  ToggleDislike={ToggleDislike}
                   fontSize="1.2rem"
                   height="1rem"
+                  commentId={id}
+                  triggerRerender={triggerRerender}
                 />
 
                 <Button

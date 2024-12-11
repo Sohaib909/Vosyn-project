@@ -3,11 +3,14 @@ import { Box, Divider, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 
 const LikeAndDislikeBtn = ({
+  like_status,
   likes,
-  commentId,
-  triggerRerender = null,
   fontSize = "inherit",
   height = "1.6rem",
+  ToggleLike,
+  ToggleDislike,
+  commentId,
+  triggerRerender = null,
 }) => {
   const formatLikesCount = (count) => {
     if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M`;
@@ -35,7 +38,14 @@ const LikeAndDislikeBtn = ({
       }}
     >
       <IconButton onClick={() => actionHandler("like")}>
-        <ThumbUpAltRounded sx={{ fontSize: fontSize }} />
+        <ThumbUpAltRounded
+          sx={{
+            fontSize: fontSize,
+            color:
+              like_status == 1 ? "var(--mui-palette-primary-main)" : "inherit",
+          }}
+          onClick={ToggleLike}
+        />
       </IconButton>
       <Typography sx={{ paddingRight: "10px" }}>
         {formatLikesCount(likes || 0)}
@@ -50,7 +60,14 @@ const LikeAndDislikeBtn = ({
         }}
       />
       <IconButton onClick={() => actionHandler("dislike")}>
-        <ThumbDownAltRounded sx={{ fontSize: fontSize }} />
+        <ThumbDownAltRounded
+          sx={{
+            fontSize: fontSize,
+            color:
+              like_status === -1 ? "var(--mui-palette-error-main)" : "inherit",
+          }}
+          onClick={ToggleDislike}
+        />
       </IconButton>
     </Box>
   );
