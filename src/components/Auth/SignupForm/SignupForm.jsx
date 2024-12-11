@@ -35,33 +35,39 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const signUpSchema = z.object({
-    username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
-      message:
-        "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
-    }),
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z
-      .string()
-      .min(12, { message: "Password must be at least 12 characters long." })
-      .refine((value) => /[a-z]/.test(value), {
-        message: "Password must contain at least one lowercase letter.",
-      })
-      .refine((value) => /[A-Z]/.test(value), {
-        message: "Password must contain at least one uppercase letter.",
-      })
-      .refine((value) => /\d/.test(value), {
-        message: "Password must contain at least one number.",
-      })
-      .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
-        message: "Password must contain at least one special character.",
+  const signUpSchema = z
+    .object({
+      username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
+        message:
+          "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
       }),
-    hasAgreedToTerms: z.literal(true, {
-      errorMap: () => ({
-        message: "You must agree to the terms and conditions",
+      email: z.string().email({ message: "Invalid email address" }),
+      password: z
+        .string()
+        .min(12, { message: "Password must be at least 12 characters long." })
+        .refine((value) => /[a-z]/.test(value), {
+          message: "Password must contain at least one lowercase letter.",
+        })
+        .refine((value) => /[A-Z]/.test(value), {
+          message: "Password must contain at least one uppercase letter.",
+        })
+        .refine((value) => /\d/.test(value), {
+          message: "Password must contain at least one number.",
+        })
+        .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
+          message: "Password must contain at least one special character.",
+        }),
+      confirmPassword: z.string(),
+      hasAgreedToTerms: z.literal(true, {
+        errorMap: () => ({
+          message: "You must agree to the terms and conditions",
+        }),
       }),
-    }),
-  });
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
 
   const validatePassword = (thePassword) => {
     if (!thePassword) return [];
@@ -242,6 +248,18 @@ const SignupForm = () => {
           password={password}
           autocomplete="new-password"
         />
+        <AuthInput
+          label="Confirm Password"
+          id="signup-confirm-password"
+          register={register("confirmPassword")}
+          error={errors.confirmPassword} // Display error if passwords don't match
+          helperText={errors.confirmPassword?.message || ""} // Show error message
+          variant="password"
+          togglePasswordVisibility={togglePasswordVisibility}
+          showPassword={showPassword}
+          autocomplete="new-password"
+          placeholderText="Re-enter your password"
+        />
         {password === "" && (
           <Typography className={styles.signupPasswordHelperText}>
             Set a strong password with at least 12 characters, including a
@@ -273,9 +291,10 @@ const SignupForm = () => {
                 },
               }}
             />
-            <Typography className={styles.acknowledgement}>
+            <Box className={styles.acknowledgement}>
               I have read and agree with Vosyn&apos;s{" "}
               <Typography
+                compon
                 sx={{
                   display: "inline",
                   textDecoration: "underline",
@@ -298,7 +317,7 @@ const SignupForm = () => {
               >
                 Privacy Policy.
               </Typography>
-            </Typography>
+            </Box>
           </Box>
 
           {errors.hasAgreedToTerms?.message && (

@@ -1,0 +1,26 @@
+.text-gradient {
+  color: transparent;
+  background-image: linear-gradient(
+    to left,
+    #ffd700,
+    #7b68ee,
+    #3498db,
+    #2ecc71,
+    #ffd700
+  );
+  webkit-background-clip: text;
+  background-clip: text;
+  animation: color 3s linear infinite;
+  background-size: 500%;
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+}
+
+@keyframes color {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
