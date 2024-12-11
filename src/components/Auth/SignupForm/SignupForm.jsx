@@ -216,6 +216,7 @@ const SignupForm = () => {
           error={errors.username || signupApiError?.username}
           helperText={errors.username?.message || signupApiError?.username}
           autocomplete="new-username"
+          placeholderText="username"
         />
         <AuthInput
           label="Email address"
@@ -247,6 +248,7 @@ const SignupForm = () => {
           showPassword={showPassword}
           password={password}
           autocomplete="new-password"
+          placeholderText="password"
         />
         <AuthInput
           label="Confirm Password"

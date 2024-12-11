@@ -30,7 +30,7 @@ const RecommendedCard = ({ recommendedItem, onClick }) => {
         sx={{
           position: "relative",
           width: "100%",
-          height: "10rem",
+          height: "18rem",
           filter: "grayscale(50%)",
         }}
       >

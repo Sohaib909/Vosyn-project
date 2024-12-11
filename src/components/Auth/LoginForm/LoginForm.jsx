@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import Spinner from "@/components/Spinner/Spinner.jsx";
+import TermsAgreementModal from "@/components/TermsAgreement/TermsAgreementModal";
 
 import { setUserInfo } from "../../../reduxSlices/userSlice";
 import AuthInput from "../AuthInput/AuthInput";
@@ -25,6 +26,7 @@ const LoginForm = () => {
   const [loginApiError, setLoginApiError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loginSchema = z.object({
     email: z.string().email({ message: "Invalid email address" }),
@@ -155,6 +157,7 @@ const LoginForm = () => {
           togglePasswordVisibility={togglePasswordVisibility}
           showPassword={showPassword}
           autocomplete="current-password"
+          placeholderText="password"
         />
 
         {loginApiError?.non_field_errors && (
@@ -162,6 +165,47 @@ const LoginForm = () => {
             {loginApiError?.non_field_errors}
           </Typography>
         )}
+
+        <Box
+          sx={{
+            mt: 2,
+          }}
+        >
+          <Box className={styles.acknowledgement}>
+            By signing in you agree with Vosyn&apos;s{" "}
+            <Typography
+              compon
+              sx={{
+                display: "inline",
+                textDecoration: "underline",
+                cursor: "pointer",
+                color: "#527af9",
+              }}
+              onClick={() => setIsModalOpen(true)}
+              className={styles.hyperlink}
+            >
+              Terms of Service
+            </Typography>{" "}
+            and{" "}
+            <Typography
+              sx={{
+                display: "inline",
+                textDecoration: "underline",
+                cursor: "pointer",
+                color: "#527af9",
+              }}
+              onClick={() => setIsModalOpen(true)}
+              className={styles.hyperlink}
+            >
+              Privacy Policy.
+            </Typography>
+          </Box>
+        </Box>
+
+        <TermsAgreementModal
+          isModalOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+        />
 
         <Button
           type="submit"
