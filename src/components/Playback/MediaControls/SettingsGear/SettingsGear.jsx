@@ -4,19 +4,29 @@ import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { Box, IconButton, Typography } from "@mui/material";
 
-const SettingsGear = () => {
+const SettingsGear = ({ onQualityChange, hideButtonInMediaPlayer }) => {
   const [showSettings, setShowSettings] = useState(false);
+  const [resolution, setResolution] = useState("1080p");
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [hoveredSpeed, setHoveredSpeed] = useState(null);
 
   const playbackSpeedRef = useRef(null);
   const mediaRef = useMediaRef();
+
+  const resolutions = ["1080p", "720p", "480p", "240p"];
   const speedOptions = [
     { label: "1x", value: 1 },
     { label: "1.25x", value: 1.25 },
     { label: "1.5x", value: 1.5 },
     { label: "2x", value: 2 },
   ];
+
+  const handleResolutionChange = (res) => {
+    setResolution(res);
+    if (onQualityChange) {
+      onQualityChange(res);
+    }
+  };
 
   const handleSpeedChange = (speedValue) => {
     if (mediaRef.current) {
@@ -54,29 +64,31 @@ const SettingsGear = () => {
         marginBottom: "3px",
       }}
     >
-      {/* Button to toggle settings */}
-      <IconButton
-        sx={{
-          border: "2px solid #fff",
-          borderRadius: "4px",
-          padding: "4px",
-          width: "17px",
-          height: "17px",
-          position: "relative",
-          "&:hover": {
-            borderColor: "var(--mui-palette-secondary-main)",
-            backgroundColor: "rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <SettingsRoundedIcon
+      {/* Button to toggle settings, only render if not in MediaPlayer */}
+      {!hideButtonInMediaPlayer && (
+        <IconButton
           sx={{
-            color: "#fff",
-            fontSize: "10px",
-            "&:hover": { color: "var(--mui-palette-secondary-main)" },
+            border: "2px solid #fff",
+            borderRadius: "4px",
+            padding: "4px",
+            width: "17px",
+            height: "17px",
+            position: "relative",
+            "&:hover": {
+              borderColor: "var(--mui-palette-secondary-main)",
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+            },
           }}
-        />
-      </IconButton>
+        >
+          <SettingsRoundedIcon
+            sx={{
+              color: "#fff",
+              fontSize: "10px",
+              "&:hover": { color: "var(--mui-palette-secondary-main)" },
+            }}
+          />
+        </IconButton>
+      )}
 
       {/* Menu for speed and resolution options */}
       {showSettings && (
@@ -94,7 +106,7 @@ const SettingsGear = () => {
             padding: "8px 12px",
             display: "flex",
             flexDirection: "column",
-            gap: "8px", // Reduced gap
+            gap: "8px",
           }}
         >
           {/* Speed Controls Section */}
@@ -141,6 +153,46 @@ const SettingsGear = () => {
                   }}
                 >
                   {option.label}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Resolution Options Section */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              variant="body2"
+              sx={{
+                marginRight: "16px",
+                color: "#aaa",
+                fontSize: "12px",
+                fontWeight: 500,
+              }}
+            >
+              Quality:
+            </Typography>
+            <Box sx={{ display: "flex", gap: "8px" }}>
+              {resolutions.map((res) => (
+                <Typography
+                  key={res}
+                  onClick={() => handleResolutionChange(res)}
+                  sx={{
+                    padding: "4px 8px",
+                    fontSize: "12px",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    backgroundColor:
+                      resolution === res ? "#333" : "transparent",
+                    color: resolution === res ? "#fff" : "#aaa",
+                    "&:hover": {
+                      backgroundColor: "#222",
+                      color: "#fff",
+                    },
+                    fontWeight: resolution === res ? 600 : 400,
+                    transition: "background-color 0.2s ease, color 0.2s ease",
+                  }}
+                >
+                  {res}
                 </Typography>
               ))}
             </Box>

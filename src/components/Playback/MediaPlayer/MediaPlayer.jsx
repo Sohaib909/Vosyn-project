@@ -14,6 +14,7 @@ import {
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
 
+import SettingsGear from "../MediaControls/SettingsGear/SettingsGear";
 import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 
 import styles from "./MediaPlayer.module.css";
@@ -32,48 +33,93 @@ const MediaPlayer = ({ showScreen = true }) => {
   const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
 
+  const video = {
+    id: "764d3565-d0d2-451f-a426-937580c58e65",
+    qualities: [
+      {
+        id: 240,
+        resolution: "1920x1080",
+        quality: "1080",
+        file_stream_cdn_url:
+          "https://storage.googleapis.com/vv_backend_test/video_v2048_1080/dash/video_v2048_1080_uhd.mpd",
+        video: "764d3565-d0d2-451f-a426-937580c58e65",
+      },
+      {
+        id: 241,
+        resolution: "1440x720",
+        quality: "720",
+        file_stream_cdn_url:
+          "https://storage.googleapis.com/vv_backend_test/video_v2048_1080/dash/video_v2048_1080_hd.mpd",
+        video: "764d3565-d0d2-451f-a426-937580c58e65",
+      },
+      {
+        id: 242,
+        resolution: "960x480",
+        quality: "480",
+        file_stream_cdn_url:
+          "https://storage.googleapis.com/vv_backend_test/video_v2048_1080/dash/video_v2048_1080_sd.mpd",
+        video: "764d3565-d0d2-451f-a426-937580c58e65",
+      },
+    ],
+  };
+
   // Initialize Dash.js when video ref is set and ready
   useEffect(() => {
     const player = dashjs.MediaPlayer().create();
-    player.initialize(mediaRef.current, "/testVideo/example_dash1.mpd", false);
+    player.initialize(
+      mediaRef.current,
+      video.qualities[0].file_stream_cdn_url,
+      false,
+    );
+
+    const DEFAULT_QUALITY_INDEX = 0;
+    player.updateSettings({
+      streaming: {
+        abr: {
+          autoSwitchBitrate: false,
+        },
+      },
+    });
+    player.setQualityFor("video", DEFAULT_QUALITY_INDEX);
+    player.setQualityFor("audio", DEFAULT_QUALITY_INDEX);
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      // Get all audio tracks
       const audioTracks = player.getTracksFor("audio");
-
-      console.log(captionLanguage, "DUBBEDLANGUAGE", dubbedLanguage);
       const selectedAudio = audioTracks.find((track) =>
         track && dubbedLanguage ? track?.lang === dubbedLanguage : "en",
       );
       player.setCurrentTrack(selectedAudio);
 
-      // Get all caption (text) tracks
       const textTracks = player.getTracksFor("text");
-
-      // Set the default or selected caption track
       const selectedTrack = textTracks.find((track) =>
         track && captionLanguage ? track.lang === captionLanguage : "en",
       );
       player.setCurrentTrack(selectedTrack);
     });
-    console.log(self, "self");
 
     player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
       console.error("Dash.js error:", e);
     });
 
-    // Cleanup function to reset the player when unmounted
     return () => {
       player.reset();
       dispatch(setPlaying(false));
     };
   }, [mediaObj, mediaRef, dubbedLanguage, captionLanguage]);
 
+  const handleQualityChange = (newResolution) => {
+    const qualityIndex = video.qualities.findIndex(
+      (quality) => quality.resolution === newResolution,
+    );
+    if (qualityIndex !== -1) {
+      mediaRef.current.src = video.qualities[qualityIndex].file_stream_cdn_url;
+    }
+  };
+
   return (
     <Box
       className={`${captionsEnabled && !showScreen && styles.audio} ${styles.mediaPlayerContainer}`}
     >
-      {/** Player */}
       {showScreen ? (
         <video
           ref={mediaRef} // Attach ref to video element
@@ -88,15 +134,12 @@ const MediaPlayer = ({ showScreen = true }) => {
             }
           }}
         >
-          {/** Media captions */}
           <track
             label="English"
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            // default
           />
-          {/** Media source */}
           <source
             src={mediaObj ? mediaObj.file_stream_cdn_url : ""}
             type="application/dash+xml"
@@ -122,9 +165,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             kind="captions"
             srcLang="en"
             src="/sampleCaptions/sampleCaptions.vtt"
-            // default
           />
-          {/** Media source */}
           <source
             src={mediaObj ? mediaObj.file_stream_cdn_url : ""}
             type="application/dash+xml"
@@ -132,7 +173,11 @@ const MediaPlayer = ({ showScreen = true }) => {
           Your browser does not support the video tag.
         </audio>
       )}
-
+      {/* Settings Gear with resolution selection */}
+      <SettingsGear
+        onQualityChange={handleQualityChange}
+        hideButtonInMediaPlayer={true}
+      />
       {/* Playback status */}
       <PlaybackStatus
         playing={playing}
