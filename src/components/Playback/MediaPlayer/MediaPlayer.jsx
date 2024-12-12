@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
@@ -9,7 +9,6 @@ import {
   setCurrentTime,
   setDuration,
   setHasEnded,
-  setPlaying,
 } from "@/reduxSlices/playerSlice";
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
@@ -32,42 +31,61 @@ const MediaPlayer = ({ showScreen = true }) => {
   const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
 
+  const playerRef = useRef(null);
+
   // Initialize Dash.js when video ref is set and ready
   useEffect(() => {
-    const player = dashjs.MediaPlayer().create();
-    player.initialize(mediaRef.current, "/testVideo/example_dash1.mpd", false);
+    if (!mediaRef.current) return;
 
-    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      // Get all audio tracks
-      const audioTracks = player.getTracksFor("audio");
-
-      console.log(captionLanguage, "DUBBEDLANGUAGE", dubbedLanguage);
-      const selectedAudio = audioTracks.find((track) =>
-        track && dubbedLanguage ? track?.lang === dubbedLanguage : "en",
+    if (!playerRef.current) {
+      const player = dashjs.MediaPlayer().create();
+      player.initialize(
+        mediaRef.current,
+        "/testVideo/example_dash1.mpd",
+        false,
       );
-      player.setCurrentTrack(selectedAudio);
 
-      // Get all caption (text) tracks
-      const textTracks = player.getTracksFor("text");
+      player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+        console.log("Dash.js initialized");
+      });
 
-      // Set the default or selected caption track
-      const selectedTrack = textTracks.find((track) =>
-        track && captionLanguage ? track.lang === captionLanguage : "en",
-      );
-      player.setCurrentTrack(selectedTrack);
-    });
-    console.log(self, "self");
+      player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
+        console.error("Dash.js error:", e);
+      });
 
-    player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
-      console.error("Dash.js error:", e);
-    });
+      playerRef.current = player;
+    }
 
-    // Cleanup function to reset the player when unmounted
     return () => {
-      player.reset();
-      dispatch(setPlaying(false));
+      if (playerRef.current) {
+        playerRef.current.reset();
+        playerRef.current = null;
+      }
     };
-  }, [mediaObj, mediaRef, dubbedLanguage, captionLanguage]);
+  }, [mediaRef]);
+
+  useEffect(() => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    const textTracks = player.getTracksFor("text");
+    const selectedTrack = textTracks.find((track) =>
+      captionLanguage ? track.lang === captionLanguage : "en",
+    );
+    if (selectedTrack) {
+      player.setCurrentTrack(selectedTrack);
+    }
+
+    const audioTracks = player.getTracksFor("audio");
+    const selectedAudio = audioTracks.find((track) =>
+      dubbedLanguage ? track?.lang === dubbedLanguage : "en",
+    );
+    if (selectedAudio) {
+      player.setCurrentTrack(selectedAudio);
+    }
+
+    console.log("Updated captions and audio tracks");
+  }, [captionLanguage, dubbedLanguage]);
 
   return (
     <Box
