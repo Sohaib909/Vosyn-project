@@ -1,13 +1,16 @@
 import { ThumbDownAltRounded, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box, Divider, IconButton, Typography } from "@mui/material";
-import axios from "axios";
+
+// import axios from "axios";
 
 const LikeAndDislikeBtn = ({
-  likes,
-  commentId,
-  triggerRerender = null,
+  stats,
   fontSize = "inherit",
   height = "1.6rem",
+  ToggleLike,
+  ToggleDislike,
+  // commentId,
+  // triggerRerender = null,
 }) => {
   const formatLikesCount = (count) => {
     if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M`;
@@ -15,16 +18,16 @@ const LikeAndDislikeBtn = ({
     return count.toString();
   };
 
-  const actionHandler = async (action) => {
-    try {
-      const res = await axios.post(`/api/comments/${commentId}/${action}`);
-      if (res.status === 200) {
-        triggerRerender();
-      }
-    } catch (err) {
-      console.log(action, "=====>Failed");
-    }
-  };
+  // const actionHandler = async (action) => {
+  //   try {
+  //     const res = await axios.post(`/api/comments/${commentId}/${action}`);
+  //     if (res.status === 200) {
+  //       triggerRerender();
+  //     }
+  //   } catch (err) {
+  //     console.log(action, "=====>Failed");
+  //   }
+  // };
   return (
     <Box
       sx={{
@@ -34,11 +37,19 @@ const LikeAndDislikeBtn = ({
         borderRadius: "12px",
       }}
     >
-      <IconButton onClick={() => actionHandler("like")}>
-        <ThumbUpAltRounded sx={{ fontSize: fontSize }} />
+      <IconButton onClick={ToggleLike}>
+        <ThumbUpAltRounded
+          sx={{
+            fontSize: fontSize,
+            color:
+              stats?.likeStatus == 1
+                ? "var(--mui-palette-primary-main)"
+                : "inherit",
+          }}
+        />
       </IconButton>
       <Typography sx={{ paddingRight: "10px" }}>
-        {formatLikesCount(likes || 0)}
+        {formatLikesCount(stats?.likeCount || 0)}
       </Typography>
       <Divider
         orientation="vertical"
@@ -49,8 +60,16 @@ const LikeAndDislikeBtn = ({
           alignSelf: "center",
         }}
       />
-      <IconButton onClick={() => actionHandler("dislike")}>
-        <ThumbDownAltRounded sx={{ fontSize: fontSize }} />
+      <IconButton onClick={ToggleDislike}>
+        <ThumbDownAltRounded
+          sx={{
+            fontSize: fontSize,
+            color:
+              stats?.likeStatus === -1
+                ? "var(--mui-palette-error-main)"
+                : "inherit",
+          }}
+        />
       </IconButton>
     </Box>
   );

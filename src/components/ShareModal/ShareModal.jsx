@@ -34,6 +34,8 @@ const ShareModal = ({
   const { currentTime } = useSelector(selectPlayer);
   const { mediaObj } = useSelector(selectDashObject);
   const [buttonText, setButtonText] = useState("Copy Link");
+  const currentLocation =
+    typeof window !== "undefined" ? window.location.href : "";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(window?.location?.href);
@@ -146,7 +148,7 @@ const ShareModal = ({
                 fullWidth
                 variant="outlined"
                 size="small"
-                value={window.location.href}
+                value={currentLocation}
               />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
