@@ -35,6 +35,20 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const validDomains = [
+    "com",
+    "org",
+    "net",
+    "edu",
+    "gov",
+    "info",
+    "biz",
+    "name",
+    "pro",
+    "ca",
+    "eu",
+    "xyz",
+  ];
   const signUpSchema = z
     .object({
       username: z.string().regex(/^[a-z0-9_]{3,30}$/, {
@@ -46,7 +60,18 @@ const SignupForm = () => {
         .email({ message: "Invalid email address" })
         .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, {
           message: "Email must contain only lowercase letters",
-        }),
+        })
+        .refine(
+          (email) => {
+            const domain = email.split("@")[1]?.split(".").pop(); // Extract domain (e.g., com, org)
+            return validDomains.includes(domain); // Check if domain is in the valid list
+          },
+          {
+            message: `Invalid email domain. Allowed domains: ${validDomains.join(
+              ", ",
+            )}`,
+          },
+        ),
       password: z
         .string()
         .min(12, { message: "Password must be at least 12 characters long." })
