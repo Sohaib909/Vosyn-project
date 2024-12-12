@@ -37,11 +37,16 @@ const SignupForm = () => {
 
   const signUpSchema = z
     .object({
-      username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
+      username: z.string().regex(/^[a-z0-9_]{3,30}$/, {
         message:
           "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
       }),
-      email: z.string().email({ message: "Invalid email address" }),
+      email: z
+        .string()
+        .email({ message: "Invalid email address" })
+        .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, {
+          message: "Email must contain only lowercase letters",
+        }),
       password: z
         .string()
         .min(12, { message: "Password must be at least 12 characters long." })
