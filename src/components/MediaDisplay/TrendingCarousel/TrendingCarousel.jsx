@@ -23,7 +23,7 @@ const TrendingCarousel = ({ featuredMedia }) => {
   return (
     <Grid2
       size={12}
-      sx={{ minHeight: "20rem", maxHeight: "25rem" }}
+      sx={{ minHeight: "20rem", maxHeight: "85%" }}
       key={featuredMedia?.[0]?.document?.id}
       onClick={handleCardClick}
     >

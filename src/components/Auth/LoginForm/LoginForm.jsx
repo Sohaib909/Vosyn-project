@@ -177,11 +177,7 @@ const LoginForm = () => {
               compon
               sx={{
                 display: "inline",
-                textDecoration: "underline",
-                cursor: "pointer",
-                color: "#527af9",
               }}
-              onClick={() => setIsModalOpen(true)}
               className={styles.hyperlink}
             >
               Terms of Service
@@ -190,11 +186,7 @@ const LoginForm = () => {
             <Typography
               sx={{
                 display: "inline",
-                textDecoration: "underline",
-                cursor: "pointer",
-                color: "#527af9",
               }}
-              onClick={() => setIsModalOpen(true)}
               className={styles.hyperlink}
             >
               Privacy Policy.

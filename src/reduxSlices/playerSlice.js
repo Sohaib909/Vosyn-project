@@ -18,6 +18,7 @@ const initialState = {
   currentSubtitle: "",
   showTranscripts: false,
   showTranslatedTranscript: false,
+  videoQuality: "1080",
 };
 
 const playerSlice = createSlice({
@@ -75,6 +76,9 @@ const playerSlice = createSlice({
     setShowTranslatedTranscript: (state, action) => {
       state.showTranslatedTranscript = action.payload;
     },
+    setVideoQuality: (state, action) => {
+      state.videoQuality = action.payload;
+    },
   },
 });
 
@@ -96,6 +100,7 @@ export const {
   setCurrentSubtitle,
   setShowTranscripts,
   setShowTranslatedTranscript,
+  setVideoQuality,
 } = playerSlice.actions;
 export const selectPlayer = (state) => state.player;
 export default playerSlice.reducer;

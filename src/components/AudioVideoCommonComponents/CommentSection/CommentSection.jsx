@@ -56,13 +56,16 @@ const CommentSection = () => {
       const res = await axios.post("/api/comments", newComment);
 
       if (res.status === 201) {
+        mutateComments(); // Trigger a re-fetch to update the playlist data
         setStatus("Comment added successfully.", "success");
         setValue("");
-        mutateComments(); // Trigger a re-fetch to update the playlist data
       }
     } catch (err) {
       setStatus("Failed to add the comment.", "error");
     }
+  };
+  const triggerRerender = () => {
+    mutateComments(); // Trigger a re-fetch of the comments data
   };
 
   if (isLoading) {
@@ -94,6 +97,7 @@ const CommentSection = () => {
               handleSubmitNewComment({
                 text: value,
                 video: mediaObj?.id,
+                like_status: 0,
               });
             }
           }}
@@ -125,6 +129,7 @@ const CommentSection = () => {
               key={index}
               comment={comment}
               onComment={handleSubmitNewComment}
+              triggerRerender={triggerRerender}
             />
           ))}
       </Grid2>

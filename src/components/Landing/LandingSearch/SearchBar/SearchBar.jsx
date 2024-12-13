@@ -37,7 +37,7 @@ const SearchBar = ({
       <TextField
         autoComplete="off"
         fullWidth
-        placeholder="Start exploring by searching or uploading anything"
+        placeholder="Start exploring by searching for anything"
         onChange={(e) => setSearchInput(e.target.value)}
         value={searchInput}
         inputRef={searchInputRef}

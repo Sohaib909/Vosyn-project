@@ -20,18 +20,24 @@ import AudioPlayback from "./AudioPlayback/AudioPlayback";
 import VideoPlayback from "./VideoPlayback/VideoPlayback";
 
 const fetcher = (url) => axios.get(url).then((res) => res?.data);
+console.log(fetcher, "check");
 
-const Playback = ({ id, type }) => {
+const Playback = ({ type, id }) => {
   const mediaRef = useMediaRef();
   const dispatch = useDispatch();
   const { captionsEnabled, currentTime, subtitles } = useSelector(selectPlayer);
   const { mediaObj } = useSelector(selectDashObject);
   const { setStatus } = useStatusNotification();
 
+  // Clear the media object when the id changes
+  useEffect(() => {
+    dispatch(setDashObject(null)); // Reset media object before fetching new data
+  }, [id, dispatch]);
+
   const { error } = useSWR(`/api/video/${id}`, fetcher, {
     onSuccess: (newData) => {
       dispatch(setDashObject({ ...newData }));
-      dispatch(setPlaying(false));
+      dispatch(setPlaying(true));
     },
   });
 
@@ -71,7 +77,7 @@ const Playback = ({ id, type }) => {
   useEffect(() => {
     const track = mediaRef?.current?.textTracks[0];
 
-    if (track) {
+    if (captionsEnabled && track) {
       track.mode = "hidden";
       const parsedSubtitles = parseVTT(track?.cues);
       dispatch(setSubtitles(parsedSubtitles));
@@ -90,7 +96,7 @@ const Playback = ({ id, type }) => {
       media?.removeEventListener("waiting", handleWaiting);
       media?.removeEventListener("playing", handlePlaying);
     };
-  }, [handleWaiting, handlePlaying, mediaRef]);
+  }, [handleWaiting, handlePlaying]);
 
   useEffect(() => {
     if (captionsEnabled) {
@@ -108,7 +114,10 @@ const Playback = ({ id, type }) => {
   }, [currentTime, captionsEnabled, dispatch, subtitles]);
 
   return type === "video" ? (
-    <VideoPlayback likes={mediaObj?.like_count} />
+    <VideoPlayback
+      likes={mediaObj?.like_count}
+      videoUrl={mediaObj?.file_stream_cdn_url}
+    />
   ) : (
     <AudioPlayback likes={mediaObj?.like_count} />
   );

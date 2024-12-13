@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { formatDate } from "@/utils/formatDate";
 import { ArrowDropDownRounded, ArrowDropUpRounded } from "@mui/icons-material";
@@ -10,21 +10,57 @@ import ProfileImage from "@/components/ProfileImage/ProfileImage";
 
 import styles from "./Comment.module.css";
 
+// const Comment = ({ comment, onComment, triggerRerender = null }) => {
 const Comment = ({ comment, onComment }) => {
-  const {
-    posted_by_user,
-    updated_at,
-    text,
-    replies,
-    like_count,
-    video_id,
-    id,
-  } = comment;
+  const { posted_by_user, updated_at, text, replies, video_id, id } = comment;
 
   const [showMore, setShowMore] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [value, setValue] = useState("");
+
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    setStats({
+      likeCount: comment.like_count,
+      dislikeCount: comment.dislike_count,
+      likeStatus: comment.like_status ?? 0,
+    });
+  }, [comment]);
+
+  const ToggleLike = async () => {
+    try {
+      setStats((prev) => ({
+        dislikeCount:
+          prev.likeStatus === -1 ? prev.dislikeCount - 1 : prev.dislikeCount,
+        likeCount:
+          prev.likeStatus === 0 || prev.likeStatus === -1
+            ? prev.likeCount + 1
+            : prev.likeCount - 1,
+        likeStatus: prev.likeStatus === 0 || prev.likeStatus === -1 ? 1 : 0,
+      }));
+      await fetch(`/api/comments/${id}/like`, { method: "POST" });
+    } catch (error) {
+      throw new Error("Error while liking video");
+    }
+  };
+
+  const ToggleDislike = async () => {
+    try {
+      setStats((prev) => ({
+        likeCount: prev.likeStatus === 1 ? prev.likeCount - 1 : prev.likeCount,
+        dislikeCount:
+          prev.likeStatus === 0 || prev.likeStatus === 1
+            ? prev.dislikeCount + 1
+            : prev.dislikeCount - 1,
+        likeStatus: prev.likeStatus === 0 || prev.likeStatus === 1 ? -1 : 0,
+      }));
+      await fetch(`/api/comments/${id}/dislike`, { method: "POST" });
+    } catch (error) {
+      throw new Error("Error while disliking video");
+    }
+  };
 
   const toggleShowMore = () => setShowMore((prev) => !prev);
   const toggleShowReplies = () => setShowReplies((prev) => !prev);
@@ -41,6 +77,7 @@ const Comment = ({ comment, onComment }) => {
       text: value,
       video: video_id,
       parent: id,
+      like_status: 0,
     });
 
     toggleShowReplyInput();
@@ -52,7 +89,6 @@ const Comment = ({ comment, onComment }) => {
       ? text
       : `${text.substring(0, 100)}...`;
   };
-
   return (
     <Grid2 container size={12} spacing={2} className={styles.commentContainer}>
       <Grid2 size={{ xs: 1.5, sm: 1, xl: 0.5 }} item>
@@ -116,9 +152,13 @@ const Comment = ({ comment, onComment }) => {
                 }}
               >
                 <LikeAndDislikeBtn
-                  likes={like_count}
+                  stats={stats}
+                  ToggleLike={ToggleLike}
+                  ToggleDislike={ToggleDislike}
                   fontSize="1.2rem"
                   height="1rem"
+                  // commentId={id}
+                  // triggerRerender={triggerRerender}
                 />
 
                 <Button

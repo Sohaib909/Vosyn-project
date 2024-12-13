@@ -115,10 +115,10 @@ const VosynAssistResponse = ({
               >
                 <Image
                   alt="video result thumbnail"
-                  src={logo}
+                  src={video.thumbnail_url}
                   width={video.thumbnail_width}
                   height={video.thumbnail_height}
-                  // className={styles.videoThumbnail}
+                  className={styles.videoThumbnail}
                 />
                 <CardContent
                   sx={{

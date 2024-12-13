@@ -35,13 +35,43 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const validDomains = [
+    "com",
+    "org",
+    "net",
+    "edu",
+    "gov",
+    "info",
+    "biz",
+    "name",
+    "pro",
+    "ca",
+    "eu",
+    "xyz",
+  ];
   const signUpSchema = z
     .object({
-      username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
+      username: z.string().regex(/^[a-z0-9_]{3,30}$/, {
         message:
           "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
       }),
-      email: z.string().email({ message: "Invalid email address" }),
+      email: z
+        .string()
+        .email({ message: "Invalid email address" })
+        .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, {
+          message: "Email must contain only lowercase letters",
+        })
+        .refine(
+          (email) => {
+            const domain = email.split("@")[1]?.split(".").pop(); // Extract domain (e.g., com, org)
+            return validDomains.includes(domain); // Check if domain is in the valid list
+          },
+          {
+            message: `Invalid email domain. Allowed domains: ${validDomains.join(
+              ", ",
+            )}`,
+          },
+        ),
       password: z
         .string()
         .min(12, { message: "Password must be at least 12 characters long." })
@@ -299,11 +329,7 @@ const SignupForm = () => {
                 compon
                 sx={{
                   display: "inline",
-                  textDecoration: "underline",
-                  cursor: "pointer",
                 }}
-                onClick={() => setIsModalOpen(true)}
-                className={styles.hyperlink}
               >
                 Terms of Service
               </Typography>{" "}
@@ -311,11 +337,7 @@ const SignupForm = () => {
               <Typography
                 sx={{
                   display: "inline",
-                  textDecoration: "underline",
-                  cursor: "pointer",
                 }}
-                onClick={() => setIsModalOpen(true)}
-                className={styles.hyperlink}
               >
                 Privacy Policy.
               </Typography>
