@@ -105,13 +105,14 @@ const MediaPlayer = ({ showScreen = true }) => {
       className={`${captionsEnabled && !showScreen && styles.audio} ${styles.mediaPlayerContainer}`}
     >
       {showScreen ? (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           ref={mediaRef}
           className={styles.player}
           onClick={handlePlayPause}
           onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
           autoPlay={true}
-          muted={true}
+          muted={false}
           onEnded={() => dispatch(setHasEnded(true))}
           onLoadedMetadata={() => {
             if (mediaRef.current) {
