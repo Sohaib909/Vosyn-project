@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
-import { setVideoQuality } from "@/reduxSlices/playerSlice";
+import { setPlaying, setVideoQuality } from "@/reduxSlices/playerSlice";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { Box, IconButton, Typography } from "@mui/material";
 
@@ -176,7 +176,9 @@ const SettingsGear = ({ hideButtonInMediaPlayer }) => {
                 <Typography
                   key={res}
                   onClick={() => {
-                    handleResolutionChange(res), dispatch(setVideoQuality(res));
+                    handleResolutionChange(res),
+                      dispatch(setVideoQuality(res)),
+                      dispatch(setPlaying(true));
                   }}
                   sx={{
                     padding: "4px 8px",
@@ -194,7 +196,7 @@ const SettingsGear = ({ hideButtonInMediaPlayer }) => {
                     transition: "background-color 0.2s ease, color 0.2s ease",
                   }}
                 >
-                  {res}p
+                  {res}p{/* Do not remove this "p" */}
                 </Typography>
               ))}
             </Box>

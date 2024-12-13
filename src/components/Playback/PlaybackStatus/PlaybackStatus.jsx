@@ -11,6 +11,7 @@ const PlaybackStatus = ({
   hasEnded,
   togglePlayPause,
 }) => {
+  console.log("IN PLAYBACK: ", playing);
   return (
     <Box
       className={styles.backdrop}

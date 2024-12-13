@@ -20,24 +20,26 @@ import AudioPlayback from "./AudioPlayback/AudioPlayback";
 import VideoPlayback from "./VideoPlayback/VideoPlayback";
 
 const fetcher = (url) => axios.get(url).then((res) => res?.data);
+console.log(fetcher, "check");
 
-const Playback = ({ type }) => {
+const Playback = ({ type, id }) => {
   const mediaRef = useMediaRef();
   const dispatch = useDispatch();
   const { captionsEnabled, currentTime, subtitles } = useSelector(selectPlayer);
   const { mediaObj } = useSelector(selectDashObject);
   const { setStatus } = useStatusNotification();
 
-  const { error } = useSWR(
-    `/api/video/b108c9a3-b5e6-4692-854f-eb1843453cbd`,
-    fetcher,
-    {
-      onSuccess: (newData) => {
-        dispatch(setDashObject({ ...newData }));
-        dispatch(setPlaying(false));
-      },
+  // Clear the media object when the id changes
+  useEffect(() => {
+    dispatch(setDashObject(null)); // Reset media object before fetching new data
+  }, [id, dispatch]);
+
+  const { error } = useSWR(`/api/video/${id}`, fetcher, {
+    onSuccess: (newData) => {
+      dispatch(setDashObject({ ...newData }));
+      dispatch(setPlaying(true));
     },
-  );
+  });
 
   if (error) {
     console.log(error, "eror");

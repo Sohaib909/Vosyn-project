@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // eslint-disable-next-line prettier/prettier
@@ -32,7 +32,6 @@ const MediaPlayer = ({ showScreen = true }) => {
   } = useSelector(selectPlayer);
   const { mediaObj } = useSelector(selectDashObject);
   const dispatch = useDispatch();
-  const [videoUrl, setVideoUrl] = useState("");
   //const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
   const playerRef = useRef(null);
@@ -49,24 +48,20 @@ const MediaPlayer = ({ showScreen = true }) => {
       const selectedTrack = textTracks.find(
         (track) => captionLanguage && track.lang === captionLanguage,
       );
-      player.setCurrentTrack(selectedTrack);
+      captionsEnabled && player.setCurrentTrack(selectedTrack);
     });
 
     player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
       console.error("Dash.js error:", e);
     });
-    console.log("QUALITY", videoQuality);
+
+    // Finding the matching object and video URL for the specific quality.
 
     const qualityIndex = mediaObj.qualities.find(
       (quality) => quality.quality === videoQuality,
     );
-    setVideoUrl(qualityIndex.file_stream_cdn_url);
     playerRef.current = player;
-    player.initialize(
-      mediaRef.current,
-      mediaObj.qualities[2].file_stream_cdn_url,
-      false,
-    );
+    player.initialize(mediaRef.current, qualityIndex.file_stream_cdn_url, true);
 
     player.updateSettings({
       streaming: {
@@ -76,19 +71,17 @@ const MediaPlayer = ({ showScreen = true }) => {
       },
     });
 
-    player.setQualityFor("video", 2, true);
-    console.log(videoQuality, "CHECK", qualityIndex.file_stream_cdn_url);
+    // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
+
     if (qualityIndex !== -1) {
       playerRef.current.setQualityFor("video", qualityIndex);
     }
 
     return () => {
       player.reset();
-      dispatch(setPlaying(false));
+      dispatch(setPlaying(true));
     };
   }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
-
-  console.log(videoUrl, "CHECKING THE VIDEO DATA", mediaObj.qualities);
 
   const handlePlayPause = () => {
     if (playing) {
@@ -111,7 +104,7 @@ const MediaPlayer = ({ showScreen = true }) => {
           className={styles.player}
           onClick={handlePlayPause}
           onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
-          autoPlay={true}
+          autoPlay={false}
           muted={false}
           onEnded={() => dispatch(setHasEnded(true))}
           onLoadedMetadata={() => {
@@ -120,17 +113,18 @@ const MediaPlayer = ({ showScreen = true }) => {
             }
           }}
         >
-          <source src={videoUrl} type="application/dash+xml" />
+          <source type="application/dash+xml" />
           Your browser does not support the video tag.
         </video>
       ) : (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio
           ref={mediaRef}
           className={styles.player}
           onClick={handlePlayPause}
           onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
-          autoPlay={true}
-          muted={true}
+          autoPlay={false}
+          muted={false}
           onEnded={() => dispatch(setHasEnded(true))}
           onLoadedMetadata={() => {
             if (mediaRef.current) {
@@ -138,7 +132,7 @@ const MediaPlayer = ({ showScreen = true }) => {
             }
           }}
         >
-          <source src={videoUrl} type="application/dash+xml" />
+          <source type="application/dash+xml" />
           Your browser does not support the audio tag.
         </audio>
       )}
