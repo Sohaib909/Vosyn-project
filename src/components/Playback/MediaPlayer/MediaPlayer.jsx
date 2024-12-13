@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // eslint-disable-next-line prettier/prettier
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 // eslint-disable-next-line prettier/prettier, no-unused-vars
 import usePlaybackControls from "@/hooks/usePlaybackControls";
+import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
 import { setPlaying } from "@/reduxSlices/playerSlice";
 import {
   selectPlayer,
@@ -20,40 +21,28 @@ import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 
 import styles from "./MediaPlayer.module.css";
 
-const MediaPlayer = ({ videoData, showScreen = true }) => {
-  const { playing, hasEnded, captionsEnabled, isBuffering, captionLanguage } =
-    useSelector(selectPlayer);
+const MediaPlayer = ({ showScreen = true }) => {
+  const {
+    playing,
+    hasEnded,
+    captionsEnabled,
+    isBuffering,
+    captionLanguage,
+    videoQuality,
+  } = useSelector(selectPlayer);
+  const { mediaObj } = useSelector(selectDashObject);
   const dispatch = useDispatch();
+  const [videoUrl, setVideoUrl] = useState("");
   //const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
   const playerRef = useRef(null);
 
   useEffect(() => {
-    if (
-      !videoData ||
-      !videoData.qualities ||
-      videoData.qualities.length === 0
-    ) {
+    if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
       console.error("Invalid video data! No video URL available.");
       return;
     }
     const player = dashjs.MediaPlayer().create();
-    playerRef.current = player;
-    player.initialize(
-      mediaRef.current,
-      videoData.qualities[0].file_stream_cdn_url,
-      false,
-    );
-
-    player.updateSettings({
-      streaming: {
-        abr: {
-          autoSwitchBitrate: false,
-        },
-      },
-    });
-
-    player.setQualityFor("video", 0);
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
       const textTracks = player.getTracksFor("text");
@@ -66,23 +55,40 @@ const MediaPlayer = ({ videoData, showScreen = true }) => {
     player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
       console.error("Dash.js error:", e);
     });
+    console.log("QUALITY", videoQuality);
+
+    const qualityIndex = mediaObj.qualities.find(
+      (quality) => quality.quality === videoQuality,
+    );
+    setVideoUrl(qualityIndex.file_stream_cdn_url);
+    playerRef.current = player;
+    player.initialize(
+      mediaRef.current,
+      mediaObj.qualities[2].file_stream_cdn_url,
+      false,
+    );
+
+    player.updateSettings({
+      streaming: {
+        abr: {
+          autoSwitchBitrate: false,
+        },
+      },
+    });
+
+    player.setQualityFor("video", 2, true);
+    console.log(videoQuality, "CHECK", qualityIndex.file_stream_cdn_url);
+    if (qualityIndex !== -1) {
+      playerRef.current.setQualityFor("video", qualityIndex);
+    }
 
     return () => {
       player.reset();
       dispatch(setPlaying(false));
     };
-  }, [videoData, mediaRef, captionLanguage, dispatch]);
+  }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
 
-  const handleQualityChange = (newResolution) => {
-    if (!videoData || !playerRef.current) return;
-
-    const qualityIndex = videoData.qualities.findIndex(
-      (quality) => quality.resolution === newResolution,
-    );
-    if (qualityIndex !== -1) {
-      playerRef.current.setQualityFor("video", qualityIndex);
-    }
-  };
+  console.log(videoUrl, "CHECKING THE VIDEO DATA", mediaObj.qualities);
 
   const handlePlayPause = () => {
     if (playing) {
@@ -113,10 +119,7 @@ const MediaPlayer = ({ videoData, showScreen = true }) => {
             }
           }}
         >
-          <source
-            src={videoData?.qualities[0]?.file_stream_cdn_url}
-            type="application/dash+xml"
-          />
+          <source src={videoUrl} type="application/dash+xml" />
           Your browser does not support the video tag.
         </video>
       ) : (
@@ -134,17 +137,11 @@ const MediaPlayer = ({ videoData, showScreen = true }) => {
             }
           }}
         >
-          <source
-            src={videoData?.qualities[0]?.file_stream_cdn_url}
-            type="application/dash+xml"
-          />
+          <source src={videoUrl} type="application/dash+xml" />
           Your browser does not support the audio tag.
         </audio>
       )}
-      <SettingsGear
-        onQualityChange={handleQualityChange}
-        hideButtonInMediaPlayer
-      />
+      <SettingsGear hideButtonInMediaPlayer />
       <PlaybackStatus
         playing={playing}
         isBuffering={isBuffering}

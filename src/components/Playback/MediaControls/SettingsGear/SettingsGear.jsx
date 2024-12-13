@@ -1,19 +1,22 @@
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
+import { setVideoQuality } from "@/reduxSlices/playerSlice";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { Box, IconButton, Typography } from "@mui/material";
 
-const SettingsGear = ({ onQualityChange, hideButtonInMediaPlayer }) => {
+const SettingsGear = ({ hideButtonInMediaPlayer }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [resolution, setResolution] = useState("1080p");
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [hoveredSpeed, setHoveredSpeed] = useState(null);
+  const dispatch = useDispatch();
 
   const playbackSpeedRef = useRef(null);
   const mediaRef = useMediaRef();
 
-  const resolutions = ["1080p", "720p", "480p", "240p"];
+  const resolutions = ["1080", "720", "480", "240"];
   const speedOptions = [
     { label: "1x", value: 1 },
     { label: "1.25x", value: 1.25 },
@@ -23,9 +26,6 @@ const SettingsGear = ({ onQualityChange, hideButtonInMediaPlayer }) => {
 
   const handleResolutionChange = (res) => {
     setResolution(res);
-    if (onQualityChange) {
-      onQualityChange(res);
-    }
   };
 
   const handleSpeedChange = (speedValue) => {
@@ -175,7 +175,9 @@ const SettingsGear = ({ onQualityChange, hideButtonInMediaPlayer }) => {
               {resolutions.map((res) => (
                 <Typography
                   key={res}
-                  onClick={() => handleResolutionChange(res)}
+                  onClick={() => {
+                    handleResolutionChange(res), dispatch(setVideoQuality(res));
+                  }}
                   sx={{
                     padding: "4px 8px",
                     fontSize: "12px",
@@ -192,7 +194,7 @@ const SettingsGear = ({ onQualityChange, hideButtonInMediaPlayer }) => {
                     transition: "background-color 0.2s ease, color 0.2s ease",
                   }}
                 >
-                  {res}
+                  {res}p
                 </Typography>
               ))}
             </Box>
