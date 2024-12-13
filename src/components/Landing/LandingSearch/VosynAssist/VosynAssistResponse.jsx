@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import useTypewriter from "@/hooks/useTypewriter";
+import logo from "@/Images/airis-logo.svg";
 import { Box, CardContent, Fade, Link, Typography } from "@mui/material";
 import Image from "next/image";
 
@@ -63,17 +64,16 @@ const VosynAssistResponse = ({
             alignItems: "center",
             minWidth: "40px",
             minHeight: "40px",
+            maxHeight: "60px",
             borderRadius: "50%",
-            backgroundColor: "var(--mui-palette-neutral-300)",
-            color: "black",
           }}
         >
-          <Typography
-            variant="body1"
-            sx={{ textAlign: "center", fontWeight: "bold" }}
-          >
-            VA
-          </Typography>
+          <Image
+            alt="video result thumbnail"
+            src={logo}
+            height={60}
+            sx={{ transition: "opacity 2000ms ease-out 200ms" }}
+          />
         </Box>
         {!isLoadingAnimationFinished ? (
           <Box sx={{ marginTop: 1 }}>
@@ -81,7 +81,7 @@ const VosynAssistResponse = ({
           </Box>
         ) : (
           <Box sx={{ marginTop: 1.25 }} className={styles.assistantMessage}>
-            <Typography>
+            <Typography sx={{ paddingTop: "6px" }}>
               {responseTypewriter.outputText}
               {!responseTypewriter.isFinishedTyping && (
                 <Box className={styles.insertionCaret}></Box>

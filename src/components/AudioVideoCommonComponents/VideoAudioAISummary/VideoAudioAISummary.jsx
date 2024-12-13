@@ -17,7 +17,7 @@ const VideoAudioAISummary = () => {
         borderRadius: "12px",
       }}
     >
-      <Typography>{`${dummyText.substring(0, 60)}...`}</Typography>
+      <Typography>{dummyText}</Typography>
       <Typography
         sx={{ width: "fit-content", opacity: "0.8" }}
         variant="caption"

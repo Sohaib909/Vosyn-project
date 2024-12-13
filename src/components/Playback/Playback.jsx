@@ -77,7 +77,7 @@ const Playback = ({ type, id }) => {
   useEffect(() => {
     const track = mediaRef?.current?.textTracks[0];
 
-    if (track) {
+    if (captionsEnabled && track) {
       track.mode = "hidden";
       const parsedSubtitles = parseVTT(track?.cues);
       dispatch(setSubtitles(parsedSubtitles));
@@ -96,7 +96,7 @@ const Playback = ({ type, id }) => {
       media?.removeEventListener("waiting", handleWaiting);
       media?.removeEventListener("playing", handlePlaying);
     };
-  }, [handleWaiting, handlePlaying, mediaRef]);
+  }, [handleWaiting, handlePlaying]);
 
   useEffect(() => {
     if (captionsEnabled) {

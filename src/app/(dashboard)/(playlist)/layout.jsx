@@ -7,8 +7,8 @@ import PlaylistNavbar from "@/components/Playlist/PlaylistNavbar/PlaylistNavbar"
 
 const layout = ({ children }) => {
   return (
-    <Box sx={{ width: "100%", maxHeight: "85vh", overflowY: "hidden" }}>
-      <ComingSoon />
+    <Box sx={{ width: "100%", overflowY: "hidden" }}>
+      <ComingSoon ht={false} />
 
       <Box sx={{ padding: "2vw 5vw", width: "100%" }}>
         <PlaylistNavbar />

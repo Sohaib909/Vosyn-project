@@ -4,7 +4,7 @@ import { Box, Grid2, Typography } from "@mui/material";
 
 const SectionHeader = ({ heading, subheading }) => {
   return (
-    <Grid2 size={12} sx={{ height: "fit-content" }}>
+    <Grid2 size={12} sx={{ height: "fit-content", textAlign: "left" }}>
       <Typography variant="h6" sx={{ fontWeight: "bold" }}>
         {heading}
       </Typography>

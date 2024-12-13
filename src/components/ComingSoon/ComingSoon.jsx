@@ -2,17 +2,17 @@ import React from "react";
 
 import { Box } from "@mui/material";
 
-const ComingSoon = () => {
+const ComingSoon = ({ ht = true }) => {
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100%",
+        height: ht ? "100%" : "83.5%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         background:
-          "linear-gradient(135deg, rgba(37, 35, 49, 0.6), rgba(63, 60, 85, 0.6), rgba(89, 85, 119, 0.6))",
+          "radial-gradient(circle, rgba(37, 35, 49, 1) 0%, rgba(37, 35, 49, 0.7) 50%, rgba(37, 35, 49, 0.2) 100%)",
         fontFamily: "'Oswald', sans-serif",
         position: "absolute",
         zIndex: 5,

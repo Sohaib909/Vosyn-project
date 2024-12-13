@@ -1,17 +1,22 @@
-import { Box, Typography } from "@mui/material";
+import ReplyIcon from "@mui/icons-material/Reply";
+import { Box, Icon, Typography } from "@mui/material";
 
 const UserMessage = ({ user }) => {
   return (
     <Box
       sx={{
-        display: "inline",
+        display: "flex",
+        gap: "15px",
         backgroundColor: "var(--mui-palette-neutral-600)",
         mb: 3,
-        padding: "4px 24px",
+        py: "6px",
+        pl: "15px",
+        pr: "10px",
         borderRadius: 4,
       }}
     >
       <Typography>{user.message}</Typography>
+      <Icon component={ReplyIcon}></Icon>
     </Box>
   );
 };

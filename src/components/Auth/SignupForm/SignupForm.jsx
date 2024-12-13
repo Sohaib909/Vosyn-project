@@ -19,6 +19,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import TermsAgreementModal from "@/components/TermsAgreement/TermsAgreementModal.jsx";
+
 import AuthInput from "../AuthInput/AuthInput";
 
 import styles from "./SignupForm.module.css";
@@ -28,37 +30,74 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [signupApiError, setSignupApiError] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { setStatus } = useStatusNotification();
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const signUpSchema = z.object({
-    username: z.string().regex(/^[a-zA-Z0-9_]{3,30}$/, {
-      message:
-        "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
-    }),
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z
-      .string()
-      .min(12, { message: "Password must be at least 12 characters long." })
-      .refine((value) => /[a-z]/.test(value), {
-        message: "Password must contain at least one lowercase letter.",
-      })
-      .refine((value) => /[A-Z]/.test(value), {
-        message: "Password must contain at least one uppercase letter.",
-      })
-      .refine((value) => /\d/.test(value), {
-        message: "Password must contain at least one number.",
-      })
-      .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
-        message: "Password must contain at least one special character.",
+  const validDomains = [
+    "com",
+    "org",
+    "net",
+    "edu",
+    "gov",
+    "info",
+    "biz",
+    "name",
+    "pro",
+    "ca",
+    "eu",
+    "xyz",
+  ];
+  const signUpSchema = z
+    .object({
+      username: z.string().regex(/^[a-z0-9_]{3,30}$/, {
+        message:
+          "Username must be 3-30 characters long. Letters, numbers and underscores are allowed.",
       }),
-    hasAgreedToTerms: z.literal(true, {
-      errorMap: () => ({
-        message: "You must agree to the terms and conditions",
+      email: z
+        .string()
+        .email({ message: "Invalid email address" })
+        .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, {
+          message: "Email must contain only lowercase letters",
+        })
+        .refine(
+          (email) => {
+            const domain = email.split("@")[1]?.split(".").pop(); // Extract domain (e.g., com, org)
+            return validDomains.includes(domain); // Check if domain is in the valid list
+          },
+          {
+            message: `Invalid email domain. Allowed domains: ${validDomains.join(
+              ", ",
+            )}`,
+          },
+        ),
+      password: z
+        .string()
+        .min(12, { message: "Password must be at least 12 characters long." })
+        .refine((value) => /[a-z]/.test(value), {
+          message: "Password must contain at least one lowercase letter.",
+        })
+        .refine((value) => /[A-Z]/.test(value), {
+          message: "Password must contain at least one uppercase letter.",
+        })
+        .refine((value) => /\d/.test(value), {
+          message: "Password must contain at least one number.",
+        })
+        .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
+          message: "Password must contain at least one special character.",
+        }),
+      confirmPassword: z.string(),
+      hasAgreedToTerms: z.literal(true, {
+        errorMap: () => ({
+          message: "You must agree to the terms and conditions",
+        }),
       }),
-    }),
-  });
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
 
   const validatePassword = (thePassword) => {
     if (!thePassword) return [];
@@ -207,6 +246,7 @@ const SignupForm = () => {
           error={errors.username || signupApiError?.username}
           helperText={errors.username?.message || signupApiError?.username}
           autocomplete="new-username"
+          placeholderText="username"
         />
         <AuthInput
           label="Email address"
@@ -238,6 +278,19 @@ const SignupForm = () => {
           showPassword={showPassword}
           password={password}
           autocomplete="new-password"
+          placeholderText="password"
+        />
+        <AuthInput
+          label="Confirm Password"
+          id="signup-confirm-password"
+          register={register("confirmPassword")}
+          error={errors.confirmPassword} // Display error if passwords don't match
+          helperText={errors.confirmPassword?.message || ""} // Show error message
+          variant="password"
+          togglePasswordVisibility={togglePasswordVisibility}
+          showPassword={showPassword}
+          autocomplete="new-password"
+          placeholderText="Re-enter your password"
         />
         {password === "" && (
           <Typography className={styles.signupPasswordHelperText}>
@@ -270,16 +323,25 @@ const SignupForm = () => {
                 },
               }}
             />
-            <Typography className={styles.acknowledgement}>
+            <Box className={styles.acknowledgement}>
               I have read and agree with Vosyn&apos;s{" "}
-              <Link className={styles.hyperlink} href={"/terms"}>
+              <Typography
+                compon
+                sx={{
+                  display: "inline",
+                }}
+              >
                 Terms of Service
-              </Link>{" "}
+              </Typography>{" "}
               and{" "}
-              <Link className={styles.hyperlink} href={"/privacy-policy"}>
+              <Typography
+                sx={{
+                  display: "inline",
+                }}
+              >
                 Privacy Policy.
-              </Link>
-            </Typography>
+              </Typography>
+            </Box>
           </Box>
 
           {errors.hasAgreedToTerms?.message && (
@@ -318,6 +380,10 @@ const SignupForm = () => {
           </Link>
         </Typography>
       </Box>
+      <TermsAgreementModal
+        isModalOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+      />
     </Box>
   );
 };

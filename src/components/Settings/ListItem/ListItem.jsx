@@ -83,9 +83,9 @@ export const ListItemWithIcon = ({ heading, subheading, start, end }) => {
         alignItems: "center",
         border: "none",
         backgroundColor: "transparent",
-        cursor: "pointer",
+        // cursor: "pointer",
         "&:hover": {
-          cursor: "pointer",
+          // cursor: "pointer",
           backgroundColor: "var(--mui-palette-neutral-700)",
           borderRadius: "4px",
         },
@@ -109,9 +109,7 @@ export const ListItemWithIcon = ({ heading, subheading, start, end }) => {
             alignItems: "flex-start",
           }}
         >
-          <Typography id={`${heading}-label`}>
-            {isHovered ? "Coming Soon" : heading}
-          </Typography>
+          <Typography id={`${heading}-label`}>{heading}</Typography>
           <Typography variant="subtitle2" sx={{ opacity: "0.7" }}>
             {isHovered ? "Coming Soon" : subheading}
           </Typography>

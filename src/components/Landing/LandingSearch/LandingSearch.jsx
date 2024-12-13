@@ -13,11 +13,13 @@ import VosynAssistChatContainer from "@/components/Landing/LandingSearch/VosynAs
 
 const LandingSearch = () => {
   const [chatHistory, setChatHistory] = useState([]);
+  const [isClosed, setIsClosed] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [isProcessingMessage, setIsProcessingMessage] = useState(false);
   const [chatMessageIDToScroll, setChatMessageIDToScroll] = useState(undefined);
 
   const sendMessageToGemini = async () => {
+    setIsClosed(false);
     setIsProcessingMessage(true);
     const placeholderId = Date.now();
     addUserMessageToChatHistory(searchInput);
@@ -105,6 +107,7 @@ const LandingSearch = () => {
         padding: 4,
         borderRadius: 3,
         marginBottom: chatHistory.length ? 2 : 0,
+        transition: "all 0.3s ease",
       }}
     >
       <SearchBar
@@ -116,12 +119,13 @@ const LandingSearch = () => {
 
       <Divider sx={{ width: "100%" }} />
 
-      {chatHistory.length != 0 ? (
+      {chatHistory.length != 0 && !isClosed ? (
         <VosynAssistChatContainer
           chatHistory={chatHistory}
           setIsProcessingMessage={setIsProcessingMessage}
           chatMessageIDToScroll={chatMessageIDToScroll}
           setChatMessageIDToScroll={setChatMessageIDToScroll}
+          setIsClosed={setIsClosed}
         />
       ) : (
         <Grid2

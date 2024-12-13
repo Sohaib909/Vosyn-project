@@ -1,6 +1,6 @@
 .contentContainer {
   overflow: scroll;
-  height: 20rem;
+  height: 100vh;
   scrollbar-width: none; /* For Firefox */
 }
 .ContextualContainer {

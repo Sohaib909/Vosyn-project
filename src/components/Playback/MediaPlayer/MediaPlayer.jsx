@@ -51,9 +51,7 @@ const MediaPlayer = ({ showScreen = true }) => {
       captionsEnabled && player.setCurrentTrack(selectedTrack);
     });
 
-    player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
-      console.error("Dash.js error:", e);
-    });
+    playerRef.current = player;
 
     // Finding the matching object and video URL for the specific quality.
 

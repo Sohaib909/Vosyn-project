@@ -58,7 +58,7 @@ const TranslationPanelInput = ({ array, label }) => {
                 alt="flag icon"
                 width={32}
                 height={32}
-                src={`https://flagsapi.com/${lang.code}/flat/64.png`}
+                src={`https://flagsapi.com/CA/flat/64.png`}
               />
             </ListItemIcon>
             <ListItemText>{lang.name}</ListItemText>

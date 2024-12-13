@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
 
 import useDetectScroll from "@/hooks/useDetectScroll";
-import { Box } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Icon } from "@mui/material";
 
 import UserMessage from "@/components/Landing/LandingSearch/VosynAssist/UserMessage";
 import VosynAssistResponse from "@/components/Landing/LandingSearch/VosynAssist/VosynAssistResponse";
@@ -11,6 +12,7 @@ const VosynAssistChatContainer = ({
   setIsProcessingMessage,
   chatMessageIDToScroll,
   setChatMessageIDToScroll,
+  setIsClosed,
 }) => {
   const messagesEndRef = useRef(null);
   const messageContainerRef = useRef(null);
@@ -54,9 +56,18 @@ const VosynAssistChatContainer = ({
         width: "100%",
         overflow: "auto",
         padding: "0 10px",
+        transition: "all 0.3s ease",
       }}
       ref={messageContainerRef}
     >
+      <Box sx={{ justifySelf: "self-end" }}>
+        <Icon
+          component={CloseIcon}
+          sx={{ cursor: "pointer" }}
+          onClick={() => setIsClosed(true)}
+        ></Icon>
+      </Box>
+
       {chatHistory.map((message, index) => (
         <Box key={index} sx={{ marginRight: { lg: 12, md: 0 } }}>
           {message.isUser ? (

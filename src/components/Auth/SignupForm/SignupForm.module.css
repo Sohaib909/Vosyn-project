@@ -89,6 +89,7 @@
 .hyperlink {
   color: #527af9;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .signupContent .signupBtn {
