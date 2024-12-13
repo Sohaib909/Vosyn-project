@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// eslint-disable-next-line prettier/prettier
 import { useMediaRef } from "@/contextProviders/MediaRefProvider";
+// eslint-disable-next-line prettier/prettier, no-unused-vars
 import usePlaybackControls from "@/hooks/usePlaybackControls";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
+import { setPlaying } from "@/reduxSlices/playerSlice";
 import {
   selectPlayer,
   setCurrentTime,
@@ -13,6 +16,7 @@ import {
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
 
+import SettingsGear from "../MediaControls/SettingsGear/SettingsGear";
 import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
 
 import styles from "./MediaPlayer.module.css";
@@ -23,82 +27,89 @@ const MediaPlayer = ({ showScreen = true }) => {
     hasEnded,
     captionsEnabled,
     isBuffering,
-    dubbedLanguage,
     captionLanguage,
+    videoQuality,
   } = useSelector(selectPlayer);
-  const mediaObj = useSelector(selectDashObject);
+  const { mediaObj } = useSelector(selectDashObject);
   const dispatch = useDispatch();
-  const { togglePlayPause } = usePlaybackControls();
+  //const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
-
   const playerRef = useRef(null);
 
-  // Initialize Dash.js when video ref is set and ready
   useEffect(() => {
-    if (!mediaRef.current) return;
+    if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
+      console.error("Invalid video data! No video URL available.");
+      return;
+    }
+    const player = dashjs.MediaPlayer().create();
 
-    if (!playerRef.current) {
-      const player = dashjs.MediaPlayer().create();
-      player.initialize(
-        mediaRef.current,
-        "/testVideo/example_dash1.mpd",
-        false,
+    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      const textTracks = player.getTracksFor("text");
+      const selectedTrack = textTracks.find(
+        (track) => captionLanguage && track.lang === captionLanguage,
       );
+      captionsEnabled && player.setCurrentTrack(selectedTrack);
+    });
 
-      player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-        console.log("Dash.js initialized");
-      });
+    playerRef.current = player;
 
-      player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
-        console.error("Dash.js error:", e);
-      });
+    // Finding the matching object and video URL for the specific quality.
 
-      playerRef.current = player;
+    const qualityIndex = mediaObj.qualities.find(
+      (quality) => quality.quality === videoQuality,
+    );
+    playerRef.current = player;
+    player.initialize(
+      mediaRef.current,
+      qualityIndex
+        ? qualityIndex.file_stream_cdn_url
+        : mediaObj.file_stream_cdn_url,
+      true,
+    );
+
+    player.updateSettings({
+      streaming: {
+        abr: {
+          autoSwitchBitrate: false,
+        },
+      },
+    });
+
+    // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
+
+    if (qualityIndex !== -1) {
+      playerRef.current.setQualityFor("video", qualityIndex);
     }
 
     return () => {
-      if (playerRef.current) {
-        playerRef.current.reset();
-        playerRef.current = null;
-      }
+      player.reset();
+      dispatch(setPlaying(true));
     };
-  }, [mediaRef]);
+  }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
 
-  useEffect(() => {
-    const player = playerRef.current;
-    if (!player) return;
-
-    const textTracks = player.getTracksFor("text");
-    const selectedTrack = textTracks.find((track) =>
-      captionLanguage ? track.lang === captionLanguage : "en",
-    );
-    if (selectedTrack) {
-      player.setCurrentTrack(selectedTrack);
+  const handlePlayPause = () => {
+    if (playing) {
+      mediaRef.current.pause();
+      dispatch(setPlaying(false));
+    } else {
+      mediaRef.current.play();
+      dispatch(setPlaying(true));
     }
-
-    const audioTracks = player.getTracksFor("audio");
-    const selectedAudio = audioTracks.find((track) =>
-      dubbedLanguage ? track?.lang === dubbedLanguage : "en",
-    );
-    if (selectedAudio) {
-      player.setCurrentTrack(selectedAudio);
-    }
-
-    console.log("Updated captions and audio tracks");
-  }, [captionLanguage, dubbedLanguage]);
+  };
 
   return (
     <Box
       className={`${captionsEnabled && !showScreen && styles.audio} ${styles.mediaPlayerContainer}`}
     >
-      {/** Player */}
       {showScreen ? (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
-          ref={mediaRef} // Attach ref to video element
+          ref={mediaRef}
           className={styles.player}
-          onClick={() => togglePlayPause(mediaRef)}
+          onClick={handlePlayPause}
           onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
           autoPlay={false}
+          muted={false}
           onEnded={() => dispatch(setHasEnded(true))}
           onLoadedMetadata={() => {
             if (mediaRef.current) {
@@ -106,28 +117,18 @@ const MediaPlayer = ({ showScreen = true }) => {
             }
           }}
         >
-          {/** Media captions */}
-          <track
-            label="English"
-            kind="captions"
-            srcLang="en"
-            src="/sampleCaptions/sampleCaptions.vtt"
-            // default
-          />
-          {/** Media source */}
-          <source
-            src={mediaObj ? mediaObj.file_stream_cdn_url : ""}
-            type="application/dash+xml"
-          />
+          <source type="application/dash+xml" />
           Your browser does not support the video tag.
         </video>
       ) : (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio
-          ref={mediaRef} // Attach ref to video element
+          ref={mediaRef}
           className={styles.player}
-          onClick={() => togglePlayPause(mediaRef)}
+          onClick={handlePlayPause}
           onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
           autoPlay={false}
+          muted={false}
           onEnded={() => dispatch(setHasEnded(true))}
           onLoadedMetadata={() => {
             if (mediaRef.current) {
@@ -135,28 +136,16 @@ const MediaPlayer = ({ showScreen = true }) => {
             }
           }}
         >
-          <track
-            label="English"
-            kind="captions"
-            srcLang="en"
-            src="/sampleCaptions/sampleCaptions.vtt"
-            // default
-          />
-          {/** Media source */}
-          <source
-            src={mediaObj ? mediaObj.file_stream_cdn_url : ""}
-            type="application/dash+xml"
-          />
-          Your browser does not support the video tag.
+          <source type="application/dash+xml" />
+          Your browser does not support the audio tag.
         </audio>
       )}
-
-      {/* Playback status */}
+      <SettingsGear hideButtonInMediaPlayer />
       <PlaybackStatus
         playing={playing}
         isBuffering={isBuffering}
         hasEnded={hasEnded}
-        togglePlayPause={() => togglePlayPause(mediaRef)}
+        togglePlayPause={handlePlayPause}
       />
     </Box>
   );
