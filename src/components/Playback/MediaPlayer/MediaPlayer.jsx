@@ -61,7 +61,13 @@ const MediaPlayer = ({ showScreen = true }) => {
       (quality) => quality.quality === videoQuality,
     );
     playerRef.current = player;
-    player.initialize(mediaRef.current, qualityIndex.file_stream_cdn_url, true);
+    player.initialize(
+      mediaRef.current,
+      qualityIndex
+        ? qualityIndex.file_stream_cdn_url
+        : mediaObj.file_stream_cdn_url,
+      true,
+    );
 
     player.updateSettings({
       streaming: {
