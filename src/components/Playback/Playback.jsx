@@ -20,7 +20,6 @@ import AudioPlayback from "./AudioPlayback/AudioPlayback";
 import VideoPlayback from "./VideoPlayback/VideoPlayback";
 
 const fetcher = (url) => axios.get(url).then((res) => res?.data);
-console.log(fetcher, "check");
 
 const Playback = ({ type, id }) => {
   const mediaRef = useMediaRef();

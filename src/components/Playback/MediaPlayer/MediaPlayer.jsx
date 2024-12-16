@@ -40,28 +40,28 @@ const MediaPlayer = ({ showScreen = true }) => {
   // logic handle dubbing languages switch
   const setAudioTrack = (player, language) => {
     const audioTracks = player.getTracksFor("audio");
-    console.log("available audio tracks ==>", audioTracks);
+    // console.log("available audio tracks ==>", audioTracks);
 
     const selectedTrack = audioTracks.find((track) => track.lang === language);
 
     if (selectedTrack) {
       player.setCurrentTrack(selectedTrack);
-      console.log(`Switched to audio track ==> ${language}`);
+      // console.log(`Switched to audio track ==> ${language}`);
     } else {
-      console.log(`Audio track for language ${language} not found`);
+      // needs to be removed later and added dynamically rendering for dubbing buttons
+      // console.log(`Audio track for language ${language} not found`);
     }
   };
 
   useEffect(() => {
     if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
-      console.error("Invalid video data! No video URL available.");
+      // console.error("Invalid video data! No video URL available.");
       return;
     }
 
     const player = dashjs.MediaPlayer().create();
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      console.log("Dashjs initialized..");
       setAudioTrack(player, dubbedLanguage);
       const textTracks = player.getTracksFor("text");
       const selectedTrack = textTracks.find(
