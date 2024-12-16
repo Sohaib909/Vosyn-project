@@ -59,6 +59,10 @@ const MediaPlayer = ({ showScreen = true }) => {
       return;
     }
 
+    if (playerRef.current) {
+      return;
+    }
+
     const player = dashjs.MediaPlayer().create();
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
@@ -68,6 +72,10 @@ const MediaPlayer = ({ showScreen = true }) => {
         (track) => captionLanguage && track.lang === captionLanguage,
       );
       captionsEnabled && player.setCurrentTrack(selectedTrack);
+      const savedTime = parseFloat(localStorage.getItem("videoTime")) || 0;
+      if (savedTime > 0) {
+        player.seek(savedTime);
+      }
     });
 
     playerRef.current = player;
@@ -77,7 +85,6 @@ const MediaPlayer = ({ showScreen = true }) => {
     const qualityIndex = mediaObj.qualities.find(
       (quality) => quality.quality === videoQuality,
     );
-    playerRef.current = player;
     player.initialize(
       mediaRef.current,
       qualityIndex
@@ -96,11 +103,26 @@ const MediaPlayer = ({ showScreen = true }) => {
     // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
 
     if (qualityIndex !== -1) {
-      playerRef.current.setQualityFor("video", qualityIndex);
+      player.setQualityFor("video", qualityIndex);
     }
 
+    const savePlaybackTime = () => {
+      if (playerRef.current) {
+        localStorage.setItem("videoTime", playerRef.current.time());
+      }
+    };
+
+    window.addEventListener("beforeunload", savePlaybackTime);
+    document.addEventListener("visibilitychange", savePlaybackTime);
+
     return () => {
-      player.reset();
+      savePlaybackTime();
+      if (playerRef.current) {
+        playerRef.current.reset();
+        playerRef.current = null;
+      }
+      window.removeEventListener("beforeunload", savePlaybackTime);
+      document.removeEventListener("visibilitychange", savePlaybackTime);
       dispatch(setPlaying(true));
     };
   }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
