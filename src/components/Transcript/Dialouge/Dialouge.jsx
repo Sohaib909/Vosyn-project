@@ -30,7 +30,6 @@ const Dialogue = ({
   const listItem = useRef();
   const [showSuggestionTextbox, setShowSuggestionTextbox] = useState(false);
   const [suggestionText, setSuggestionText] = useState("");
-  // const { selectedOriginalLanguage } = useSelector(selectLanguage);
   const { selectedTranslatedLanguage } = useSelector(selectLanguage);
   const { showTranslatedTranscript } = useSelector(selectPlayer);
   const dispatch = useDispatch();
