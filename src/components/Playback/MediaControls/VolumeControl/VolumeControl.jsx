@@ -38,7 +38,7 @@ const VolumeControl = () => {
   const handleMenuClose = () => {
     sliderTimeout.current = setTimeout(() => {
       setShowVolumeSlider(false);
-    });
+    }, 2000);
   };
 
   const handleScroll = (e) => {
@@ -73,8 +73,7 @@ const VolumeControl = () => {
         Icon={volume === 0 ? VolumeOffRoundedIcon : VolumeUpRoundedIcon}
         onClick={toggleMuteUnmute}
         onMouseOver={() => setShowVolumeSlider(true)}
-        onMouseLeave={() => setShowVolumeSlider(false)}
-        // onMouseLeave={handleMenuClose}
+        onMouseLeave={handleMenuClose}
       />
 
       {/* Volume Menu */}
