@@ -8,7 +8,6 @@ function WatchCard({ item }) {
   const router = useRouter();
 
   const handleCardClick = () => {
-    console.log(item);
     router.push(`/video/${item.document.id}`);
   };
 

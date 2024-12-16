@@ -5,7 +5,7 @@ import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 import useStatusNotification from "@/hooks/useStatusNotification";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
 import TranslateRoundedIcon from "@mui/icons-material/TranslateRounded";
-import { Box, FormControlLabel, Typography } from "@mui/material";
+import { Box, FormControlLabel } from "@mui/material";
 
 import AvailableLanguages from "./AvailableLanguages/AvailableLanguages";
 
@@ -21,7 +21,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
   const [autoDubbingEnabled, setAutoDubbingEnabled] = useState(false);
   const [showLanguagePopup, setShowLanguagePopup] = useState(false);
   const [changeLanguagePopup, setChangeLanguagePopup] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  // const [selectedLanguage, setSelectedLanguage] = useState();
   const [sliderVisible, setSliderVisible] = useState(false);
 
   // Initializes the video player and manages audio tracks
@@ -81,7 +81,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
           onMouseEnter={handleMouseEnter} // Prevent closing when mouse is over
           onMouseLeave={handleMenuClose}
         >
-          <Box
+          {/* <Box
             sx={{
               width: "100%",
               display: "flex",
@@ -96,7 +96,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
             >
               Change
             </Typography>
-          </Box>
+          </Box> */}
 
           {/* This section shows up when "Change" is clicked */}
           {changeLanguagePopup && (
@@ -106,7 +106,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
               // selectedTrackIndex={selectedTrackIndex}
               // handleAudioChange={handleAudioChange}
               setShowLanguagePopup={setShowLanguagePopup}
-              setSelectedLanguage={setSelectedLanguage}
+              // setSelectedLanguage={setSelectedLanguage}
               setChangeLanguagePopup={setChangeLanguagePopup}
             />
           )}
