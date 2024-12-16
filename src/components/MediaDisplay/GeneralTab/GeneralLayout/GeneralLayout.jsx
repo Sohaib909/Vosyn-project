@@ -59,6 +59,19 @@ const GeneralLayout = ({
           <Built data={data} Component={Component} handleClick={handleBuilt} />
         </Grid2>
       </Grid2>
+
+      <Grid2 spacing={2} container item size={12}>
+        <SectionHeader
+          heading="Recommended content"
+          subheading="Recommended based on your recent watch pattern"
+          handleClick={() => {}}
+        />
+        {tab === "listen" ? (
+          <JumpIn data={data} Component={Component} />
+        ) : (
+          <HorizontalScrollDisplayContainer data={data} Component={Component} />
+        )}
+      </Grid2>
     </Grid2>
   );
 };
