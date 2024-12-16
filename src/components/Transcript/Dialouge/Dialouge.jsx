@@ -30,7 +30,7 @@ const Dialogue = ({
   const listItem = useRef();
   const [showSuggestionTextbox, setShowSuggestionTextbox] = useState(false);
   const [suggestionText, setSuggestionText] = useState("");
-  const { selectedOriginalLanguage } = useSelector(selectLanguage);
+  // const { selectedOriginalLanguage } = useSelector(selectLanguage);
   const { selectedTranslatedLanguage } = useSelector(selectLanguage);
   const { showTranslatedTranscript } = useSelector(selectPlayer);
   const dispatch = useDispatch();
@@ -113,10 +113,8 @@ const Dialogue = ({
             <Typography
               variant="body1"
               sx={{ fontWeight: 500 }}
-            >{`${transcript?.speaker[selectedOriginalLanguage]}:`}</Typography>
-            <Typography variant="body1">
-              {transcript?.text[selectedOriginalLanguage]}
-            </Typography>
+            >{`${transcript?.speaker}:`}</Typography>
+            <Typography variant="body1">{transcript?.text}</Typography>
           </Box>
           {showTranslatedTranscript && (
             <Box sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
