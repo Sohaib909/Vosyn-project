@@ -28,6 +28,7 @@ const MediaPlayer = ({ showScreen = true }) => {
     captionsEnabled,
     isBuffering,
     captionLanguage,
+    dubbedLanguage,
     videoQuality,
   } = useSelector(selectPlayer);
   const { mediaObj } = useSelector(selectDashObject);
@@ -36,14 +37,32 @@ const MediaPlayer = ({ showScreen = true }) => {
   const mediaRef = useMediaRef();
   const playerRef = useRef(null);
 
+  // logic handle dubbing languages switch
+  const setAudioTrack = (player, language) => {
+    const audioTracks = player.getTracksFor("audio");
+    console.log("available audio tracks ==>", audioTracks);
+
+    const selectedTrack = audioTracks.find((track) => track.lang === language);
+
+    if (selectedTrack) {
+      player.setCurrentTrack(selectedTrack);
+      console.log(`Switched to audio track ==> ${language}`);
+    } else {
+      console.log(`Audio track for language ${language} not found`);
+    }
+  };
+
   useEffect(() => {
     if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
       console.error("Invalid video data! No video URL available.");
       return;
     }
+
     const player = dashjs.MediaPlayer().create();
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      console.log("Dashjs initialized..");
+      setAudioTrack(player, dubbedLanguage);
       const textTracks = player.getTracksFor("text");
       const selectedTrack = textTracks.find(
         (track) => captionLanguage && track.lang === captionLanguage,
@@ -86,6 +105,14 @@ const MediaPlayer = ({ showScreen = true }) => {
       dispatch(setPlaying(true));
     };
   }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
+
+  // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
+  useEffect(() => {
+    const player = playerRef.current;
+    if (player) {
+      setAudioTrack(player, dubbedLanguage);
+    }
+  }, [dubbedLanguage]);
 
   const handlePlayPause = () => {
     if (playing) {
