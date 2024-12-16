@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Grid2 } from "@mui/material";
 
@@ -13,31 +13,6 @@ import VideoAudioDescription from "@/components/AudioVideoCommonComponents/Video
 import BackButton from "@/components/Buttons/BackButton/BackButton";
 
 const Layout = ({ children }) => {
-  const [visibilityChangeTime, setVisibilityChangeTime] = useState(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden") {
-        setVisibilityChangeTime(Date.now());
-      } else if (
-        document.visibilityState === "visible" &&
-        visibilityChangeTime
-      ) {
-        const inactiveTime = (Date.now() - visibilityChangeTime) / 1000;
-        setVisibilityChangeTime(null);
-        if (inactiveTime >= 10) {
-          window.location.reload();
-        }
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [visibilityChangeTime]);
-
   return (
     <Grid2 container component="main" sx={{ px: "2rem" }} spacing={2}>
       <Grid2 item size={12}>

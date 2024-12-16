@@ -64,7 +64,7 @@ const MediaPlayer = ({ showScreen = true }) => {
       qualityIndex
         ? qualityIndex.file_stream_cdn_url
         : mediaObj.file_stream_cdn_url,
-      true,
+      false,
     );
 
     player.updateSettings({
@@ -74,7 +74,6 @@ const MediaPlayer = ({ showScreen = true }) => {
         },
       },
     });
-
     // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
 
     if (qualityIndex !== -1) {
