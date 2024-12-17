@@ -124,15 +124,12 @@ const MediaPlayer = ({ showScreen = true }) => {
     return () => {
       savePlaybackTime();
       setCurrentTime(player.time());
-      if (playerRef.current) {
-        playerRef.current.reset();
-        playerRef.current = null;
-      }
+
       window.removeEventListener("beforeunload", savePlaybackTime);
       document.removeEventListener("visibilitychange", savePlaybackTime);
       // dispatch(setPlaying(true));
     };
-  }, []);
+  }, [mediaObj, mediaRef, videoQuality]);
 
   // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
   useEffect(() => {
