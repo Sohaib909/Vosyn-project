@@ -53,7 +53,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
     languageTimeout.current = setTimeout(() => {
       setChangeLanguagePopup(false);
       setShowLanguagePopup(false);
-    }, 3000);
+    }, 2000);
   };
 
   return (

@@ -6,12 +6,12 @@ import { useMediaRef } from "@/contextProviders/MediaRefProvider";
 // eslint-disable-next-line prettier/prettier, no-unused-vars
 import usePlaybackControls from "@/hooks/usePlaybackControls";
 import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
-import { setPlaying } from "@/reduxSlices/playerSlice";
 import {
   selectPlayer,
   setCurrentTime,
   setDuration,
   setHasEnded,
+  setPlaying,
 } from "@/reduxSlices/playerSlice";
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
@@ -40,30 +40,40 @@ const MediaPlayer = ({ showScreen = true }) => {
   // logic handle dubbing languages switch
   const setAudioTrack = (player, language) => {
     const audioTracks = player.getTracksFor("audio");
-    // console.log("available audio tracks ==>", audioTracks);
 
     const selectedTrack = audioTracks.find((track) => track.lang === language);
 
     if (selectedTrack) {
       player.setCurrentTrack(selectedTrack);
-      // console.log(`Switched to audio track ==> ${language}`);
     } else {
       // needs to be removed later and added dynamically rendering for dubbing buttons
-      // console.log(`Audio track for language ${language} not found`);
     }
   };
 
   const setCaptionTrack = (player, language) => {
+    const videoElement = mediaRef.current;
+    if (!captionsEnabled) {
+      for (let i = 0; i < videoElement.textTracks.length; i++) {
+        videoElement.textTracks[i].mode = "disabled";
+      }
+      return;
+    }
+    if (videoElement.textTracks.length > 0) {
+      for (let i = 0; i < videoElement.textTracks.length; i++) {
+        videoElement.textTracks[i].mode = "showing";
+      }
+    }
     const textTracks = player.getTracksFor("text");
-    const selectedTrack = textTracks.find((track) => track.lang === language);
+    const currLang = language === "" ? "en" : language;
+    const selectedTrack = textTracks.find((track) => track.lang === currLang);
     if (selectedTrack) {
       player.setCurrentTrack(selectedTrack);
     }
   };
 
+  // Main initialization effect
   useEffect(() => {
     if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
-      // console.error("Invalid video data! No video URL available.");
       return;
     }
 
@@ -72,34 +82,17 @@ const MediaPlayer = ({ showScreen = true }) => {
     }
 
     const player = dashjs.MediaPlayer().create();
-
-    // player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-    //   setAudioTrack(player, dubbedLanguage);
-    //   const textTracks = player.getTracksFor("text");
-    //   const selectedTrack = textTracks.find(
-    //     (track) => captionLanguage && track.lang === captionLanguage,
-    //   );
-    //   captionsEnabled && player.setCurrentTrack(selectedTrack);
-    //   const savedTime = parseFloat(localStorage.getItem("videoTime")) || 0;
-    //   if (savedTime > 0) {
-    //     player.seek(savedTime);
-    //   }
-    // });
-
     playerRef.current = player;
-
-    // Finding the matching object and video URL for the specific quality.
 
     const qualityIndex = mediaObj.qualities.find(
       (quality) => quality.quality === videoQuality,
     );
-    player.initialize(
-      mediaRef.current,
-      qualityIndex
-        ? qualityIndex.file_stream_cdn_url
-        : mediaObj.file_stream_cdn_url,
-      false,
-    );
+
+    const videoUrl = qualityIndex
+      ? qualityIndex.file_stream_cdn_url
+      : mediaObj.file_stream_cdn_url;
+
+    player.initialize(mediaRef.current, videoUrl, true);
 
     player.updateSettings({
       streaming: {
@@ -108,7 +101,6 @@ const MediaPlayer = ({ showScreen = true }) => {
         },
       },
     });
-    // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
 
     if (qualityIndex !== -1) {
       player.setQualityFor("video", qualityIndex);
@@ -128,8 +120,10 @@ const MediaPlayer = ({ showScreen = true }) => {
       setCaptionTrack(player, captionLanguage);
     });
 
+    // Only clean up when component is actually unmounting
     return () => {
       savePlaybackTime();
+      // setCurrentTime(player.time())
       if (playerRef.current) {
         playerRef.current.reset();
         playerRef.current = null;
@@ -138,7 +132,14 @@ const MediaPlayer = ({ showScreen = true }) => {
       document.removeEventListener("visibilitychange", savePlaybackTime);
       dispatch(setPlaying(true));
     };
-  }, [mediaObj, mediaRef, dispatch, videoQuality]);
+  }, [
+    mediaObj,
+    mediaRef,
+    captionLanguage,
+    dubbedLanguage,
+    dispatch,
+    videoQuality,
+  ]); // Removed unnecessary dependencies
 
   // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
   useEffect(() => {
@@ -153,7 +154,8 @@ const MediaPlayer = ({ showScreen = true }) => {
     if (player) {
       setCaptionTrack(player, captionLanguage);
     }
-  }, [captionLanguage]);
+  }, [captionLanguage, captionsEnabled]);
+
   const handlePlayPause = () => {
     if (playing) {
       mediaRef.current.pause();

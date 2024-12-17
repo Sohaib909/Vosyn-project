@@ -23,6 +23,7 @@ const CaptionButton = () => {
 
   const handleCaptionsToggle = () => {
     dispatch(setCaptionsEnabled(!captionsEnabled));
+    dispatch(setCaptionLanguage(""));
 
     if (!captionsEnabled) {
       setShowCaption(true);
@@ -42,7 +43,7 @@ const CaptionButton = () => {
   };
 
   const handleMouseLeave = () => {
-    hideTimeout = setTimeout(() => setShowCaption(false), 1000);
+    hideTimeout = setTimeout(() => setShowCaption(false), 2000);
   };
 
   useEffect(() => {
@@ -98,7 +99,7 @@ const CaptionButton = () => {
                 }}
                 onClick={() => {
                   dispatch(setCaptionLanguage(languageObj));
-                  setShowCaption(false);
+                  // setShowCaption(false);
                 }}
               >
                 {languageObj}
