@@ -21,7 +21,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
   const [autoDubbingEnabled, setAutoDubbingEnabled] = useState(false);
   const [showLanguagePopup, setShowLanguagePopup] = useState(false);
   const [changeLanguagePopup, setChangeLanguagePopup] = useState(false);
-  // const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const [sliderVisible, setSliderVisible] = useState(false);
 
   // Initializes the video player and manages audio tracks
@@ -31,7 +31,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
         player.current.reset();
       }
     };
-  }, [mediaObj, mediaRef, setStatus]);
+  }, [mediaObj, mediaRef, setStatus, selectedLanguage]);
 
   const handleToggleAutoDubbing = () => {
     setAutoDubbingEnabled(!autoDubbingEnabled);
@@ -53,7 +53,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
     languageTimeout.current = setTimeout(() => {
       setChangeLanguagePopup(false);
       setShowLanguagePopup(false);
-    }, 3000);
+    }, 2000);
   };
 
   return (
@@ -74,7 +74,7 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
         }
       />
 
-      {autoDubbingEnabled && showLanguagePopup && (
+      {showLanguagePopup && (
         <Box
           className={styles.languagePopup}
           ref={languagesListRef}
@@ -99,14 +99,14 @@ const AutoDubbingSwitch = ({ languagesListRef }) => {
           </Box> */}
 
           {/* This section shows up when "Change" is clicked */}
-          {changeLanguagePopup && (
+          {showLanguagePopup && (
             <AvailableLanguages
               languageTimeout={languageTimeout}
               // languageList={audioTracks}
               // selectedTrackIndex={selectedTrackIndex}
               // handleAudioChange={handleAudioChange}
               setShowLanguagePopup={setShowLanguagePopup}
-              // setSelectedLanguage={setSelectedLanguage}
+              setSelectedLanguage={setSelectedLanguage}
               setChangeLanguagePopup={setChangeLanguagePopup}
             />
           )}

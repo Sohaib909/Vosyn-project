@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
+import useStatusNotification from "@/hooks/useStatusNotification";
+import { selectDashObject } from "@/reduxSlices/dashObjectSlice";
 import { selectPlayer } from "@/reduxSlices/playerSlice";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
+import useSWR from "swr";
 
 import Dialogue from "./Dialouge/Dialouge";
 
 import styles from "./Transcript.module.css";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 //  convert a duration string into seconds
 const parseDurationToSeconds = (durationString) => {
@@ -21,7 +26,8 @@ const Transcript = ({ transcriptJson }) => {
   const transcriptList = useRef();
   const [transcripts, setTranscripts] = useState([]);
   const [activeItemId, setActiveItemId] = useState(transcriptJson[0].timestamp);
-  const { playing } = useSelector(selectPlayer);
+  const { playing, dubbedLanguage } = useSelector(selectPlayer);
+  const [transcriptData, setTranscriptData] = useState([]);
   const { currentTime } = useSelector(selectPlayer);
   const [autoScroll, setAutoScroll] = useState(true);
   const { hasEnded } = useSelector(selectPlayer);
@@ -32,10 +38,44 @@ const Transcript = ({ transcriptJson }) => {
   const [isAnyTranscriptflagged, setIsAnyTranscriptflagged] = useState(false);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
+  const { setStatus } = useStatusNotification();
+  const { mediaObj } = useSelector(selectDashObject);
+
+  const shouldFetch = mediaObj?.id && dubbedLanguage;
+  const { error: transcriptError } = useSWR(
+    shouldFetch
+      ? `/api/transcript/?video=${mediaObj.id}&language=${dubbedLanguage}`
+      : null,
+    fetcher,
+    {
+      onSuccess: (newData) => {
+        if (newData.file_url) {
+          fetch(newData.file_url)
+            .then((response) => response.json())
+            .then((transcriptJsonData) => {
+              setTranscriptData(transcriptJsonData);
+            })
+            .catch((error) => {
+              console.error("Error fetching transcript content:", error);
+            });
+        }
+      },
+      onError: (error) => {
+        console.error("Error fetching transcript:", error);
+      },
+    },
+  );
+  if (transcriptError) {
+    setStatus(`${transcriptError?.message}. Please try again later.`, "error");
+  }
 
   useEffect(() => {
-    const mappedTranscripts = transcriptJson.map((transcript, index) => {
-      if (index !== 0) {
+    const mappedTranscripts = transcriptData.map((transcript, index) => {
+      if (
+        index !== 0 &&
+        transcriptJson &&
+        transcriptJson[index - 1]?.timestamp
+      ) {
         return {
           ...transcript,
           startTime:
@@ -45,21 +85,33 @@ const Transcript = ({ transcriptJson }) => {
         return { ...transcript, startTime: 0 };
       }
     });
-    setTranscripts(mappedTranscripts);
-  }, [transcriptJson]);
+
+    // Deduplicate by filtering out duplicate timestamps
+    const deduplicatedTranscripts = mappedTranscripts.filter(
+      (item, idx, self) =>
+        idx === self.findIndex((t) => t.timestamp === item.timestamp),
+    );
+
+    setTranscripts(deduplicatedTranscripts);
+  }, [transcriptData]);
 
   useEffect(() => {
     if (!hasEnded) {
-      transcripts.forEach((item) => {
-        if (
-          currentTime >= item.startTime &&
-          currentTime <= parseDurationToSeconds(item.timestamp)
-        ) {
-          setActiveItemId(item.timestamp);
-        }
+      // Find the active transcript item based on the current time
+      const activeTranscript = transcripts.find((item) => {
+        const startTime = item.startTime;
+        const endTime = parseDurationToSeconds(item.timestamp);
+
+        // Compare currentTime with transcript's timestamp range
+        return currentTime >= startTime && currentTime <= endTime;
       });
+
+      if (activeTranscript) {
+        // Update the active transcript ID
+        setActiveItemId(activeTranscript.timestamp);
+      }
     }
-  }, [currentTime, playing, transcripts]);
+  }, [currentTime, playing, transcripts, transcriptJson]);
 
   useEffect(() => {
     if (transcripts) {
@@ -86,7 +138,7 @@ const Transcript = ({ transcriptJson }) => {
         setCurrentItemPosition(activeItemIdx);
       }
     }
-  }, [activeItemId, transcripts]);
+  }, [activeItemId, transcripts, hasEnded]);
 
   useEffect(() => {
     if (transcripts) {

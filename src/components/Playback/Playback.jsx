@@ -9,6 +9,7 @@ import { selectDashObject, setDashObject } from "@/reduxSlices/dashObjectSlice";
 import {
   selectPlayer,
   setCurrentSubtitle,
+  setDubbedLanguage,
   setIsBuffering,
   setPlaying,
   setSubtitles,
@@ -37,6 +38,7 @@ const Playback = ({ type, id }) => {
     onSuccess: (newData) => {
       dispatch(setDashObject({ ...newData }));
       dispatch(setPlaying(true));
+      dispatch(setDubbedLanguage(newData.default_audio_language));
     },
   });
 
