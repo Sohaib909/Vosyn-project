@@ -53,6 +53,14 @@ const MediaPlayer = ({ showScreen = true }) => {
     }
   };
 
+  const setCaptionTrack = (player, language) => {
+    const textTracks = player.getTracksFor("text");
+    const selectedTrack = textTracks.find((track) => track.lang === language);
+    if (selectedTrack) {
+      player.setCurrentTrack(selectedTrack);
+    }
+  };
+
   useEffect(() => {
     if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
       // console.error("Invalid video data! No video URL available.");
@@ -61,14 +69,14 @@ const MediaPlayer = ({ showScreen = true }) => {
 
     const player = dashjs.MediaPlayer().create();
 
-    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      setAudioTrack(player, dubbedLanguage);
-      const textTracks = player.getTracksFor("text");
-      const selectedTrack = textTracks.find(
-        (track) => captionLanguage && track.lang === captionLanguage,
-      );
-      captionsEnabled && player.setCurrentTrack(selectedTrack);
-    });
+    // player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+    //   setAudioTrack(player, dubbedLanguage);
+    //   const textTracks = player.getTracksFor("text");
+    //   const selectedTrack = textTracks.find(
+    //     (track) => captionLanguage && track.lang === captionLanguage,
+    //   );
+    //   captionsEnabled && player.setCurrentTrack(selectedTrack);
+    // });
 
     playerRef.current = player;
 
@@ -99,11 +107,16 @@ const MediaPlayer = ({ showScreen = true }) => {
       playerRef.current.setQualityFor("video", qualityIndex);
     }
 
+    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      setAudioTrack(player, dubbedLanguage);
+      setAudioTrack(player, captionLanguage);
+    });
+
     return () => {
       player.reset();
       dispatch(setPlaying(true));
     };
-  }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
+  }, [mediaObj, mediaRef, dispatch, videoQuality]);
 
   // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
   useEffect(() => {
@@ -113,6 +126,12 @@ const MediaPlayer = ({ showScreen = true }) => {
     }
   }, [dubbedLanguage]);
 
+  useEffect(() => {
+    const player = playerRef.current;
+    if (player) {
+      setCaptionTrack(player, captionLanguage);
+    }
+  }, [captionLanguage]);
   const handlePlayPause = () => {
     if (playing) {
       mediaRef.current.pause();
