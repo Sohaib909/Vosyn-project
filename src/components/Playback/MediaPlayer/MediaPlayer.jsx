@@ -130,18 +130,18 @@ const MediaPlayer = ({ showScreen = true }) => {
       }
       window.removeEventListener("beforeunload", savePlaybackTime);
       document.removeEventListener("visibilitychange", savePlaybackTime);
-      dispatch(setPlaying(true));
+      // dispatch(setPlaying(true));
     };
-  }, [
-    mediaObj,
-    mediaRef,
-    captionLanguage,
-    dubbedLanguage,
-    dispatch,
-    videoQuality,
-  ]); // Removed unnecessary dependencies
+  }, [mediaObj, mediaRef, videoQuality]); // Removed unnecessary dependencies
 
   // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
+  useEffect(() => {
+    const player = playerRef.current;
+    if (player) {
+      setAudioTrack(player, dubbedLanguage);
+    }
+  }, [dubbedLanguage]);
+
   useEffect(() => {
     const player = playerRef.current;
     if (player) {
