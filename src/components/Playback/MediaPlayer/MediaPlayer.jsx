@@ -40,34 +40,42 @@ const MediaPlayer = ({ showScreen = true }) => {
   // logic handle dubbing languages switch
   const setAudioTrack = (player, language) => {
     const audioTracks = player.getTracksFor("audio");
-    console.log("available audio tracks ==>", audioTracks);
+    // console.log("available audio tracks ==>", audioTracks);
 
     const selectedTrack = audioTracks.find((track) => track.lang === language);
 
     if (selectedTrack) {
       player.setCurrentTrack(selectedTrack);
-      console.log(`Switched to audio track ==> ${language}`);
+      // console.log(`Switched to audio track ==> ${language}`);
     } else {
-      console.log(`Audio track for language ${language} not found`);
+      // needs to be removed later and added dynamically rendering for dubbing buttons
+      // console.log(`Audio track for language ${language} not found`);
     }
   };
 
   useEffect(() => {
     if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
-      console.error("Invalid video data! No video URL available.");
+      // console.error("Invalid video data! No video URL available.");
+      return;
+    }
+
+    if (playerRef.current) {
       return;
     }
 
     const player = dashjs.MediaPlayer().create();
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      console.log("Dashjs initialized..");
       setAudioTrack(player, dubbedLanguage);
       const textTracks = player.getTracksFor("text");
       const selectedTrack = textTracks.find(
         (track) => captionLanguage && track.lang === captionLanguage,
       );
       captionsEnabled && player.setCurrentTrack(selectedTrack);
+      const savedTime = parseFloat(localStorage.getItem("videoTime")) || 0;
+      if (savedTime > 0) {
+        player.seek(savedTime);
+      }
     });
 
     playerRef.current = player;
@@ -77,13 +85,12 @@ const MediaPlayer = ({ showScreen = true }) => {
     const qualityIndex = mediaObj.qualities.find(
       (quality) => quality.quality === videoQuality,
     );
-    playerRef.current = player;
     player.initialize(
       mediaRef.current,
       qualityIndex
         ? qualityIndex.file_stream_cdn_url
         : mediaObj.file_stream_cdn_url,
-      true,
+      false,
     );
 
     player.updateSettings({
@@ -93,15 +100,29 @@ const MediaPlayer = ({ showScreen = true }) => {
         },
       },
     });
-
     // player.setQualityFor("video", 2, true); // Not sure if this is required or not.
 
     if (qualityIndex !== -1) {
-      playerRef.current.setQualityFor("video", qualityIndex);
+      player.setQualityFor("video", qualityIndex);
     }
 
+    const savePlaybackTime = () => {
+      if (playerRef.current) {
+        localStorage.setItem("videoTime", playerRef.current.time());
+      }
+    };
+
+    window.addEventListener("beforeunload", savePlaybackTime);
+    document.addEventListener("visibilitychange", savePlaybackTime);
+
     return () => {
-      player.reset();
+      savePlaybackTime();
+      if (playerRef.current) {
+        playerRef.current.reset();
+        playerRef.current = null;
+      }
+      window.removeEventListener("beforeunload", savePlaybackTime);
+      document.removeEventListener("visibilitychange", savePlaybackTime);
       dispatch(setPlaying(true));
     };
   }, [mediaObj, mediaRef, captionLanguage, dispatch, videoQuality]);
