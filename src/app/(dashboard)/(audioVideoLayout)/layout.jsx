@@ -1,14 +1,11 @@
 "use client";
 
-import React from "react";
-
 import { Grid2 } from "@mui/material";
 
 import CommentSection from "@/components/AudioVideoCommonComponents/CommentSection/CommentSection";
 import MediaDistrubutor from "@/components/AudioVideoCommonComponents/MediaDistrubutor/MediaDistrubutor";
 import SideDisplayContainer from "@/components/AudioVideoCommonComponents/SideDisplayContainer/SideDisplayContainer";
 import VideoAudioActionButtons from "@/components/AudioVideoCommonComponents/VideoAudioActionButtons/VideoAudioActionButtons";
-import VideoAudioAISummary from "@/components/AudioVideoCommonComponents/VideoAudioAISummary/VideoAudioAISummary";
 import VideoAudioDescription from "@/components/AudioVideoCommonComponents/VideoAudioDescription/VideoAudioDescription";
 import BackButton from "@/components/Buttons/BackButton/BackButton";
 
@@ -40,7 +37,7 @@ const Layout = ({ children }) => {
             </Grid2>
           </Grid2>
 
-          <VideoAudioAISummary />
+          {/* <VideoAudioAISummary /> */}
           <VideoAudioDescription />
           <CommentSection />
         </Grid2>

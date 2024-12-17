@@ -41,8 +41,11 @@ const Transcript = ({ transcriptJson }) => {
   const { setStatus } = useStatusNotification();
   const { mediaObj } = useSelector(selectDashObject);
 
+  const shouldFetch = mediaObj?.id && dubbedLanguage;
   const { error: transcriptError } = useSWR(
-    `/api/transcript/?video=${mediaObj.id}&language=${dubbedLanguage}`,
+    shouldFetch
+      ? `/api/transcript/?video=${mediaObj.id}&language=${dubbedLanguage}`
+      : null,
     fetcher,
     {
       onSuccess: (newData) => {
@@ -65,9 +68,14 @@ const Transcript = ({ transcriptJson }) => {
   if (transcriptError) {
     setStatus(`${transcriptError?.message}. Please try again later.`, "error");
   }
+
   useEffect(() => {
     const mappedTranscripts = transcriptData.map((transcript, index) => {
-      if (index !== 0) {
+      if (
+        index !== 0 &&
+        transcriptJson &&
+        transcriptJson[index - 1]?.timestamp
+      ) {
         return {
           ...transcript,
           startTime:
@@ -77,7 +85,14 @@ const Transcript = ({ transcriptJson }) => {
         return { ...transcript, startTime: 0 };
       }
     });
-    setTranscripts(mappedTranscripts);
+
+    // Deduplicate by filtering out duplicate timestamps
+    const deduplicatedTranscripts = mappedTranscripts.filter(
+      (item, idx, self) =>
+        idx === self.findIndex((t) => t.timestamp === item.timestamp),
+    );
+
+    setTranscripts(deduplicatedTranscripts);
   }, [transcriptData]);
 
   useEffect(() => {
@@ -96,7 +111,7 @@ const Transcript = ({ transcriptJson }) => {
         setActiveItemId(activeTranscript.timestamp);
       }
     }
-  }, [currentTime, playing, transcripts]);
+  }, [currentTime, playing, transcripts, transcriptJson]);
 
   useEffect(() => {
     if (transcripts) {
@@ -123,7 +138,7 @@ const Transcript = ({ transcriptJson }) => {
         setCurrentItemPosition(activeItemIdx);
       }
     }
-  }, [activeItemId, transcripts]);
+  }, [activeItemId, transcripts, hasEnded]);
 
   useEffect(() => {
     if (transcripts) {

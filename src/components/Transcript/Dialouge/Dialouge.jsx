@@ -112,7 +112,7 @@ const Dialogue = ({
             <Typography
               variant="body1"
               sx={{ fontWeight: 500 }}
-            >{`${transcript?.speaker}:`}</Typography>
+            >{`${transcript?.speaker}`}</Typography>
             <Typography variant="body1">{transcript?.text}</Typography>
           </Box>
           {showTranslatedTranscript && (
