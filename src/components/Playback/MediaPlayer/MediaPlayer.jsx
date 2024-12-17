@@ -73,18 +73,18 @@ const MediaPlayer = ({ showScreen = true }) => {
 
     const player = dashjs.MediaPlayer().create();
 
-    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      setAudioTrack(player, dubbedLanguage);
-      const textTracks = player.getTracksFor("text");
-      const selectedTrack = textTracks.find(
-        (track) => captionLanguage && track.lang === captionLanguage,
-      );
-      captionsEnabled && player.setCurrentTrack(selectedTrack);
-      const savedTime = parseFloat(localStorage.getItem("videoTime")) || 0;
-      if (savedTime > 0) {
-        player.seek(savedTime);
-      }
-    });
+    // player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+    //   setAudioTrack(player, dubbedLanguage);
+    //   const textTracks = player.getTracksFor("text");
+    //   const selectedTrack = textTracks.find(
+    //     (track) => captionLanguage && track.lang === captionLanguage,
+    //   );
+    //   captionsEnabled && player.setCurrentTrack(selectedTrack);
+    //   const savedTime = parseFloat(localStorage.getItem("videoTime")) || 0;
+    //   if (savedTime > 0) {
+    //     player.seek(savedTime);
+    //   }
+    // });
 
     playerRef.current = player;
 
@@ -125,7 +125,7 @@ const MediaPlayer = ({ showScreen = true }) => {
 
     player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
       setAudioTrack(player, dubbedLanguage);
-      setAudioTrack(player, captionLanguage);
+      setCaptionTrack(player, captionLanguage);
     });
 
     return () => {
