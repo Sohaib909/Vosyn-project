@@ -88,8 +88,8 @@ const Transcript = ({ transcriptJson }) => {
 
     // Deduplicate by filtering out duplicate timestamps
     const deduplicatedTranscripts = mappedTranscripts.filter(
-      (item, idx, self) =>
-        idx === self.findIndex((t) => t.timestamp === item.timestamp),
+      (item, idx, array) =>
+        idx === array.findIndex((t) => t.timestamp === item.timestamp),
     );
 
     setTranscripts(deduplicatedTranscripts);
