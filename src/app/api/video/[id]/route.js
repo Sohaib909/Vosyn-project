@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export const GET = async (req, { params }) => {
   try {
     const { id } = params;
-    console.log(id, "paramamss");
 
     const response = await axiosInstance.get(`${VIDEO_DETAIL_URL}${id}`);
 

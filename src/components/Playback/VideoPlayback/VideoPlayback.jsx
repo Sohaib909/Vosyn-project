@@ -1,9 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
-import { selectPlayer } from "@/reduxSlices/playerSlice";
 import { ChatBubbleRounded } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 
 import LikeAndDislikeBtn from "@/components/LikeAndDislikeBtn/LikeAndDislikeBtn";
 
@@ -14,7 +10,7 @@ import MediaPlayerHeaderIcons from "../MediaPlayerHeaderIcons/MediaPlayerHeaderI
 import styles from "./VideoPlayback.module.css";
 
 const VideoPlayback = ({ likes }) => {
-  const { captionsEnabled, currentSubtitle } = useSelector(selectPlayer);
+  // const { captionsEnabled, currentSubtitle } = useSelector(selectPlayer);
 
   return (
     <Box className={styles.playback} id="playback">
@@ -25,13 +21,13 @@ const VideoPlayback = ({ likes }) => {
       <MediaPlayer />
 
       {/* Subtitle display */}
-      {captionsEnabled && currentSubtitle && (
+      {/* {captionsEnabled && currentSubtitle && (
         <Box className={styles.captionsContainer}>
           <Typography className={styles.captions} variant="caption">
             {currentSubtitle}
           </Typography>
         </Box>
-      )}
+      )} */}
 
       {/* Controls overlay */}
       <MediaControls>

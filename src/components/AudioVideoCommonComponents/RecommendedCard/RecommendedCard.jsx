@@ -34,12 +34,15 @@ const RecommendedCard = ({ recommendedItem, onClick }) => {
           filter: "grayscale(50%)",
         }}
       >
-        <Image
-          fill
-          src={thumbnail_url}
-          alt="thumbnail"
-          className={styles.image}
-        />
+        {thumbnail_url && (
+          <Image
+            fill
+            // src={thumbnail_url || "/fallback-image.png"}
+            src={thumbnail_url}
+            alt="thumbnail"
+            className={styles.image}
+          />
+        )}
       </Box>
 
       <Typography>{`${titles[0].substring(0, 20)}...`}</Typography>
