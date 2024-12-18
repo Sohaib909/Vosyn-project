@@ -84,13 +84,7 @@ const MediaPlayer = ({ showScreen = true }) => {
     const player = dashjs.MediaPlayer().create();
     playerRef.current = player;
 
-    const qualityIndex = mediaObj.qualities.find(
-      (quality) => quality.quality === videoQuality,
-    );
-
-    const videoUrl = qualityIndex
-      ? qualityIndex.file_stream_cdn_url
-      : mediaObj.file_stream_cdn_url;
+    const videoUrl = mediaObj.file_stream_cdn_url;
 
     player.initialize(mediaRef.current, videoUrl, true);
 
@@ -101,10 +95,6 @@ const MediaPlayer = ({ showScreen = true }) => {
         },
       },
     });
-
-    if (qualityIndex !== -1) {
-      player.setQualityFor("video", qualityIndex);
-    }
 
     const savePlaybackTime = () => {
       if (playerRef.current) {
@@ -129,29 +119,51 @@ const MediaPlayer = ({ showScreen = true }) => {
       document.removeEventListener("visibilitychange", savePlaybackTime);
       // dispatch(setPlaying(true));
     };
-  }, [mediaObj, mediaRef, videoQuality]);
+  }, [mediaObj, mediaRef]);
 
-  // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language
+  // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language, also the caption will be changed to the dubbed language
   useEffect(() => {
     const player = playerRef.current;
     if (player) {
       setAudioTrack(player, dubbedLanguage);
+      setCaptionTrack(player, dubbedLanguage);
     }
   }, [dubbedLanguage]);
 
-  useEffect(() => {
-    const player = playerRef.current;
-    if (player) {
-      setAudioTrack(player, dubbedLanguage);
-    }
-  }, [dubbedLanguage]);
-
+  // useEffect to change caption language
   useEffect(() => {
     const player = playerRef.current;
     if (player) {
       setCaptionTrack(player, captionLanguage);
     }
   }, [captionLanguage, captionsEnabled]);
+
+  // useEffect to change quality and the video won't restart
+  useEffect(() => {
+    if (!playerRef.current || !mediaObj) return;
+
+    const qualityUrls = {
+      low: mediaObj.low_url,
+      medium: mediaObj.medium_url,
+      high: mediaObj.high_url,
+    };
+
+    const newVideoUrl =
+      qualityUrls[videoQuality] || mediaObj.file_stream_cdn_url;
+    const currentTime = mediaRef.current?.currentTime || 0;
+    const wasPlaying = !mediaRef.current?.paused;
+
+    playerRef.current.attachSource(newVideoUrl);
+    playerRef.current.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      mediaRef.current.currentTime = currentTime;
+      setAudioTrack(playerRef.current, dubbedLanguage);
+      setCaptionTrack(playerRef.current, captionLanguage);
+      if (wasPlaying) {
+        mediaRef.current.play();
+        dispatch(setPlaying(true));
+      }
+    });
+  }, [videoQuality]);
 
   const handlePlayPause = () => {
     if (playing) {
