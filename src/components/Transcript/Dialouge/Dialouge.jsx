@@ -119,9 +119,11 @@ const Dialogue = ({
           >
             <Typography
               variant="body1"
-              sx={{ fontWeight: 500 }}
+              sx={{ fontWeight: 500, whiteSpace: "nowrap", flexShrink: 0 }}
             >{`${transcript?.speaker}`}</Typography>
-            <Typography variant="body1">{transcript?.text}</Typography>
+            <Typography sx={{ wordBreak: "break-word" }} variant="body1">
+              {transcript?.text}
+            </Typography>
           </Box>
           {showTranslatedTranscript && (
             <Box sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
