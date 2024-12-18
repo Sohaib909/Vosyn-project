@@ -21,6 +21,7 @@ const RecommendedCard = ({ recommendedItem, onClick }) => {
         "&:hover .child": {
           filter: "grayscale(0%)",
         },
+        height: "fit-content",
       }}
       className={styles.recommendedCard}
       onClick={() => onClick(id)}
@@ -30,7 +31,7 @@ const RecommendedCard = ({ recommendedItem, onClick }) => {
         sx={{
           position: "relative",
           width: "100%",
-          height: "18rem",
+          height: "23rem",
           filter: "grayscale(50%)",
         }}
       >

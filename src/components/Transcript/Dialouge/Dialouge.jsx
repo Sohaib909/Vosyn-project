@@ -64,6 +64,7 @@ const Dialogue = ({
       sx={{
         minHeight: LIST_ITEM_HEIGHT,
         maxHeight: transcript.flagged ? "100%" : LIST_ITEM_HEIGHT,
+        mb: "1vh",
       }}
     >
       {showFlagAndTime && (
@@ -101,14 +102,21 @@ const Dialogue = ({
           </Typography>
         </>
       )}
-      <Box sx={{ width: "-webkit-fill-available" }}>
+      <Box sx={{ width: "-webkit-fill-available", pb: "1vh" }}>
         <Box
           className={styles.transcript_content}
           onClick={() => {
             handleTranscriptClick();
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "8px",
+              pb: "1vh",
+            }}
+          >
             <Typography
               variant="body1"
               sx={{ fontWeight: 500 }}
