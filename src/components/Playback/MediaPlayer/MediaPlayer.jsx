@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // eslint-disable-next-line prettier/prettier
@@ -15,6 +15,8 @@ import {
 } from "@/reduxSlices/playerSlice";
 import { Box } from "@mui/material";
 import dashjs from "dashjs";
+
+import Spinner from "@/components/Spinner/Spinner.jsx";
 
 import SettingsGear from "../MediaControls/SettingsGear/SettingsGear";
 import PlaybackStatus from "../PlaybackStatus/PlaybackStatus";
@@ -36,7 +38,7 @@ const MediaPlayer = ({ showScreen = true }) => {
   //const { togglePlayPause } = usePlaybackControls();
   const mediaRef = useMediaRef();
   const playerRef = useRef(null);
-
+  const [loading, setLoading] = useState(true);
   // logic handle dubbing languages switch
   const setAudioTrack = (player, language) => {
     const audioTracks = player.getTracksFor("audio");
@@ -71,22 +73,47 @@ const MediaPlayer = ({ showScreen = true }) => {
     }
   };
 
+  const cleanupPlayer = () => {
+    if (playerRef.current) {
+      playerRef.current.reset();
+      playerRef.current = null;
+    }
+    if (mediaRef.current) {
+      mediaRef.current.pause();
+      mediaRef.current.src = "";
+      mediaRef.current.removeAttribute("src");
+      mediaRef.current.currentTime = 0;
+      mediaRef.current.load();
+    }
+  };
+
   // Main initialization effect
   useEffect(() => {
-    if (!mediaObj || !mediaObj.qualities || mediaObj.qualities.length === 0) {
+    if (!mediaObj || !mediaObj.file_stream_cdn_url) {
       return;
     }
 
-    if (playerRef.current) {
+    const videoUrl = mediaObj.file_stream_cdn_url;
+    if (playerRef.current && playerRef.current.getSource() === videoUrl) {
       return;
     }
+
+    setLoading(true);
+    cleanupPlayer();
 
     const player = dashjs.MediaPlayer().create();
     playerRef.current = player;
-
-    const videoUrl = mediaObj.file_stream_cdn_url;
+    mediaRef.current.style.visibility = "hidden";
 
     player.initialize(mediaRef.current, videoUrl, true);
+
+    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+      setAudioTrack(player, dubbedLanguage);
+      setCaptionTrack(player, captionLanguage);
+
+      mediaRef.current.style.visibility = "visible";
+      setLoading(false);
+    });
 
     player.updateSettings({
       streaming: {
@@ -96,30 +123,43 @@ const MediaPlayer = ({ showScreen = true }) => {
       },
     });
 
-    const savePlaybackTime = () => {
+    // const savePlaybackTime = () => {
+    //   if (playerRef.current) {
+    //     localStorage.setItem("videoTime", playerRef.current.time());
+    //   }
+    // };
+    //
+    // window.addEventListener("beforeunload", savePlaybackTime);
+    // document.addEventListener("visibilitychange", savePlaybackTime);
+
+    // Only clean up when component is actually unmounting
+    // return () => {
+    //   savePlaybackTime();
+    //   setCurrentTime(player.time());
+    //
+    //   window.removeEventListener("beforeunload", savePlaybackTime);
+    //   document.removeEventListener("visibilitychange", savePlaybackTime);
+    //   // dispatch(setPlaying(true));
+    // };
+  }, [mediaObj]);
+
+  /** ---------- Handle Media Ref (State Persistence) ---------- */
+  useEffect(() => {
+    const savePlaybackState = () => {
       if (playerRef.current) {
         localStorage.setItem("videoTime", playerRef.current.time());
       }
     };
 
-    window.addEventListener("beforeunload", savePlaybackTime);
-    document.addEventListener("visibilitychange", savePlaybackTime);
+    window.addEventListener("beforeunload", savePlaybackState);
+    document.addEventListener("visibilitychange", savePlaybackState);
 
-    player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
-      setAudioTrack(player, dubbedLanguage);
-      setCaptionTrack(player, captionLanguage);
-    });
-
-    // Only clean up when component is actually unmounting
     return () => {
-      savePlaybackTime();
-      setCurrentTime(player.time());
-
-      window.removeEventListener("beforeunload", savePlaybackTime);
-      document.removeEventListener("visibilitychange", savePlaybackTime);
-      // dispatch(setPlaying(true));
+      savePlaybackState();
+      window.removeEventListener("beforeunload", savePlaybackState);
+      document.removeEventListener("visibilitychange", savePlaybackState);
     };
-  }, [mediaObj, mediaRef]);
+  }, [dispatch, mediaRef]);
 
   // A separate useEffect to control dubbedlanguage, avoiding reloading the page everytime when switched dubbed language, also the caption will be changed to the dubbed language
   useEffect(() => {
@@ -153,6 +193,8 @@ const MediaPlayer = ({ showScreen = true }) => {
     const currentTime = mediaRef.current?.currentTime || 0;
     const wasPlaying = !mediaRef.current?.paused;
 
+    setLoading(true);
+
     playerRef.current.attachSource(newVideoUrl);
     playerRef.current.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
       mediaRef.current.currentTime = currentTime;
@@ -161,6 +203,7 @@ const MediaPlayer = ({ showScreen = true }) => {
       if (wasPlaying) {
         mediaRef.current.play();
         dispatch(setPlaying(true));
+        setLoading(false);
       }
     });
   }, [videoQuality]);
@@ -176,56 +219,60 @@ const MediaPlayer = ({ showScreen = true }) => {
   };
 
   return (
-    <Box
-      className={`${captionsEnabled && !showScreen && styles.audio} ${styles.mediaPlayerContainer}`}
-    >
-      {showScreen ? (
-        // eslint-disable-next-line jsx-a11y/media-has-caption
-        <video
-          ref={mediaRef}
-          className={styles.player}
-          onClick={handlePlayPause}
-          onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
-          autoPlay={false}
-          muted={false}
-          onEnded={() => dispatch(setHasEnded(true))}
-          onLoadedMetadata={() => {
-            if (mediaRef.current) {
-              dispatch(setDuration(mediaRef.current.duration || 0));
-            }
-          }}
-        >
-          <source type="application/dash+xml" />
-          Your browser does not support the video tag.
-        </video>
-      ) : (
-        // eslint-disable-next-line jsx-a11y/media-has-caption
-        <audio
-          ref={mediaRef}
-          className={styles.player}
-          onClick={handlePlayPause}
-          onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
-          autoPlay={false}
-          muted={false}
-          onEnded={() => dispatch(setHasEnded(true))}
-          onLoadedMetadata={() => {
-            if (mediaRef.current) {
-              dispatch(setDuration(mediaRef.current.duration || 0));
-            }
-          }}
-        >
-          <source type="application/dash+xml" />
-          Your browser does not support the audio tag.
-        </audio>
-      )}
-      <SettingsGear hideButtonInMediaPlayer />
-      <PlaybackStatus
-        playing={playing}
-        isBuffering={isBuffering}
-        hasEnded={hasEnded}
-        togglePlayPause={handlePlayPause}
-      />
-    </Box>
+    <>
+      {loading && <Spinner />}
+
+      <Box
+        className={`${captionsEnabled && !showScreen && styles.audio} ${styles.mediaPlayerContainer}`}
+      >
+        {showScreen ? (
+          // eslint-disable-next-line jsx-a11y/media-has-caption
+          <video
+            ref={mediaRef}
+            className={styles.player}
+            onClick={handlePlayPause}
+            onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
+            autoPlay={false}
+            muted={false}
+            onEnded={() => dispatch(setHasEnded(true))}
+            onLoadedMetadata={() => {
+              if (mediaRef.current) {
+                dispatch(setDuration(mediaRef.current.duration || 0));
+              }
+            }}
+          >
+            <source type="application/dash+xml" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          // eslint-disable-next-line jsx-a11y/media-has-caption
+          <audio
+            ref={mediaRef}
+            className={styles.player}
+            onClick={handlePlayPause}
+            onTimeUpdate={(e) => dispatch(setCurrentTime(e.target.currentTime))}
+            autoPlay={false}
+            muted={false}
+            onEnded={() => dispatch(setHasEnded(true))}
+            onLoadedMetadata={() => {
+              if (mediaRef.current) {
+                dispatch(setDuration(mediaRef.current.duration || 0));
+              }
+            }}
+          >
+            <source type="application/dash+xml" />
+            Your browser does not support the audio tag.
+          </audio>
+        )}
+        <SettingsGear hideButtonInMediaPlayer />
+        <PlaybackStatus
+          playing={playing}
+          isBuffering={isBuffering}
+          hasEnded={hasEnded}
+          togglePlayPause={handlePlayPause}
+        />
+      </Box>
+    </>
   );
 };
 
