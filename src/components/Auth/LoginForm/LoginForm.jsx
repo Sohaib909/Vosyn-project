@@ -6,7 +6,7 @@ import useStatusNotification from "@/hooks/useStatusNotification";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
-import Link from "next/link";
+// import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
@@ -210,12 +210,12 @@ const LoginForm = () => {
         </Button>
       </Box>
 
-      <Typography className={`${styles.noAccountText}`}>
+      {/* <Typography className={`${styles.noAccountText}`}>
         No account?
         <Link href="/auth?type=signup" className={styles.signupLink}>
           Sign up
         </Link>
-      </Typography>
+      </Typography> */}
     </Box>
   );
 };
