@@ -74,6 +74,7 @@ const MediaPlayer = ({ showScreen = true }) => {
   };
 
   const cleanupPlayer = () => {
+    setLoading(true);
     if (playerRef.current) {
       playerRef.current.reset();
       playerRef.current = null;
@@ -90,6 +91,10 @@ const MediaPlayer = ({ showScreen = true }) => {
   // Main initialization effect
   useEffect(() => {
     if (!mediaObj || !mediaObj.file_stream_cdn_url) {
+      if (playerRef.current) {
+        playerRef.current.reset();
+        playerRef.current = null;
+      }
       return;
     }
 
