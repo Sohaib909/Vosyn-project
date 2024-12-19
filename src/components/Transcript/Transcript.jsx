@@ -18,7 +18,13 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 //  convert a duration string into seconds
 const parseDurationToSeconds = (durationString) => {
-  const [hours, minutes, seconds] = durationString.split(":").map(Number);
+  if (!durationString || typeof durationString !== "string") {
+    console.warn("Invalid durationString:", durationString);
+    return 0; // Default to 0 seconds
+  }
+  const [hours = 0, minutes = 0, seconds = 0] = durationString
+    .split(":")
+    .map(Number);
   return hours * 3600 + minutes * 60 + seconds;
 };
 
@@ -71,39 +77,48 @@ const Transcript = ({ transcriptJson }) => {
 
   useEffect(() => {
     const mappedTranscripts = transcriptData.map((transcript, index) => {
-      if (
-        index !== 0 &&
-        transcriptJson &&
-        transcriptJson[index - 1]?.timestamp
-      ) {
-        return {
-          ...transcript,
-          startTime:
-            parseDurationToSeconds(transcriptJson[index - 1].timestamp) + 1,
-        };
-      } else {
-        return { ...transcript, startTime: 0 };
-      }
+      // if (
+      //   index !== 0 &&
+      //   transcriptJson &&
+      //   transcriptJson[index - 1]?.timestamp
+      // ) {
+      //   return {
+      //     ...transcript,
+      //     startTime:
+      //       parseDurationToSeconds(transcriptJson[index - 1].timestamp) + 1,
+      //   };
+      // } else {
+      //   return { ...transcript, startTime: 0 };
+      // }
+      const prevTimestamp = transcriptJson[index - 1]?.timestamp;
+      return {
+        ...transcript,
+        startTime: prevTimestamp
+          ? parseDurationToSeconds(prevTimestamp) + 1
+          : 0, // Default to 0 if no valid timestamp
+      };
     });
 
     // Deduplicate by filtering out duplicate timestamps
     const deduplicatedTranscripts = mappedTranscripts.filter(
-      (item, idx, self) =>
-        idx === self.findIndex((t) => t.timestamp === item.timestamp),
+      (item, idx, array) =>
+        idx === array.findIndex((t) => t.timestamp === item.timestamp),
     );
 
     setTranscripts(deduplicatedTranscripts);
-  }, [transcriptData]);
+  }, [transcriptData, transcriptJson]);
 
   useEffect(() => {
     if (!hasEnded) {
       // Find the active transcript item based on the current time
-      const activeTranscript = transcripts.find((item) => {
+      const activeTranscript = transcripts.find((item, index, arr) => {
         const startTime = item.startTime;
-        const endTime = parseDurationToSeconds(item.timestamp);
+        const nextStartTime =
+          index < arr.length - 1 ? arr[index + 1].startTime : Infinity;
+        // const endTime = parseDurationToSeconds(item.timestamp);
 
         // Compare currentTime with transcript's timestamp range
-        return currentTime >= startTime && currentTime <= endTime;
+        return currentTime >= startTime && currentTime <= nextStartTime;
       });
 
       if (activeTranscript) {
@@ -113,32 +128,54 @@ const Transcript = ({ transcriptJson }) => {
     }
   }, [currentTime, playing, transcripts, transcriptJson]);
 
-  useEffect(() => {
-    if (transcripts) {
-      if (autoScroll) {
-        if (activeItemId === transcripts[0]?.timestamp) {
-          transcriptList.current.scrollBy({
-            top: 0,
-            left: 0,
-          });
-        } else {
-          transcriptList.current.scrollBy({
-            top: LIST_ITEM_HEIGHT,
-            left: 0,
-            behavior: "smooth",
-          });
-        }
-      }
-      const activeItemIdx = transcripts.findIndex((transcript) => {
-        return transcript.timestamp === activeItemId;
+  const setCurrentItemPosition = (index) => {
+    if (transcriptList.current && index >= 0 && index < transcripts.length) {
+      const scrollTop = index * LIST_ITEM_HEIGHT;
+      transcriptList.current.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
       });
-      setActiveItemIndex(activeItemIdx != -1 ? activeItemIdx : 0);
+    }
+  };
 
-      if (!showResumeScrolling && autoScroll) {
-        setCurrentItemPosition(activeItemIdx);
+  useEffect(() => {
+    if (autoScroll) {
+      const activeIndex = transcripts.findIndex(
+        (t) => t.timestamp === activeItemId,
+      );
+      if (activeIndex >= 0) {
+        setActiveItemIndex(activeIndex);
+        setCurrentItemPosition(activeIndex);
       }
     }
-  }, [activeItemId, transcripts, hasEnded]);
+  }, [activeItemId, autoScroll, transcripts]);
+
+  // useEffect(() => {
+  //   if (transcripts) {
+  //     if (autoScroll) {
+  //       if (activeItemId === transcripts[0]?.timestamp) {
+  //         transcriptList.current.scrollBy({
+  //           top: 0,
+  //           left: 0,
+  //         });
+  //       } else {
+  //         transcriptList.current.scrollBy({
+  //           top: LIST_ITEM_HEIGHT,
+  //           left: 0,
+  //           behavior: "smooth",
+  //         });
+  //       }
+  //     }
+  //     const activeItemIdx = transcripts.findIndex((transcript) => {
+  //       return transcript.timestamp === activeItemId;
+  //     });
+  //     setActiveItemIndex(activeItemIdx != -1 ? activeItemIdx : 0);
+  //
+  //     if (!showResumeScrolling && autoScroll) {
+  //       setCurrentItemPosition(activeItemIdx);
+  //     }
+  //   }
+  // }, [activeItemId, transcripts, hasEnded]);
 
   useEffect(() => {
     if (transcripts) {
@@ -193,12 +230,14 @@ const Transcript = ({ transcriptJson }) => {
     setTranscripts(copiedTrascripts);
   };
 
-  const setCurrentItemPosition = (index) => {
-    transcriptList.current.scroll({
-      top: index * LIST_ITEM_HEIGHT,
-      behavior: "smooth",
-    });
-  };
+  // const setCurrentItemPosition = (index) => {
+  //   if (index >= 0 && index < transcripts.length) {
+  //     transcriptList.current.scrollTo({
+  //       top: index * LIST_ITEM_HEIGHT,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // };
 
   return (
     <Box className={styles.transcripts_container}>
@@ -256,8 +295,15 @@ const Transcript = ({ transcriptJson }) => {
               }}
               onClick={() => {
                 if (!isAnyTranscriptflagged) {
-                  setCurrentItemPosition(activeItemIndex);
-                  setAutoScroll(true);
+                  const activeIndex = transcripts.findIndex(
+                    (t) => t.timestamp === activeItemId,
+                  );
+                  if (activeIndex >= 0) {
+                    setActiveItemIndex(activeIndex);
+                    setCurrentItemPosition(activeIndex);
+                    setAutoScroll(true);
+                    setShowResumeScrolling(false);
+                  }
                 } else {
                   setSnackMessage("Please complete the open suggestion");
                   setIsSnackbarOpen(true);

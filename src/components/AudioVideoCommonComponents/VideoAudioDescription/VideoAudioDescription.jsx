@@ -39,6 +39,26 @@ const VideoAudioDescription = () => {
     dispatch(setShowTranslatedTranscript(!showTranslatedTranscript));
   };
 
+  const formatDescription = (videoDescription) => {
+    const sentences = videoDescription.split(/(?<=[.!?])\s+/);
+    return sentences.map((sentence, index) => (
+      <React.Fragment key={index}>
+        {sentence}
+        <br />
+      </React.Fragment>
+    ));
+  };
+
+  function formatViewCount(count) {
+    if (count >= 1000000) {
+      return (count / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    }
+    return count;
+  }
+
   return (
     <Grid2
       container
@@ -66,7 +86,7 @@ const VideoAudioDescription = () => {
             variant="body2"
             sx={{ fontWeight: "bold", opacity: "60%" }}
           >
-            {mediaObj?.view_count} Views
+            {formatViewCount(mediaObj?.view_count)} Views
           </Typography>
           <Typography variant="body2" sx={{ opacity: "60%" }}>
             {formatDate(mediaObj?.updated_at)}
@@ -94,11 +114,15 @@ const VideoAudioDescription = () => {
             }}
           >
             <Typography variant="body1">
-              {mediaObj?.description
-                ? videoDescShowMore
-                  ? mediaObj?.description
-                  : `${mediaObj?.description?.substring(0, 172)}...`
-                : "NA"}
+              {mediaObj?.description ? (
+                videoDescShowMore ? (
+                  <>{formatDescription(mediaObj.description)}</>
+                ) : (
+                  `${mediaObj?.description?.substring(0, 172)}...`
+                )
+              ) : (
+                "NA"
+              )}
             </Typography>
             <Typography
               variant="caption"

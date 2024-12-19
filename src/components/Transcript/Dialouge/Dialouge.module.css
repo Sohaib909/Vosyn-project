@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-start;
   gap: 20px;
+  width: 100%;
 }
 
 .transcript_list_item svg {
@@ -10,10 +11,13 @@
 
 .transcript_content {
   display: flex;
-  width: -webkit-fill-available;
+  /*width: -webkit-fill-available;*/
+  flex: 1;
+  flex-direction: column;
   cursor: pointer;
   gap: 5px;
-  flex-direction: column;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .transcript_content:hover,
