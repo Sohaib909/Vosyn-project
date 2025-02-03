@@ -52,7 +52,6 @@ const VosynAssistResponse = ({
       <Box
         sx={{
           display: "flex",
-          alignItems: "flex-start",
           marginBottom: 2,
           gap: 2,
         }}
@@ -76,11 +75,11 @@ const VosynAssistResponse = ({
           />
         </Box>
         {!isLoadingAnimationFinished ? (
-          <Box sx={{ marginTop: 1 }}>
+          <Box sx={{ marginTop: 2.5 }}>
             <LoadingAnimation isLoading={responseData.isLoading} />
           </Box>
         ) : (
-          <Box sx={{ marginTop: 1.25 }} className={styles.assistantMessage}>
+          <Box sx={{ marginTop: 1.5 }} className={styles.assistantMessage}>
             <Typography sx={{ paddingTop: "6px" }}>
               {responseTypewriter.outputText}
               {!responseTypewriter.isFinishedTyping && (
